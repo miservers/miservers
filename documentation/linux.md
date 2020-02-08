@@ -92,6 +92,8 @@ For root:
     # ifconfig eth0 up  ; Enable an interface. down to disable it.
 
 ### Routing Table
+Routing table explained: https://geek-university.com/ccna/routing-table-explained
+
     # route -n
     Kernel IP routing table
     Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
