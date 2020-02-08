@@ -13,7 +13,6 @@ Veolia
 
 Middleware ingeneer/ N3 support
 -------------------------------------
-
 Main activities:
 - Technical analyses and application design.
 - Performance analysis and capacity planning
@@ -26,3 +25,12 @@ Main activities:
 - Watch duty (on call) role for production support
 - Ensure compliance with security guidelines (Technical Security Standards)
 - Security Vulnerability Management
+
+Technical environment:
+-Websphere Application Server traditional and Liberty.
+-JBOSS EAP, Apache TomCat, Apache Httpd.
+-Bash and python scripting.
+-Distributed version control repository (Git in Azure DevOps)
+-Ansible automation platform.
+-Scrum Framework.
+ 
