@@ -11,7 +11,7 @@ Veolia
 - Environnement : Jboss/Websphere/Tomcat, Oracle, Redhat
 
 
-Middleware ingeneer/ N3 support
+Middleware ingineer/ N3 support
 -------------------------------------
 Main activities:
 - Technical analyses and application design.
