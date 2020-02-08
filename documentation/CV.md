@@ -27,10 +27,10 @@ Main activities:
 - Security Vulnerability Management
 
 Technical environment:
--Websphere Application Server traditional and Liberty.
--JBOSS EAP, Apache TomCat, Apache Httpd.
--Bash and python scripting.
--Distributed version control repository (Git in Azure DevOps)
--Ansible automation platform.
--Scrum Framework.
+- Websphere Application Server.
+- JBOSS EAP, TomCat, Apache Httpd.
+- Bash and python scripting.
+- Git in Azure DevOps
+- Ansible automation platform.
+- Scrum Framework.
  
