@@ -1,5 +1,8 @@
-##### CV ###########
--- Veolia
+CV 
+========
+
+Veolia
+----------
 - Administration de Jboss/Websphere
 - Parametrage et Tuning des performances()
 - Gestion des incidents
@@ -8,7 +11,8 @@
 - Environnement : Jboss/Websphere/Tomcat, Oracle, Redhat
 
 
-### Middleware ingeneer/ N3 support
+Middleware ingeneer/ N3 support
+-------------------------------------
 
 Main activities:
 - Technical analyses and application design.
