@@ -1,5 +1,5 @@
 ##  Installating nagios on ubuntu 18.4
-### see doc
+### see Official QuickStart
 https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/quickstart.html
 
 ### Requirements
