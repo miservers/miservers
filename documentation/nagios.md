@@ -12,7 +12,7 @@ En résumé, you must
 See :
   https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/toc.html
 
-En résumé to add a monitored hosts
+En résumé, to add a monitored hosts
 - Edit **/usr/local/nagios/etc/nagios.cfg** with 
 
   > cfg_dir=/usr/local/nagios/etc/servers
