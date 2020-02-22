@@ -1,4 +1,5 @@
-FULL Doc: https://www.markdownguide.org/basic-syntax/
+FULL Doc: 
+https://www.markdownguide.org/basic-syntax/
 
 See: https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#lists
 
