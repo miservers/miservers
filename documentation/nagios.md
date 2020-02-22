@@ -1,4 +1,6 @@
 ##  Installating Nagios
+Good doc: https://tecadmin.net/monitor-remote-linux-host-using-nagios/
+
 ### see Official QuickStart
 https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/quickstart.html
 
