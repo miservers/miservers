@@ -5,7 +5,7 @@ Good doc: https://tecadmin.net/monitor-remote-linux-host-using-nagios/
 https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/quickstart.html
 
 En résumé, you must
-- On principal host,
+- On Nagios server,
   - install apache/php and dependancy packages
   - donwload and compile nagios core
 - On monitored hosts, install NRPE and nagios plugins packages
@@ -20,3 +20,7 @@ En résumé, to add a monitored host
   > cfg_dir=/usr/local/nagios/etc/servers
   
 - create config file **/usr/local/nagios/etc/servers/myHost001.cfg**
+
+### How to monitor a Linux host
+See: https://tecadmin.net/monitor-remote-linux-host-using-nagios/
+
