@@ -25,7 +25,7 @@ En résumé, to add a monitored host
 See: https://tecadmin.net/monitor-remote-linux-host-using-nagios/
 
 #### Monitor a linux host
-_ Edit file ++/usr/local/nagios/etc/nagios. cfg**
+- Edit file **/usr/local/nagios/etc/nagios. cfg**
   > cfg_dir=/usr/local/nagios/etc/servers
 
 
