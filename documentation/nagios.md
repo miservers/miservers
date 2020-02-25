@@ -1,4 +1,6 @@
 ##  Installating Nagios
+OS: Ubuntu 18.04
+
 Good doc: https://tecadmin.net/monitor-remote-linux-host-using-nagios/
 
 ### see Official QuickStart
@@ -8,6 +10,8 @@ En résumé, you must
 - On Nagios server,
   - install apache/php and dependancy packages
   - donwload and compile nagios core
+  - Install this package
+    > sudo apt install nagios-nrpe-plugin
 - On monitored hosts, install NRPE and nagios plugins packages
   > sudo apt install nagios-nrpe-server nagios-plugins 
 
