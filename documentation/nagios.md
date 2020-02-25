@@ -30,6 +30,12 @@ En résumé, to add a monitored host
 See: https://tecadmin.net/monitor-remote-linux-host-using-nagios/
 
 #### Monitor a linux host
+1. on monitored host
+
+
+2. on Nagios Server
+- test nrpe connectivity
+  > $ /usr/lib/nagios/plugins/check_nrpe -H 192.168.43.1
 - Edit file **/usr/local/nagios/etc/nagios. cfg**
   > cfg_dir=/usr/local/nagios/etc/servers
 
