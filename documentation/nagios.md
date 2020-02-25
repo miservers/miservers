@@ -9,6 +9,7 @@ En résumé, you must
   - install apache/php and dependancy packages
   - donwload and compile nagios core
 - On monitored hosts, install NRPE and nagios plugins packages
+  > sudo apt install nagios-nrpe-server nagios-plugins 
 
 ## Configure Nagios
 See :
