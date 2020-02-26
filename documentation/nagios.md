@@ -33,8 +33,9 @@ See: https://tecadmin.net/monitor-remote-linux-host-using-nagios/
 1. on monitored host
 - Add nagios server to allowed hosts
   > nano /etc/nagios/nrpe.cfg
-    allowed_hosts=127.0.0.1, 192.168.43.80
-  <
+  >
+  > allowed_hosts=127.0.0.1, 192.168.43.80
+  
 
 2. on Nagios Server
 - test nrpe connectivity
