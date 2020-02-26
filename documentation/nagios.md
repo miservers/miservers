@@ -1,5 +1,5 @@
 ##  Installating Nagios
-OS: Ubuntu 18.04
+OS: Ubuntu 18.04 
 
 Good doc: https://tecadmin.net/monitor-remote-linux-host-using-nagios/
 
@@ -30,13 +30,14 @@ En résumé, to add a monitored host
 See: https://tecadmin.net/monitor-remote-linux-host-using-nagios/
 
 #### Monitor a linux host
-1. on monitored host
+1. on monitored host(Ubuntu 18.04)
 - Add nagios server to allowed hosts
   > nano /etc/nagios/nrpe.cfg
   >
   > allowed_hosts=127.0.0.1, 192.168.43.80
+- Restart nrpe server
+  > sudo /etc/init.d/nagios-nrpe-server restart
   
-
 2. on Nagios Server
 - test nrpe connectivity
   > $ /usr/lib/nagios/plugins/check_nrpe -H 192.168.43.1
