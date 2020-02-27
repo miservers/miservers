@@ -48,7 +48,7 @@ See :
   define service{                                                                           
       host_name redmi-ubuntu                                                              
       service_description PING                                                            
-      check_command check_ping!100.0,20%!500.0,60%                                        
+      check_command check_ping!100,20%!500,60%                                        
       max_check_attempts 2                                                                
       check_interval 2                                                                    
       retry_interval 2                                                                    
