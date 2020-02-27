@@ -25,6 +25,7 @@ See :
         address 192.168.43.1                                                              
         register 1                                                                        
   }        
+  
   define service{                                                                           
       host_name redmi-ubuntu                                                              
       service_description PING                                                            
