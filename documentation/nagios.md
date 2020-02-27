@@ -62,6 +62,9 @@ See :
   }
   ```
   check_ping est defined in **commands.cfg**
+  **!**: is parametrer separator. warning if rta>100ms or packet lost=m>20%. critical allert if 
+  rta>500ms or pl>60%.
+  
 - restart nagios
   > sudo service nagios restart
 - verify on nagios console
