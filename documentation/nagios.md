@@ -61,7 +61,7 @@ See :
       register 1                                                                          
   }
   ```
-  check_ping est defined in **commands.cfg**
+  check_ping est defined in **commands.cfg**   
   **!**: is parametrer separator. warning if rta>100ms or packet lost=m>20%. critical allert if 
   rta>500ms or pl>60%.
   
