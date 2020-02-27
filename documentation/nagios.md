@@ -44,15 +44,17 @@ See: https://tecadmin.net/monitor-remote-linux-host-using-nagios/
 - Edit file **/usr/local/nagios/etc/nagios. cfg**
   > cfg_dir=/usr/local/nagios/etc/servers
 - create config file to monitor the host
-  >```
+  > nano /usr/local/nagios/etc/servers/redmi-ubuntu.cfg
+  >
+  ```
   define host {                                                                             
         use linux-server                                                                  
         host_name redmi-ubuntu                                                            
         address 192.168.43.1                                                              
         register 1                                                                        
-}                                                                                         
-
-define service{                                                                           
+  }        
+  
+  define service{                                                                           
       host_name redmi-ubuntu                                                              
       service_description PING                                                            
       check_command check_ping!100.0,20%!500.0,60%                                        
@@ -66,7 +68,7 @@ define service{
       notification_period 24x7                                                            
       notifications_enabled 1                                                             
       register 1                                                                          
-}
+  }
   ```
 
 
