@@ -18,18 +18,9 @@ En résumé, you must
 ## Configure Nagios
 See :
   https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/toc.html
-
-En résumé, to add a monitored host
-- Edit **/usr/local/nagios/etc/nagios.cfg** with 
-
-  > cfg_dir=/usr/local/nagios/etc/servers
+  https://tecadmin.net/monitor-remote-linux-host-using-nagios
   
-- create config file **/usr/local/nagios/etc/servers/myHost001.cfg**
-
 ### How to monitor a Linux host
-See: https://tecadmin.net/monitor-remote-linux-host-using-nagios/
-
-#### Monitor a linux host
 1. on monitored host(Ubuntu 18.04)
 - Add nagios server to allowed hosts
   > nano /etc/nagios/nrpe.cfg
@@ -72,7 +63,8 @@ See: https://tecadmin.net/monitor-remote-linux-host-using-nagios/
   ```
 - restart nagios
   > sudo service nagios restart
-
+- verify on nagios console
+  http://localhost:8000/nagios/
 
 
 
