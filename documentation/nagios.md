@@ -18,7 +18,6 @@ See :
   > cfg_dir=/usr/local/nagios/etc/servers
 - create config file to monitor the host
   > nano /usr/local/nagios/etc/servers/redmi-ubuntu.cfg
-  >
   ```
   define host {                                                                             
         use linux-server                                                                  
@@ -26,7 +25,6 @@ See :
         address 192.168.43.1                                                              
         register 1                                                                        
   }        
-  
   define service{                                                                           
       host_name redmi-ubuntu                                                              
       service_description PING                                                            
