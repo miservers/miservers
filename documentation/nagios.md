@@ -51,7 +51,7 @@ See :
 - restart nagios
   > sudo service nagios restart
 - verify on nagios console
-  http://localhost:8000/nagios/
+  http://localhost/nagios/
 
 
 ##  Installating Nagios
