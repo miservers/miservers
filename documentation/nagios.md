@@ -4,14 +4,14 @@ See :
   https://tecadmin.net/monitor-remote-linux-host-using-nagios
   
 ### How to monitor a Linux host
-1. on monitored host(Ubuntu 18.04)
+_On monitored host(Ubuntu 18.04)_
   - Add nagios server to allowed hosts
     > nano /etc/nagios/nrpe.cfg  
     > allowed_hosts=127.0.0.1, 192.168.43.80
   - Restart nrpe server
     > sudo /etc/init.d/nagios-nrpe-server restart
   
-2. on Nagios Server
+_On Nagios Server_
 - test nrpe connectivity
   > $ /usr/lib/nagios/plugins/check_nrpe -H 192.168.43.1
 - Edit file **/usr/local/nagios/etc/nagios. cfg**
