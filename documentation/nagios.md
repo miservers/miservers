@@ -61,6 +61,7 @@ See :
       register 1                                                                          
   }
   ```
+  check_ping est defined in **commands.cfg**
 - restart nagios
   > sudo service nagios restart
 - verify on nagios console
