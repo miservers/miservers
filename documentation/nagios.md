@@ -5,11 +5,11 @@ See :
   
 ### How to monitor a Linux host
 1. on monitored host(Ubuntu 18.04)
-- Add nagios server to allowed hosts
-  > nano /etc/nagios/nrpe.cfg  
-  > allowed_hosts=127.0.0.1, 192.168.43.80
-- Restart nrpe server
-  > sudo /etc/init.d/nagios-nrpe-server restart
+  - Add nagios server to allowed hosts
+    > nano /etc/nagios/nrpe.cfg  
+    > allowed_hosts=127.0.0.1, 192.168.43.80
+  - Restart nrpe server
+    > sudo /etc/init.d/nagios-nrpe-server restart
   
 2. on Nagios Server
 - test nrpe connectivity
