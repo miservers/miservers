@@ -70,7 +70,8 @@ See: https://tecadmin.net/monitor-remote-linux-host-using-nagios/
       register 1                                                                          
   }
   ```
-
+- restart nagios
+  > sudo service nagios restart
 
 
 
