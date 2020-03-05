@@ -1,3 +1,12 @@
+## Config files and Arbo
+Ubuntu 18.04  
+### Nagios server
+Config file: /usr/local/nagios/etc/nagios.cfg  
+
+### NRPE Server
+Config file: /etc/nagios/nrpe.cfg  
+Listening port: 5666  
+
 ## Configure Nagios (Ubuntu 18.04)
 See :
   https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/toc.html
@@ -6,7 +15,7 @@ See :
 ### How to monitor a Linux host
 _**On monitored host(Ubuntu 18.04)**_
   - Add nagios server to allowed hosts
-    > nano /etc/nagios/nrpe.cfg  
+    > nano **/etc/nagios/nrpe.cfg**  
     > allowed_hosts=127.0.0.1, 192.168.43.80
   - Restart nrpe server
     > sudo /etc/init.d/nagios-nrpe-server restart
@@ -14,7 +23,7 @@ _**On monitored host(Ubuntu 18.04)**_
 _**On Nagios Server**_
 - test nrpe connectivity
   > $ /usr/lib/nagios/plugins/check_nrpe -H 192.168.43.1
-- Edit file **/usr/local/nagios/etc/nagios. cfg**
+- Edit file **/usr/local/nagios/etc/nagios.cfg**
   > cfg_dir=/usr/local/nagios/etc/servers
 - create config file to monitor the host
   > nano /usr/local/nagios/etc/servers/redmi-ubuntu.cfg
