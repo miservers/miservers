@@ -15,10 +15,10 @@ See :
 ### How to monitor a Linux host
 _**On monitored host(Ubuntu 18.04)**_
   - Personalize nrep config **/etc/nagios/nrpe.cfg**
-    > Add nagios server to allowed hosts  
+    - Add nagios server to allowed hosts  
     > allowed_hosts=127.0.0.1, 192.168.43.80  
-    > Config commands
-    > ```
+    - Config commands  
+    ```
     command[check_users]=/usr/lib/nagios/plugins/check_users -w 5 -c 10                       
     command[check_load]=/usr/lib/nagios/plugins/check_load -r -w .15,.10,.05 -c .30,.25,.20   
     command[check_hda1]=/usr/lib/nagios/plugins/check_disk -w 20% -c 10% -p /dev/hda1         
