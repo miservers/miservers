@@ -247,6 +247,7 @@ debian package managment. apt-get is dpkg top couch
     apt-cache showpkg <package-name> : lists all available versions. 
     apt install <package-name>=<version-number>
   $ dpkg -L {package} : list	where files were installed
+  $ dpkg -s {package} : output package status, if installed or not, vesrion, dependencies
   $ To disable downloading translations:
     echo 'Acquire::Languages "none";' >> /etc/apt/apt.conf.d/99translations
 ```
