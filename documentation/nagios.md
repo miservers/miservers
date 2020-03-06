@@ -33,6 +33,13 @@ See :
   > $ /usr/lib/nagios/plugins/check_nrpe -H 192.168.43.1
 - Edit file **/usr/local/nagios/etc/nagios.cfg**
   > cfg_dir=/usr/local/nagios/etc/servers
+- add command check_nrpe in **/usr/local/nagios/etc/objects/commands.cfg**  
+  ```
+  define command{
+        command_name check_nrpe
+        command_line $USER1$/check_nrpe -H $HOSTADDRESS$ -c $ARG1$
+  }
+  ```
 - create config file to monitor the host
   > nano /usr/local/nagios/etc/servers/redmi-ubuntu.cfg
   ```
