@@ -226,8 +226,9 @@ sar -f /var/log/sa/sa15
 ### net-tools 
 this package contains utilities like arp, ifconfig, netstat, rarp, nameif and route.
 
-### APT 
-debian package managment. apt-get is dpkg top couch
+### APT and Dpkg
+dpkg: https://www.cyberciti.biz/howto/question/linux/dpkg-cheat-sheet.php  
+debian package managment. apt-get is dpkg top couch  
 ```
   $ apt update : update the available package list.
   $ apt --only-upgrade install <pkg> : update a single pkg
@@ -245,6 +246,7 @@ debian package managment. apt-get is dpkg top couch
   $ Install a special version of a pkg
     apt-cache showpkg <package-name> : lists all available versions. 
     apt install <package-name>=<version-number>
+  $ dpkg -L {package} : list	where files were installed
   $ To disable downloading translations:
     echo 'Acquire::Languages "none";' >> /etc/apt/apt.conf.d/99translations
 ```
