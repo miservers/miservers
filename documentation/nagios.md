@@ -37,7 +37,7 @@ See :
   ```
   define command{
         command_name check_nrpe
-        command_line $USER1$/check_nrpe -H $HOSTADDRESS$ -c $ARG1$
+        command_line /usr/lib/nagios/plugins/check_nrpe -H $HOSTADDRESS$ -c $ARG1$
   }
   ```
 - create config file to monitor the host
