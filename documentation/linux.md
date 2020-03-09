@@ -17,7 +17,7 @@ Commands:
 | find . -type f -size +10000k -mtime +60            | files>10Mo, modif date>60 days            |
 | grep -nr semaphore --include=*.c .                 |                                           |
 | grep error \*\*/\*.log                             | search word in current and sub dirs       | 
-| du -sk *                                           | disk usage grouped by directory           |
+| du -sh *                                           | disk usage grouped by directory           |
 | du  -ak . \|sort -nr \| head -10                   | list of 10 biggest files                  |
 | df -m                                              | FS disk usage                             |
 | zmore                                              | more of a zipped file                     |
