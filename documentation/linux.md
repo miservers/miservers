@@ -27,11 +27,12 @@ Commands:
 | tree roles                                         | tree of a directory                       |
 | ls -lrt                                            | sort by time modif                        |
 | ls -lrS                                            | sort by size                              |
-| vimdiff fic1.txt fic2.txt	    					 |											 |
-| diff fic1.txt fic2.txt    						 | 16c16(line first fic+c:change+second fic) |
+| vimdiff fic1.txt fic2.txt                          |                                           |
+| diff fic1.txt fic2.txt                             | 16c16(line first fic+c:change+second fic) |
 | stat  test.txt                                     | date creation/modif of a file             |
-| $? 												 | Status de la derniere commande            |
-| which ll 										     | command behind alias                      |
+| $?                                                 | Status de la derniere commande            |
+| which <cmd>                                        | command behind alias                      |
+|cmd  2>/dev/null                                    | suppress error message in bash            |
 
 
 **Max open file descriptors** 
