@@ -31,7 +31,7 @@ Commands:
 | diff fic1.txt fic2.txt                             | 16c16(line first fic+c:change+second fic) |
 | stat  test.txt                                     | date creation/modif of a file             |
 | $?                                                 | Status de la derniere commande            |
-| which <cmd>                                        | command behind alias                      |
+| which cmd_alias                                    | command behind alias                      |
 |cmd  2>/dev/null                                    | suppress error message in bash            |
 
 
