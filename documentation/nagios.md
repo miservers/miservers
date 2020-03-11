@@ -70,7 +70,7 @@ See :
   **!**: is parametrer separator. warning if rta>100ms or packet lost=m>20%. critical alert if 
   rta>500ms or pl>60%.
 - check manually a remote command(defined in **nrpe. cfg**)  
-  > $ /usr/lib/nagios/plugins/check_nrpe -H 192.168.43.1 -c check_load
+  > $ /usr/lib/nagios/plugins/check_nrpe -H 192.168.43.1 -c check_load  
   > $ /usr/lib/nagios/plugins/check_nrpe -H 192.168.43.1 -c check_total_procs
 - restart nagios
   > sudo service nagios restart
