@@ -77,6 +77,11 @@ See :
 - verify on nagios console
   http://localhost/nagios/
 
+##  Graphs
+https://support.nagios.com/kb/article/nagios-core-graphing-performance-info-with-mrtg-399.html
+
+### MRTG
+
 
 ##  Installating Nagios
 
@@ -103,5 +108,9 @@ En résumé, you must
 - On monitored hosts, install NRPE and nagios plugins packages
 
   > sudo apt install nagios-nrpe-server nagios-plugins 
+
+## Docs
+Official docs: https://support.nagios.com/kb/article/nagios-core-graphing-performance-info-with-mrtg-399.html
+
 
 
