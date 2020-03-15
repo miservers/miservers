@@ -80,8 +80,17 @@ See :
 ##  Graphs
 https://support.nagios.com/kb/article/nagios-core-graphing-performance-info-with-mrtg-399.html
 
-### MRTG
+### Nagiosgraph
+Ref: https://sourceforge.net/p/nagiosgraph/wiki/Home/
 
+
+### MRTG
+Ubuntu 18.04  
+doc: https://oss.oetiker.ch/mrtg/  
+
+
+#### requirements
+> $ sudo apt install gcc perl libgd-dev libpng-dev zlib1g-dev
 
 ##  Installating Nagios
 
