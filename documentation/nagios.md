@@ -82,7 +82,10 @@ https://support.nagios.com/kb/article/nagios-core-graphing-performance-info-with
 
 ### Nagiosgraph
 Ref: https://sourceforge.net/p/nagiosgraph/wiki/Home/
-
+Install and Config
+  - download and dezip sources, link above. then execute command
+    > install.pl
+  - modify nagios and apache as printed by install.pl
 
 ### MRTG
 Ubuntu 18.04  
