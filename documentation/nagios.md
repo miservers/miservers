@@ -86,7 +86,27 @@ Install and Config
   - download and dezip sources, link above. then execute command
     > install.pl
   - modify nagios and apache as printed by install.pl
+  - create template graphed-service
+  ```
+  $nano /usr/local/nagios/etc/objects/templates.cfg
 
+  define service {
+      name              graphed-service
+      action_url        /nagiosgraph/cgi-bin/show.cgi?host=$HOSTNAME$&service=$SERVICEDESC$' onMouseOver='showGraphPopup(this)' onMouseOut='hideGraphPopup()' rel='/nagiosgraph/cgi-bin/showgraph.cgi?host=$HOSTNAME$&service=$SERVICEDESC$&period=week&rrdopts=-w+450+-j
+      register        0
+      }
+  ```
+  - configure service to be graphed
+  ```
+  define service{                                                                           
+      use  generic-service,graphed-service                                                
+      host_name redmi-ubuntu                                                              
+      service_description PING                                                            
+      check_command check_ping!100.0,20%!500.0,60%                                        
+                                                                   
+    }
+  ```
+  
 ### MRTG
 Ubuntu 18.04  
 doc: https://oss.oetiker.ch/mrtg/  
