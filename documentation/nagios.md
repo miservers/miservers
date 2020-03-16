@@ -1,7 +1,7 @@
 ## Config files and Arbo
 Ubuntu 18.04  
-**Nagios server**
-   - Config file: /usr/local/nagios/etc/nagios.cfg  
+**Nagios server**  
+ - Config file: /usr/local/nagios/etc/nagios.cfg  
 
 **NRPE Server**  
    - Config file: /etc/nagios/nrpe.cfg  
