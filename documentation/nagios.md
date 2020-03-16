@@ -81,7 +81,7 @@ See :
 https://support.nagios.com/kb/article/nagios-core-graphing-performance-info-with-mrtg-399.html
 
 ### PNP4Nagios
-Ref:  http://docs.pnp4nagios.org/pnp-0.6/install  
+ref: http://docs.pnp4nagios.org/start  
 
 
 ### Nagiosgraph
