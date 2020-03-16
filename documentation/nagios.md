@@ -86,6 +86,8 @@ Install and Config
   - download and dezip sources, link above. then execute command
     > install.pl
   - modify nagios and apache as printed by install.pl
+  - edit nagios.cfg with
+    > process_performance_data=0
   - create template graphed-service
   ```
   $nano /usr/local/nagios/etc/objects/templates.cfg
