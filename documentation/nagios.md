@@ -1,11 +1,11 @@
 ## Config files and Arbo
 Ubuntu 18.04  
-### Nagios server
-Config file: /usr/local/nagios/etc/nagios.cfg  
+Nagios server
+   - Config file: /usr/local/nagios/etc/nagios.cfg  
 
-### NRPE Server
-Config file: /etc/nagios/nrpe.cfg  
-Listening port: 5666  
+NRPE Server
+   - Config file: /etc/nagios/nrpe.cfg  
+   - Listening port: 5666  
 
 ## Configure Nagios (Ubuntu 18.04)
 See :
