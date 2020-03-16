@@ -80,38 +80,20 @@ See :
 ##  Graphs
 https://support.nagios.com/kb/article/nagios-core-graphing-performance-info-with-mrtg-399.html
 
+### PNP4Nagios
+Ref:  http://docs.pnp4nagios.org/pnp-0.6/install  
+
+
 ### Nagiosgraph
 Ref: https://sourceforge.net/p/nagiosgraph/wiki/Home/
-Install and Config
-  - download and dezip sources, link above. then execute command
-    > install.pl
-  - modify nagios and apache as printed by install.pl
-  - edit nagios.cfg with
-    > process_performance_data=0
-  - create template graphed-service
-  ```
-  $nano /usr/local/nagios/etc/objects/templates.cfg
 
-  define service {
-      name              graphed-service
-      action_url        /nagiosgraph/cgi-bin/show.cgi?host=$HOSTNAME$&service=$SERVICEDESC$' onMouseOver='showGraphPopup(this)' onMouseOut='hideGraphPopup()' rel='/nagiosgraph/cgi-bin/showgraph.cgi?host=$HOSTNAME$&service=$SERVICEDESC$&period=week&rrdopts=-w+450+-j
-      register        0
-      }
-  ```
-  - configure service to be graphed
-  ```
-  define service{                                                                           
-      use  generic-service,graphed-service                                                
-      host_name redmi-ubuntu                                                              
-      service_description PING                                                            
-      check_command check_ping!100.0,20%!500.0,60%                                        
-                                                                   
-    }
-  ```
-  
+FORGET IT. not working, no longer mintained since 2010
+
 ### MRTG
-Ubuntu 18.04  
+graphs for routers    
 doc: https://oss.oetiker.ch/mrtg/  
+
+
 
 
 #### requirements
