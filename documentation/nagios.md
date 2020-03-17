@@ -78,15 +78,21 @@ See :
   http://localhost/nagios/
 
 ##  Graphs
-https://support.nagios.com/kb/article/nagios-core-graphing-performance-info-with-mrtg-399.html
+https://support.nagios.com/kb/category.php?id=153  
 
 ### PNP4Nagios
-ref: http://docs.pnp4nagios.org/start  
+ref:  
+  https://support.nagios.com/kb/article/nagios-core-performance-graphs-using-pnp4nagios-801.html  
+  http://docs.pnp4nagios.org/start  
+  
 
-install deps: rrdtool
-> sudo  apt install rrdtool php-gd
+install deps
+> sudo  apt install rrdtool  php-gd php-xml php7.2-xml
 
 download and compile sources
+
+config nagios: http://docs.pnp4nagios.org/pnp-0.6/config  
+use Bulk NPCD
 
 test installation  
 http://localhost/pnp4nagios/
