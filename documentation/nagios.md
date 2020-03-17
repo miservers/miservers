@@ -89,13 +89,18 @@ ref:
 install deps
 > sudo  apt install rrdtool  php-gd php-xml php7.2-xml
 
-download and compile sources
+download from https://github.com/lingej/pnp4nagios 
+
+compile sources
 
 config nagios    
 use Bulk NPCD
 
 test installation  
 http://localhost/pnp4nagios/
+
+remove file : /usr/local/pnp4nagios/share/install.php
+
 
 ### Nagiosgraph
 Ref: https://sourceforge.net/p/nagiosgraph/wiki/Home/
