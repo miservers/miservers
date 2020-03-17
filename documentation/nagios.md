@@ -91,7 +91,7 @@ install deps
 
 download and compile sources
 
-config nagios: http://docs.pnp4nagios.org/pnp-0.6/config  
+config nagios    
 use Bulk NPCD
 
 test installation  
