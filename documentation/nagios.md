@@ -83,6 +83,13 @@ https://support.nagios.com/kb/article/nagios-core-graphing-performance-info-with
 ### PNP4Nagios
 ref: http://docs.pnp4nagios.org/start  
 
+install deps: rrdtool
+> sudo  apt install rrdtool php-gd
+
+download and compile sources
+
+test installation  
+http://localhost/pnp4nagios/
 
 ### Nagiosgraph
 Ref: https://sourceforge.net/p/nagiosgraph/wiki/Home/
