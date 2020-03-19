@@ -45,3 +45,14 @@ Run the standalone with a specefic config file
 Configured in **standalone.xml**. the file configuration/logging.properties is only used during JBoss startup. 
 
 
+## CLI
+non-interactive mode 
+one command:
+ > ./jboss-cli.sh -u=jboss -p=pass123  -c --controller=localhost:9990 --command=ls
+ 
+multiple commands:
+> ./jboss-cli.sh -u=jboss -p=pass123  -c --controller=localhost:9990 --commands="cd /core-service,ls"
+
+
+
+
