@@ -1,10 +1,11 @@
 wild fly: mouche sauvage
 
-#### Structure and Architecture
+## Structure and Architecture
 - Directory and File Structure
 - JBoss Modules
 - Server Architecture and Configuration
 
+## Administration
 #### Start/Stop
 Start
  >./standalone.sh
@@ -30,7 +31,7 @@ Console
   - and use this url: *service:http:remote+jmx://localhost:9990*
   - this note did not work for me: https://developer.jboss.org/wiki/UsingJconsoleToConnectToJMXOnAS7
      
-#### Configuration
+## Configuration
 ##### Standalone
 - configuration/standalone.xml 
   - ports: http/8080, management/9990.
