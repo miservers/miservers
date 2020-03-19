@@ -46,11 +46,14 @@ Configured in **standalone.xml**. the file configuration/logging.properties is o
 
 
 ## CLI
+Intéractive mode
+ > ./jboss-cli.sh -u=jboss -p=pass123  -c --controller=localhost:9990
+ 
 non-interactive mode 
 one command:
  > ./jboss-cli.sh -u=jboss -p=pass123  -c --controller=localhost:9990 --command=ls
  
-multiple commands:
+multiple commands: comma separator
 > ./jboss-cli.sh -u=jboss -p=pass123  -c --controller=localhost:9990 --commands="cd /core-service,ls"
 
 
