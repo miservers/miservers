@@ -11,7 +11,7 @@ Start
 	
 
 Stop
- >./jboss-cli.sh --user=jbossadmin --password=Changeit2! \
+ >./jboss-cli.sh --user=jbossadmin --password=Changeit2! 
                  --connect --controller=$HOST:9990  command=:shutdown
 
 #### Console, users	
