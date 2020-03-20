@@ -49,7 +49,7 @@ Configured in **standalone.xml**. the file configuration/logging.properties is o
 Intéractive mode
  > ./jboss-cli.sh -u=jboss -p=pass123  -c --controller=localhost:9990
  
-non-interactive mode 
+non-interactive mode  
 one command:
  > ./jboss-cli.sh -u=jboss -p=pass123  -c --controller=localhost:9990 --command=ls
  
