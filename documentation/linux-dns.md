@@ -7,3 +7,9 @@ check zone
 
 Nslookup
 > $ nslookup -debug -port=2053 ub1.safarit.com
+
+Bind options  
+/etc/bind/named.conf.options
+
+Config zones  
+/etc/bind/named.conf.local
