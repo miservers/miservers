@@ -1,5 +1,7 @@
+Install Bind
+> sudo apt install bind9 dnsutils
 
-Start/stop NAmeServer
+Start/stop NameServer
 > $ sudo /etc/init.d/bind9 restart
 
 check zone  
