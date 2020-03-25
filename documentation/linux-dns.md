@@ -1,3 +1,5 @@
+Bind is used on the most majority of name servers existing in the world(root dns servers included).
+
 Install Bind
 > sudo apt install bind9 dnsutils
 
