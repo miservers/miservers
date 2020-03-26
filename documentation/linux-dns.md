@@ -94,8 +94,8 @@ IN NS ns1.safarit.com.
 11  IN  PTR  prod.safarit.com.   ; 192.168.43.11
 ~~~
 
-**Check zone configuration**  
-> $ named-checkzone safarit.com db.safarit.com
+**Check zone configuration**   
+> $ named-checkzone safarit.com db.safarit.com  
 > $ named-checkzone 43.168.192.in-addr.arpa db.safarit.com.reverse
 
 
@@ -106,8 +106,8 @@ search safarit.com
 nameserver 192.168.43.80
 ~~~
 
-**Nslookup**, on other port than default one 53
-> $ nslookup -debug -port=2053 ub1.safarit.com
+**Nslookup**, on other port than default one 53  
+> $ nslookup -debug -port=2053 ub1.safarit.com  
 > $ dig -p 2053 prod.safarit.com
 
 
