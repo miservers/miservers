@@ -45,14 +45,14 @@ zone "43.168.192.in-addr.arpa" {
 
 $TTL 1H
 @  IN SOA ns1.safarit.com. root.safarit.com.  (
-20200322   ; Serial.
-1H         ;Refresh 
-15M        ; Retry
-2W         ; Expire
-3M )       ; min TTL  
+                    20200322   ; Serial.
+                    1H         ;Refresh 
+                    15M        ; Retry
+                    2W         ; Expire
+                    3M )       ; min TTL  
 
 ; name servers - NS records
-IN NS ns1.safarit.com.
+    IN NS ns1.safarit.com.
 
 ; ns A records 
 ns1.safarit.com.  IN  A  192.168.43.80 
@@ -78,11 +78,11 @@ taba CNAME ns1
 
 $TTL 1H
 @  IN SOA ns1.safarit.com. root.safarit.com.  (
-20200322   ; Serial.
-1H         ;Refresh 
-15M        ; Retry
-2W         ; Expire
-3M )       ; min TTL  
+           20200322   ; Serial.
+           1H         ;Refresh 
+           15M        ; Retry
+           2W         ; Expire
+           3M )       ; min TTL  
 
 ; name servers
 IN NS ns1.safarit.com.
