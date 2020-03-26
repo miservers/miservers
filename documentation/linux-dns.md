@@ -17,3 +17,6 @@ Bind options
 
 Config zones  
 /etc/bind/named.conf.local
+
+NOTA BENE
+FQDN must end with a dot, "ns1.safarit.com." , mandatory on the dns server side, implied on the client side.
