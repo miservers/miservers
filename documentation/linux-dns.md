@@ -1,4 +1,5 @@
-Bind is used on the most majority of name servers existing in the world(root dns servers included).
+Bind 
+: is used on the most majority of name servers existing in the world(root dns servers included).
 
 Install Bind on ubuntu 18.04
 > sudo apt install bind9 dnsutils
@@ -6,12 +7,12 @@ Install Bind on ubuntu 18.04
 Start/stop NameServer
 > $ sudo /etc/init.d/bind9 restart
 
-we want to configure a dns server for: 
+**We want to configure a dns server for:**
 - zone/domain : safarit.com
 - ip class address: 192.168.43.0/24
 - name server @ip : 192.168.43.80
 
-Add safarit.com and reverse zones
+**Add safarit.com and reverse zones**
 ```
 /etc/bind$ cat named.conf.local 
 
@@ -30,9 +31,10 @@ zone "43.168.192.in-addr.arpa" {
 };
 ```
 
-Configure safarit.com zone: fqdn to @ip
+**Configure safarit.com zone: fqdn to @ip**
 ```
-/etc/bind$ cat db.safarit.com                                                             
+/etc/bind$ cat db.safarit.com
+
 $TTL 1H
 @  IN SOA ns1.safarit.com. root.safarit.com.  (
 20200322   ; Serial.
@@ -62,9 +64,11 @@ ldap CNAME ns1
 taba CNAME ns1
 ```
 
-Configure reverse zone: @ip to fqdn
+**Configure reverse zone: @ip to fqdn**
 ```
-/etc/bind$ cat db.safarit.com.reverse                                                     $TTL 1H
+/etc/bind$ cat db.safarit.com.reverse
+
+$TTL 1H
 @  IN SOA ns1.safarit.com. root.safarit.com.  (
 20200322   ; Serial.
 1H         ;Refresh 
