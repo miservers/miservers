@@ -1,7 +1,7 @@
 **Bind**   
 is used on the most majority of name servers existing in the world(root dns servers included).
 
-Install Bind on ubuntu 18.04
+**Install Bind** on ubuntu 18.04
 > sudo apt install bind9 dnsutils
 
 **Start/stop the NameServer**
@@ -21,7 +21,7 @@ $ nano /etc/bind/named.conf.options
 ~~~
 
 **Add safarit.com and reverse Zones**
-```
+~~~
 /etc/bind$ cat named.conf.local 
 
 zone "safarit.com" {
@@ -37,10 +37,10 @@ zone "43.168.192.in-addr.arpa" {
        file "/etc/bind/db.safarit.com.reverse";
        forwarders{};
 };
-```
+~~~
 
 **Configure safarit.com zone: fqdn to @ip**
-```
+~~~
 /etc/bind$ cat db.safarit.com
 
 $TTL 1H
@@ -70,10 +70,10 @@ smtp CNAME redmi
 www  CNAME redmi
 ldap CNAME ns1
 taba CNAME ns1
-```
+~~~
 
 **Configure reverse zone: @ip to fqdn**
-```
+~~~
 /etc/bind$ cat db.safarit.com.reverse
 
 $TTL 1H
@@ -92,14 +92,14 @@ IN NS ns1.safarit.com.
 1   IN  PTR  redmi.safarit.com.  ; 192.168.43.1
 10  IN  PTR  pprd.safarit.com.   ; 192.168.43.10
 11  IN  PTR  prod.safarit.com.   ; 192.168.43.11
-```
+~~~
 
 **Edit resolv.conf**
-```
+~~~
 $ cat /etc/resolv.conf
 search safarit.com
 nameserver 192.168.43.80
-```
+~~~
 
 **Check zone configuration**
 > $ named-checkzone safarit.com db.safarit.com
