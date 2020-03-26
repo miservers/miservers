@@ -1,4 +1,4 @@
-**Bind** 
+**Bind**   
 is used on the most majority of name servers existing in the world(root dns servers included).
 
 Install Bind on ubuntu 18.04
