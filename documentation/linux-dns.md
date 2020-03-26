@@ -9,7 +9,7 @@ Start/stop NameServer
 check zone  
 > $ named-checkzone safarit.com db.safarit.com
 
-Nslookup
+Nslookup, on other port than default one 53
 > $ nslookup -debug -port=2053 ub1.safarit.com
 
 Bind options  
