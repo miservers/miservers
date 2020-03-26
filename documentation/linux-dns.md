@@ -111,6 +111,8 @@ nameserver 192.168.43.80
 > $ dig -p 2053 prod.safarit.com
 
 
+**Default DNS port**: 53
+
 **Vocabulary**  
 |          |                       |
 |----------|-----------------------|
