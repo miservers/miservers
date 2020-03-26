@@ -45,7 +45,7 @@ $TTL 1H
 IN NS ns1.safarit.com.
 
 ; ns A records 
-ns1.safarit.com.INA192.168.43.80 
+ns1.safarit.com.  IN  A  192.168.43.80 
 
 
 ; 192.168.43.0/24 A records  
@@ -84,7 +84,8 @@ IN NS ns1.safarit.com.
 
 Edit resolv.conf
 ```
-$ cat /etc/resolv.conf                                                           search safarit.com
+$ cat /etc/resolv.conf                                                           
+search safarit.com
 nameserver 192.168.43.80
 ```
 
