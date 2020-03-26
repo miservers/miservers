@@ -95,8 +95,8 @@ IN NS ns1.safarit.com.
 ~~~
 
 **Check zone configuration**   
-> $ named-checkzone safarit.com db.safarit.com  
-> $ named-checkzone 43.168.192.in-addr.arpa db.safarit.com.reverse
+> $ named-checkzone   safarit.com   db.safarit.com  
+> $ named-checkzone   43.168.192.in-addr.arpa   db.safarit.com.reverse
 
 
 **Edit resolv.conf**  
