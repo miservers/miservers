@@ -58,7 +58,7 @@ $TTL 1H
 ns1.safarit.com.  IN  A  192.168.43.80 
 
 
-; 192.168.43.0/24 A records  
+; 192.168.43.0/24 Name-to-address mapping
 redmi   A 192.168.43.1 
 pprd    A 192.168.43.10
 prod    A 192.168.43.11 
@@ -87,27 +87,40 @@ $TTL 1H
 ; name servers
 IN NS ns1.safarit.com.
 
-; PTR records
+; Address to name mapping
 80  IN  PTR  ns1.safarit.com.    ; 192.168.43.80
 1   IN  PTR  redmi.safarit.com.  ; 192.168.43.1
 10  IN  PTR  pprd.safarit.com.   ; 192.168.43.10
 11  IN  PTR  prod.safarit.com.   ; 192.168.43.11
 ~~~
 
-**Edit resolv.conf**
+**Check zone configuration**  
+> $ named-checkzone safarit.com db.safarit.com
+> $ named-checkzone 43.168.192.in-addr.arpa db.safarit.com.reverse
+
+
+**Edit resolv.conf**  
 ~~~
 $ cat /etc/resolv.conf
 search safarit.com
 nameserver 192.168.43.80
 ~~~
 
-**Check zone configuration**
-> $ named-checkzone safarit.com db.safarit.com
-> $ named-checkzone 43.168.192.in-addr.arpa db.safarit.com.reverse
-
-
 **Nslookup**, on other port than default one 53
 > $ nslookup -debug -port=2053 ub1.safarit.com
+> $ dig -p 2053 prod.safarit.com
+
+
+**Vocabulary**  
+|          |                       |
+|----------|-----------------------|
+|**SOA**   | Authority for the zone|
+|**NS**    |Nameserver record      |
+|**CNAME** |Canonical name. alias  |
+|**A**     |Name-to-address mapping|
+|**PTR**   |Address-to-name mapping|
+|**IN**    |Internet               |
+|||
 
 **NOTA BENE**  
 FQDN must end with a dot, "ns1.safarit.com." , mandatory on the dns server side, implied on the client side.
