@@ -78,7 +78,7 @@ taba CNAME ns1
 
 $TTL 1H
 @  IN SOA ns1.safarit.com. root.safarit.com.  (
-           20200322   ; Serial.
+           20200323   ; Serial.
            1H         ;Refresh 
            15M        ; Retry
            2W         ; Expire
