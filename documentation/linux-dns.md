@@ -1,16 +1,24 @@
-Bind 
-: is used on the most majority of name servers existing in the world(root dns servers included).
+**Bind** 
+is used on the most majority of name servers existing in the world(root dns servers included).
 
 Install Bind on ubuntu 18.04
 > sudo apt install bind9 dnsutils
 
-Start/stop NameServer
+**Start/stop the NameServer**
 > $ sudo /etc/init.d/bind9 restart
 
 **We want to configure a dns server for:**
 - zone/domain : safarit.com
 - ip class address: 192.168.43.0/24
 - name server @ip : 192.168.43.80
+
+**Bind options**: to change listen addr or port
+~~~
+$ nano /etc/bind/named.conf.options
+  listen-on port 2053 { 192.168.43.80;};
+  listen-on-v6 { none; };
+  allow-recursion { 127.0.0.1;};
+~~~
 
 **Add safarit.com and reverse Zones**
 ```
@@ -100,9 +108,6 @@ nameserver 192.168.43.80
 
 **Nslookup**, on other port than default one 53
 > $ nslookup -debug -port=2053 ub1.safarit.com
-
-**Bind options**
-/etc/bind/named.conf.options
 
 **NOTA BENE**  
 FQDN must end with a dot, "ns1.safarit.com." , mandatory on the dns server side, implied on the client side.
