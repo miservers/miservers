@@ -32,7 +32,8 @@ zone "43.168.192.in-addr.arpa" {
 
 Configure safarit.com zone: fqdn to @ip
 ```
-/etc/bind$ cat db.safarit.com                                                             $TTL 1H
+/etc/bind$ cat db.safarit.com                                                             
+$TTL 1H
 @  IN SOA ns1.safarit.com. root.safarit.com.  (
 20200322   ; Serial.
 1H         ;Refresh 
