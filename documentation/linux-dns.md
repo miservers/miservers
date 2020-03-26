@@ -12,7 +12,7 @@ Start/stop NameServer
 - ip class address: 192.168.43.0/24
 - name server @ip : 192.168.43.80
 
-**Add safarit.com and reverse zones**
+**Add safarit.com and reverse Zones**
 ```
 /etc/bind$ cat named.conf.local 
 
@@ -86,26 +86,23 @@ IN NS ns1.safarit.com.
 11  IN  PTR  prod.safarit.com.   ; 192.168.43.11
 ```
 
-Edit resolv.conf
+**Edit resolv.conf**
 ```
-$ cat /etc/resolv.conf                                                           
+$ cat /etc/resolv.conf
 search safarit.com
 nameserver 192.168.43.80
 ```
 
-check zone configuration
+**Check zone configuration**
 > $ named-checkzone safarit.com db.safarit.com
 > $ named-checkzone 43.168.192.in-addr.arpa db.safarit.com.reverse
 
 
-Nslookup, on other port than default one 53
+**Nslookup**, on other port than default one 53
 > $ nslookup -debug -port=2053 ub1.safarit.com
 
-Bind options  
+**Bind options**
 /etc/bind/named.conf.options
 
-Config zones  
-/etc/bind/named.conf.local
-
-NOTA BENE
+**NOTA BENE**  
 FQDN must end with a dot, "ns1.safarit.com." , mandatory on the dns server side, implied on the client side.
