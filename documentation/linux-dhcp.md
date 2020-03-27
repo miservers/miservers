@@ -1,2 +1,2 @@
-**DHCP**  
-Dynamic 
+**DHCP** : Dynamic Host Configuration Protocol
+![DHCP handshake]()
