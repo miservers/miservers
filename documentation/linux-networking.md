@@ -1,5 +1,6 @@
 ## Networking
---------------------------------------------------
+Ubuntu 
+
 ### ifconfig
     # ifconfig     ; list actif interfaces
     # ifconfig -a  ; list active and inactive interfaces
