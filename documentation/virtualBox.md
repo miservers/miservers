@@ -1,8 +1,8 @@
 ### Clone a VM
 After colning a VM:
-1. Change the hostname
-  /etc/hostname
-  /etc/hosts
+1. Change the hostname:
+  * /etc/hostname
+  * /etc/hosts
 2. Update the IP
 
 
