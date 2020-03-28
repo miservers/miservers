@@ -1,14 +1,21 @@
-### Networking
-1. NAT : Browse the Web from the Guest
+### Clone a VM
+After colning a VM:
+1. Change the hostname
+  /etc/hostname
+  /etc/hosts
+2. Update the IP
+
+
+### Netwoking:
+1. NAT : Network Address Translation. 
+   * Give internet access to Guest. Host cannot access to Guest. 
+   * To create a NAT Adapter: File->Preferences->Network.
+2. Host-only networking
+   * VMs can talk to each other and the Host, as if they were connected through a physical switch.
+   * VMs connot connect to internet or outside Host.
+   * Create a network interface. File->Host Network Manager. Choose Host-Only Adapter in Guest network setting. 
+   * IPs are given by DHCP like adapter.
 2. Host-only networking: Access the Guest from the Host (and Other Guests). But not outside world.
-  - Open VirtualBox, File>Preferences>NetWork, and add Host-only-Networks (vboxnet0)
-  ```
-    Disable DHCP
-    Ipv4 address: 10.98.56.1
-    Mask : 255.255.255.0
-    Ipv6 address null, length 0
-  ```
-  - Open Settings of the VM, and set vboxnet0 network.
   - on Geust
   ```
   ifconfig -a   ; find the mounted nic device. 
