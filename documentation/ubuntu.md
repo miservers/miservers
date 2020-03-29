@@ -107,3 +107,69 @@ Installation
 - Terminator : the best terminal 
 - Konsole: mieux que Gnome Terminal
 
+
+
+
+
+
+Remove netplan on ubuntu 18.04
+============================================
+On ubuntu 18.04, **ifconfig** is deprecated and replaced by **netplan**. file **/etc/network/interfaces** is no longer used. instead **/etc/netplan/xyz.yml** is used.
+
+https://www.allerstorfer.at/remove-netplan-on-ubuntu-18-04/
+
+Update grub, uninstall netplan, install ifupdown
+~~~
+$ nano /etc/default/grub
+    GRUB_CMDLINE_LINUX="netcfg/do_not_use_netplan=true"
+
+$ update-grub
+
+$ apt purge netplan.io
+$ rm -rf /usr/share/netplan
+$ rm -rf /etc/netplan
+
+$ apt install ifupdown
+~~~
+
+To configure interface, edit file **/etc/network/interfaces**  
+
+The loopback network interface
+~~~
+$ nano /etc/network/interfaces
+   source /etc/network/interfaces.d/*
+   
+   auto lo
+   iface lo inet loopback
+~~~
+
+Dynamic IP (DHCP)
+~~~
+auto eth0
+iface eth0 inet dhcp
+~~~
+
+Static IP
+~~~
+auto eth0
+iface eth0 inet static
+address 192.168.0.10
+netmask 255.255.255.0
+gateway 192.168.0.1
+broadcst 192.168.0.255
+dns-nameservers 192.168.0.2 192.168.0.3
+dns-search lan
+~~~
+
+
+
+
+
+
+
+
+
+
+
+
+
