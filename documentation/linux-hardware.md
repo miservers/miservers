@@ -6,6 +6,6 @@ Linux Hardware list
 
 CPUs list
 
-   !(images/linux-hardware-lscpu.png)
+   ![](images/linux-hardware-lscpu.png)
 
 
