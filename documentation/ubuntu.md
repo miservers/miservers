@@ -55,24 +55,6 @@ compiz: high cpu
 
     apt install compizconfig-settings-manager
 	On OpenGL, uncheck the option "Sync to VBlank"
-	
-	
-## Power Optimisation
-- Decrease screen brightness
-- Firefox
-  - Image Block extension
-  - Do these tweaks
-    http://www.makeuseof.com/tag/speed-up-firefox-immediately-with-these-6-simple-tweaks/
-- powertop: good pckage
-- Disable N/I-Watchdog
-  https://fixmynix.com/disable-nmi-watchdog-linux/
-- increase dirty writeback timout from 500 to 1500(15seconds)
-  in file /proc/sys/vm/dirty_writeback_centisecs
-- See these tricks(For Thinkpad)
-  http://www.thinkwiki.org/wiki/How_to_reduce_power_consumption
-  Bee carfull: dont activate laptop_mode!
-- Install Package **laptop-mode-tools**:
-  https://doc.ubuntu-fr.org/laptop-mode-tools
 
 ## Services 
 Three tools: systemd, upstart, SystemV
