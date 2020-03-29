@@ -1,10 +1,10 @@
 
-__Linux Hardware list__
+__lshw: List Hardware__
 
    ![](images/linux-hardware-list.png)
 
 
-__CPUs list__
+__lscpu : list CPUs__
 
    ![](images/linux-hardware-lscpu.png)
 
