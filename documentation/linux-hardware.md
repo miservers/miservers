@@ -1,5 +1,5 @@
 
-Linux Hardware list  
+# Linux Hardware list  
 
    ![](images/linux-hardware-list.png)
 
