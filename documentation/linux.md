@@ -1,5 +1,5 @@
 ## Linux Admin
---------------------------------------------------
+
 Shortcuts:
 ```
   ctrl+]                  : Quit telnet
@@ -85,7 +85,7 @@ For root:
 	
 	
 ## Disk & FS
---------------------------------------------------
+
 List all block devices:
  
     # lsblk
@@ -129,30 +129,27 @@ Online Resizing an FS
 #### RAID
 RAID 5 : https://www.dataretrieval.com/raid-data-recovery/raid-5-internals-data-storage-performance-and-recovery.html
 	
+
 ## Hardware Infos
---------------------------------------------------
-```
+
   lscpu : report CPU infos
   lshw  : report all hardwares
   lspci : all hardware connected to the PCI bus.
-```
+
 
 ## Services
-Liste of all enabled services(sysV, level 4)
-```sh
-  $ ll /etc/rc4.d
-```
+Liste of all enabled services(sysV, level 4)  
+    $ ll /etc/rc4.d
 
-Enable/Disable a service (System V)
-```sh
-  $ update-rc.d mysql enable|disable
-```
+Enable/Disable a service (System V)  
+    $ update-rc.d mysql enable|disable
+  
 Enable will create a symlink in /etc/rc4.d/S02mysql -> ../init.d/mysql
 
 
 
 ## Perfoemances
---------------------------------------------------
+
 ### SAR
 
 ```sh
@@ -177,7 +174,7 @@ sar -f /var/log/sa/sa15
 
 
 ## Packages Debian
---------------------------------------------------
+
 ### net-tools 
 this package contains utilities like arp, ifconfig, netstat, rarp, nameif and route.
 
@@ -214,7 +211,7 @@ debian package managment. apt-get is dpkg top couch
 
 
 ## SSH
---------------------------------------------------
+
 - Install on CentOS
 ```
   # yum -y install openssh-server openssh-clients
@@ -241,7 +238,7 @@ debian package managment. apt-get is dpkg top couch
 ```
 
 ## VI
---------------------------------------------------
+
 Remplace String:
 
    :%s/TOMCAT/JBOSS/g
@@ -272,7 +269,7 @@ vi: Terminal too wide
 
 	
 ## Miscs
---------------------------------------------------
+
 APT with Proxy
 
     vi /etc/apt/apt.conf.d/proxy
@@ -292,7 +289,7 @@ rm: cannot remove 'MQServer7': Operation not permitted
 
 
 ## Refs
---------------------------------------------------
+
 - IEEE std utilities : https://en.m.wikipedia.org/wiki/List_of_Unix_commands
 - Bash tuto:
   https://linuxconfig.org/bash-scripting-tutorial  
