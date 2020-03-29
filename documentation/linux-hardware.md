@@ -1,7 +1,7 @@
 
 Linux Hardware list  
 
-   ![Linux Hardware](images/linux-hardware-list.png)
+   ![](images/linux-hardware-list.png)
 
 
 CPUs list
