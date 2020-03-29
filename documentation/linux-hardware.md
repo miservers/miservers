@@ -13,17 +13,14 @@ __lsblk: List block Devices__
    ![](images/linux-hardware-lsblk.png)
 
 __/proc files__   
-memory info  
+* memory info  
+  > $ cat /proc/meminfo  
 
-    $ cat /proc/meminfo  
+* cpu info
+  >  $ cat /proc/cpuinfo
 
-cpu info
-
-    $ cat /proc/cpuinfo
-
-linux distribution
-
-    $ cat /proc/version
+* linux distribution
+  > $ cat /proc/version
 
 
 
