@@ -1,4 +1,4 @@
 
 Linux Hardware List  
-$ lshw -short
+> $ lshw -short
 ![Linux Hardware](images/linux-hardware-list.png)
