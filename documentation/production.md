@@ -1,7 +1,7 @@
 Network Architecture
 =======================================
 ### Tools
-**LibreOffice Draw** : [How To Install Network Icons for Diagram](https://www.ubuntubuzz.com/2020/01/libreoffice-draw-how-to-install-network-icons-for-diagram.html)
+**LibreOffice Draw** : install [VRT Network Equipment extension](https://extensions.libreoffice.org/extensions/vrt-network-equipment)
 
 
 Production: use cases
