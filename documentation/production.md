@@ -1,7 +1,14 @@
-## A
-Lenteurs + DeadLock Oracle  
-Plan d'action
+Network Architecture
+=======================================
+### Tools
+**LibreOffice Draw** : [How To Install Network Icons for Diagram](https://www.ubuntubuzz.com/2020/01/libreoffice-draw-how-to-install-network-icons-for-diagram.html)
 
+
+Production: use cases
+=======================================
+
+### Lenteurs + DeadLock Oracle  
+Plan d'action:
 - Rester sur un Noeud Weblogic, pour eliminer la piste du cluster
 - Tester
 - Activer le debugging JDBC/SQL sur Weblogic  
@@ -20,32 +27,20 @@ A faire:
 
 **Solution**  
 Suite au profiling Weblogic/SQL, la requête suivante s’est exécuté 500 fois, rien que pour le seul test effectué. L’application passe son temps à exécuter cette requête, 
-Ce qui explique la lenteur de la page « gestionPark ». 
+Ce qui explique la lenteur de la page « gestionClients ». 
 
 Le rapport AWR d’hier sur 1 heure, l’application a passé 1300 seconds, c’est-à-dire 1/3 de son temps, à exécuter cette requête. 
   
-La requête « DELETE FROM PARK_TABLE ...»  est lente aussi, 200 seconds par exécution. 
+La requête « DELETE FROM CLIENTS_TABLE ...»  est lente aussi, 200 seconds par exécution. 
 
 Axes d’amélioration : 
 1. Optimiser le temps d’exécution de la première requête, qui est actuellement de 0.54s par exécution. 
 2. Revoir le design de l’application, pour réduire le nombre d’appel à cette requête(Pagination,...). 
-3. Optimiser le temps d’exécution de la requête « DELETE FROM PARK_TABLE ...» 
+3. Optimiser le temps d’exécution de la requête « DELETE FROM CLIENTS_TABLE ...» 
 
 
-## G
+### Audit applicatif
 D'apres la lecture de la configuration du serveur de recette, il s'en sort:
-
-0. Arborescence
-   Repertoire d'installation:
-	Utiliser D:\APPLICATION au lieu de D:\Applis
-   
-   Conf:
-	
-   Logs:
-  
-   Pots:
-
-   Java:
 
  0.1 Context.xml
     Ne pas mettre en dur le chemin dans context.xml, utiliser plutôt un chemin relatif ou une propriété JAVA.  
