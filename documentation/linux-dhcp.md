@@ -28,6 +28,17 @@ $ nano /etc/network/interfaces
    dns-search lan
 ~~~
 
+Restart Interface
+
+    $ ifdown enp0s3
+    $ ifup enp0s3
+    
+Check
+ 
+    $ ifconfig
+    
+    
+
 **Client Side configuration**  
 Dynamic IP (DHCP)
 ~~~
