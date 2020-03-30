@@ -30,6 +30,7 @@ $ nano /etc/network/interfaces
 
 Restart Interface
 
+    $ /etc/init.d/networking restart
     $ ifdown enp0s3
     $ ifup enp0s3
     
