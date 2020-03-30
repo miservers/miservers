@@ -1,8 +1,9 @@
 Network Architecture
 =======================================
 ### Tools
-**LibreOffice Draw** : install [VRT Network Equipment extension](https://extensions.libreoffice.org/extensions/vrt-network-equipment)
-
+**LibreOffice Draw**
+   * Install [VRT Network Equipment extension](https://extensions.libreoffice.org/extensions/vrt-network-equipment)
+   * Add link points:  Edition->Points de collage
 
 Production: use cases
 =======================================
