@@ -3,7 +3,8 @@ Network Architecture
 ### Tools
 **LibreOffice Draw**
    * Install [VRT Network Equipment extension](https://extensions.libreoffice.org/extensions/vrt-network-equipment)
-   * Add link points:  Edition->Points de collage
+   * Add link points:  **Edition->Points de collage**
+   * Page A3 paysage.
 
 Production: use cases
 =======================================
