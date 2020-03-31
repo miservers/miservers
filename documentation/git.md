@@ -1,7 +1,7 @@
 ## GIT
 clone the repository
 
-    git clone --depth 2 https://github.com/magos2/magOS
+    git clone --depth 2 https://github.com/magos3/magOS
 
 
 
@@ -30,7 +30,7 @@ clone the repository
 ### Cleanup git commit history
 ```
   cd /root
-  git clone --depth 2 https://github.com/magos2/magOS
+  git clone --depth 2 https://github.com/magos3/magOS
   cd magOS/
   git checkout --orphan latest_branch
   git add -A
@@ -54,8 +54,8 @@ Make git dont ask for usr/password
   git clone ...
   cd magOS
   git config credential.helper store
-  git config --global user.email magos2@magos
-  git config --global user.name magos2
+  git config --global user.email magos3@magos
+  git config --global user.name magos3
   ./commit.sh
 ```
 
@@ -63,7 +63,7 @@ Make git dont ask for usr/password
 ```
    export http_proxy="http://proxi-ip:8080"
    git config --global http.proxy $http_proxy
-   git clone --depth 1 https://github.com/magos2/magOS
+   git clone --depth 1 https://github.com/magos3/magOS
 ```
   
 ## Alias
