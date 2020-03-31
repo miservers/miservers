@@ -67,7 +67,7 @@ Make git dont ask for usr/password
 ```
   
 ## Alias
-add these alias to *.bashrc* 
+add these alias to *.bashrc* or *.profile*
     
     alias cdm='cd ~/magOS'
     alias commit='cd ~/magOS/tools; ./commit.sh ; cd -'
