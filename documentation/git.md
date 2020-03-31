@@ -69,9 +69,9 @@ Make git dont ask for usr/password
 ## Alias
 add these alias to *.bashrc* 
     
-    alias cdm='cd /cygdrive/c/ABR/magOS'
-    alias commit='cd /cygdrive/c/ABR/magOS/tools; ./commit.sh ; cd -'
-    alias checkout='cd /cygdrive/c/ABR/magOS/tools; ./checkout.sh; cd -'
+    alias cdm='cd ~/magOS'
+    alias commit='cd ~/magOS/tools; ./commit.sh ; cd -'
+    alias checkout='~/magOS/tools; ./checkout.sh; cd -'
 
 
   
