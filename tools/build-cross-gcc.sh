@@ -1,5 +1,5 @@
 #! /bin/bash
-set -x
+set +x
 set -e
 trap 'previous_command=$this_command; this_command=$BASH_COMMAND' DEBUG
 trap 'echo FAILED COMMAND: $previous_command' EXIT
@@ -15,11 +15,11 @@ trap 'echo FAILED COMMAND: $previous_command' EXIT
 #      http://wiki.osdev.org/GCC_Cross-Compiler
 #      https://gcc.gnu.org/wiki/InstallingGCC
 # NOTES: On Debian
-#   - do "apt-get update" and "apt-get upgrade"
+#   - do "apt update"
 #   - Install packages : 
-#          apt-get install build-essential g++ gcc make automake autoconf gawk wget libgmp-dev libmpc-dev libmpfr-dev 
-#   - apt-get install linux-headers-$(uname -r)
-#   - dont compile gmp, mpc and mpfr, instead install packages libgmp-dev libmpc-dev libmpfr-dev
+#          apt install build-essential g++ gcc make automake autoconf gawk wget libgmp-dev libmpc-dev libmpfr-dev 
+#   - apt install linux-headers-$(uname -r)
+#   - DONT compile gmp, mpc and mpfr, instead install packages libgmp-dev libmpc-dev libmpfr-dev
 #     
 #-------------------------------------------------------------------------------------------
 INSTALL_PATH=/opt/cross
@@ -27,12 +27,12 @@ SRC_PATH=/opt/sources
 TARGET=i386-elf
 #TARGET=arm-linux-gnueabihf
 USE_NEWLIB=1
-LINUX_ARCH=armhf
+#LINUX_ARCH=armhf
 CONFIGURATION_OPTIONS="--with-sysroot --disable-nls --disable-werror" #--disable-multilib --disable-threads --disable-shared
 PARALLEL_MAKE=-j4
-BINUTILS_VERSION=binutils-2.24
-GCC_VERSION=gcc-4.9.2
-GDB_VERSION=gdb-7.11
+BINUTILS_VERSION=binutils-2.34
+GCC_VERSION=gcc-9.2.0
+GDB_VERSION=gdb-9.1
 WGET="wget --tries=120"
 export PATH=$INSTALL_PATH/bin:$PATH
 
@@ -44,7 +44,7 @@ cd $SRC_PATH
 # Download packages
 download_gcc () {
   echo "Downloading gcc sources..."
-  $WGET ftp://gd.tuwien.ac.at/gnu/gcc/releases/${GCC_VERSION}/${GCC_VERSION}.tar.gz
+  $WGET ftp://ftp.irisa.fr/pub/mirrors/gcc.gnu.org/gcc/releases/${GCC_VERSION}/${GCC_VERSION}.tar.gz
 }
 
 download_preq () {
@@ -119,6 +119,7 @@ build_gdbserver () {
   echo "### build-gdbserver #####"
   mkdir -p build-gdbserver
   cd build-gdbserver
+  #export CC=gcc
   ../$GDB_VERSION/gdb/gdbserver/configure -q --prefix=$INSTALL_PATH --host=$TARGET 
   make $PARALLEL_MAKE
   make install
@@ -137,13 +138,13 @@ build_gdbserver () {
 #extract_gdb
 
 # Step 2. Binutils
-build_binutils
+#build_binutils
 
 # Step 3. Build gcc
-build_gcc
+#build_gcc
 
 # GDB install
-build_gdb
+#build_gdb
 
 #gdbserver optional
 build_gdbserver

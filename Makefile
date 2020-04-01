@@ -16,7 +16,7 @@
 #OBJ=floppyA.img
 OBJ           = magos.img
 OUT_DIR       = ./bin
-INSTALL_DIR   = /usr/local/images
+INSTALL_DIR   = /opt/magos/images
 KERN_ISO      = $(INSTALL_DIR)/magos.iso
 KERN_IMG      = $(INSTALL_DIR)/disk.img     
 KERN_IMG_SIZE = 100  #in kiB
@@ -33,7 +33,7 @@ CFLAGS += -O0
 
 ifeq ($(TARGET), x86)
 GCC_ARCH    = i386-elf
-GCC_VERSION = 4.9.2
+GCC_VERSION = 9.2.0
 GCC_INCLUDE = -I/opt/cross/lib/gcc/$(GCC_ARCH)/$(GCC_VERSION)/include
 endif
 ifeq ($(TARGET), armhf)

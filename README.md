@@ -1,26 +1,49 @@
-##### magOS ####
-magOS is a Unix like kernel. it is very simple.
-my main aim is to understand Unix/Linux internals.
+## magOS
+This is a Unix like kernel. it is very simple. It may help understanding Unix/Linux internals.
 
-I have more than 20 years experience on Java/AppServers, 
-I have also experience on Linux, Aix, Oracle database.
+I have more than 15 years experience on Java/AppServers, I have also experience on Linux, Aix, Oracle database.
 
-##### Development Environment ########
-# Environment:
+## Prerequisities on Ubuntu 18.08
+- Prerequisities
+- Build a Cross C Compiler for i386 architecture
+
+    $ ./tools/build-cross-gcc.sh  
+
+- Install genext2fs, to generate an ext2 FS by a non-root user.
+
+    $ sudo apt install genext2fs
+
+- Install Qemu
+
+    $ sudo apt install qemu
+
+- Build Grub from source
+
+    ./tools/build-grub.sh
+
+## Build magOS
+
+## Development Environment
+- Environment: 
   On Andoid: Terminal emulator, Gnuroot Debian
-# Alias to add in /home/.bashrc
-  alias cdm='cd /magOS'
-  alias kgdb='bash /magOS/tools/gdb-qemu.sh kernel'
-  alias ugdb='bash /magOS/tools/qemu-qemu.sh userspace'
-# Launch qemu
-  bash /magOS/tools/run-qemu.sh [-g]
+- Alias to add in /home/.bashrc
+  
+    alias cdm='cd /magOS'
+    alias kgdb='bash /magOS/tools/gdb-qemu.sh kernel'
+    alias ugdb='bash /magOS/tools/qemu-qemu.sh userspace'
 
-##### Notes utiles ########
-Disassembler un binaire 16 bit (Real Mode)
-   objdump -m i8086 -b binary -D bin/boot/setup.bin
+- Launch qemu  
+    
+    bash /magOS/tools/run-qemu.sh [-g]
+
+## Notes utiles
+Disassembler un binaire 16 bit (Real Mode)  
+
+    objdump -m i8086 -b binary -D bin/boot/setup.bin
    
 Disassembler un binaire 
-   objdump -D -b binary -m i386 kernel/kernel > kernel/kernel.disas
+   
+    objdump -D -b binary -m i386 kernel/kernel > kernel/kernel.disas
 
 Compiler sous Android
    make -e GCC=arm-eabi-gcc
@@ -29,7 +52,7 @@ Compiler sous Android
 Build cross compiler gcc
   see script "build-cross-gcc.sh"
 
-##### GRUB ########
+## GRUB
 see http://wiki.osdev.org/GRUB
     http://pete.akeo.ie/2014/05/compiling-and-installing-grub2-for.html?m=1
 Grub install :
@@ -78,7 +101,7 @@ Grub setup on gnuroot/android :
          !
    /cross/grub/grub-install --root-directory=/media --no-floppy --modules="normal part_msdos ext2 multiboot biosdev" /dev/block/loop0
    
-#### Docs ####
+## Docs
  - x86 instruction reference set(EXCELLENT): http://x86.renejeschke.de
  - TacOS : https://github.com/TacOS-team/tacos/wiki/
  - http://ece-research.unm.edu/jimp/310/

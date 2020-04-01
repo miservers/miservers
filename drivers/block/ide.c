@@ -13,16 +13,16 @@
 	0			0, 0, 1
 	1			0, 0, 2
 	2			0, 0, 3
-	62		   0, 0, 63
-	63		   0, 1, 1
-	945		  0, 15, 1
-	1007		 0, 15, 63
-	1008		 1, 0, 1
+	62		0, 0, 63
+	63		0, 1, 1
+	945		0, 15, 1
+	1007	0, 15, 63
+	1008  1, 0, 1
  * ATA controller:
    - Drive/Head register.  addr: 0x1F6. format: [7:1 6:LBA 5:1 4:DRV 3-0:HEAD]
      DRV: this bit is used to select the drive. Master is 0, Slave 1.
      101x 0000
-  * IDE Naming, major/minor numbers:
+ * IDE Naming, major/minor numbers:
     primary  ; ide0; port 0x1f0; major=3;  hda minor=0;  hdb minor=1
     secondary; ide1; port 0x170; major=3;  hdc minor=2; hdd minor=3
           
@@ -37,15 +37,16 @@
     
     see http://www.ibm.com/support/knowledgecenter/STUVMB/com.ibm.storage.ssic.help.doc/f2c_linuxdevnaming_2hsag8.html
     
-  * The standard port, and irq values are these:
+ * The standard port, and irq values are these:
 	ide0=0x1f0,0x3f6,14
 	ide1=0x170,0x376,15
 	
-  * device identification:
+ * device identification:
    - major : (device >> 8), determine de drive class(hd, cdrom, ...)
    - minor : (device & 0xff), identify the device in a class 
    - dev = (major<<8 | minor)
  */
+
 #define KERNEL_DEBUG 0
 #include <ide.h>
 #include <ext2.h>
