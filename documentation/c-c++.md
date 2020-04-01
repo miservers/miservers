@@ -3,11 +3,11 @@
 ## Calling convention
 https://en.m.wikipedia.org/wiki/Calling_convention
 
-| Platform     | Return Value     | Parameter Registers     | Additional Parameters     | Scratch Registers                    | Preserved Registers         | CallList  | 
-| ------------ | ---------------- | ----------------------- | ------------------------- | ------------------------------------ | --------------------------- | --------- | 
-| i386         | eax, edx         | none                    | stack                     | eax, ecx, edx                        | ebx, esi, edi, ebp, esp     | ebp       | 
-| X86_64 	   |rax, rdx	      | rdi,rsi,rdx,rcx,r8,r9   | stack 					| rax, rdi, rsi, rdx, rcx, r8-r11	   | rbx, rsp, rbp, r12-r15	     | rbp       |
-| ARM		   | r0, r1	          | r0-r3	                | stack			    		| r0-r3, r12						   | r4-r14	                     |           |
+| Platform| Return Value| Parameter Registers| more Parameters| Scratch Registers| Preserved Registers| CallList  | 
+| ------- | ----------- | ------------------ | -------------- | ---------------- | ------------------ | --------- | 
+| i386    | eax, edx    | none               | stack          | eax, ecx, edx    | ebx,esi,edi,ebp,esp| ebp       | 
+| X86_64 	| rax, rdx	  |rdi,rsi,rdx,rcx,r8/9| stack 			    |rax,rdi,rsi,rdx,rcx,r8/11|rbx,rsp,rbp,r12/15| rbp  |
+| ARM		  | r0, r1	    | r0-r3	             | stack			    | r0-r3, r12			 | r4-r14	            |           |
 
 The called function is allowed to modify the arguments on the stack and the caller must not assume the stack 
 parameters are preserved. The caller should clean up the stack.
