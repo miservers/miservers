@@ -1,3 +1,3 @@
 
 
-[Bios](./kernel/bios.md)
+1. [Bios](./kernel/bios.md)
