@@ -1,5 +1,18 @@
 
 
+https://www.eecs.wsu.edu/~cs460/
+
+CHS-to-LBA 
+
+LBA = (C x TH x TS) + (H x TS) + (S - 1)
+Where:
+C = Cylinder
+TH = the Total Heads 
+TS = the Total Sectors/Track
+H = Head
+S = Sector
+
+Sector start at 1. C, H, LBA start at 0.
 
 
 
