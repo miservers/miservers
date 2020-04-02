@@ -6,11 +6,11 @@ CHS-to-LBA
 
 LBA = (C x TH x TS) + (H x TS) + (S - 1)
 Where:
-C = Cylinder# 
+C = Cylinder
 TH = the Total Heads 
 TS = the Total Sectors/Track
-H = Head# 
-S = Sector#
+H = Head
+S = Sector
 
 
 
