@@ -2,7 +2,9 @@
 ## Hard Drive, IDE/ATA
 ![](/documentation/images/HDD-CHS.jpg)
 
-Track 12 on platter 0 + track 12 on platter 1 + etc  =  cylinder 12. 
+Track = Head 
+
+Cylinder 15 = Track 15 on platter 0 + track 15 on platter 1 + etc. 
 
 - 2 Block Addressing methods
   * CHS - Cylinder/Head/Sector.
@@ -32,18 +34,19 @@ Track 12 on platter 0 + track 12 on platter 1 + etc  =  cylinder 12.
   * la table de partition est ecrit sur disk at byte number 446 exactely.
   * Structure of a classical generic MBR
   ~~~
-    Address    Description         Size(bytes)
+    Address    Description        Size(bytes)
     (bytes)
     +0       Bootstrap code area  446
-    +446    Partition entry ?1   16
-    +462     Partition entry ?2   16
-    +478     Partition entry ?3  16
-    +494     Partition entry ?4  16
+    +446     Partition entry 1     16
+    +462     Partition entry 2     16
+    +478     Partition entry 3     16
+    +494     Partition entry 4     16
     +510     0x55 Boot signature    2
     +511     0xAA
-       Total size:                  512
+       Total size:                512
   ~~~
-- common pc have two ide controllers(channels), each controllers is connected to two drives, named master/slave.
+
+- Common pc have two ide controllers(channels), each controllers is connected to two drives, named master/slave.
    ~~~
    Processor
             |___ primary 
@@ -53,12 +56,12 @@ Track 12 on platter 0 + track 12 on platter 1 + etc  =  cylinder 12.
                          |__master
                          |__slave
    ~~~
-- Channels are controllers.
+
 - IDE ,Integrated Device, is a naming convention designing ATA, ATAPi etc.
 - ATA : may be PATA for parallel ata, SATA for serial ata wich replace pata.
 - two ways to read/write into ata drives : PIO(using polling) and DMA(using irq 14/15).
 
-** Refs IDE
+** Refs IDE **
 - http://forum.osdev.org/viewtopic.php?f=1&p=167798#p167798
 - ATA Interface reference manual - Seagate.
 
