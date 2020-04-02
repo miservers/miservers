@@ -1,6 +1,6 @@
 
 ## Hard Drive, IDE/ATA
-![](./images/HDD-CHS.jpg)
+![](/documentation/images/HDD-CHS.jpg)
 
 - 2 Block Addressing methods
   * CHS - Cylinder/Head/Sector.
