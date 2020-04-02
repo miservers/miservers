@@ -2,6 +2,8 @@
 ## Hard Drive, IDE/ATA
 ![](/documentation/images/HDD-CHS.jpg)
 
+Track 12 on platter 0 + track 12 on platter 1 + etc  =  cylinder 12. 
+
 - 2 Block Addressing methods
   * CHS - Cylinder/Head/Sector.
   * LBA - Logical Block Addressing.
