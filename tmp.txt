@@ -12,6 +12,8 @@ TS = the Total Sectors/Track
 H = Head
 S = Sector
 
+Sector start at 1. C, H, LBA start at 0.
+
 
 
 
