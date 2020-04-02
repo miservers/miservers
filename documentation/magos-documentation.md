@@ -6,4 +6,4 @@
 
 3. [ELF](./kernel/elf.md)
 
-4. [File System - HD](./kernel/fs-ide.md)
+4. [FS - Hard Drive](./kernel/fs-hdd.md)
