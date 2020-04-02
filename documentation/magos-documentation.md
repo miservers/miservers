@@ -4,4 +4,6 @@
 
 2. [Kernel](./kernel/kernel.txt)
 
-2. [ELF](./kernel/elf.md)
+3. [ELF](./kernel/elf.md)
+
+4. [File System - HD](./kernel/fs-ide.md)

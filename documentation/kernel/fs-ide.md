@@ -1,14 +1,17 @@
-############ Commands Linux ############
-  # fdisk -l disk.img  : partition list
-  # fdisk disk.img     : create partition (n 1 ... w)
-  # lsblk
+## Commands Linux
+~~~
+  $ fdisk -l disk.img  : partition list
+  $ fdisk disk.img     : create partition (n 1 ... w)
+  $ lsblk
     NAME         MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
     mmcblk0      179:0    0 14.7G  0 disk
     |-mmcblk0p1  179:1    0   20M  0 part
     `-mmcblk0p2  179:2    0    2M  0 part
+~~~
 
-############ FS ############
-- Read a file: Sequence diagram
+## FS
+Read a file: Sequence diagram
+~~~
    |
    '-- sys_open(fpath)
           |
@@ -27,26 +30,28 @@
                        '-- ext2_ide_read()
                              |
                              '-- ide_read(dev, lba, size, buf) : PIO read
-                                    
+  ~~~                                  
                                     
                  
                   
 
-############ Hard Drive, IDE/ATA ###########
+## Hard Drive, IDE/ATA
 - 2 Block Addressing methods
   * CHS - Cylinder/Head/Sector.
   * LBA - Logical Block Addressing : with LBA, the entire drive appears as one giant array of 512 byte sectors. To access any sector, 
-    you just use one 28 bit unsigned integer to specify which one you want. The numbering is zero based, 
     so to read the MBR, you specify 0. The code uses a 32 bit parameter, with the upper 4 bits ignored.
     this method can address : 2^28*512=128 GiB.
-- LBA/CHS conversion :
-  LBA = ( (cylinder * heads_per_cylinder + heads ) * sectors_per_track ) + sector - 1
-  an LBA can be converted to a CHS:
-    cylinder = LBA / (heads_per_cylinder * sectors_per_track)
-    temp = LBA % (heads_per_cylinder * sectors_per_track)
-    head = temp / sectors_per_track
-    sector = temp % sectors_per_track + 1
-    
+- LBA-to-CHS conversion :
+  LBA = (C x TH x TS) + (H x TS) + (S - 1)
+  Where:
+  C = Cylinder
+  TH = the Total Heads 
+  TS = the Total Sectors/Track
+  H = Head
+  S = Sector
+  
+  C, H, LBA start at 0. S start at 1. 
+
 - MBR - Master Boot Record (al : consists of 512 or more bytes located in the first sector of the drive.
   It may contain one or more of:
   * A partition table describing the partitions of a storage device. 

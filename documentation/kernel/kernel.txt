@@ -269,5 +269,10 @@ contiguous page frames
  - duneOS : https://github.com/naegelejd/duneOS
  - Geekos
  - minix 2.0
- - https://github.com/bhanderson/cpts460
+ - https://github.com/bhanderson/cpts460 : based on cource ~cs460, see below
+
+** Tutorials
+ - https://www.eecs.wsu.edu/~cs460/
+
+
 
