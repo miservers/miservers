@@ -1,3 +1,67 @@
+
+## Hard Drive, IDE/ATA
+![](./images/HDD-CHS.jpg)
+
+- 2 Block Addressing methods
+  * CHS - Cylinder/Head/Sector.
+  * LBA - Logical Block Addressing.
+    MBR is a sector with LBA=0. 
+- LBA-to-CHS conversion :
+~~~
+  LBA = (C x TH x TS) + (H x TS) + (S - 1)
+  Where:
+  C = Cylinder
+  TH = the Total Heads 
+  TS = the Total Sectors/Track
+  H = Head
+  S = Sector
+~~~  
+  C, H, LBA start at 0. S start at 1. 
+
+- MBR - Master Boot Record(512B or +):  may contain one or more of:
+  * A partition table describing the partitions of a storage device. 
+    In this context the boot sector may also be called a partition sector.
+  * Bootstrap code: Instructions to identify the configured bootable partition, 
+    then load and execute its volume boot record (VBR) as a chain loader.
+  
+- Disk partitions
+  * fdisk : command to create partionning
+  * there are exactly 4 primary partition table entries in the MBR partition table.
+  * la table de partition est ecrit sur disk at byte number 446 exactely.
+  * Structure of a classical generic MBR
+  ~~~
+    Address    Description         Size(bytes)
+    (bytes)
+    +0       Bootstrap code area  446
+    +446    Partition entry ?1   16
+    +462     Partition entry ?2   16
+    +478     Partition entry ?3  16
+    +494     Partition entry ?4  16
+    +510     0x55 Boot signature    2
+    +511     0xAA
+       Total size:                  512
+  ~~~
+- common pc have two ide controllers(channels), each controllers is connected to two drives, named master/slave.
+   ~~~
+   Processor
+            |___ primary 
+                        |__master
+                        |__slave
+            |___ secondary
+                         |__master
+                         |__slave
+   ~~~
+- Channels are controllers.
+- IDE ,Integrated Device, is a naming convention designing ATA, ATAPi etc.
+- ATA : may be PATA for parallel ata, SATA for serial ata wich replace pata.
+- two ways to read/write into ata drives : PIO(using polling) and DMA(using irq 14/15).
+
+** Refs IDE
+- http://forum.osdev.org/viewtopic.php?f=1&p=167798#p167798
+- ATA Interface reference manual - Seagate.
+
+
+
 ## Commands Linux
 ~~~
   $ fdisk -l disk.img  : partition list
@@ -35,67 +99,10 @@ Read a file: Sequence diagram
                  
                   
 
-## Hard Drive, IDE/ATA
-- 2 Block Addressing methods
-  * CHS - Cylinder/Head/Sector.
-  * LBA - Logical Block Addressing : with LBA, the entire drive appears as one giant array of 512 byte sectors. To access any sector, 
-    so to read the MBR, you specify 0. The code uses a 32 bit parameter, with the upper 4 bits ignored.
-    this method can address : 2^28*512=128 GiB.
-- LBA-to-CHS conversion :
-  LBA = (C x TH x TS) + (H x TS) + (S - 1)
-  Where:
-  C = Cylinder
-  TH = the Total Heads 
-  TS = the Total Sectors/Track
-  H = Head
-  S = Sector
-  
-  C, H, LBA start at 0. S start at 1. 
 
-- MBR - Master Boot Record (al : consists of 512 or more bytes located in the first sector of the drive.
-  It may contain one or more of:
-  * A partition table describing the partitions of a storage device. 
-    In this context the boot sector may also be called a partition sector.
-  * Bootstrap code: Instructions to identify the configured bootable partition, 
-    then load and execute its volume boot record (VBR) as a chain loader.
-  
-- Disk partitions
-  * fdisk : command to create partionning
-  * there are exactly 4 primary partition table entries in the MBR partition table.
-  * la table de partition est ecrit sur disk at byte number 446 exactely.
-  * Structure of a classical generic MBR
-    Address    Description       	 Size(bytes)
-    (bytes)
-    +0	     Bootstrap code area	446
-    +446   	Partition entry ?1	 16
-    +462	   Partition entry ?2 	16
-    +478	   Partition entry ?3	 16
-    +494	   Partition entry ?4	 16
-    +510	   0x55 Boot signature    2
-    +511	   0xAA
-       Total size:                	512
-- common pc have two ide controllers(channels), each controllers is connected to two drives, named master/slave.
-   Processor
-            |___ primary 
-                        |__master
-                        |__slave
-            |___ secondary
-                         |__master
-                         |__slave
-- Channels are controllers.
-- IDE ,Integrated Device, is a naming convention designing ATA, ATAPi etc.
-- ATA : may be PATA for parallel ata, SATA for serial ata wich replace pata.
-- two ways to read/write into ata drives : PIO(using polling) and DMA(using irq 14/15).
-
-** Refs IDE
-- http://forum.osdev.org/viewtopic.php?f=1&p=167798#p167798
-- ATA Interface reference manual - Seagate.
-
-
-########### Ext2 Notes ###########
+## Ext2
 - Organisation du fs ext2
-  -----------------[        block group 0                      ----------]-[        block group 1                      -------------------]-
-  | boot block    |superblock    |block group desc table   |data blocks    |superblock_backup   |block group desc table backup |data blocks |
+  -----------------[ block group 0 ----------]-[ block group 1 -------------------]-| boot block    |superblock    |block group desc table   |data blocks    |superblock_backup   |block group desc table backup |data blocks |
   ------------------------------------------------------------------------------------------------------------------------------------------
   0                1024           block 2                   block n
 
@@ -104,7 +111,7 @@ Read a file: Sequence diagram
   // permet de charger en mémoire le super-bloc du péripherique (bloc) specifié.
 - Initialisation du systeme de fchiers
   void mount_root(void);
-  // permet d?initialiser le systeme de fchiers, en montant à sa racine les fchiers du peripherique
+  // permet d'initialiser le systeme de fchiers, en montant à sa racine les fchiers du peripherique
      bloc racine.
      
 - Super block : is 1024 bytes in length, and is always located at the 1024th byte on the disk.
@@ -133,7 +140,8 @@ Read a file: Sequence diagram
 - Inode : may represente file, directory, device, socket.
 - Inode number: is not stored on disk, it is a index in inode_table.
 
-======Some calcul===========
+** Some calcul**
+~~~
 block_size=1024
 blocks_per_group=8192
 =>size of block bitmap=1 block 
@@ -153,10 +161,11 @@ if:
  sizeof(i.>>£>.>>	/node)=128
 then:
  inodes_per_block = 1024/128 = 8
- inode_table_size = s_inodes_per_group/inodes_per_block = 1624/8 = 203 blocks
-=====================+
+ inode_table_size = s_inodes_per_group/inodes_per_block = 1624/8 = 203 blocks=====================+
+~~~
 
 /!\ always round up divisions.
+
 ** references ext2
 - see ext2.h
 - http://uranus.chrysocome.net/explore2fs/es2fs.htm
