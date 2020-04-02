@@ -99,7 +99,7 @@ void unregister_ide_device (device_t *device)
   kfree(device);
 }
 
-int inline is_busy (controller_t *ctrl)
+static int inline is_busy (controller_t *ctrl)
 {
   return (inb(ctrl->base+REG_STATUS) & STATUS_BSY);
 }

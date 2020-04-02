@@ -15,8 +15,8 @@ CHECKSUM = -(MAGIC + FLAGS)
 .extern startup_32
 
 
-#the bootloader will search this signature in the first 8kB. the multiboot header
-#must be ligned at 32-bit boundary.
+# The bootloader will search this signature in the first 8kB. the multiboot header
+# must be ligned at 32-bit boundary.
 .section .multiboot 
 .align 4 
 mboot_header:

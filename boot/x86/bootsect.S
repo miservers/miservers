@@ -1,6 +1,6 @@
 /* Copyright 2016 @AR
  *
- * this is the boot sector. it loads load setup and kernel, and jump to SETUPSEG:0 (0x90200).
+ * This is the boot sector. it loads  setup and kernel, and jump to SETUPSEG:0 (0x90200).
  * Le boot sector se deplace  à 0x90000(9000:0000), afin d avoir le plus d espace
  * possible en memoire basse(<1Mo, Low memory).
  */

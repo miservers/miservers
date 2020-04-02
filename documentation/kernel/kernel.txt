@@ -1,3 +1,4 @@
+
 #### Notes magOS ####
 ** boot process x86
    - on cpu reset, bios load the MBR at 0x7c00, 
@@ -263,7 +264,7 @@ contiguous page frames
    Dijkstra: semaphore, tri-color marking algorithm(used in gc)
    
 ** Other (hobby) kernels
- - TutoOS
+ - TutoOS : http://a.michelizza.free.fr/pmwiki.php?n=TutoOS.TutoOS
  - SOS - simple os
  - duneOS : https://github.com/naegelejd/duneOS
  - Geekos
