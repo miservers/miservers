@@ -91,9 +91,9 @@ $ gdb
  
 - Objcopy :  is part of the GNU binutils package  
    
-    $ objcopy --only-keep-debug kernel.elf kernel.sym
-    $ objcopy --strip-debug kernel.elf
-    $ objcopy -O binary kernel.elf kernel.bin
+    $ objcopy --only-keep-debug kernel.elf kernel.sym  
+    $ objcopy --strip-debug kernel.elf  
+    $ objcopy -O binary kernel.elf kernel.bin  
   
     (gdb) symbol-file kernel.elf     
 
