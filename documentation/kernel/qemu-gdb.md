@@ -2,11 +2,13 @@
 - http://wiki.osdev.org/Kernel_Debugging
 
 - Notes importantes
-   - to debug real mode : 'set arch i386' in gdb
+   - to debug real mode : 
+     > 'set arch i386' in gdb
    - breakpoints dont work properly if  base address(in GDT) is not 0x0(see head.S). You can do 'break *0xc0001234' but...
    - Access console Qemu : 
      > Esc+2 and Esc+1 au lieu de Ctl+Alt+1 ou 2. 
-   - Access au registers GDTR,CR0,.... Acceder a la console Qemu puis tapper "info registers"
+   - Access au registers GDTR,CR0,.... 
+     > Depuis la console Qemu, tapper "info registers"
 
 - Peripherals simulated by QEMU PC System emulator:  
   http://wiki.qemu.org/download/qemu-doc.html Ch.3
@@ -15,21 +17,31 @@
 
     $ apt-get install qemu
   
-- Qemu build from sources : see ./tools/build-qemu.sh
+- Qemu build from sources
+ > ./tools/build-qemu.sh
   
 - Compiler avec "-g" , puis generer .bin a partir .elf(voir le Makefile):
   >objcopy -O binary  kernel.elf kernel.bin
 
 - gdb config
-  >cp munix/gdbinit.txt ~/.gdbinit
+  >cp munix/gdbinit.txt ~/.gdbinit  
 
 - to debug real mode code, [set architecture i8086]
   > cp munix/gdbinit_real_mode.txt ~/.gdbinit
--  
- # ./qemu-system-i386 -s -S /logiciels/floppyA.img -no-fd-bootchk
-  -s equivalenta-gdb tcp::1234
 
-# gdb
+
+## Debug Qemu
+
+Run Qemu in debug mode:
+
+> ./qemu-system-i386 -s -S /logiciels/floppyA.img -no-fd-bootchk 
+
+-s equivalent a gdb tcp::1234
+
+Run GDB:
+
+~~~
+$ gdb
  (gdb) target remote localhost:1234
  (gdb) set architecture i8086     #only to debug real mode code
  (gdb) symbol-file kernel.elf
@@ -72,46 +84,55 @@
         hb *0x90219   //hard break, if softbreak dont work
         x/10i $cs*16+$eip   //to dump the code at the PC position.
         ni
-        
+~~~
+
 - Executer les commandes a partir d'un ficher
- gdb -x gdb.cmd
+> gdb -x gdb.cmd
  
-- objcopy :  is part of the GNU binutils package
-   objcopy --only-keep-debug kernel.elf kernel.sym
-   objcopy --strip-debug kernel.elf
-   objcopy -O binary kernel.elf kernel.bin
-  (gdb) symbol-file kernel.elf     
+- Objcopy :  is part of the GNU binutils package
+   
+    $ objcopy --only-keep-debug kernel.elf kernel.sym
+    $ objcopy --strip-debug kernel.elf
+    $ objcopy -O binary kernel.elf kernel.bin
+  
+    (gdb) symbol-file kernel.elf     
 
 - chercher une aide par keyword
-  (gdb) apropos myword
+    
+    (gdb) apropos myword
 
-- call a function in gdb
-  gdb$ p/x *find_task(1)
-  we can also do:
-  gdb$ call find_task(1)
-  $1 = (task_t *) 0xc1fdb000
-  gdb$ p *$1
+- Call a function in gdb
+  
+    gdb$ p/x *find_task(1)
+    we can also do:
+    gdb$ call find_task(1)
+    $1 = (task_t *) 0xc1fdb000
+    gdb$ p *$1
+
 
 - make gdb save history
-  Create a file $HOME/.gdbinit with the following content:
+
+    Create a file $HOME/.gdbinit with the following content:
     set history save
     
 - Quit without confirm prompt
-Edit ~/.gdbinit with:
-  define hook-quit
-    set confirm off
-  end
+
+    $ nano ~/.gdbinit with:
+      define hook-quit
+      set confirm off
+      end
 
 - gdb; passe argument to programm
-  gdb --args progfile arg1 arg2
+      
+      gdb --args progfile arg1 arg2
 
-** debug with gdb and gdbserver
+## Debug with GDB and GDB Server
   run gdbserver:
-    # gdbserver [localhost]:1234 mm_test.bin
+    $ gdbserver [localhost]:1234 mm_test.bin
   run gdb:
-    # gdb --directory=/path/to/src /usr/magOS/bin/test/mm_test.bin
+    $ gdb --directory=/path/to/src /usr/magOS/bin/test/mm_test.bin
       (gdb) target remote localhost:1234
       (gdb) b main
       (gdb) c
   you can use this:
-    # gdb --directory=/magOS/mm /magOS/bin/test/mm_test.bin -ex="target remote localhost:1234"
+    $ gdb --directory=/magOS/mm /magOS/bin/test/mm_test.bin -ex="target remote localhost:1234"
