@@ -41,10 +41,10 @@ Run Qemu in debug mode:
 Run GDB:
 
 ~~~
-$ gdb
- (gdb) target remote localhost:1234
- (gdb) set architecture i8086     #only to debug real mode code
- (gdb) symbol-file kernel.elf
+ $ gdb
+  (gdb) target remote localhost:1234
+  (gdb) set architecture i8086     #only to debug real mode code
+  (gdb) symbol-file kernel.elf
        b init_gdt
        b *0x1000
        b main.c:63
@@ -75,12 +75,12 @@ $ gdb
        where ou bt(backtrace)
        display 	  	- affiche la valeur d'une expression à chaque arrêt du programme
        undisplay
-- Debug real mode
+ - Debug real mode
   /!\ apres la command "cont" if faut faire  "delete", afin de supprimer le breakpoint
       car gdb se bloque et "ni" ne le fait plus avancer!!!. apres on peut creer un new break, mais il
       faut le supprimer aussi apres "cont".
-  (gdb) set architecture i8086     #only to debug real mode code
-  (gdb) b *0x7c00
+   (gdb) set architecture i8086     #only to debug real mode code
+   (gdb) b *0x7c00
         hb *0x90219   //hard break, if softbreak dont work
         x/10i $cs*16+$eip   //to dump the code at the PC position.
         ni
@@ -90,49 +90,53 @@ $ gdb
   > gdb -x gdb.cmd
  
 - Objcopy :  is part of the GNU binutils package  
-   
+    ~~~
     $ objcopy --only-keep-debug kernel.elf kernel.sym  
     $ objcopy --strip-debug kernel.elf  
     $ objcopy -O binary kernel.elf kernel.bin  
   
     (gdb) symbol-file kernel.elf     
-
+    ~~~
 - chercher une aide par keyword
-    
-    (gdb) apropos myword
+  > (gdb) apropos myword
 
 - Call a function in gdb
-  
+  ~~~
     gdb$ p/x *find_task(1)
     we can also do:
     gdb$ call find_task(1)
     $1 = (task_t *) 0xc1fdb000
     gdb$ p *$1
-
+  ~~~
 
 - make gdb save history
 
     Create a file $HOME/.gdbinit with the following content:
-    set history save
+    >set history save
     
 - Quit without confirm prompt
-
+  ~~~
     $ nano ~/.gdbinit with:
       define hook-quit
       set confirm off
       end
-
+  ~~~
 - gdb; passe argument to programm
-      
-      gdb --args progfile arg1 arg2
+  > gdb --args progfile arg1 arg2
 
 ## Debug with GDB and GDB Server
   run gdbserver:
-    $ gdbserver [localhost]:1234 mm_test.bin
+    > $ gdbserver [localhost]:1234 mm_test.bin
+  
   run gdb:
+  ~~~
     $ gdb --directory=/path/to/src /usr/magOS/bin/test/mm_test.bin
       (gdb) target remote localhost:1234
       (gdb) b main
       (gdb) c
+  ~~~
+  
   you can use this:
-    $ gdb --directory=/magOS/mm /magOS/bin/test/mm_test.bin -ex="target remote localhost:1234"
+  > $ gdb --directory=/magOS/mm /magOS/bin/test/mm_test.bin -ex="target remote localhost:1234"
+
+
