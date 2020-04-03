@@ -10,8 +10,7 @@
    - Access au registers GDTR,CR0,.... 
      > Depuis la console Qemu, tapper "info registers"
 
-- Peripherals simulated by QEMU PC System emulator:  
-  http://wiki.qemu.org/download/qemu-doc.html Ch.3
+- Peripherals simulated by QEMU PC System emulator: [Ch.3](http://wiki.qemu.org/download/qemu-doc.html)
   
 - Install qemu on Debian, but il may be old version
   > $ apt-get install qemu
