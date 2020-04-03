@@ -89,7 +89,7 @@ $ gdb
 - Executer les commandes a partir d'un ficher
   > gdb -x gdb.cmd
  
-- Objcopy :  is part of the GNU binutils package
+- Objcopy :  is part of the GNU binutils package  
    
     $ objcopy --only-keep-debug kernel.elf kernel.sym
     $ objcopy --strip-debug kernel.elf
