@@ -1,5 +1,7 @@
 ## QEMU & GDB
-- http://wiki.osdev.org/Kernel_Debugging
+Refs:
+  - http://wiki.osdev.org/Kernel_Debugging
+  - https://qemu.weilnetz.de/doc/qemu-doc.html
 
 - Notes importantes
    - to debug real mode : 
@@ -9,8 +11,6 @@
      > Esc+2 and Esc+1 au lieu de Ctl+Alt+1 ou 2. 
    - Access au registers GDTR,CR0,.... 
      > Depuis la console Qemu, tapper "info registers"
-
-- Peripherals simulated by QEMU PC System emulator: [Ch.3](http://wiki.qemu.org/download/qemu-doc.html)
   
 - Install qemu on Debian, but il may be old version
   > $ apt-get install qemu
