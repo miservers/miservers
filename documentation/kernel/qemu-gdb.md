@@ -14,17 +14,16 @@
   http://wiki.qemu.org/download/qemu-doc.html Ch.3
   
 - Install qemu on Debian, but il may be old version
-
-    $ apt-get install qemu
+  > $ apt-get install qemu
   
 - Qemu build from sources
- > ./tools/build-qemu.sh
+  > ./tools/build-qemu.sh
   
 - Compiler avec "-g" , puis generer .bin a partir .elf(voir le Makefile):
-  >objcopy -O binary  kernel.elf kernel.bin
+  > objcopy -O binary  kernel.elf kernel.bin
 
 - gdb config
-  >cp munix/gdbinit.txt ~/.gdbinit  
+  > cp munix/gdbinit.txt ~/.gdbinit  
 
 - to debug real mode code, [set architecture i8086]
   > cp munix/gdbinit_real_mode.txt ~/.gdbinit
@@ -121,11 +120,12 @@ Run GDB:
       set confirm off
       end
   ~~~
+
 - gdb; passe argument to programm
   > gdb --args progfile arg1 arg2
 
 ## Debug with GDB and GDB Server
-  run gdbserver:
+  run gdbserver: 
     > $ gdbserver [localhost]:1234 mm_test.bin
   
   run gdb:
