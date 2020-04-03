@@ -4,7 +4,8 @@
 - Notes importantes
    - to debug real mode : 'set arch i386' in gdb
    - breakpoints dont work properly if  base address(in GDT) is not 0x0(see head.S). You can do 'break *0xc0001234' but...
-   - Access console Qemu : Esc+2 and Esc+1 au lieu de Ctl+Alt+1 ou 2. 
+   - Access console Qemu : 
+     > Esc+2 and Esc+1 au lieu de Ctl+Alt+1 ou 2. 
    - Access au registers GDTR,CR0,.... Acceder a la console Qemu puis tapper "info registers"
 
 - Peripherals simulated by QEMU PC System emulator:  
