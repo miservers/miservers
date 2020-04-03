@@ -1,33 +1,29 @@
-##### QEMU & GDB ########
+## QEMU & GDB
 - http://wiki.osdev.org/Kernel_Debugging
+
 - Notes importantes
    - to debug real mode : 'set arch i386' in gdb
    - breakpoints dont work properly if  base address(in GDT) is not 0x0(see head.S). You can do 'break *0xc0001234' but...
    - Access console Qemu : Esc+2 and Esc+1 au lieu de Ctl+Alt+1 ou 2. 
    - Access au registers GDTR,CR0,.... Acceder a la console Qemu puis tapper "info registers"
-- Peripherals simulated by QEMU PC System emulator:
+
+- Peripherals simulated by QEMU PC System emulator:  
   http://wiki.qemu.org/download/qemu-doc.html Ch.3
   
 - Install qemu on Debian, but il may be old version
-  # apt-get install qemu
+
+    $ apt-get install qemu
   
-- Qemu build from sources
-  # Install preq packages
-    apt-get install git libglib2.0-dev libfdt-dev libpixman-1-dev zlib1g-dev ncurses-dev libncurses5-dev libncursesw5-dev
-  # get code
-    git clone --depth 1 git://git.qemu-project.org/qemu.git
-  # mkdir /opt/qemu
-  # cd /src/qemu
-  # ./configure --enable-debug --disable-kvm --enable-curses --prefix=/opt/qemu --target-list="i386-softmmu" --disable-vnc
-  # make -j4
-  # make install
+- Qemu build from sources : see ./tools/build-qemu.sh
   
-- Compiler avec "-g" , puis generer .bin a partir .elf(voir le Makefile): 
-	objcopy -O binary  kernel.elf kernel.bin
+- Compiler avec "-g" , puis generer .bin a partir .elf(voir le Makefile):
+  >objcopy -O binary  kernel.elf kernel.bin
+
 - gdb config
-  cp munix/gdbinit.txt ~/.gdbinit
+  >cp munix/gdbinit.txt ~/.gdbinit
+
 - to debug real mode code, [set architecture i8086]
-  cp munix/gdbinit_real_mode.txt ~/.gdbinit
+  > cp munix/gdbinit_real_mode.txt ~/.gdbinit
 -  
  # ./qemu-system-i386 -s -S /logiciels/floppyA.img -no-fd-bootchk
   -s equivalenta-gdb tcp::1234

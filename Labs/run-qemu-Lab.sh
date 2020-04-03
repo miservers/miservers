@@ -12,7 +12,7 @@
 #
 set +x
 
-KERN_ISO=../bin/Lab1.iso
+KERN_ISO=~/magOS/bin/Lab1.iso
 ARCH=i386
 QEMU_HOME=/opt/qemu
 QEMU_OPTS='-vga std -curses -show-cursor -full-screen -no-fd-bootchk -D $LOGFILE'
@@ -23,6 +23,6 @@ export PATH=$PATH:$QEMU_HOME/bin
 if [ ""$1 == "-g" ] ; then
   DEBUG="-s  -S"
 fi
-qemu-system-$ARCH -m 32  $DEBUG  $QEMU_OPTS -boot d  -hda $KERN_ISO -D $LOGFILE $LOGOPT
+qemu-system-$ARCH -m 32  $DEBUG  $QEMU_OPTS -boot d  -cdrom $KERN_ISO -D $LOGFILE $LOGOPT
 
 
