@@ -1,7 +1,7 @@
 ## QEMU & GDB
-Refs:
-  - http://wiki.osdev.org/Kernel_Debugging
-  - https://qemu.weilnetz.de/doc/qemu-doc.html
+Refs:  
+  http://wiki.osdev.org/Kernel_Debugging  
+  https://qemu.weilnetz.de/doc/qemu-doc.html  
 
 - Notes importantes
    - to debug real mode : 
