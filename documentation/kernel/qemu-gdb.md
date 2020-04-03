@@ -87,7 +87,7 @@ $ gdb
 ~~~
 
 - Executer les commandes a partir d'un ficher
-> gdb -x gdb.cmd
+  > gdb -x gdb.cmd
  
 - Objcopy :  is part of the GNU binutils package
    
