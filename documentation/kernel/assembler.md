@@ -1,5 +1,5 @@
 ## AT&T vs Intel Synstax
-- Prefixes  
+**Prefixes**  
 
 |Intex Syntax  |      AT&T Syntax     |
 |--------------|----------------------|      
@@ -7,22 +7,26 @@
 |mov ebx,0ffh  |    movl $0xff,%ebx   |
 |int 80h       |    int  $0x80        |
 
--- Direction of Operands.
-Intex Syntax         AT&T Syntax
-instr  dest,source   instr source,dest
-mov eax,[ecx]        movl (%ecx),%eax
+**Direction of Operands**
 
--- Memory Operands
-Intex Syntax      AT&T Syntax
-mov  eax,[ebx]    movl (%ebx),%eax
-mov  eax,[ebx+3]  movl 3(%ebx),%eax
+|Intex Syntax  |         AT&T Syntax  |
+|--------------|----------------------|      
+|instr  dest,source|   instr source,dest|
+|mov eax,[ecx]|        movl (%ecx),%eax|
 
-Intel Syntax                                 AT&T Syntax
-instr dest, [base+index*scale+disp]          instr disp(base,index,scale),dest
-mov  eax,[ebx+20h]                           movl  0x20(%ebx),%eax
-add  eax,[ebx+ecx*2]                         addl  (%ebx,%ecx,2),%eax
-lea  eax,[ebx+ecx]                           leal  (%ebx,%ecx),%eax
-sub  eax,[ebx+ecx*4h-20h]                    subl  -0x20(%ebx,%ecx,0x4),%eax
+**Memory Operands**
+|Intex Syntax    |         AT&T Syntax  |
+|----------------|----------------------|      
+|mov  eax,[ebx]  |    movl (%ebx),%eax  |
+|mov  eax,[ebx+3]|   movl 3(%ebx),%eax  |
+
+|Intex Syntax                         |         AT&T Syntax                       |
+|-------------------------------------|-------------------------------------------|      
+|instr dest, [base+index*scale+disp]  |         instr disp(base,index,scale),dest |
+|mov  eax,[ebx+20h]                   |        movl  0x20(%ebx),%eax              |
+|add  eax,[ebx+ecx*2]                 |        addl  (%ebx,%ecx,2),%eax           |
+|lea  eax,[ebx+ecx]                   |        leal  (%ebx,%ecx),%eax
+|sub  eax,[ebx+ecx*4h-20h]            |        subl  -0x20(%ebx,%ecx,0x4),%eax
 
 -- in AT&T 'movl $foo,%eax' puts the address of variable foo into register %eax , 
    but 'movl foo,%eax' puts the contents of variable foo into register %eax .
