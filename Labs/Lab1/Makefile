@@ -20,7 +20,12 @@ LD       = i386-elf-ld
 CC       = i386-elf-gcc
 CFLAGS += -O0
 
-all: iso
+all: Lab1.iso
+
+Lab1.iso:$(OUT_EXE)
+	@echo --------Creating the FLOPPY----------
+	cat $(OUT_DIR)/bootsect.bin /dev/zero | dd of=$(KERN_IMG) bs=512 count=2880
+
 
 $(OUT_DIR)/bootsect.o:$(SRC_DIR)/bootsect.S
 	$(CC) $(CFLAGS) -c $< -o $@

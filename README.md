@@ -23,6 +23,7 @@ I have more than 15 years experience on Java/AppServers, I have also experience 
 
 ## Build magOS
 
+
 ## Development Environment
 - Environment: 
   On Andoid: Terminal emulator, Gnuroot Debian

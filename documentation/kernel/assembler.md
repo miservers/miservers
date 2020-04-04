@@ -1,9 +1,10 @@
-######### AT&T vs Intel Synstax ######
--- Prefixes.
-Intex Syntax      AT&T Syntax
-mov eax,1         movl $1,%eax
-mov ebx,0ffh      movl $0xff,%ebx
-int 80h           int  $0x80
+## AT&T vs Intel Synstax
+- Prefixes.
+|Intex Syntax  |      AT&T Syntax     |
+|--------------|----------------------|      
+|mov eax,1     |     movl $1,%eax     |
+|mov ebx,0ffh  |    movl $0xff,%ebx   |
+|int 80h       |    int  $0x80        |
 
 -- Direction of Operands.
 Intex Syntax         AT&T Syntax

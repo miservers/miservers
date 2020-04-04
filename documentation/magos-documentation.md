@@ -2,6 +2,8 @@
 
 1. [Bios](./kernel/bios.md)
 
+2. [Assembler](./kernel/assembler.md)
+
 2. [Kernel](./kernel/kernel.txt)
 
 3. [ELF](./kernel/elf.md)

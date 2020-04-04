@@ -1,4 +1,4 @@
-## QEMU & GDB
+## QEMU & GDB Info
 Refs:  
   http://wiki.osdev.org/Kernel_Debugging  
   https://qemu.weilnetz.de/doc/qemu-doc.html  
@@ -7,13 +7,17 @@ Refs:
    - to debug real mode : 
      > 'set arch i386' in gdb
    - breakpoints dont work properly if  base address(in GDT) is not 0x0(see head.S). You can do 'break *0xc0001234' but...
-   - Access console Qemu : 
-     > Esc+2 and Esc+1 au lieu de Ctl+Alt+1 ou 2. 
-   - Access au registers GDTR,CR0,.... 
-     > Depuis la console Qemu, tapper "info registers"
+   - Access Qemu Monitor :
+     > For Qemu 4: Ctr-a b 
+     > For Qemu 2 : Esc+2 and Esc+1 au lieu de Ctl+Alt+1 ou 2. 
+   - Exit Qemu:
+     > For Qemu4 : Ctrl-a x
+     or 
+     > (qemu) quit
+     
   
 - Install qemu on Debian, but il may be old version
-  > $ apt-get install qemu
+  > $ apt-get install qemu qemu-kvm
   
 - Qemu build from sources
   > ./tools/build-qemu.sh
@@ -21,22 +25,31 @@ Refs:
 - Compiler avec "-g" , puis generer .bin a partir .elf(voir le Makefile):
   > objcopy -O binary  kernel.elf kernel.bin
 
-- gdb config
-  > cp munix/gdbinit.txt ~/.gdbinit  
-
-- to debug real mode code, [set architecture i8086]
-  > cp munix/gdbinit_real_mode.txt ~/.gdbinit
+- Qemu Monitor commands : https://www.qemu.org/docs/master/system/monitor.html
 
 
-## Debug Qemu
+## Debug Qemu with  GQB
 
-Run Qemu in debug mode:
+**GDB freindly output:**
+  - To debug real mode code, [set architecture i8086]
+    > cp tools/gdbinit_real_mode.txt ~/.gdbinit
+  - To debug C code
+    > cp tools/gdbinit_c.txt ~/.gdbinit  
+  - To debug ASM code
+    > cp tools/gdbinit_asm.txt ~/.gdbinit
+
+
+**Run Qemu in debug mode**:
 
 > ./qemu-system-i386 -s -S /logiciels/floppyA.img -no-fd-bootchk 
 
 -s equivalent a gdb tcp::1234
 
-Run GDB:
+
+
+**Run GDB**:
+- Run commands from a file for user/kernel Spaces
+  > gdb -x ~/magOS/tools/gdb-user.cmd
 
 ~~~
  $ gdb
@@ -79,14 +92,20 @@ Run GDB:
       faut le supprimer aussi apres "cont".
    (gdb) set architecture i8086     #only to debug real mode code
    (gdb) b *0x7c00
-        hb *0x90219   //hard break, if softbreak dont work
-        x/10i $cs*16+$eip   //to dump the code at the PC position.
-        ni
+         hb *0x90219   //hard break, if softbreak dont work
+         x/10i $cs*16+$eip   //to dump the code at the PC position.
+         ni   - next asm instr
+         si   - step in 
+       
 ~~~
 
-- Executer les commandes a partir d'un ficher
-  > gdb -x gdb.cmd
+
+
  
+- Access au registers GDTR,CR0,.... 
+     > Depuis la console Qemu, tapper "info registers"
+
+
 - Objcopy :  is part of the GNU binutils package  
     ~~~
     $ objcopy --only-keep-debug kernel.elf kernel.sym  
