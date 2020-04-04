@@ -23,8 +23,8 @@
 - Understanding the Linux Virtual Memory Manager. Mel Gorman
 - Linux Kernel Development. Robert Love
 
-**Computer scientists**
-   Dijkstra: semaphore, tri-color marking algorithm(used in gc)
+**Scientists**  
+   - **Dijkstra**: semaphore, tri-color marking algorithm(used in gc)
    
 **Other (hobby) kernels**
  - TutoOS : http://a.michelizza.free.fr/pmwiki.php?n=TutoOS.TutoOS
