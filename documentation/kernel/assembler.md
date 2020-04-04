@@ -28,35 +28,46 @@
 |lea  eax,[ebx+ecx]                   |        leal  (%ebx,%ecx),%eax
 |sub  eax,[ebx+ecx*4h-20h]            |        subl  -0x20(%ebx,%ecx,0x4),%eax
 
--- in AT&T 'movl $foo,%eax' puts the address of variable foo into register %eax , 
-   but 'movl foo,%eax' puts the contents of variable foo into register %eax .
+AT&T :  'movl $foo,%eax' puts the address of variable foo into register %eax , 
 
--- Suffixes.
-Intel Syntax                 AT&T Syntax
-mov al,bl                    movb %bl,%al
-mov ax,bx                    movw %bx,%ax
-mov eax,ebx                  movl %ebx,%eax
-mov eax, dword ptr [ebx]     movl (%ebx),%eax
+Intel:  'movl foo,%eax' puts the contents of variable foo into register %eax .
 
-######## Notes ASM - x86 #########
-MOV :
+**Suffixes**
+|Intex Syntax    |         AT&T Syntax  |
+|----------------|----------------------|      
+|mov al,bl |                   movb %bl,%al |
+|mov ax,bx  |                  movw %bx,%ax   |
+|mov eax,ebx |                 movl %ebx,%eax   |
+|mov eax, dword ptr [ebx] |    movl (%ebx),%eax   |
+
+
+## Notes ASM - x86
+
+**MOV :**
+~~~
    att_syntax examples:
       mov $label, %eax  ; mov addresse label in eax
       movl $56, 12(%ebx, %ecx, 4) ; [ebx+12+ecx*4]=56 
       
-TEST : test r/m r/imm
+   TEST : test r/m r/imm
    Computes the bit-wise logical AND of first operand (source 1 operand) and the second operand (source 2 operand) 
    and sets the SF, ZF, and PF status flags according to the result. 
    test eax, eax   ; set ZF to 1 if eax == 0
    jz .error  ; jump if ZF == 1
-   
-MOVSB : Move byte at address DS:(E)SI to address ES:(E)DI. if df==0 esi++; edi++
+~~~ 
 
-LODS : load string
+**MOVSB** : Move byte at address DS:(E)SI to address ES:(E)DI. if df==0 esi++; edi++
+
+**LODS** : load string
+
    LODSB :	Load byte at address DS:(E)SI into AL. if df==0 esi++
-STOS : store string
+
+**STOS** : store string
+
    STOSB :	store xAL at address DS:(E)DI. if df==0 edi++
-REP : Repeat String Operation
+
+**REP** : Repeat String Operation
+   ~~~
    REP MOVSB : Move (E)CX bytes from DS:[(E)SI] to ES:[(E)DI].
    REP OUTS DX, r/m8 : 	Output (E)CX bytes from DS:[(E)SI] to port DX.
    REP LODS EAX	: Load (E)CX doublewords from DS:[(E)SI] to EAX.
@@ -65,43 +76,57 @@ REP : Repeat String Operation
    REPE SCAS m8	: Find non-AL byte starting at ES:[(E)DI].
    REPNE CMPS m32, m32	: Find matching doublewords in ES:[(E)DI] and DS:[(E)SI].
    REPNE SCAS m8	: Find AL, starting at ES:[(E)DI].
+   ~~~
 
-JCC : jump if a condition is met
+**JCC** : jump if a condition is met
+   ~~~  
    condition      unsigned     signed      Flags
       =           je, jz       je, jz      ZF=1 
       !=          jne, jnz     jne, jnz    ZF=0
       <,<=        jb, jbe      jl, jle     CF=1 for usigned, SF!=OF for signed   
       >,>=        ja, jae      jg, jge     CF=0 for usigned, SF=OF for signed
+   ~~~
 
-CMP : 'cmp destination, source', make 'destination - source' and set flags
+**CMP** : 'cmp destination, source', make 'destination - source' and set flags
+    
     Examples
     cmp    ax, 78h
     jg     short loc_402B1D    ; if ax > 78h, jump to loc_402B1D
    
-OFFSET
-   mov edi, offset swapper_pg_dir
-LEA : Load Effective address
-   lea eax, var1
-LEAVE : is equivalent to, in Intel syntax:
-   mov esp, ebp
-   pop ebp
+**OFFSET**
 
-################# Methode de programmation assembleur ###############
+    mov edi, offset swapper_pg_dir
+
+**LEA** : Load Effective address
+   
+    lea eax, var1
+
+**LEAVE** : is equivalent to, in Intel syntax:
+   
+    mov esp, ebp
+    pop ebp
+
+##Methode de programmation assembleur
+
 | x=a-b+c
-asm:
-  mov eax, a
-  sub eax, b
-  add eax, c
-  mov x, eax
+   
+    asm:
+      mov eax, a
+      sub eax, b
+      add eax, c
+      mov x, eax
   
--- IF --
+**IF**
+~~~
 int x = ...;
 if (x == 5) {
    x = x + 2;
 } else {
-    x = x â 4;
+    x = x - 4;
 }
+~~~
 --> translated to asm
+~~~
 if:
     cmpl eax, $5
     jne else
@@ -111,12 +136,18 @@ else:
     subl eax, $4
 fin_if:	
 
+~~~
+
+**IF : example1**
+~~~
 | IF ( a==5 AND b>10) THEN
 |   action-then
 | ELSE
 |   action-else
 | END-IF
+~~~
 Translated to:
+~~~
 if (a==5) then
    if (b>10) then
       action-then
@@ -124,7 +155,9 @@ if (a==5) then
 else
    action-else
 endif
+~~~
 Pseudo asm:
+~~~
  cmp a, 5
  jne .else
  cmp b, 10
@@ -132,15 +165,20 @@ Pseudo asm:
  action-then
  jmp .endif
 .else:
- action-else
+   action-else
 .endif:
+~~~
 
+**IF : example1**
+~~~
 | IF ( a==5 OR b>10) THEN
 |   action-then
 | ELSE
 |   action-else
 | END-IF
+~~~
 -->
+~~~
 if a==5 then
   jmp action-then
 else
@@ -150,7 +188,9 @@ else
     action-else
   endif
 endif
+~~~
 --> asm
+~~~
   cmp a, 5
   jne .else
   jmp .action-then
@@ -163,24 +203,34 @@ endif
 .action-else:
   action-else
 .endif      
+~~~
     
--- WHILE --
+**WHILE**
+~~~
 int x = ...;
 while (x > 5) {
     x = x - 1;
 }
+~~~
+ASM Code:
+~~~
 while:
     cmpl eax, $5
     jle fin_while
     subl eax, $1
     jmp while
 fin_while:
+~~~
 
--- FOR --
+**FOR**
+~~~
 int x = ...;
 for (i = 0; i < 5; i++) {
     x = x + 4;
 }
+~~~
+ASM Code:
+~~~
     movl ecx, $0
 for:
     cmpl ecx, $5
@@ -189,11 +239,15 @@ for:
     inc ecx
     jmp for
 fin_for:
+~~~
 
+**For : Example**
+~~~
 int idt[256];
 for (i = 0; i < 256; i++) {
     idt[i] = 5;
 }
+
    mov ecx, 0
    mov edi, offset idt
 for_each_idt:
@@ -202,23 +256,30 @@ for_each_idt:
    cmp ecx, 256
    jb for_each_idt
    suite instrs
+~~~
 
---- ARRAY : TABLEAUX ---
+**ARRAY : TABLEAUX**
+~~~
 int array[256];
-|for (i=0; i<256; i++)
-|  array[i] = var1;
+for (i=0; i<256; i++)
+  array[i] = var1;
+
+~~~
 -->
+~~~
    mov eax, var1
    mov ecx, 255
    mov edi, offset array #ou lea edi, array
 for_each_el:
    mov [edi+ecx*4], eax
    loop for_each_el
-   
+ ~~~
+  
 
 
-######## Notes ASM - ARM v7#########
-## Registers
+##Notes ASM - ARM v7
+#### Registers
+~~~
 - R0 to R3 : The first four arguments are passed in R0-R3. Any subsequent arguments are passed on the stack.
              The return value, if any, is passed back in R0-R3. Typically only R0 is used.
 - R4 to R11 : used to hold local variables.
@@ -227,18 +288,23 @@ for_each_el:
 - LR/r14 : Link register which holds the callers?s return address.
 - PC/r15 : program counter
 - CPSR : current program status register
+~~~
 
 
-## ARM is a load-store architecture:
+#### ARM is a load-store architecture:
   You must load values into registers in order to operate upon them.
   No instructions directly operate on values in memory.
 
-## Instructions Set
+#### Instructions Set
+
 - MOV dst, src
+~~~
   MOV r0, #42   ; r0 = 42 
   MOV r2, r3    ; r2 = r3
+~~~
     
 - Addressing Modes
+~~~
   LDR r0,[r1,#20]     ;loads r0 with the word pointed at by r1+20
   LDR r0, [r1, #4]!   ; r0 = [r1+4]; then r1 += 4
   LDR r0, [r1], #4    ; r0 = [r1]; then r1 += 4
@@ -246,12 +312,16 @@ for_each_el:
   
   STR r2, [r3]	 ; [r3] = r2 
   STR r0, [r1],#4  ; [r1] = r0; then Increment R1 by 4.
+~~~
 
 - ADD  dest, op1, op2     ; dest = op1 + op2
+~~~
   ADD  R0, R1, R2         ; R0 = R1 + R2
   ADD  R0, R1, #256       ; R0 = R1 + 256
+~~~
   
 - Branch
+~~~
   B - Branch
     PC := <address>
   BL - Branch with Link
@@ -260,15 +330,19 @@ examples:
   B fwd          ; jump to label 'fwd'
     ...            ; more code here
   fwd
+~~~
 
 Using BL to call a subroutine:
+~~~
     BL  calc       ; call 'calc'
     ...            ; returns to here
     calc               ; function body
     ADD r0, r1, r2 ; do some work here
     MOV pc, r14    ; PC = R14 to retu
+~~~
 
 - add ip, pc, #0, 12 ; equiv "mov ip, pc"
+~~~
 
 ## Doc ARM
 - http://www.davespace.co.uk/arm/introduction-to-arm/movement.html
