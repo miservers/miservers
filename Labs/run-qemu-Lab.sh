@@ -1,8 +1,10 @@
 #!/bin/bash
 # Qemu 4.2
 # Usage :
-#        ./start-qemu-Lab.sh [-g]
-# 			       
+#        ./start-qemu-Lab.sh num [-g]
+# 			<num> is Lab Number (1,2,...)
+#			-g : run in debug mode (GDB)
+#	       
 # Block device options (Qemu 4):
 #    -fda file      :floppy disk 0 image
 #	 -hda file
@@ -13,7 +15,9 @@
 #
 set -x
 
-KERN_ISO=$HOME/magOS/bin/Lab1.iso
+LAB_NUM=$1
+
+KERN_ISO=$HOME/magOS/bin/Lab$LAB_NUM.img
 ARCH=i386
 QEMU_HOME=/opt/qemu
 #QEMU_OPTS='-vga std -curses -show-cursor -full-screen -no-fd-bootchk'
@@ -22,7 +26,7 @@ LOGFILE=/tmp/qemu.log
 LOGOPT="-d cpu_reset,mmu,guest_errors"
 #export PATH=$PATH:$QEMU_HOME/bin
 
-if [ ""$1 == "-g" ] ; then
+if [ ""$2 == "-g" ] ; then
   DEBUG="-s  -S"
 fi
 

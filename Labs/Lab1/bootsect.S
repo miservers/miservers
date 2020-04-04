@@ -1,6 +1,7 @@
 /* LAB-1,  2020 @AR
 *
-*  This Boot Sector will only print a message on the creen. 
+*  This Boot Sector aims to :
+*           - Print a message on the creen. Only. 
 *  
 *  It is loaded by BIOS at 0x7C00 (31K). 
 *
@@ -32,17 +33,10 @@ _start:
    movb $VIDEO_MODE, al
    int $0x10
 
-   movb $0x0b, ah
-   movb $1, bh
-   movb $SCREEN_BG, bl
-   int $0x10
-
-   # Erase screen and Color screen
-   #call scroll_up 
-   #mov $0x03, al
-   #int $0x10
-
-
+   # Color screen
+   call scroll_up 
+   
+   
    # Display Hello message on the screen
    mov $v_hello, si
    call print_msg
@@ -63,10 +57,8 @@ scroll_up:
    push dx
    mov $0, al           # number of lines to scroll 
    mov $SCREEN_BG, bh   
-   mov $0, ch      # y top left
-   mov $0, cl      # x top left
-   mov $24, dh     # y lower right
-   mov $79, dl     # x lower right
+   mov $0x00, cx      # y,x top left
+   mov $0x184F, dx     # y,x lower right
    mov $0x6, ah    # scroll up function
    int $0x10
    pop dx
@@ -97,7 +89,7 @@ print_msg:
    ret
 
 v_hello:
-   .asciz "Hello World" # message on the screen
+   .asciz "Hello World!" # message on the screen
 
 
 .org 510

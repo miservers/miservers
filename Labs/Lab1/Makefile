@@ -5,7 +5,7 @@ SRC_DIR = .
 SRC     = $(wildcard *.S)
 OBJ     = $(SRC:.S=.o)
 
-KERN_IMG = ../../bin/Lab1.iso
+KERN_IMG = ../../bin/Lab1.img
 
 OUT_DIR = ../../bin/Lab1/boot
 OUT_EXE = $(addprefix $(OUT_DIR)/, $(EXE)) 
@@ -20,7 +20,7 @@ LD       = i386-elf-ld
 CC       = i386-elf-gcc
 CFLAGS += -O0
 
-all: Lab1.iso
+all: kernel.imgage
 
 Lab1.iso:$(OUT_EXE)
 	@echo --------Creating the FLOPPY----------
@@ -37,9 +37,9 @@ $(OUT_DIR)/setup.bin:$(OUT_DIR)/setup.o
 	$(LD) --oformat binary -Ttext 0x0  $^ -o $@
 
 
-iso: $(OUT_EXE)
+kernel.imgage: $(OUT_EXE)
 	@echo -------- Building HD Image---------
-	cat $(OUT_DIR)/bootsect.bin /dev/zero | dd status=none of=$(KERN_IMG) bs=512 count=2
+	cat $(OUT_DIR)/bootsect.bin /dev/zero | dd status=none of=$(KERN_IMG) bs=512 count=200
 	
 init:
 	mkdir -p $(OUT_DIR)
