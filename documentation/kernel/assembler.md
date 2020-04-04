@@ -1,6 +1,15 @@
 ## AT&T vs Intel Synstax
-**Prefixes**  
 
+AT&T: 
+
+    'movl $foo,%eax' puts the address of variable foo into register %eax , 
+
+Intel :
+
+    'movl foo,%eax' puts the contents of variable foo into register %eax .
+
+
+**Prefixes**  
 |Intex Syntax  |      AT&T Syntax     |
 |--------------|----------------------|      
 |mov eax,1     |     movl $1,%eax     |
@@ -28,9 +37,6 @@
 |lea  eax,[ebx+ecx]                   |        leal  (%ebx,%ecx),%eax
 |sub  eax,[ebx+ecx*4h-20h]            |        subl  -0x20(%ebx,%ecx,0x4),%eax
 
-AT&T :  'movl $foo,%eax' puts the address of variable foo into register %eax , 
-
-Intel:  'movl foo,%eax' puts the contents of variable foo into register %eax .
 
 **Suffixes**
 |Intex Syntax    |         AT&T Syntax  |
