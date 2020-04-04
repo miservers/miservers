@@ -8,6 +8,11 @@
 
 BOOTSEG = 0x07C0  
 
+VIDEO_MODE = 0x03        # 03h : 80x25 16 color text (CGA,EGA,MCGA,VGA)
+                         # 12h : 640x480 16 color graphics (VGA)
+SCREEN_BG  = 0x11 
+ATTR_COLOR = 0x11
+
 .att_syntax noprefix
 .code16
 .global _start
@@ -21,14 +26,19 @@ _start:
    movw ax, ss
    movw $0xF000, sp     # stack 0x9F000 -> 0x90000. 651K->589K
 
-   # Set video mode : 80x25 16 color text
+   # Set video mode
    # clear screen
    movb $0, ah
-   movb $0x03, al
+   movb $VIDEO_MODE, al
+   int $0x10
+
+   movb $0x0b, ah
+   movb $1, bh
+   movb $SCREEN_BG, bl
    int $0x10
 
    # Erase screen and Color screen
-   call scroll_up 
+   #call scroll_up 
    #mov $0x03, al
    #int $0x10
 
@@ -51,8 +61,8 @@ scroll_up:
    push ax
    push bx
    push dx
-   mov $0, al      # number of lines to scroll 
-   mov $0x5F, bh   # attribute to display 
+   mov $0, al           # number of lines to scroll 
+   mov $SCREEN_BG, bh   
    mov $0, ch      # y top left
    mov $0, cl      # x top left
    mov $24, dh     # y lower right
@@ -71,12 +81,15 @@ scroll_up:
 print_msg:
    push ax
    push bx
+
+   movb $0x0e, ah        # write function 
+   movb $0, bh           # page
+   movb $7, bl
   while_1: 
-   lodsb            # [ds:si] -> al
-   test al, al      # test si AL=0 
+   lodsb                 # [ds:si] -> al
+   test al, al           # test if AL=0 
    jz end_1
-   movb $0x0E, ah    # write function 
-   int $0x10         # Bios interrupt:write AL on screen
+   int $0x10             
    jmp while_1 
   end_1:
    pop bx
@@ -84,7 +97,7 @@ print_msg:
    ret
 
 v_hello:
-   .asciz "Hello World!" # message on the screen
+   .asciz "Hello World" # message on the screen
 
 
 .org 510

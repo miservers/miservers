@@ -12,3 +12,5 @@
 
 
 10. [Qemu - GDB](./kernel/qemu-gdb.md)
+
+10. [References](./kernel/references.md)
