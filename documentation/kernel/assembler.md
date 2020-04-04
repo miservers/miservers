@@ -1,5 +1,8 @@
 ## AT&T vs Intel Synstax
 
+[AT&T Syntax](https://csiflabs.cs.ucdavis.edu/~ssdavis/50/att-syntax.htm)
+
+
 AT&T: 
 
     'movl $foo,%eax' puts the address of variable foo into register %eax , 
