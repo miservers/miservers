@@ -1,5 +1,5 @@
 ## AT&T vs Intel Synstax
-- Prefixes.
+- Prefixes  
 |Intex Syntax  |      AT&T Syntax     |
 |--------------|----------------------|      
 |mov eax,1     |     movl $1,%eax     |
