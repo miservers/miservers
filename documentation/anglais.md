@@ -37,10 +37,6 @@ fast = vitesse
 
  see: https://learnenglish.britishcouncil.org/en/english-grammar/clause-phrase-and-sentence/verb-patterns/verbs-questions-and-negatives
    
-**Difference between "th" and "ht"**  
-How to pronounciate "th" in (length, width), and "ht" (height, fight, tonight, caught)?. they have different sound,  
-   "th" have [θ] sound[ث]. The ones ending in "ht" all have the [t] sound[ت].
-
 **EVEN**  
    even though: definive outcome  
    even if    : possible outcome.  
@@ -72,6 +68,20 @@ How to pronounciate "th" in (length, width), and "ht" (height, fight, tonight, c
 - and by the way: et en passant
 - To make matters worse: pour aggraver les choses
 - They that sow the wind, shall reap the whirlwind : Ceux qui sèment le vent, récolteront le tourbillon
+
+## Pronounciation
+**Difference between "th" and "ht"**  
+How to pronounciate "th" in (length, width), and "ht" (height, fight, tonight, caught)?. they have different sound,  
+   "th" have [θ] sound[ث]. The ones ending in "ht" all have the [t] sound[ت].
+
+**Sh vs Ch**  
+« sh » : « ch » en français. et « ch » est prononcé « tch »   
+A ship [ʃ] VS a chip [ʧ]   
+Un bateau / une frite  
+The shore [ʃ] / a chore [ʧ]  
+La côte / une tâche ménagère  
+
+
 
 ## Vocabulary
 straight-forward : simple  
@@ -114,10 +124,6 @@ you only have to : vous n'avez plus que
 there was never a relationship: il n'y avait jamais de relation  
 has been, has just been: vient d'être     
 versatile        : polyvalent  
-
-## Pronounciation
-Phonetic Alphabet
- in Google translate: ô = ɔː   ē = i
  
 ## Contractions
 gonna : going to  
