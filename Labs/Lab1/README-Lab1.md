@@ -19,9 +19,12 @@ To run in debug mode: see [qemu-gdb.md](/documentation/kernel/qemu-gdb.md)
 It is a 16-bit mode. All x86 boot in real mode.
 
 **Memory Addressing**  
-In real mode, only 1MB is addressable (20bits Bus). By using segmementation, **Segment:Offset**. 16 bit Segment Registers:  CS, DS, ES, FS, GS, SS. 
+In real mode, only **1MB** is addressable (**20bits** Bus). By using segmementation, **Segment:Offset**. 16 bit Segment Registers:  CS, DS, ES, FS, GS, SS. 
 
     PhysicalAddr = Segment*16 + Offset  = Segment<<4 + Offset
+
+Segment is **64Kb** size, and 16 bits align.
+
 
 Example : 
     

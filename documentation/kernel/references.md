@@ -16,7 +16,7 @@
 
 **Books**
 - Conception des Systemes d'Exploitation/Linux. Patrick Cegielski
-- The Art of Linux Kernel Design
+- The Art of Linux Kernel Design (the MUST).
 - Design of the Unix Operating System. Maurice Bach
 - UNIX Internals: The New Frontiers. by Uresh Vahalia
 - The Slab Allocator. by Jeff Bonwick.
