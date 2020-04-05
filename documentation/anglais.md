@@ -1,24 +1,29 @@
-### CV ###
+## CV
 - high school.
 - I studied at Ensimag(high school), and graduated in 2004 with a diploma of engineer .
 - I've been working for 5 years as java programmer.  
 - My first job was at steria in 2004. my mission was to design and develop the central application of yellow pages.
 
-### Notes ##
--- Poser une question:
-  pronom interrogatif(what, where, why, when) + auxiliaire(is,are) + sujet(you,...) + verbe + compléments?
-  Exemple:
-   Why	are	you	reading	this book?
-   Where	is	the police station	located	in this town?	
-  WHO : who + verbe + comlemets?
-   Who stole	my car?	Qui a volé ma voiture?
-   Who is playing football?
+## Notes
+**Poser une question**:  
+pronom interrogatif (what, where, why, when) + auxiliaire(is,are) + sujet(you,...) + verbe + compléments?
+
+**Exemple**:  
+ Why	are	you	reading	this book?  
+ Where	is	the police station	located	in this town?	
+
+**WHO** : who + verbe + comlemets?  
+Who stole	my car?	Qui a volé ma voiture?  
+Who is playing football?  
    utiliser tjrs 'is' meme si la repense est pluriel(anass and youness are playing...).
-  HOW :  HOW (comment) + TALL (grand) = 'comment grand?' => Quelle taille fais-tu? How tall are you?
-         Il suffit de se rappeler que pour la taille on utilise TALL, et la question est facile à trouver
-   far : distance. how far is your village?
-   long : duree, longueur. how long have you been learning english?
-   often : quatitité. how often do you go to fes?
+   
+**HOW** :  
+HOW (comment) + TALL (grand) = 'comment grand?' => Quelle taille fais-tu? How tall are you?  
+Il suffit de se rappeler que pour la taille on utilise TALL, et la question est facile à trouver
+   
+far : distance. how far is your village?
+long : duree, longueur. how long have you been learning english?
+often : quatitité. how often do you go to fes?
    how many + pluriel: quatitité. how often do you go to fes?
    how much + singulier : un prix, une quqtité
    old = âge. how old are you?
