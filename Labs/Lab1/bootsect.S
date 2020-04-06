@@ -7,7 +7,8 @@
 *
 */
 
-BOOTSEG = 0x07C0  
+BOOTSEG  = 0x07C0  
+STACKSEG = 0x9000
 
 VIDEO_MODE = 0x03        # 03h : 80x25 16 color text (CGA,EGA,MCGA,VGA)
                          # 12h : 640x480 16 color graphics (VGA)
@@ -23,9 +24,9 @@ _start:
    movw $BOOTSEG, ax
    movw ax, ds
    movw ax, es
-   movw $0x9000, ax     # Stack segment
+   movw $STACKSEG, ax     # Stack segment
    movw ax, ss
-   movw $0xF000, sp     # stack 0x9F000 -> 0x90000. 651K->589K
+   movw $0xFFFF, sp       # stack 0x9FFFF -> 0x90000. 640K->576K : 64KB
 
    # Set video mode
    # clear screen
@@ -33,11 +34,8 @@ _start:
    movb $VIDEO_MODE, al
    int $0x10
 
-   # Color screen
-   call scroll_up 
    
-   
-   # Display Hello message on the screen
+   # Display Hello message
    mov $v_hello, si
    call print_msg
 
@@ -49,24 +47,6 @@ halt:
 
 
 #
-# Scroll up screen
-#
-scroll_up:
-   push ax
-   push bx
-   push dx
-   mov $0, al           # number of lines to scroll 
-   mov $SCREEN_BG, bh   
-   mov $0x00, cx      # y,x top left
-   mov $0x184F, dx     # y,x lower right
-   mov $0x6, ah    # scroll up function
-   int $0x10
-   pop dx
-   pop bx
-   pop ax
-   ret
-
-#
 # Display a message on screen
 #     Parameter : string pointer in ds:si
 #
@@ -76,7 +56,7 @@ print_msg:
 
    movb $0x0e, ah        # write function 
    movb $0, bh           # page
-   movb $7, bl
+   movb $0x99, bl
   while_1: 
    lodsb                 # [ds:si] -> al
    test al, al           # test if AL=0 
@@ -89,7 +69,7 @@ print_msg:
    ret
 
 v_hello:
-   .asciz "Hello World!" # message on the screen
+   .asciz "Hello World...Boot Sector OK !"
 
 
 .org 510
