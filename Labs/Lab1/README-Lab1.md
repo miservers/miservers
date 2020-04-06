@@ -37,9 +37,8 @@ MBR-Master Boot Record, is the first sector(LBA=0).
 
 ## Boot Process
 - On powerOn, Bios load the MBR at (segment,offset)=(0x07C0:0x0000).
-
-**Memory at boot**  
-![](/documentation/images/Memory-Boot-Lab1.png)
+  
+![Memory at boot](/documentation/images/Memory-Boot-Lab1.png)
 
 **Hexadecimals**  
 0x400    =  2^10 = 1 KB  
