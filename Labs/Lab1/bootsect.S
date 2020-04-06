@@ -69,7 +69,7 @@ print_msg:
    ret
 
 v_hello:
-   .asciz "Hello World...Boot Sector OK !"
+   .asciz "Hello World...Boot Sector [OK] !"
 
 
 .org 510
