@@ -1,17 +1,17 @@
-## Lab 1
+## Lab 2
 In this Lab, I write , in assembler,  a BootSector witch only prints a message on the screen, by using BIOS interrupt 10H.
 
 Kernel image is generated in the Makefile (command Linux dd).
 
 To run this Lab :
 	
-	$ cd Lab1 
+	$ cd Lab2 
 	$ make
-	$ ~/magOS/Labs/run-qemu-Lab.sh 1
+	$ ~/magOS/Labs/run-qemu-Lab.sh 2
 
 To run in debug mode: see [qemu-gdb.md](/documentation/kernel/qemu-gdb.md)
 	
-	$ ~/magOS/Labs/run-qemu-Lab.sh 1 -g
+	$ ~/magOS/Labs/run-qemu-Lab.sh 2 -g
 	$ gdb -x ~/magOS/tools/gdb-user.cmd
 
 
@@ -40,21 +40,6 @@ MBR-Master Boot Record, is the first sector(LBA=0).
 
 **Memory at boot**  
 ![](/documentation/images/Memory-Boot-Lab1.png)
-
-**Hexadecimals**  
-0x400    =  2^10 = 1 KB  
-0x1000   =  2^12 = 4 KB  
-0x10000  =  2^16 = 64 KB  
-0x100000 =  2^20 = 1 MB  
-            2^32 = 4 GB    
-
-0xA0000  =  A*0x10000 = A*2^16 = 640 KB
-
-
-
-
-
-
 
 
 ## References
