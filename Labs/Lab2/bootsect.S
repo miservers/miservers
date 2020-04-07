@@ -47,7 +47,8 @@ _start:
 
    movw $INITSEG, ax
    movw ax, ds   
-   jmp $INITSEG,$next
+   jmp $INITSEG,$next     # far jump cs=INITSEG
+    
    next:
    mov $v_loading, si
    call print_msg
