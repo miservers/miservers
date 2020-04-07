@@ -284,7 +284,8 @@ for_each_el:
    loop for_each_el
  ~~~
   
-
+## References
+- x86 intructions reference : https://www.felixcloutier.com/x86/
 
 ##Notes ASM - ARM v7
 #### Registers

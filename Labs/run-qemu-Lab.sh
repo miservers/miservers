@@ -13,6 +13,10 @@
 # All standard options:
 #	 https://www.qemu.org/docs/master/qemu-doc.html#Standard-options		
 #
+#
+# NOTE: Kernel Image must mounted on drive 0, Qemu option -hda. Because it is hard-coded in bootsect.S 
+#          
+#
 set -x
 
 LAB_NUM=$1

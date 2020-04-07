@@ -68,6 +68,7 @@ fast = vitesse
 - and by the way: et en passant
 - To make matters worse: pour aggraver les choses
 - They that sow the wind, shall reap the whirlwind : Ceux qui sèment le vent, récolteront le tourbillon
+- hand over to : passer la main a :
 
 ## Pronounciation
 **Difference between "th" and "ht"**  

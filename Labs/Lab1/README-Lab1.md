@@ -61,3 +61,7 @@ MBR-Master Boot Record, is the first sector(LBA=0).
 - http://a.michelizza.free.fr/pmwiki.php?n=TutoOS.Bootsect
 - https://www.eecs.wsu.edu/~cs460/
 - https://github.com/bhanderson/cpts460
+- INT 10H:  https://stanislavs.org/helppc/int_10.html
+
+
+

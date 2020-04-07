@@ -14,6 +14,7 @@
 - https://github.com/0xAX/linux-insides
 - net : https://eklitzke.org/how-tcp-sockets-work
 
+
 **Books**
 - Conception des Systemes d'Exploitation/Linux. Patrick Cegielski
 - The Art of Linux Kernel Design (the MUST).
@@ -37,6 +38,9 @@
 
 **Tutorials**
  - https://www.eecs.wsu.edu/~cs460/
+
+**Assembler**  
+- x86 intructions reference : https://www.felixcloutier.com/x86/
 
 
 

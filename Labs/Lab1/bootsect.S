@@ -26,7 +26,7 @@ _start:
    movw ax, es
    movw $STACKSEG, ax     # Stack segment
    movw ax, ss
-   movw $0xF000, sp       # stack 0x9F000 -> 0x90000. 636K->576K : 64KB
+   movw $0xF000, sp       # stack 0x9F000 -> 0x90000. 636K->576K : ~64KB
 
    # Set video mode
    # clear screen
