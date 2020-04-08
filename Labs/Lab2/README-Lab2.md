@@ -20,7 +20,7 @@ To run in debug mode: see [qemu-gdb.md](/documentation/kernel/qemu-gdb.md)
 
 **Memory Layout** 
 
-[](/documentation/images/Memory-Boot-Lab2.png)
+![](/documentation/images/Memory-Boot-Lab2.png)
 
 **Memory Addressing**  
 In real mode, only **1MB** is addressable (**20bits** Bus). By using segmementation, **Segment:Offset**. 16 bit Segment Registers:  CS, DS, ES, FS, GS, SS. 
