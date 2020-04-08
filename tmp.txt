@@ -1,4 +1,7 @@
 
+http://www.cse.iitm.ac.in/~chester/courses/15o_os/slides/4_MM.pdf&ved=2ahUKEwi5oYu5q9XoAhXB4KQKHR_sCiI4FBAWMAN6BAgAEAE&usg=AOvVaw36epRGR5aRLa2tShjxZr6Q
+
+
 Background: Computer Architecture and Programming Environment
      Lab#1 assumes the following hardware and software environments.
 
