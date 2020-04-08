@@ -41,10 +41,10 @@ To run in debug mode: see [qemu-gdb.md](/documentation/kernel/qemu-gdb.md)
   ![](/documentation/images/IA32-Segmentation-Paging.png)
 
 
-**Segmentation**  
+**Segmentation: Flat Model**  
   ![](/documentation/images/IA32-Segmentation-Flat-Model.png)
 
-**Segmentation**  
+**Segmentation: Protected Flat Model**  
   ![](/documentation/images/IA32-Segmentation-Protected-Flat-Model.png)
 
 **Paging**  
