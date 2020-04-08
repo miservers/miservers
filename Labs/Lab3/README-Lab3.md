@@ -41,6 +41,15 @@ To run in debug mode: see [qemu-gdb.md](/documentation/kernel/qemu-gdb.md)
   ![](/documentation/images/IA32-Segmentation-Paging.png)
 
 
+**Segmentation**  
+  ![](/documentation/images/IA32-Segmentation-Flat-Model.png)
+
+**Segmentation**  
+  ![](/documentation/images/IA32-Segmentation-Protected-Flat-Model.png)
+
+**Paging**  
+  ![](/documentation/images/IA32-Paging.png)
+
 **Memory Addressing**  
 In real mode, only **1MB** is addressable (**20bits** Bus). By using segmementation, **Segment:Offset**. 16 bit Segment Registers:  CS, DS, ES, FS, GS, SS. 
 
