@@ -1,8 +1,9 @@
-## Lab 2
-1. BootSector is loaded by BIOS at 0x7C00.
-2. It move itself to 0x90000.
-3. Then, it loads Kernel at 0x10000. Kernel size is 16KB max. 
-4. Then jump to Kernel Setup.S at 0x10000(far jump). From now, BootSector and BIOS will never be used, and may be overwritten.
+## Lab 3
+1. bootSector jump to Setup.S at 0x10000(far jump).
+5. Setup intialise IDT-Interrupt Descriptor Table at 0. then intialise GDT.
+5. It activate Protected mode.  
+6. then it passes control to Kernel Main.
+
 
 NOTE: Kernel Image must mounted on drive 0, Qemu option -hda. Because it is hard-coded in bootsect.S.
 
@@ -18,9 +19,10 @@ To run in debug mode: see [qemu-gdb.md](/documentation/kernel/qemu-gdb.md)
 	$ gdb -x ~/magOS/tools/gdb-user.cmd
 
 
-**Memory Layout** 
+## Protected Mode 
 
-[](/documentation/images/Memory-Boot-Lab2.png)
+**Physical Memory Layout in protected mode**
+
 
 **Memory Addressing**  
 In real mode, only **1MB** is addressable (**20bits** Bus). By using segmementation, **Segment:Offset**. 16 bit Segment Registers:  CS, DS, ES, FS, GS, SS. 
