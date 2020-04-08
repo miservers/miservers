@@ -2,7 +2,7 @@
 1. BootSector is loaded by BIOS at 0x7C00.
 2. It move itself to 0x90000.
 3. Then, it loads Kernel at 0x10000. Kernel size is 16KB max. 
-4. Then jump to Kernel Setup at 0x10000. From now, BootSector and BIOS will never be used, and may be overwritten.
+4. Then jump to Kernel Setup at 0x10000(far jump). From now, BootSector and BIOS will never be used, and may be overwritten.
 5. Setup intialise IDT-Interrupt Descriptor Table at 0. then intialise GDT.
 5. It activate Protected mode.  
 6. then it passes control to Kernel Main.

@@ -1,7 +1,7 @@
 /* LAB-2,  2020 @AR
 *
 *  This Boot Sector
-*  It is loaded by BIOS at 0x7C00 (31K). it moves itself to INITSEG, using INT 13h, then jump to.
+*  It is loaded by BIOS at 0x7C00 (31K). it moves itself to INITSEG, using INT 13h, then jump to(far jump).
 *  Then it load Kernel to SYSSEG:0. addr 0x10000. 
 *  Finaly it hands over to Kernel(setup.S) 
 *  
@@ -117,7 +117,7 @@ print_msg:
    ret
 
 v_loading:
-   .asciz "Loading Kernel......."
+   .asciz "Loading Kernel..........."
 
 v_ok:
    .asciz "[OK]"

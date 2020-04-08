@@ -23,7 +23,7 @@ In real mode, only **1MB** is addressable (**20bits** Bus). By using segmementat
 
     PhysicalAddr = Segment*16 + Offset  = Segment<<4 + Offset
 
-Segment is **64Kb** size, and 16 bits align.
+Segment is **64Kb** block memory, 16 bits alignated.
 
 
 Example : 

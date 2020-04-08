@@ -1,5 +1,8 @@
 ## References
 
+**Intel Architecture - System Programming Guide Vol 3**  
+- http://web.eecs.umich.edu/~farnam/482/Winter99/24319201.pdf
+
 **Sites**
 - http://www.tldp.org/HOWTO/Linux-i386-Boot-Code-HOWTO
 - http://www.tldp.org/HOWTO/HOWTO-INDEX/howtos.html
@@ -13,7 +16,6 @@
 - List de ports : http://bochs.sourceforge.net/techspec/PORTS.LST
 - https://github.com/0xAX/linux-insides
 - net : https://eklitzke.org/how-tcp-sockets-work
-
 
 **Books**
 - Conception des Systemes d'Exploitation/Linux. Patrick Cegielski
