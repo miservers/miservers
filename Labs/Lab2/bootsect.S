@@ -1,6 +1,7 @@
 /* LAB-2,  2020 @AR
 *
-*  This Boot Sector
+*  This  is the Boot Sector
+*
 *  It is loaded by BIOS at 0x7C00 (31K). it moves itself to INITSEG, using INT 13h, then jump to(far jump).
 *  Then it load Kernel to SYSSEG:0. addr 0x10000. 
 *  Finaly it hands over to Kernel(setup.S) 
@@ -14,7 +15,7 @@ INITSEG  = 0x9000        # BootSect move itself here
 SYSSEG   = 0x1000        # BootSect loads Kernel there
 
 STACKSEG = 0x9000    
-SYSLEN   = 128            # sectors number of kernel (bootsector must not be counted). 64KB 
+SYSLEN   = 128           # sectors number of kernel (bootsector must not be counted). 64 KB 
 
 VIDEO_MODE = 0x03        # 03h : 80x25 16 color text (CGA,EGA,MCGA,VGA)
                          # 12h : 640x480 16 color graphics (VGA)
@@ -68,7 +69,7 @@ move_bsect:
    movw $INITSEG, ax
    movw ax, es
    movw $0, di
-   movw $512*$SYSLEN, cx     # nb of bytes to move
+   movw $512, cx        # nb of bytes to move
    rep
    movsb                # move [ds:si] to [es:di]
    ret

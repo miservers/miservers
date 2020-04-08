@@ -32,7 +32,7 @@ $(OUT_DIR)/setup.bin:$(OUT_DIR)/setup.o
 
 kernel.imgage: $(OUT_EXE)
 	@echo -------- Building HD Image---------
-	cat $(OUT_DIR)/bootsect.bin $(OUT_DIR)/setup.bin /dev/zero | dd status=none of=$(KERN_IMG) bs=512 count=128
+	cat $(OUT_DIR)/bootsect.bin $(OUT_DIR)/setup.bin /dev/zero | dd status=none of=$(KERN_IMG) bs=512 count=512
 	
 init:
 	mkdir -p $(OUT_DIR)

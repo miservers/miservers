@@ -1,6 +1,6 @@
 /* Copyright 2016 @AR
  *
- * setup.S :
+ * setup.S : it's the Kernel Entry.
  *   - get machine info(cpu/ram) and store them at 0x90000.
  *   - initialize the Boot GDT 
  *   - switch  cpu to protected mode(PE)

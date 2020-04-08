@@ -1,6 +1,6 @@
 /* Copyright 2020 @AR
  *
- * This the kernel code, but it do nothing.  
+ * This the kernel setup, It's the Kernel Entry, but it do nothing :-).  
  *
  */
 

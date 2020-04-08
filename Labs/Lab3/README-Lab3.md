@@ -1,8 +1,21 @@
 ## Lab 3
-1. bootSector jump to Setup.S at 0x10000(far jump).
-5. Setup intialise IDT-Interrupt Descriptor Table at 0. then intialise GDT.
-5. It activate Protected mode.  
-6. then it passes control to Kernel Main.
+0. Makefile must link(ld) kerenl code at 0xC0000000(3GB).
+1. bootSector jump to setup.S (Kernel Entry) at 0x10000(far jump).
+2. Setup intialize:
+   2.1. IDT- Interrupt directory table at addr 0. idt size:     
+   
+   2.2. GDT- Global diretory table at 0x. gdt size: 40 B(five 64bits-entries).   
+        GDTR register pointe on GDT.
+        GDT is used for SEGMENTATION.
+   
+   2.3. a Directory Table-DT0(4KB) , and a Page Table-PT0(4KB). they are used,  for PAGING, to translate   
+        kernel linear addresses to physical ones.  
+        CR3 will pointe on DT.
+
+3. Then we activate Protected Mode.
+6. then we passes control to Kernel Main(C program).
+
+
 
 
 NOTE: Kernel Image must mounted on drive 0, Qemu option -hda. Because it is hard-coded in bootsect.S.
@@ -21,7 +34,11 @@ To run in debug mode: see [qemu-gdb.md](/documentation/kernel/qemu-gdb.md)
 
 ## Protected Mode 
 
-**Physical Memory Layout in protected mode**
+**Physical Memory Layout in protected mode**  
+  ![](/documentation/images/phy-mem-boot-protected-Mode.png)
+
+**Segmentation and paging**  
+  ![](/documentation/images/IA32-Segmentation-Paging.png)
 
 
 **Memory Addressing**  
