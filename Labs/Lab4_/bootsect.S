@@ -56,7 +56,7 @@ _start:
    mov $v_ok, si
    call print_msg
 
-   jmp $SYSSEG,$0        # jump to Kernel(Setup.S) code
+   jmp $SYSSEG,$0        # jump to Kernel code
 
 #
 # Move boot Sector to INITSEG:0. addr 0x90000

@@ -1,138 +1,59 @@
-/* Copyright 2016 @AR
+/* Copyright 2020 @AR
  *
- * setup.S : it's the Kernel Entry.
- *   - get machine info(cpu/ram) and store them at 0x90000.
- *   - initialize the Boot GDT 
+ * setup.S : this is the Kernel Entry.
+ *   - get the machine info(cpu/ram) and save them at 0x90000.
+ *   - initialize:
+ *     - the temp GDT : for Segmentation. 
+ *       Tow segment descriptorw will be defined: CS and DS. with base=0 , limit=4GB, DPL=0.  
  *   - switch  cpu to protected mode(PE)
  *   - jump to head.S:startup_32(at 0x1000)
  */
 
-SYSSEG = 0x100
-SETUPSEG = 0x9020
-INITSEG  = 0x9000
-
-BOOT_CS  =  0x08
-BOOT_DS  = 0x10
-
-SYSADDR = (SYSSEG * 16)   
+#include <segment.h>
 
 
 .att_syntax noprefix
 .code16
 .global setup_start
 
+temp_CS = 8
+temp_DS = 16
+
 setup_start:
-   movw  $SETUPSEG, ax
-   mov ax, ds
-   mov ax, es
-   mov ax, ss
-   movw $0xfb00, sp # stack of FFFF(~64ko), from 0x9fb00 to 0x90200
+   
+   call save_meminfo
 
-/* Saved infos :
- * Memory      Length      Name     
- * 0x90000     2           cursor
- * 0x90002     2           extend memory array from 1MB position
- * 0x90004     2           display page
- * 0x90006     1           display mode
- * 0x90007     1           char column   
- * 0x90008     2           ??
- * 0x9000A     1           display memory(0x00-64k,0x01-128,0x02-192k,0x03=256k)
- * 0x9000B     1           display state(0x00-color I/O=0x3dX; 0x01-monochrome,I/O=3bx)
- * 0x9000C     2           parameter
- * . . .                   ??
- * 0x90080     16          first disk parameter
- * 0x90090     16          second disk parameter
- * 0x901FC     2           root_dev
- */
-save_infos:
+   call halt
+
+halt:
+   jmp halt
+
+# save phy memory info at 0x90000
+# http://www.uruk.org/orig-grub/mem64mb.html
+save_meminfo:
+   clc      # clear Carry flag
+   mov $0, ebx
    movw $INITSEG, ax
-   mov ax, ds
-   
-   #read cursor position
-   movb $0x03, ah
-   movb $0x00, bh
-   int $0x10
-   movw dx, 0
-
-   #Extended memory size determination
-   movb $0x88, ah
+   movw ax, es
+   movw $0, di   # es:di is the destination buffer
+   mov $20, ecx
+   mov $v_smap, edx
+   mov $0xE820, eax  # function
    int $0x15
-   movw ax, 2 #number of contiguous 1k blocks of memory starting at address 1MB    
-   
-   #root_dev
-   
-# reset data segment to SETUPSEG
-   movw $SETUPSEG, ax
-   mov ax, ds
+   jc .error
+   .error: nop
+   ret
 
-/* Enable protected Mode */
-activate_pe: 
-# calcul  de GDTR
-   mov ds, bx
-   mov $gdt_boot, ecx
-   call calc_adr
-   mov eax, gdtr_boot+2
-# Passage en mode protege : CR0.PE=1
-   cli
-   lgdt (gdtr_boot)
-   mov cr0, eax
-   or $1, eax
-   mov eax, cr0
-   
-   #enable A20
-   inb   $0x92, al	# open A20 line(Fast Gate A20).
-   orb   $0x02, al 
-   outb  al, $0x92
-	
-   jmp flush_instr
+v_smap: 
+   .asciz "SMAP"
 
-flush_instr:
-   mov $BOOT_DS, ax
-   mov ax, ds
-   mov ax, es
-   mov ax, fs
-   mov ax, gs
-   mov ax, ss
-   mov $0x9fb00, esp
-   jmp $BOOT_CS, $SYSADDR      #jump to the kernel
-
-# --------------------------------
-# calc_adr : calcul l'adresse lineaire en mode reel 
-#     Entrees : segment -> bx
-#               offset -> cx      
-#     Sortie : adr -> ax = bx*16 + cx
-calc_adr:
-   xor eax, eax
-   mov bx, ax
-   shl $4, eax
-   and $0x0000ffff, ecx
-   add ecx, eax
-   ret 
-
-# GDT de Boot
-# GDT descriptor 64 bits:
-# |base:8|flags:4|limit hi:4|access:8|base mi:8|base low:16|limit low:16|
-# 63--------------------------------------------31----------------------0
-gdt_boot:
-   .word 0, 0, 0, 0 # reserved
-   
-    # code entry
-   .word 0xFFFF   # limit=0xFFFFF=1M*4kB=4GB
-   .word 0x0000   # base=0x0
-   .word 0x9B00   # code r/exec
-   .word 0x00CF   # granuality 4096(4k)
-   
-    # data entry
-   .word 0xFFFF   # limit=0xFFFFF=4GB
-   .word 0x0000   # base=0x0
-   .word 0x9300   # data r/w
-   .word 0x00CF   # granularity 4096(4k)
-gdt_boot_end:
-
-# GDTR Pointer
-gdtr_boot:
-   .word gdt_boot_end - gdt_boot  # limit(16 bits)
-   .long 0x0  # base address(32 bits)
+# Temporary GDT, used only for boot purpose. it has 3 entries: 0, CS, DS.
+# for DS and CS: base=0, limit=ffffffff, DPL=0(kernel privileges)  
+temp_gdt:
+   .word 0, 0, 0, 0
+   .word 0xFFFF, 0, 0x9A00, 0x00CF  # Code Segment Descriptor base=0 limit=FFFFFFFF DPL=0 type=0xA(exec/read)
+                                    # s=1, p(resent)=1, AVL=0, DB=1, G=1(Granularity=4K pages) 
+   .word 0xFFFF, 0, 0x9200, 0x00CF  # DS type=2(read/write)
 
    
 setup_end:

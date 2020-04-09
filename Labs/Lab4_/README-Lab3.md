@@ -3,24 +3,18 @@
 2. bootSector jump to setup.S  at 0x10000(far jump).
 2. setup save cpu/mem using bios INT 15H.
 3. Setup intialize: 
-   3.2. a temporary GDT- Global diretory table at 0x. gdt size: 40 B(five 64bits-entries).   
+   3.2. GDT- Global diretory table at 0x. gdt size: 40 B(five 64bits-entries).   
         GDTR register pointe on GDT.
         GDT is used for SEGMENTATION.
-          
+   
+   3.3. a Directory Table-DT0(4KB) , and a Page Table-PT0(4KB). they are used,  for PAGING, to translate   
+        kernel linear addresses to physical ones.  
+        CR3 will pointe on DT.
+
 4. Then we activate Protected Mode.
 5. From now, BIOS will never be used, and may be overwritten.
 6. then we passes control to Kernel Main(C program).
 
-**Memory Adressing**  
-
-logical addr = linear addr = physical addr. 
-
-**GDT** : Global directory table.  Temporary! this is only used for transition between real and protected mode. the definitive
-GDT will be created in the next step. 
-
-We use GDT to map logical addr to linear addr. 
-
-Tow segment descriptorw will be defined: CS and DS. with base=0, limit=4GB,, DPL=0.     
 
 
 ## Protected Mode 
@@ -37,8 +31,6 @@ Tow segment descriptorw will be defined: CS and DS. with base=0, limit=4GB,, DPL
 
 **Segmentation: Protected Flat Model**  
   ![](/documentation/images/IA32-Segmentation-Protected-Flat-Model.png)
-**Segment Descriptor**  
-  ![](/documentation/images/IA32-Segment-Descriptor.png)
 
 **Paging**  
   ![](/documentation/images/IA32-Paging.png)
