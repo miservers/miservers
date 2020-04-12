@@ -1,3 +1,14 @@
+## Tools
+
+**Sublime Text**
+   - MarkDown Preview: https://facelessuser.github.io/MarkdownPreview/    
+     Alt-m : to preview
+   - Open a file quickly : **Ctrl-p**
+    
+**vnstat** : to monitor network usage   
+     
+     vnstat -i wlp3s0
+
 ## Installation and configuration of ubuntu 16.04
 
 Create a bootable USB from windows

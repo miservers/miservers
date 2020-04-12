@@ -33,7 +33,7 @@ EOF
 - create cdrom
  grub-mkrescue -o magos.iso iso
 
-- you can what are in
+- you can see what are in
  7z x magos.iso
 - Add/update file to iso
  # xorriso  -indev magos.iso -outdev magos.iso -update /magOS/bin/kernel/kernel.elf /boot

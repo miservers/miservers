@@ -1,3 +1,12 @@
+## Gnu Assembler (gas)
+I have chosen GAS to write the code Assembler. Other are available, like NASM.  
+
+**Assembler directives**  
+      https://www.sourceware.org/binutils/docs-2.12/as.info/Pseudo-Ops.html#Pseudo%20Ops
+
+## References
+- x86 intructions reference : https://www.felixcloutier.com/x86/
+
 ## AT&T vs Intel Synstax
 
 [AT&T Syntax](https://csiflabs.cs.ucdavis.edu/~ssdavis/50/att-syntax.htm)
@@ -284,8 +293,6 @@ for_each_el:
    loop for_each_el
  ~~~
   
-## References
-- x86 intructions reference : https://www.felixcloutier.com/x86/
 
 ##Notes ASM - ARM v7
 #### Registers

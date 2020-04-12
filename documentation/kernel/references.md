@@ -3,6 +3,10 @@
 **Intel Architecture - System Programming Guide Vol 3**  
 - http://web.eecs.umich.edu/~farnam/482/Winter99/24319201.pdf
 
+**Gnu Assembler Directives**   
+https://www.sourceware.org/binutils/docs-2.12/as.info/Pseudo-Ops.html#Pseudo%20Ops
+
+
 **Patrick cegielski**  
 http://lacl.univ-paris12.fr/cegielski/teach-Pat.html
 

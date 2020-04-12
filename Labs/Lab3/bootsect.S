@@ -40,23 +40,26 @@ _start:
    movb $VIDEO_MODE, al
    int $0x10
 
-   call move_bsect
+   call move_bsect        #BootSector move itself to 0x90000
 
 
    movw $INITSEG, ax
    movw ax, ds   
-   jmp $INITSEG,$next     # far jump cs=INITSEG
+   jmp $INITSEG,$next     # far jump to 90000
     
    next:
    mov $v_loading, si
    call print_msg
 
-   call load_kernel
+   call load_kernel       # Load Kernel into memory, at 0x1000
 
    mov $v_ok, si
    call print_msg
 
-   jmp $SYSSEG,$0        # jump to Kernel(Setup.S) code
+   movw $SYSSEG, ax
+   mov ax, ds 
+   jmp $SYSSEG,$0        # far jump to Kernel(Setup.S) code (paddr 10000)
+
 
 #
 # Move boot Sector to INITSEG:0. addr 0x90000
@@ -75,18 +78,28 @@ move_bsect:
 # Load Kernel to SYSSEG:0. addr 0x10000
 #
 load_kernel:
+   clc                 # clear carry flag
    movb $0x02, ah
    movb $SYSLEN, al    # number of sectors to read   (1-128 dec.)
    movb $0, ch         # track/cylinder number  (0-1023 dec., see below)
-   movb $1, cl         # sector number  (1-17 dec.)
-   movb $01, dh        # head number  (0-15 dec.)
-   movb $80, dl        # drive number (0=A:, 1=2nd floppy, 80h=drive 0, 81h=drive 1)
+   movb $2, cl         # sector number  (1-17 dec.). sector 1 reserved for bootsector.
+   movb $0, dh         # head number  (0-15 dec.)
+   movb $0x80, dl        # drive number (0=A:, 1=2nd floppy, 80h=drive 0, 81h=drive 1)
    movw $SYSSEG, bx
    movw bx, es
    movw $0, bx         # ES:BX pointer to buffer
    int $0x13
+   jc .error_loading
    ret
 
+.error_loading:
+   mov $v_error_loading, si
+   call print_msg
+   jmp halt
+
+halt:
+   jmp halt
+ 
 #
 # Display a message on screen
 #     Parameter : string pointer in ds:si
@@ -109,11 +122,15 @@ print_msg:
    pop ax
    ret
 
+
 v_loading:
    .asciz "Loading Kernel..........."
 
 v_ok:
    .asciz "[OK]"
+
+v_error_loading:
+   .asciz "Error Loadin Kernel. Halt!"
 
 .org 510
 boot_flag:  

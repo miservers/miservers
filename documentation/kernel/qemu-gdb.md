@@ -4,22 +4,23 @@ Refs:
   https://qemu.weilnetz.de/doc/qemu-doc.html  
 
 - Notes importantes
+
    - to debug real mode : 
      > 'set arch i386' in gdb
+   
    - breakpoints dont work properly if  base address(in GDT) is not 0x0(see head.S). You can do 'break *0xc0001234' but...
+   
    - Access Qemu Monitor :
-     > For Qemu 4: Ctr-a b 
-     > For Qemu 2 : Esc+2 and Esc+1 au lieu de Ctl+Alt+1 ou 2. 
-   - Exit Qemu:
-     > For Qemu4 : Ctrl-a x
-     or 
+     > For Qemu 4: Ctr-a c  
+     > For Qemu 2 : Esc+2 and Esc+1 au lieu de Ctl+Alt+1 ou 2.  
+   
+
+   - Exit Qemu:  
+     > For Qemu4 : Ctrl-a x  
+     or  
      > (qemu) quit
-     
-  
-- Install qemu on Debian, but il may be old version
-  > $ apt-get install qemu qemu-kvm
-  
-- Qemu build from sources
+       
+- Build Qemu  from sources
   > ./tools/build-qemu.sh
   
 - Compiler avec "-g" , puis generer .bin a partir .elf(voir le Makefile):
@@ -86,7 +87,10 @@ Refs:
        where ou bt(backtrace)
        display 	  	- affiche la valeur d'une expression à chaque arrêt du programme
        undisplay
- - Debug real mode
+~~~
+
+**Debug real mode**
+~~~
   /!\ apres la command "cont" if faut faire  "delete", afin de supprimer le breakpoint
       car gdb se bloque et "ni" ne le fait plus avancer!!!. apres on peut creer un new break, mais il
       faut le supprimer aussi apres "cont".
@@ -96,10 +100,17 @@ Refs:
          x/10i $cs*16+$eip   //to dump the code at the PC position.
          ni   - next asm instr
          si   - step in 
+         stepo  - step out an int or a function call
        
 ~~~
 
 
+**Qemu Monitor** : to watch machine registers, etc
+~~~ 
+Ctrl-a c : To access qemu monitor.
+
+(qemu) info registers       # show machine regs: GDT, CR0, CS, etc
+ ~~~
 
  
 - Access au registers GDTR,CR0,.... 
