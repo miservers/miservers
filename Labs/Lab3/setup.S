@@ -11,11 +11,6 @@
 
 #include <segment.h>
 
-tempCS = 8
-temp_DS = 16
-
-SYSADDR = 0x1400 
-
 SETUPSIZE = 0x400       # 1Kbytes. this binary size. 
 
 .att_syntax noprefix
@@ -25,31 +20,17 @@ SETUPSIZE = 0x400       # 1Kbytes. this binary size.
 setup_start:
    
 
-   #call save_meminfo     # save phy memory size at INITSEG (0x90000)
+   #call save_meminfo        # save phy memory size at INITSEG (0x90000)
 
-
-/* Enabling protected mode */
+   # Enabling protected mode
    cli
-   mov $gdtr_desc, esi 
-   lgdt (esi)          # load gdt desc in gdtr register
+   lgdt (gdtr_desc)          # load gdt desc in gdtr register
    
-   mov cr0, eax        # set bit 0(PE) of CR0 
+   mov cr0, eax              # set bit 0(PE) of CR0 
    or $1, eax
    mov eax, cr0
 
-   mov $SYSSEG, eax
-   shl $4, eax   # eax << 4
-   jmp $0x8,$0x1000+next   # far jump
-  
-   next:
-   mov $temp_DS, ax
-   mov ax, ds
-   mov ax, es
-   mov ax, fs
-   mov ax, gs
-   mov ax, ss
-
-   jmp 0x1400   # far jump
+   jmp $KERNEL_CS,$SYSADDR      # far jump to Head.S (32 bits code)
   
 
 # save phy memory size at 0x90000
@@ -64,39 +45,27 @@ save_meminfo:
    mov $0x534D4150, edx  # magic number: "SMAP" 
    mov $0x0000E820, eax  # function
    int $0x15
-   jc halt
    ret
 
 
-halt:
-   jmp halt
-
-#
-# linear address calculator 
-#  in : addr in eax
-#  out: linear addr in esi. esi = INITSEG<<4 + eax 
-linear_calc:
-   mov $SYSSEG, esi
-   shl $4, esi   # eax << 4
-   add eax, esi
-   ret
-
-
-
-# Temporary GDT, used only for boot purpose. it has 3 entries: 0, CS, DS.
+# GDT, used only for boot purpose. it has 3 entries: 0, CS, DS.
 # for DS and CS: base=0, limit=ffffffff, DPL=0(kernel privileges)  
 .org 512
-temp_gdt:
-   .word 0, 0, 0, 0
-   .word 0xFFFF, 0, 0x9A00, 0x00CF  # Code Segment Descriptor base=0 limit=FFFFFFFF DPL=0 type=0xA(exec/read)
+gdt:
+   .word 0, 0, 0, 0                 # null
+   .word 0xFFFF, 0, 0x9A00, 0x00CF  # Kernel Code Segment Descriptor base=0 limit=FFFFFFFF DPL=0 type=0xA(exec/read)
                                     # s=1, p(resent)=1, AVL=0, DB=1, G=1(Granularity=4K pages) 
-   .word 0xFFFF, 0, 0x9200, 0x00CF  # DS type=2(read/write)
+   .word 0xFFFF, 0, 0x9200, 0x00CF  # Kernel DS type=2(read/write)
+   .word 0xFFFF, 0, 0xFA00, 0x00CF  # User CS. base=0 limit=4G DPL=3 prevelege level
+   .word 0xFFFF, 0, 0xF200, 0x00CF  # User DS. base=0 limit=4G DPL=3
+   .word 0, 0, 0, 0                 # not used
+    
 
 gdtr_desc: 
    .word 3*8                        # limit : number of bytes in GDT
-   .long (SYSSEG<<4) + temp_gdt     # gdt base : GDT linear address
+   .long (SYSSEG<<4) + gdt     # gdt base : GDT linear address
    
 setup_end:
 .org SETUPSIZE-4       
-   .ascii "ANAS"
+   .ascii "ANAA"
 .end

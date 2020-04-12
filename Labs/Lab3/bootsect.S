@@ -127,7 +127,7 @@ v_loading:
    .asciz "Loading Kernel..........."
 
 v_ok:
-   .asciz "[OK]"
+   .asciz "[OK] "
 
 v_error_loading:
    .asciz "Error Loadin Kernel. Halt!"

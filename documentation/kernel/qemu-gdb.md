@@ -36,8 +36,20 @@ Refs:
     > cp tools/gdbinit_real_mode.txt ~/.gdbinit
   - To debug C code
     > cp tools/gdbinit_c.txt ~/.gdbinit  
-  - To debug ASM code
+
+  - To debug ASM code/protected mode
     > cp tools/gdbinit_asm.txt ~/.gdbinit
+
+
+**Debugging protected mode** 
+  ~~~
+  $ cp ~/magOS/tools/gdbinit_asm.txt ~/.gdbinit
+  $ edit ~/magOS/tools/gdb-user.cmd 
+
+  $ ~/magOS/Labs/run-qemu-Lab.sh 3 -g
+
+  $ gdb -x ~/magOS/tools/gdb-user.cmd 
+  ~~~
 
 
 **Run Qemu in debug mode**:

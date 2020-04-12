@@ -6,6 +6,7 @@
 **Gnu Assembler Directives**   
 https://www.sourceware.org/binutils/docs-2.12/as.info/Pseudo-Ops.html#Pseudo%20Ops
 
+**Operating Systems Design Implementation 3 : Book. Andrew Tanenbaum**
 
 **Patrick cegielski**  
 http://lacl.univ-paris12.fr/cegielski/teach-Pat.html

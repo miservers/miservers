@@ -32,6 +32,7 @@ We use GDT to map logical addr to linear addr.
 
 Tow segment descriptorw will be defined: CS and DS. with base=0, limit=4GB,, DPL=0.     
 
+
 **Switching to Protected Mode**: see Intel Architecture - System programming guide 
 1. Disable interrupt: CLI
 2. Load GDTR with base addr of GDT: LGDT intruction  
@@ -40,10 +41,18 @@ Tow segment descriptorw will be defined: CS and DS. with base=0, limit=4GB,, DPL
 5. reload segments DS, ES, FS, GS with new values
 6. STI
 
+**Debugging protected mode** 
+  ~~~
+  $ cp ~/magOS/tools/gdbinit_asm.txt ~/.gdbinit
+  $ edit ~/magOS/tools/gdb-user.cmd 
+
+  $ ~/magOS/Labs/run-qemu-Lab.sh 3 -g
+
+  $ gdb -x ~/magOS/tools/gdb-user.cmd 
+  ~~~
 
 ## Protected Mode 
- Section 9.8, **“Software Initialization for Protected-Mode Operation.”**  
- in **Intel Architecture - System Programming Guide Vol 3**  
+ Section 9.8 in **Intel Architecture - System Programming Guide Vol 3**  
 
 **Physical Memory Layout in protected mode**  
   ![](../../documentation/images/phy-mem-boot-protected-Mode.png)
