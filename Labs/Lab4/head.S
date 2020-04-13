@@ -1,12 +1,15 @@
 /* @AR 2020
 *  
 */
+.att_syntax noprefix
+.code32
 
 #include <segment.h>
 
-.att_syntax noprefix
-.code32
-.global startup_32
+
+.global  startup_32
+.extern start_kernel
+
 
 _ESP = STACKSEG<<4 + 0x9C00      # linear addr for esp
 
@@ -21,13 +24,10 @@ startup_32:
    	mov $_ESP, esp
 
 
-   jmp halt
+   call start_kernel
 
  halt:
    jmp halt
-
-
- 
 
 
  

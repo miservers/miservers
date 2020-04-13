@@ -21,7 +21,7 @@ set -x
 
 LAB_NUM=$1
 
-KERN_ISO=$HOME/magOS/bin/Lab$LAB_NUM.img
+KERN_ISO=$HOME/magOS/bin/Lab$LAB_NUM/kernel.img
 ARCH=i386
 QEMU_HOME=/opt/qemu
 #QEMU_OPTS='-vga std -curses -show-cursor -full-screen -no-fd-bootchk'

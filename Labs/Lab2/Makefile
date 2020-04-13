@@ -5,9 +5,10 @@ SRC_DIR = .
 SRC     = $(wildcard *.S)
 OBJ     = $(SRC:.S=.o)
 
-KERN_IMG = ../../bin/Lab2.img
+OUT_DIR = ../../bin/Lab2
 
-OUT_DIR = ../../bin/Lab2/boot
+KERN_IMG = $(OUT_DIR)/kernel.img
+
 OUT_EXE = $(addprefix $(OUT_DIR)/, $(EXE)) 
 OUT_OBJ = $(addprefix $(OUT_DIR)/, bootsect.o setup.o )
 

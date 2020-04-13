@@ -1,20 +1,7 @@
-## Lab 3
+## Lab 4
+1. Enter the Kernel calling Main.c (Kernel)
+2. Write console driver, to write text on the console
 
-2. bootSector jump to *setup.S*  at 0x1000 (far jump).
-
-2. Setup.S save memory size at INITSEG (0x90000), using bios INT 15H.
-
-3. It then intialize:   
-
-   - A GDT- Global diretory table.  
-   - GDTR register pointe on GDT.  
-   - GDT is used for SEGMENTATION.  
-
-4. Then switch to the Protected Mode.
-
-5. From now, BIOS will never be used, and may be overwritten.
-
-6. Then we passes control to Kernel Head.S
 
 **Memory Adressing**  
 
@@ -24,21 +11,8 @@ We choose flat model segmentation. Two segments are defined, CS and DS. Segment 
 both are with base=0 and limit=FFFFFFFF, so they use all virtual space(4GB).  
 
 **GDT** : Global directory table.   
-Temporary! this is only used for transition between real and protected mode. the definitive
-GDT will be created in the next step. GDT physical address is stored in **GDTR** register. 
-
-We use GDT to map logical addr to linear addr. 
-
-Tow segment descriptorw will be defined: CS and DS. with base=0, limit=4GB,, DPL=0.     
 
 
-**Switching to Protected Mode**: see Intel Architecture - System programming guide 
-1. Disable interrupt: CLI
-2. Load GDTR with base addr of GDT: LGDT intruction  
-3. set bit 0(PE flag) in CR0: mov CR0
-4. execute a far jump: jmp segment:addr
-5. reload segments DS, ES, FS, GS with new values
-6. STI
 
 **Debugging protected mode** 
   ~~~
