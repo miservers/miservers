@@ -2,51 +2,48 @@
 1. Enter the Kernel calling Main.c (Kernel)
 2. Write console driver, to write text on the console
 
+##  Cirrus CL-GD5446 PCI VGA card
+See **CL-GD5446 technical manual reference**  
+- Emulated by Qemu
+- it is compabible with IBM VGA hardware
+- CRTC controller registers
+  - CRTC index and data : **3D4-3D5** when CL-GD5446 is programmed for color.
 
-**Memory Adressing**  
+**Example of setting cursor location**  
+![](../../documentation/images/Kervel-VGA-CTR-Example.png)
 
-logical addr = linear addr = physical addr.
-
-We choose flat model segmentation. Two segments are defined, CS and DS. Segment descriptors are defined in GDT. 
-both are with base=0 and limit=FFFFFFFF, so they use all virtual space(4GB).  
-
-**GDT** : Global directory table.   
+**Example of setting screen start address**  
+![](../../documentation/images/Kervel-VGA-CTR-Example2.png)
 
 
+**Video RAM**:  
+From  0xB8000 to 0xBF000. 0xB8000 is the base of color video/text memory(32KB).
 
-**Debugging protected mode** 
-  ~~~
-  $ cp ~/magOS/tools/gdbinit_asm.txt ~/.gdbinit
-  $ edit ~/magOS/tools/gdb-user.cmd 
+**Console properties**:  
+color text mode. 16 colors. 80 rows and 25 columns. the VGA mode is set BIOS(bootSect.S). 
 
-  $ ~/magOS/Labs/run-qemu-Lab.sh 3 -g
 
-  $ gdb -x ~/magOS/tools/gdb-user.cmd 
-  ~~~
 
-## Protected Mode 
- Section 9.8 in **Intel Architecture - System Programming Guide Vol 3**  
+**Cirrus CL-GD5446**    
+![](../../documentation/images/Kernel-VGA-CL-GD5446.png)
 
-**Physical Memory Layout in protected mode**  
-  ![](../../documentation/images/phy-mem-boot-protected-Mode.png)
+**PC L-GD5446 subsystem architecture**    
+![](../../documentation/images/Kernel-VGA-Architecture.png)
 
-**Segmentation and paging**  
-  ![](../../documentation/images/IA32-Segmentation-Paging.png)
+**PC CL-GD5446 functional diagram**    
+![](../../documentation/images/Kernel-VGA-Diagram.png)
 
-**Memory Management Registers**  
-  ![](../../documentation/images/IA32-MMU-Registers.png)
 
-**Segmentation: Flat Model**  
-  ![](../../documentation/images/IA32-Segmentation-Flat-Model.png)
 
-**Segmentation: Protected Flat Model**  
-  ![](../../documentation/images/IA32-Segmentation-Protected-Flat-Model.png)
+## Char and Block Driver
+**Motherboard: Northbridge KT400**  
+![](../../documentation/images/Kernel-Motherboard-KT400.png)
 
-**Segment Descriptor**  
-  ![](../../documentation/images/IA32-Segment-Descriptor.png)
+**Model of connecting CPU and IO controllers**  
+![](../../documentation/images/kernel-connecting-CPU-IO-controllers.png)
 
-**Paging**  
-  ![](../../documentation/images/IA32-Paging.png)
+**PC IO architecture**  
+![](../../documentation/images/Kernel-PC-IO-architecture.png)
 
-**Virtual(logical) To Physical Memory Translation**  
-  ![](../../documentation/images/Virtual-To-Physical-Memory.png)
+**VGA connector**  
+![](../../documentation/images/kernel-VGA_conector.png)

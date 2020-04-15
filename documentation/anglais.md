@@ -50,25 +50,29 @@ fast = vitesse
   this is a teacher of our village: in this case we use [of] instead.  
   
 ## Mots et Phrases courantes   
-- I don't think so : je ne pense pas
-- go ahead, tell me more : aleez, continue
-- time's up : c'est l'heure
+- I don't think so           : je ne pense pas
+- go ahead, tell me more     : aleez, continue
+- time's up                  : c'est l'heure
 - what a shame!, what a pity!: quel dommage
-- it's up to you: comme tu veux
-- i am fed up with it : j'en ai marre
-- don't worry : ne t'en fait pas
+- it's up to you             : comme tu veux
+- i am fed up with it        : j'en ai marre
+- don't worry                : ne t'en fait pas
 - great : 
-- awfel : affreux
-- sorry, i apologise : desolé, excuss moi
-- i have to go: je dois y aller
-- i am all rigth : je vais bien
-- you must be kidding : tu plaisantes
-- we are not aware of: on n'est pas au courant de
-- i am delighted that he has accepted my invitation: je suis ravi que...
-- and by the way: et en passant
-- To make matters worse: pour aggraver les choses
+- awfel                      : affreux
+- sorry, i apologise         : desolé, excuss moi
+- i have to go               : je dois y aller
+- i am all rigth             : je vais bien
+- you must be kidding        : tu plaisantes
+- we are not aware of        : on n'est pas au courant de
+- i am delighted that        : je suis ravi que...
+- and by the way             : et en passant
+- To make matters worse      : pour aggraver les choses
 - They that sow the wind, shall reap the whirlwind : Ceux qui sèment le vent, récolteront le tourbillon
-- hand over to : passer la main a :
+- hand over to               : passer la main a :
+- it lacks only              : it's only missing, il ne manque que  
+- you only have to           : vous n'avez plus que   
+- there was never a relationship: il n'y avait jamais de relation  
+- has been, has just been    : vient d'être     
 
 ## Pronounciation
 **Difference between "th" and "ht"**  
@@ -85,17 +89,18 @@ La côte / une tâche ménagère
 
 
 ## Vocabulary
+dummy            : maquette
 straight-forward : simple  
 shall            : doit                 
-further		  : plus loin  
+further		       : plus loin  
 our aim          : notre but  
-hats off to	  : chapeaux à  
-as well as	   ; ansi que  
-the fat that	 : le fait que  
+hats off to	     : chapeaux à  
+as well as	     : ansi que  
+the fat that	   : le fait que  
 the remainder of : le rest de  
-altogether	   ; tout à fait   
-wealth		   ; richesse   
-struggle		 : lutter en dificulté   
+altogether	     : tout à fait   
+wealth		       : richesse   
+struggle		     : lutter en dificulté   
 mainly           : surtout  
 concern          : concerner   
 consider         : considérer  
@@ -120,10 +125,6 @@ would /wood/     : aurait
 had              : avait   
 to have          : avoir.  
 to be            : être.  
-it lacks only    : it's only missing, il ne manque que  
-you only have to : vous n'avez plus que   
-there was never a relationship: il n'y avait jamais de relation  
-has been, has just been: vient d'être     
 versatile        : polyvalent  
  
 ## Contractions
