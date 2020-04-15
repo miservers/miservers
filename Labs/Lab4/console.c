@@ -6,7 +6,7 @@
 #define COLOR_SIZE    0x4000   /* 16K color video memory */
 
 /* VGA CRT controller chips. */
-#define C_6845         0x3D4   /* port for 6845 color */
+#define C_GD5446_INDEX         0x3D4   /* port for 6845 color */
 #define INDEX              0   /* 6845's index register */
 #define DATA               1   /* 6845's data register */
 
