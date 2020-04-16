@@ -11,7 +11,7 @@
 
 #include <segment.h>
 
-SETUPSIZE = 0x400       # 1Kbytes. this binary size. 
+SETUPSIZE = 0xE00       # 3.5Kbytes. this binary size. 
 
 .att_syntax noprefix
 .code16

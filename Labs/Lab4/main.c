@@ -1,5 +1,5 @@
 
-
+#include <console.h>
 
 
 void start_kernel(void);  

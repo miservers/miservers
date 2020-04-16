@@ -5,12 +5,10 @@
 #define VIDEO_BASE   0xB8000   /* base of color video memory. 32KB*/
 #define VIDEO_SIZE    0x4000   /* 16K color video memory */
 
-/* VGA CRT controller chips. */
-#define GD5446_INDEX         0x3D4   /* GD5446 index register */
+/* VGA CRT (CL-GD5446) controller chips. */
+#define GD5446_INDEX         0x3D4     /* GD5446 index register */
 #define GD5446_DATA          0x3D5     /* GD5446 data register  */
 
-#define INDEX              0   /* 6845's index register */
-#define DATA               1   /* 6845's data register */
 
 
 #define NR_CONS 4
@@ -19,7 +17,7 @@
 #define SCR_LINES    	25	/* # lines on the screen */
 #define SCR_SIZE	(80*25)	/* # characters on the screen */
 
-#define DEFAULT_ATTR  ((LIGHT_BLUE<<4 | WHITE) << 8)
+#define DEFAULT_ATTR  ((BLUE<<4 | WHITE) << 8)
 #define ERASE_CHAR             (DEFAULT_ATTR | 0x00)
 
 
@@ -55,7 +53,7 @@ void cons_init()
   curcons = &consoles[0];
   curcons->start = VIDEO_BASE; 
   curcons->origin = 0;
-  curcons->cursor = 0
+  curcons->cursor = 0;
   curcons->col = curcons->row = 0;
   curcons->attr = DEFAULT_ATTR;
   curcons->blank = ERASE_CHAR;

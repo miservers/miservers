@@ -12,7 +12,7 @@
 #define KERNEL_DS     16
 #define USER_CS       32
 #define USER_DS       48
-#define SYSADDR   0x1400        // Kernel code(Heads and C code) linked and loaded at this addr
+#define SYSADDR   0x2000        // Kernel code(Heads and C code) linked and loaded at this addr
 
 
 #endif

@@ -2,6 +2,9 @@
 1. Enter the Kernel calling Main.c (Kernel)
 2. Write console driver, to write text on the console
 
+**Kernel bootable image**  
+![](../../documentation/images/kernel-bootable-image.png)
+
 ##  Cirrus CL-GD5446 PCI VGA card
 See **CL-GD5446 technical manual reference**  
 - Emulated by Qemu
@@ -22,6 +25,8 @@ From  0xB8000 to 0xBF000. 0xB8000 is the base of color video/text memory(32KB).
 **Console properties**:  
 color text mode. 16 colors. 80 rows and 25 columns. the VGA mode is set BIOS(bootSect.S). 
 
+**VGA Character arrangement**  
+![](../../documentation/images/Kernel-VGA-Char-arrangement.png)
 
 
 **Cirrus CL-GD5446**    

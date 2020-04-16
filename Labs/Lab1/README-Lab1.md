@@ -51,12 +51,6 @@ MBR-Master Boot Record, is the first sector(LBA=0).
 0xA0000  =  A*0x10000 = A*2^16 = 640 KB
 
 
-
-
-
-
-
-
 ## References
 - http://a.michelizza.free.fr/pmwiki.php?n=TutoOS.Bootsect
 - https://www.eecs.wsu.edu/~cs460/
