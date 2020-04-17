@@ -15,7 +15,9 @@ void start_kernel () {
 	char * banner = "Starting Lab OS...\n"; 
 	
 	cons_init();
-    
 
+	cons_write(banner);
+
+	cpu_idle();
 }
 

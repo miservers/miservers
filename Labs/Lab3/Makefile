@@ -29,7 +29,7 @@ $(OUT_DIR)/setup.bin:$(OUT_DIR)/setup.o
 	$(LD) --oformat binary -Ttext 0x0  $^ -o $@
 
 $(OUT_DIR)/head.bin:$(OUT_DIR)/head.o
-	$(LD) --oformat binary -Ttext 0x1400  $^ -o $@
+	$(LD) --oformat binary -Ttext 0x2000  $^ -o $@
 
 $(IMG): $(OUT_EXE)
 	@echo -------- Building HD Image---------

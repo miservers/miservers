@@ -11,8 +11,6 @@
 
 #include <segment.h>
 
-SETUPSIZE = 0x400       # 1Kbytes. this binary size. 
-
 .att_syntax noprefix
 .code16
 .global setup_start

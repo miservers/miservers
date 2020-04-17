@@ -1,11 +1,11 @@
 # LAB-4 Makefile 2020
 
-IMG     = vmlabos.img
+IMG     = vmlabos.iso
 EXE     = bootsect.bin setup.bin kernel.bin 
 
 SRC_DIR = .
 SRC     = $(wildcard *.c)
-OBJ     = $(SRC:.c=.o) head.o
+OBJ     = head.o $(SRC:.c=.o)
 OUT_DIR = ../../bin/Lab4
 OUT_IMG = $(OUT_DIR)/$(IMG)
 OUT_EXE = $(addprefix $(OUT_DIR)/, $(EXE)) 
@@ -17,7 +17,7 @@ INCLUDE += -I./include
 LD       = i386-elf-ld
 CC       = i386-elf-gcc
 OBJCOPY  = i386-elf-objcopy
-CFLAGS += -O0 -Wall -fno-builtin -nostdinc -fno-omit-frame-pointer  $(INCLUDE)
+CFLAGS += -g -O0 -Wall  -fno-builtin -nostdinc -fno-omit-frame-pointer  $(INCLUDE)
 
 all: $(IMG)
 
@@ -38,7 +38,7 @@ $(OUT_DIR)/kernel.elf: $(objs)
 	@echo Kernel linking: stage 1
 	$(LD) -n -T linker.ld $^ -o $@
 	$(OBJCOPY)  --only-keep-debug $@ $(OUT_DIR)/kernel-debug.sym
-	$(OBJCOPY)  --strip-debug $@
+	$(OBJCOPY)  --strip-debug $@ $@
 	
 $(OUT_DIR)/kernel.bin:$(OUT_DIR)/kernel.elf
 	@echo Kernel linking: stage 2
@@ -46,14 +46,14 @@ $(OUT_DIR)/kernel.bin:$(OUT_DIR)/kernel.elf
 
 $(IMG):$(OUT_EXE)
 	@echo -------- Building HD Image---------
-	cat $(OUT_DIR)/bootsect.bin $(OUT_DIR)/setup.bin $(OUT_DIR)/kernel.bin /dev/zero | dd status=none of=$(OUT_IMG) bs=512 count=512
+	cat $(OUT_EXE) /dev/zero | dd of=$(OUT_IMG) bs=512 count=512 status=none
 
 
 init:
 	mkdir -p $(OUT_DIR)
 
 clean:
-	rm -f $(OUT_EXE) $(OUT_OBJ) $(OUT_IMG)
+	rm -f $(OUT_EXE) $(OUT_OBJ) $(OUT_IMG) $(OUT_DIR)/kernel-debug.sym
 
 
 

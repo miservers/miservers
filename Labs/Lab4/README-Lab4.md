@@ -2,6 +2,10 @@
 1. Enter the Kernel calling Main.c (Kernel)
 2. Write console driver, to write text on the console
 
+NOTES:  
+ - It is recommanded to install qemu package, rather than building from sources.  
+
+
 **Kernel bootable image**  
 ![](../../documentation/images/kernel-bootable-image.png)
 

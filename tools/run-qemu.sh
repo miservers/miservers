@@ -16,7 +16,7 @@ KERN_IMG=/usr/local/images/disk.img
 KERN_ISO=/usr/local/images/magos.iso
 ARCH=i386
 QEMU_HOME=/opt/qemu
-QEMU_OPTS='-vga std -curses -show-cursor -full-screen -no-fd-bootchk -D $LOGFILE'
+QEMU_OPTS='-vga std  -no-fd-bootchk -D $LOGFILE'
 LOGFILE=/tmp/qemu.log
 LOGOPT="-d cpu_reset,mmu,guest_errors"
 export PATH=$PATH:$QEMU_HOME/bin
@@ -24,6 +24,6 @@ export PATH=$PATH:$QEMU_HOME/bin
 if [ ""$1 == "-g" ] ; then
   DEBUG="-s  -S"
 fi
-$QEMU_HOME/bin/qemu-system-$ARCH -m 32  $DEBUG  $QEMU_OPTS -boot d  -cdrom $KERN_ISO -hda $KERN_IMG -D $LOGFILE $LOGOPT
+qemu-system-$ARCH -m 32  $DEBUG  $QEMU_OPTS -boot d  -cdrom $KERN_ISO -hda $KERN_IMG -D $LOGFILE $LOGOPT
 
 

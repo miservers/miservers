@@ -4,7 +4,7 @@
  */
 PAGE_OFFSET = 0x00000000;
 OUTPUT_FORMAT(elf32-i386)
-ENTRY(_start)
+ENTRY(startup_32)
 
 SECTIONS
 {
@@ -12,15 +12,13 @@ SECTIONS
   
   _stext = .;
   .text ALIGN(0x1000) : AT(ADDR(.text) - PAGE_OFFSET){
-     *(.multiboot);  
-     *(.text);
+     *(.text); 
    }
    
    _etext = .; /*end of section .text*/
    
    .data ALIGN(0x1000) : AT(ADDR(.data) - PAGE_OFFSET){
       *(.data);
-      *(__ksymtab);
    }
    
    _edata = .; /*end of section .data*/

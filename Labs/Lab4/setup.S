@@ -6,12 +6,10 @@
  *     - the temp GDT : for Segmentation. 
  *       Tow segment descriptorw will be defined: CS and DS. with base=0 , limit=4GB, DPL=0.  
  *   - switch  cpu to protected mode(PE)
- *   - jump to head.S:startup_32(at 0x1000)
+ *   - jump to head.S:startup_32(at 0x1000=4K)
  */
 
 #include <segment.h>
-
-SETUPSIZE = 0xE00       # 3.5Kbytes. this binary size. 
 
 .att_syntax noprefix
 .code16
@@ -21,7 +19,8 @@ setup_start:
    
 
    #call save_meminfo        # save phy memory size at INITSEG (0x90000)
-
+   
+   
    # Enabling protected mode
    cli
    lgdt (gdtr_desc)          # load gdt desc in gdtr register
@@ -53,16 +52,16 @@ save_meminfo:
 .org 512
 gdt:
    .word 0, 0, 0, 0                 # null
-   .word 0xFFFF, 0, 0x9A00, 0x00CF  # Kernel Code Segment Descriptor base=0 limit=FFFFFFFF DPL=0 type=0xA(exec/read)
+   .word 0xFFFF, 0, 0x9B00, 0x00CF  # Kernel Code Segment Descriptor base=0 limit=FFFFFFFF DPL=0 type=0xA(exec/read)
                                     # s=1, p(resent)=1, AVL=0, DB=1, G=1(Granularity=4K pages) 
-   .word 0xFFFF, 0, 0x9200, 0x00CF  # Kernel DS type=2(read/write)
+   .word 0xFFFF, 0, 0x9300, 0x00CF  # Kernel DS type=2(read/write)
    .word 0xFFFF, 0, 0xFA00, 0x00CF  # User CS. base=0 limit=4G DPL=3 prevelege level
    .word 0xFFFF, 0, 0xF200, 0x00CF  # User DS. base=0 limit=4G DPL=3
    .word 0, 0, 0, 0                 # not used
     
 
 gdtr_desc: 
-   .word 3*8                        # limit : number of bytes in GDT
+   .word 6*8                        # limit : number of bytes in GDT
    .long (SYSSEG<<4) + gdt     # gdt base : GDT linear address
    
 setup_end:

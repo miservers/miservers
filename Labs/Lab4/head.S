@@ -7,13 +7,12 @@
 #include <segment.h>
 
 
-.global  startup_32,_start
+.global  startup_32
 .extern start_kernel
 
 
 _ESP = STACKSEG<<4 + 0x9C00      # linear addr for esp
 
-_start:
 startup_32:
 	mov $KERNEL_DS, ax
    	mov ax, ds
@@ -24,11 +23,12 @@ startup_32:
  
    	mov $_ESP, esp
 
+   
+   #movl $0x07690748,0xb8000
 
    call start_kernel
 
- halt:
-   jmp halt
+
 
 
  

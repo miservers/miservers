@@ -21,19 +21,16 @@ set -x
 
 LAB_NUM=$1
 
-LABOS_ISO=$HOME/magOS/bin/Lab$LAB_NUM/vmlabos.img
+LABOS_ISO=$HOME/magOS/bin/Lab$LAB_NUM/vmlabos.iso
 ARCH=i386
-QEMU_HOME=/opt/qemu
-#QEMU_OPTS='-vga std -curses -show-cursor -full-screen -no-fd-bootchk'
-QEMU_OPTS=' -nographic '
+QEMU_OPTS='-vga std' 
+#QEMU_OPTS=' -nographic '
 LOGFILE=/tmp/qemu.log
-LOGOPT="-d cpu_reset,mmu,guest_errors"
-#export PATH=$PATH:$QEMU_HOME/bin
 
 if [ ""$2 == "-g" ] ; then
   DEBUG="-s  -S"
 fi
 
-$QEMU_HOME/bin/qemu-system-$ARCH -m 64  $DEBUG  $QEMU_OPTS -boot order=d -hda $LABOS_ISO -D $LOGFILE $LOGOPT
+qemu-system-$ARCH -m 64  $DEBUG  $QEMU_OPTS -boot order=d -hda $LABOS_ISO -D $LOGFILE $LOGOPT
 
 

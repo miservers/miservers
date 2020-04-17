@@ -4,10 +4,15 @@
    - MarkDown Preview: https://facelessuser.github.io/MarkdownPreview/    
      Alt-m : to preview
    - Open a file quickly : **Ctrl-p**
-    
+
+**Terminology** : very good terminal emulator, with split.
+
 **vnstat** : to monitor network usage   
      
      vnstat -i wlp3s0
+
+**Shutter**:  screen capture
+
 
 ## Installation and configuration of ubuntu 16.04
 

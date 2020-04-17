@@ -54,7 +54,7 @@ Tow segment descriptorw will be defined: CS and DS. with base=0, limit=4GB,, DPL
  Section 9.8 in **Intel Architecture - System Programming Guide Vol 3**  
 
 **Physical Memory Layout in protected mode**  
-  ![](../../documentation/images/phy-mem-boot-protected-Mode.png)
+  ![](../../documentation/images/Kernel-phymem-boot-protected-Mode.png)
 
 **Segmentation and paging**  
   ![](../../documentation/images/IA32-Segmentation-Paging.png)

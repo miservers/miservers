@@ -45,7 +45,7 @@ build_qemu () {
 
 
 ## MAIN ##
-download_qemu
+#download_qemu
 extract_qemu
 build_qemu
 

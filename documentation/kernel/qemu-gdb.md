@@ -5,20 +5,26 @@ Refs:
 
 - Notes importantes
 
+   - It is recommanded to install qemu package, rather than building from sources.  
+
+     apt install qemu  
+
    - to debug real mode : 
      > 'set arch i386' in gdb
    
    - breakpoints dont work properly if  base address(in GDT) is not 0x0(see head.S). You can do 'break *0xc0001234' but...
    
    - Access Qemu Monitor :
-     > For Qemu 4: Ctr-a c  
-     > For Qemu 2 : Esc+2 and Esc+1 au lieu de Ctl+Alt+1 ou 2.  
+     >Qemu 4: Ctr-a c  
+     >Qemu 2 graphical : Ctl+Alt+1 ou 2.  
+     >Qemu 2 : Esc+2 and Esc+1 au lieu de Ctl+Alt+1 ou 2.  
+     >Qemu 2 : Liberate mouse Ctl+Alt
    
 
    - Exit Qemu:  
      > For Qemu4 : Ctrl-a x  
      or  
-     > (qemu) quit
+     > (qemu) q
        
 - Build Qemu  from sources
   > ./tools/build-qemu.sh
@@ -44,11 +50,11 @@ Refs:
 **Debugging protected mode** 
   ~~~
   $ cp ~/magOS/tools/gdbinit_asm.txt ~/.gdbinit
-  $ edit ~/magOS/tools/gdb-user.cmd 
+  $ edit ~/magOS/tools/gdb.cmd 
 
   $ ~/magOS/Labs/run-qemu-Lab.sh 3 -g
 
-  $ gdb -x ~/magOS/tools/gdb-user.cmd 
+  $ gdb -x ~/magOS/tools/gdb.cmd 
   ~~~
 
 
@@ -62,7 +68,7 @@ Refs:
 
 **Run GDB**:
 - Run commands from a file for user/kernel Spaces
-  > gdb -x ~/magOS/tools/gdb-user.cmd
+  > gdb -x ~/magOS/tools/gdb.cmd
 
 ~~~
  $ gdb

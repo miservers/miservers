@@ -1,4 +1,4 @@
-/* LAB-3,  2020 @AR
+/* 2020 @AR
 *
 *  This is the Boot Sector
 *
@@ -36,8 +36,7 @@ _start:
 
    # Set video mode
    # clear screen
-   movb $0, ah
-   movb $VIDEO_MODE, al
+   movw $0x03, ax
    int $0x10
 
    call move_bsect        #BootSector move itself to 0x90000
@@ -110,7 +109,6 @@ print_msg:
 
    movb $0x0e, ah        # write function 
    movb $0, bh           # page
-   movb $0x99, bl
   while_1: 
    lodsb                 # [ds:si] -> al
    test al, al           # test if AL=0 
