@@ -17,10 +17,10 @@ See **CL-GD5446 technical manual reference**
   - CRTC index and data : **3D4-3D5** when CL-GD5446 is programmed for color.
 
 **Example of setting cursor location**  
-![](../../documentation/images/Kervel-VGA-CTR-Example.png)
+![](../../documentation/images/Kernel-VGA-CTR-Example.png)
 
 **Example of setting screen start address**  
-![](../../documentation/images/Kervel-VGA-CTR-Example2.png)
+![](../../documentation/images/Kernel-VGA-CTR-Example2.png)
 
 
 **Video RAM**:  

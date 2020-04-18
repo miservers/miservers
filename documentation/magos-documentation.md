@@ -6,6 +6,8 @@
 
 2. [Kernel](./kernel/kernel.txt)
 
+2. [Kernel](./kernel/interrupts.md)
+
 3. [ELF](./kernel/elf.md)
 
 4. [FS - Hard Drive](./kernel/fs-hdd.md)

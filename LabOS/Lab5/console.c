@@ -34,14 +34,19 @@ typedef struct console {
   int  size;             /* size of video memory */
   long limit;            /* limit of this console's video memory */
   unsigned short ramqueue[CONS_RAM_WORDS]; /* buffer for video RAM */
+  char inqueue[128];     /*for cons read*/
+  int  in_idx;            /*in index*/
+  
   } console_t;
  
 console_t consoles[NR_CONS];
 console_t *curcons; /*currently visible*/
 
 #define pos(cons,row,col) (unsigned short *)(cons->start + cons->origin*2 + (row)*SCR_WIDTH*2 + (col)*2)
+#define cursor_pos(cons) (unsigned short *)(cons->start + cons->origin*2 + cons->row*SCR_WIDTH*2 + cons->col*2 )
 #define cursor(cons) (cons->origin + cons->row*SCR_WIDTH  + cons->col )
 
+extern int enter, page_up, page_down, backspace; /*keyborad.c*/
 void set_gd5446(unsigned int value, int reg);
 
 void cons_clear(int tty)
@@ -61,6 +66,7 @@ void cons_init()
   curcons->attr = DEFAULT_ATTR;
   curcons->blank = ERASE_CHAR;
   curcons->size = SCR_SIZE;
+  curcons->in_idx = 0;
   set_gd5446 (curcons->origin,REG_ORIGIN); //tell the 5446 where in video ram to start(origin)
   set_gd5446 (0,REG_CURSOR);               //tell the 5446 to put the cursor at top
   cons_clear (0);
@@ -133,6 +139,54 @@ void cons_write(char *str)
   while (*tmp)
     cons_putchar(*(char *)tmp++);
   flush (curcons);
+}
+
+
+
+void cons_handler(char (*getc)(void))
+{
+  char c;
+  if ((c=getc()) >= 0) {
+    curcons->inqueue[curcons->in_idx++] = c;
+    cons_putchar (c);
+    flush (curcons);
+  }
+  else if (enter) {
+    curcons->inqueue[curcons->in_idx] = '\0';
+  }
+  else if (page_up)
+    scroll(curcons, SCROLL_UP);
+  else if (page_down)
+    scroll(curcons, SCROLL_DOWN);
+  else if (backspace)
+    cons_backspace();
+}
+
+void move_cursor_arrow(int arrow)
+{
+  switch (arrow) {  
+  case UP_ARROW   : curcons->row--; break;  
+  case DOWN_ARROW : curcons->row++; break;  
+  case LEFT_ARROW : curcons->col--; break;  
+  case RIGHT_ARROW: curcons->col++; break;
+  default : break; 
+  }
+  update_cursor(curcons);  
+}
+
+
+void show_cursor()
+{
+  update_cursor(curcons);
+}
+
+void cons_backspace()
+{
+  if (curcons->col <= 2) 
+    return; /*dont remove ps1*/
+  curcons->col--;
+  *cursor_pos(curcons) = curcons->blank;
+  update_cursor(curcons);
 }
 
 

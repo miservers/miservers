@@ -1,12 +1,12 @@
-# LAB-4 Makefile 2020
+# LAB-5 Makefile 2020
 
 IMG     = vmlabos.iso
 EXE     = bootsect.bin setup.bin kernel.bin 
 
 SRC_DIR = .
 SRC     = $(wildcard *.c)
-OBJ     = head.o $(SRC:.c=.o)
-OUT_DIR = ../../bin/Lab4
+OBJ     = head.o $(SRC:.c=.o) sys_call.o
+OUT_DIR = ../../bin/LabOS
 OUT_IMG = $(OUT_DIR)/$(IMG)
 OUT_EXE = $(addprefix $(OUT_DIR)/, $(EXE)) 
 OUT_OBJ = $(addprefix $(OUT_DIR)/, bootsect.o setup.o $(OBJ))

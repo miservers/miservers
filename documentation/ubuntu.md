@@ -13,6 +13,8 @@
 
 **Shutter**:  screen capture
 
+**LibreOffice Draw** : excellent to draw diagrams.
+
 
 ## Installation and configuration of ubuntu 16.04
 
