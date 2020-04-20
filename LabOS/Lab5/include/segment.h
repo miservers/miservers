@@ -8,12 +8,12 @@
 #define STACKSEG  0x9000        
 
 /* Segments in Protected Mode */
-#define KERNEL_CS       8
-#define KERNEL_DS      16
-#define USER_CS        32
-#define USER_DS        48
-#define SYSADDR    0x2000         // Kernel code(Heads and C code) linked and loaded at this addr
-#define SETUPSIZE  0x1000        // 4KB. Size of setup.bin file. 
+#define KERNEL_CS      0x8
+#define KERNEL_DS     0x10
+#define USER_CS       0x1B    /*0x18+3, user RPL=3*/
+#define USER_DS       0x23	  /*0x20+3, user RPL=3*/	
+#define SYSADDR     0x2000    // Kernel code(Heads and C code) linked and loaded at this addr
+#define SETUPSIZE   0x1000    // 4KB. Size of setup.bin file. 
 
 
 #endif

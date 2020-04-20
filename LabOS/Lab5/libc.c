@@ -15,7 +15,7 @@ void memset(char *adr, char val, int len)
 
 void memsetw(short *adr, short val, int len)
 {
-   __asm__ ("rep stosw "::"D"(adr), "ax"(val), "c"(len):);
+    __asm__  ("rep stosw "::"D"(adr), "ax"(val), "c"(len):);
 }
 
 void memsetd(long *adr, long val, int len)

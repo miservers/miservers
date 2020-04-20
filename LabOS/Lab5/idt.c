@@ -7,7 +7,7 @@
 #include "types.h"
 #include "segment.h"
 #include "libc.h"
-#include "irq.h"
+#include "pic.h"
 
 struct idt_desc {
    u16 offset_lo;
@@ -23,6 +23,7 @@ struct idtr_desc {
 
 extern  struct idt_desc _idt[IDT_SIZE] ; 
 extern  struct idtr_desc _idtr;
+extern void ignore_int(void);
 
 
 void _set_gate (struct idt_desc *gate, u16 type, u32 addr)
@@ -54,7 +55,10 @@ void set_system_gate(u16 n, u32 addr)
 
 void idt_init()
 {
-   irq_init();
+   for (int i=0; i <= 255; i++)
+      set_intr_gate(i, (u32)ignore_int); 
+   
+   irq_init();   
 }
 
 

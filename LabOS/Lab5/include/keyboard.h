@@ -24,7 +24,10 @@ char sh_keymap [] = {
   };
 #endif //_KEY_MAP
 
+void kbc_i8042_init();
+
 void keyboard_handler();
 char kbgetc();
+
 
 #endif

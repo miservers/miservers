@@ -9,10 +9,8 @@
 .global setup_start
 
 setup_start:
-   call halt
+   hlt
 
-halt:
-   jmp halt
-   
+
 setup_end:
 .end

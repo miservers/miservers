@@ -1,5 +1,6 @@
 
 #include <console.h>
+#include <system.h>
 
 
 void start_kernel(void);  
@@ -7,7 +8,7 @@ void start_kernel(void);
 /* process #0*/
 void cpu_idle(void)
 {
-  while (1);
+  while (1) halt();
 }
 
 void start_kernel () {
@@ -17,6 +18,8 @@ void start_kernel () {
 	cons_init();
 
 	cons_write(banner);
+
+	cons_write("Lab 4.......[OK]");
 
 	cpu_idle();
 }

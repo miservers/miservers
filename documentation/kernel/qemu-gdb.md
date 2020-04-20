@@ -1,3 +1,22 @@
+## VirtualBox
+
+vboxmanage convertfromraw $(OUT_IMG) $(OUT_IMG).vdi --format vdi
+
+Ensure that the file size of file.iso is a multiple of 512.
+
+**Debug **  
+
+1. Create a Linux VM in VirtualBox and install Linux there. 
+
+2. Ensure that you have disabled hardware virtualization! Otherwise breakpoints won't work  
+
+    > system -> Acceleration , then uncheck Hardware virtualisation.
+
+
+
+
+
+
 ## QEMU & GDB Info
 Refs:  
   http://wiki.osdev.org/Kernel_Debugging  
@@ -125,9 +144,12 @@ Refs:
 
 **Qemu Monitor** : to watch machine registers, etc
 ~~~ 
-Ctrl-a c : To access qemu monitor.
-
+Ctrl-a c , or Ctrl+Alt 2 et 1, Or Esc+2: To access qemu monitor.
+ 
 (qemu) info registers       # show machine regs: GDT, CR0, CS, etc
+(qemu) info mem     # paging info  
+       info irq      
+       info pic
  ~~~
 
  

@@ -1,14 +1,18 @@
 
 #include <console.h>
-#include <idt.h>
 #include <system.h>
+#include <pic.h>
+#include <timex.h>
+#include <keyboard.h>
+
+extern void kbc_i8042_init();
 
 void start_kernel(void);  
  
 /* process #0*/
 void cpu_idle(void)
 {
-  while (1);
+  while (1) halt();
 }
 
 void start_kernel () {
@@ -20,12 +24,16 @@ void start_kernel () {
 
 	cons_write(banner);
 
-	idt_init();
-	cons_write("IDT initialised.............[OK]\n");
+
+    pic_8259a_init(); // PIC 8259
+	kbc_i8042_init(); // Keyboard controller
+	pit_8253_init();  // Timer controller		
+	
 
 	sti();
 	cons_write("Interrupts enabled..........[OK]\n");
-		
+	
+	
 	cpu_idle();
 }
 

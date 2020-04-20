@@ -7,8 +7,8 @@
 #include <segment.h>
 
 
-.global  startup_32, _idt , _idtr
-.extern start_kernel
+.global  startup_32, _idt , _idtr, ignore_int
+.extern start_kernel, cons_write, idt_init
 
 _ESP = STACKSEG<<4 + 0x9C00      # linear addr for esp
 
@@ -23,56 +23,24 @@ startup_32:
    	mov $_ESP, esp
 
    
-   call setup_idt     # setup IDT table
+   call idt_init     # init IDT table
+
+   lidt (_idtr)      # load IDT desc in IDTR register  
 
    call start_kernel
-
-
-#
-# init IDT 256 entries. then load idtr register pointing on the table.
-#
-setup_idt:
-  mov $desc_ignore_int, ebx  # desc_ignore_int.offset = ignore_int
-  mov $ignore_int, eax     
-  movw ax, (ebx)
-  shrl $16, eax
-  movw ax, 6(ebx)
-  
-  xor ecx, ecx       
-  mov desc_ignore_int, eax
-  mov desc_ignore_int+4, edx
-  mov  $_idt, ebx
-for_each_idt:             # idt[i]=desc_ignore_int for all 256 interrupts
-  mov eax, (ebx, ecx, 8)
-  mov edx, 4(ebx, ecx, 8)
-  inc ecx
-  cmpl $256, ecx
-  jb for_each_idt
-  
-  lidt (_idtr)  
-  ret
-
   
 ignore_int:
   iret
 
 .data
-.align 4
-desc_ignore_int:
-  .word 0          #offset low
-  .word KERNEL_CS  #selector
-  .word 0x8E00     #type INTGATE  
-  .word 0          #offset high 
-
 ## IDT
-.align 16 
+.align 8 
 _idtr:
   .word 256*8  #limit 
   .long _idt
 
-.align 16
+.align 8
 _idt:
   .fill 256,8,0
 
-
- 
+.end 

@@ -1,11 +1,13 @@
 /* Copyright 2016 @AR
  * 
- * this a simple driver for 8042 PS/2 controller.
+ * this a simple driver for i8042 PS/2 controller.
  * the controller is connected to the cpu via the irq 1.
- *
+ * 
+ *https://web.fe.up.pt/~pfs/aulas/lcom2010/index.html
+   https://web.fe.up.pt/~pfs/aulas/lcom2010/at/4kbrd.pdf
  * see: http://wiki.osdev.org/"8042"_PS/2_Controller
  *    http://www.computer-engineering.org
- *    https://github.com/TacOS-team/tacos/wiki/Clavier
+ *    
 */
 #define _KEY_MAP_
 #include <keyboard.h>
@@ -15,10 +17,9 @@
 #define C(c)  (char)(c)
 
 /*keybaord registers*/
-#define KB_STATUS_PORT 0x64
-#define KB_CMD_BUF     0x64
-#define KB_IN_BUF      0x60
-#define KB_OUT_BUF     0x60
+#define STATUS_REG     0x64     // read only. status register 
+#define CMD_REG        0x64     // write. command register. 
+#define DATA_PORT      0x60     //r/w data port
 
 /*keybaord commands*/
 #define KB_ECHO  0xFE
@@ -48,7 +49,7 @@ char kbgetc()
   char c;
   int cap;
 
-  code = inb_p(KB_IN_BUF);
+  code = inb_p(DATA_PORT);
   
   if (prev_code == 0xE0) { /*Complexe codes: E0,1D*/
     switch (code) { 
@@ -112,5 +113,87 @@ void keyboard_handler()
 }
 
 
+u8 _i8042_read_status () {
+  return inb_p(STATUS_REG);
+}
+
+u8 _i8042_command(u16 cmd, int with_response) {
+  outb_p(cmd, CMD_REG);
+  if (with_response)
+    return inb_p(DATA_PORT);
+  return 0;
+}
+
+
+u8 _i8042_read_data () {
+  return inb_p(DATA_PORT);
+}
+
+
+void _i8042_write_data (u8 cmd, u8 data) {
+  outb_p(cmd, CMD_REG);
+  outb_p(data, DATA_PORT);
+}
+
+
+/*
+* read 8042 data until emptying buffer. throw data into the trash. be happy.
+*
+*/  
+void _i8042_out_buf_flush () {
+  while ( _i8042_read_status() & OUT_BUF_FULL )
+    _i8042_read_data ();
+}
+
+
+/*
+* Keyboard controler 8042 initialization.
+*
+* Ref: https://wiki.osdev.org/%228042%22_PS/2_Controller
+*
+*/
+void kbc_i8042_init() {
+  u8 data;
+  u8 confbyte;
+
+  // Step 3: Disable Devices 
+  _i8042_command(0xAD,FALSE);
+  _i8042_command(0xA7,FALSE);
+  
+  // Step 4: Flush The Output Buffer 
+  _i8042_out_buf_flush ();
+
+  // Step 5: Set the Controller Configuration Byte 
+  confbyte = _i8042_command(0x20,TRUE);
+  confbyte |= 0x55; 
+  _i8042_write_data (0x60, confbyte);
+  // Step 6: Perform Controller Self Test  
+  data = _i8042_command(0xAA,TRUE);
+  if (data == 0x55) 
+    cons_write("Test PS/2 Controller........[OK]\n");
+  else if (data == 0xFC)
+    cons_write("Test PS/2 Controller........[KO]\n");   
+  
+  // Step 7: Determine If There Are 2 Channels 
+  
+  // Step 8: Perform Interface Tests 
+  data = _i8042_command(0xAB,TRUE);
+  if (data == 0x00) 
+    cons_write("Test first PS/2 port........[OK]\n");
+  else if (data == 0x01 || data == 0x03)
+    cons_write("Test first PS/2 port........[KO]\n");   
+ 
+  // Step 9: Enable kbd
+  _i8042_command(0xAE,FALSE); //for the first port
+  confbyte |= 0x55; 
+  _i8042_write_data (0x60, confbyte);
+  
+  //  Step 10: Reset kbd
+  data = _i8042_command(0xFF,FALSE);
+  if (data == 0xFA || data == 0xAA) 
+    cons_write("Reset first PS/2 device........[Success]\n");
+  else if (data == 0xFC)
+    cons_write("Reset first PS/2 device........[Failure]\n");   
+}
 
 

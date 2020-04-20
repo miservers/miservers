@@ -21,10 +21,7 @@ startup_32:
    	mov $_ESP, esp
 
 
-   jmp halt
-
- halt:
-   jmp halt
+   hlt
 
 
  

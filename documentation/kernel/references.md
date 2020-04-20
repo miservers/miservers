@@ -24,6 +24,8 @@ http://lacl.univ-paris12.fr/cegielski/teach-Pat.html
 - List de ports : http://bochs.sourceforge.net/techspec/PORTS.LST
 - https://github.com/0xAX/linux-insides
 - net : https://eklitzke.org/how-tcp-sockets-work
+- http://wiki.osdev.org/"8042"_PS/2_Controller
+- https://github.com/klange/toaruos
 
 **Books**
 - Conception des Systemes d'Exploitation/Linux. Patrick Cegielski

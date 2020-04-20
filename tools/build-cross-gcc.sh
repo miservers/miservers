@@ -24,8 +24,9 @@ trap 'echo FAILED COMMAND: $previous_command' EXIT
 #-------------------------------------------------------------------------------------------
 INSTALL_PATH=/opt/cross
 SRC_PATH=/opt/sources
-TARGET=i386-elf
+#TARGET=i386-elf
 #TARGET=arm-linux-gnueabihf
+TARGET=x86_64-elf
 USE_NEWLIB=1
 #LINUX_ARCH=armhf
 CONFIGURATION_OPTIONS="--with-sysroot --disable-nls --disable-werror" #--disable-multilib --disable-threads --disable-shared
@@ -138,16 +139,16 @@ build_gdbserver () {
 #extract_gdb
 
 # Step 2. Binutils
-#build_binutils
+build_binutils
 
 # Step 3. Build gcc
-#build_gcc
+build_gcc
 
 # GDB install
-#build_gdb
+build_gdb
 
 #gdbserver optional
-build_gdbserver
+#build_gdbserver
 
 trap - EXIT
 echo 'Success!'

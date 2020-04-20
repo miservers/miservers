@@ -39,12 +39,8 @@ _start:
    mov $v_hello, si
    call print_msg
 
-   # boucle halt
-   call halt
-
-halt:
-   jmp halt
-
+   # halt
+   hlt
 
 #
 # Display a message on screen

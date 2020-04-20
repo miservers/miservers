@@ -14,9 +14,11 @@ OUT_OBJ = $(addprefix $(OUT_DIR)/, bootsect.o setup.o $(OBJ))
 objs    = $(addprefix $(OUT_DIR)/, $(OBJ))
 
 INCLUDE += -I./include
-LD       = i386-elf-ld
-CC       = i386-elf-gcc
-OBJCOPY  = i386-elf-objcopy
+#ARCH     = x86_64-elf
+ARCH     = i386-elf
+LD       = $(ARCH)-ld  
+CC       = $(ARCH)-gcc
+OBJCOPY  = $(ARCH)-objcopy
 CFLAGS += -g -O0 -Wall  -fno-builtin -nostdinc -fno-omit-frame-pointer  $(INCLUDE)
 
 all: $(IMG)
@@ -46,14 +48,15 @@ $(OUT_DIR)/kernel.bin:$(OUT_DIR)/kernel.elf
 
 $(IMG):$(OUT_EXE)
 	@echo -------- Building HD Image---------
-	cat $(OUT_EXE) /dev/zero | dd of=$(OUT_IMG) bs=512 count=512 status=none
+	cat $(OUT_EXE) /dev/zero | dd of=$(OUT_IMG) bs=512 count=2048 status=none
+	#vboxmanage convertfromraw $(OUT_IMG) $(OUT_IMG).vdi --format vdi
 
 
 init:
 	mkdir -p $(OUT_DIR)
 
 clean:
-	rm -f $(OUT_EXE) $(OUT_OBJ) $(OUT_IMG) $(OUT_DIR)/kernel-debug.sym
+	rm -f $(OUT_EXE) $(OUT_OBJ) $(OUT_IMG) $(OUT_IMG).vdi $(OUT_DIR)/kernel-debug.sym $(OUT_DIR)/kernel.elf
 
 
 

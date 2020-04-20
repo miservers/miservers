@@ -1,12 +1,12 @@
 # LAB-2 Makefile 2020
 
-IMG     = vmlabos.img
+IMG     = vmlabos.iso
 EXE     = bootsect.bin setup.bin
 
 SRC_DIR = .
 SRC     = $(wildcard *.S)
 OBJ     = $(SRC:.S=.o)
-OUT_DIR = ../../bin/Lab2
+OUT_DIR = ../../bin/LabOS
 OUT_IMG = $(OUT_DIR)/$(IMG)
 OUT_EXE = $(addprefix $(OUT_DIR)/, $(EXE)) 
 OUT_OBJ = $(addprefix $(OUT_DIR)/, bootsect.o setup.o )

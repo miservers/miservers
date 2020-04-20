@@ -23,14 +23,17 @@ LAB_NUM=$1
 
 LABOS_ISO=$HOME/magOS/bin/Lab$LAB_NUM/vmlabos.iso
 ARCH=i386
-QEMU_OPTS='-vga std' 
-#QEMU_OPTS=' -nographic '
+#ARCH=x86_64
+QEMU_OPTS='-vga std ' 
+QEMU_OPTS='-L pc-bios'  #' -nographic ' -m 32
 LOGFILE=/tmp/qemu.log
+QEMU_BIN=/opt/qemu/bin/qemu-system-$ARCH
 
 if [ ""$2 == "-g" ] ; then
   DEBUG="-s  -S"
 fi
 
-qemu-system-$ARCH -m 64  $DEBUG  $QEMU_OPTS -boot order=d -hda $LABOS_ISO -D $LOGFILE $LOGOPT
+$QEMU_BIN  $DEBUG  $QEMU_OPTS -drive file=$LABOS_ISO,format=raw,index=0,media=disk -D $LOGFILE $LOGOPT
 
+#qemu-system-$ARCH -m 256  $DEBUG  $QEMU_OPTS -boot order=d -hda $LABOS_ISO -D $LOGFILE $LOGOPT
 
