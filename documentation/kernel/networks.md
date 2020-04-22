@@ -10,3 +10,4 @@
 
 ## References
 - cours de Patrick Cegielski.  http://lacl.univ-paris12.fr/cegielski/reseau.html
+- https://wiki.osdev.org/Intel_Ethernet_i217
