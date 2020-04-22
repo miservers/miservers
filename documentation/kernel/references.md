@@ -26,6 +26,7 @@ http://lacl.univ-paris12.fr/cegielski/teach-Pat.html
 - net : https://eklitzke.org/how-tcp-sockets-work
 - http://wiki.osdev.org/"8042"_PS/2_Controller
 - https://github.com/klange/toaruos
+- https://en.wikipedia.org/wiki/QEMU#Emulated_hardware_platforms
 
 **Books**
 - Conception des Systemes d'Exploitation/Linux. Patrick Cegielski
@@ -39,7 +40,7 @@ http://lacl.univ-paris12.fr/cegielski/teach-Pat.html
 **Scientists**  
    - **Dijkstra**: semaphore, tri-color marking algorithm(used in gc)
    
-**Other (hobby) kernels**
+**Hobby kernels**
  - TutoOS : http://a.michelizza.free.fr/pmwiki.php?n=TutoOS.TutoOS
  - SOS - simple os
  - duneOS : https://github.com/naegelejd/duneOS

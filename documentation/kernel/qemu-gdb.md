@@ -1,26 +1,5 @@
-## VirtualBox
-
-vboxmanage convertfromraw $(OUT_IMG) $(OUT_IMG).vdi --format vdi
-
-Ensure that the file size of file.iso is a multiple of 512.
-
-**Debug **  
-
-1. Create a Linux VM in VirtualBox and install Linux there. 
-
-2. Ensure that you have disabled hardware virtualization! Otherwise breakpoints won't work  
-
-    > system -> Acceleration , then uncheck Hardware virtualisation.
-
-
-
-
-
 
 ## QEMU & GDB Info
-Refs:  
-  http://wiki.osdev.org/Kernel_Debugging  
-  https://qemu.weilnetz.de/doc/qemu-doc.html  
 
 - Notes importantes
 
@@ -208,4 +187,9 @@ Ctrl-a c , or Ctrl+Alt 2 et 1, Or Esc+2: To access qemu monitor.
   you can use this:
   > $ gdb --directory=/magOS/mm /magOS/bin/test/mm_test.bin -ex="target remote localhost:1234"
 
+
+## Refs  
+- http://wiki.osdev.org/Kernel_Debugging  
+- https://qemu.weilnetz.de/doc/qemu-doc.html  
+- https://en.wikipedia.org/wiki/QEMU#Emulated_hardware_platforms
 
