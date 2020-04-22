@@ -48,6 +48,7 @@ http://lacl.univ-paris12.fr/cegielski/teach-Pat.html
  - minix 2.0
  - https://github.com/bhanderson/cpts460 : based on cource ~cs460, see below
 
+ - SANOS :http://www.jbox.dk/sanos/
 
 **Tutorials**
  - https://www.eecs.wsu.edu/~cs460/

@@ -33,4 +33,5 @@
 ## References
 - cours de Patrick Cegielski.  http://lacl.univ-paris12.fr/cegielski/reseau.html
 - https://en.wikipedia.org/wiki/QEMU#Emulated_hardware_platforms
-
+- https://wiki.osdev.org/Category:Network_Hardware
+- https://wiki.osdev.org/Intel_Ethernet_i217
