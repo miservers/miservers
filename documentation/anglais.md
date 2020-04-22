@@ -86,7 +86,9 @@ Un bateau / une frite
 The shore [ʃ] / a chore [ʧ]  
 La côte / une tâche ménagère  
 
-Initialize: /ɪˈnɪʃ.əl.aɪz/
+Initialize: /ɪˈnɪʃ.əl.aɪz/  
+Configure: /kənˈfɪɡ.ə
+
 
 ## Vocabulary
 dummy            : maquette
