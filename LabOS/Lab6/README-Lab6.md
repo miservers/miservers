@@ -33,6 +33,7 @@ CONFIG ADDRESS:
 
 
 ## References
+- https://wiki.osdev.org/PCI   : MUST
 - Linux code browser: https://elixir.bootlin.com/linux/latest/source
 - PCI IDS :http://pciids.sourceforge.net/v2.2/pci.ids
 - http://www.mnc.co.jp/english/INtime/faq07-2_kanren/PCIconfigurationregister.htm
