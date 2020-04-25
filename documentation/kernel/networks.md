@@ -29,9 +29,24 @@
 - Emulated by Qemu
 
 
+## How to write a driver
+1. Detect the device
+2. Enable the device
+3. Understand the network device
+4. Bus-independent device access
+5. PCI configuration space
+6. Initialise net_device
+7. RealTek8139's transmission mechanism
+8. RealTek8139's receiving mechanism
+9. Making the device ready to transmit packets
+10. Making the device ready to receive packets 
+
+
+
 
 ## References
 - cours de Patrick Cegielski.  http://lacl.univ-paris12.fr/cegielski/reseau.html
 - https://en.wikipedia.org/wiki/QEMU#Emulated_hardware_platforms
 - https://wiki.osdev.org/Category:Network_Hardware
 - https://wiki.osdev.org/Intel_Ethernet_i217
+- http://www6.uniovi.es/LDP/LDP/LGNET/156/jangir.html

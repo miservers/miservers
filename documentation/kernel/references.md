@@ -50,11 +50,16 @@ http://lacl.univ-paris12.fr/cegielski/teach-Pat.html
 
  - SANOS :http://www.jbox.dk/sanos/
 
+**Cours**  
+ - http://www.cs.fsu.edu/~baker/devices/notes/
+
+
 **Tutorials**
  - https://www.eecs.wsu.edu/~cs460/
 
 **Assembler**  
 - x86 intructions reference : https://www.felixcloutier.com/x86/
 
-
+**Linux code browser**  
+- https://elixir.bootlin.com/linux/latest/source
 

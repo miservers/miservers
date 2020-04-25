@@ -75,6 +75,29 @@ fast = vitesse
 - has been, has just been    : vient d'être     
 
 ## Pronounciation
+
+[Pronunciation Rules](https://englishxp.co.uk/pronunciation/10-english-pronunciation-rules/)
+
+**vowel + single consonant at the end = short vowel sound**  
+  - win (/wɪn/)
+
+**vowel + consonant + e = long vowel sound**  
+  - state (/steɪt/)
+
+**vowel + double consonant after = short vowel sound**
+  - banner (/ˈbæn.ə/)
+
+**vowel + vowel = single long vowel**      
+  - you (/juː/)
+
+**g + e, i, y = soft g sound**  
+  - gym (/dʒɪm/)
+  - giant (/ˈdʒaɪ.ənt/)
+
+**g + h = f sound**  
+  - enough (/ɪˈnʌf/)
+
+
 **Difference between "th" and "ht"**  
 How to pronounciate "th" in (length, width), and "ht" (height, fight, tonight, caught)?. they have different sound,  
    "th" have [θ] sound[ث]. The ones ending in "ht" all have the [t] sound[ت].

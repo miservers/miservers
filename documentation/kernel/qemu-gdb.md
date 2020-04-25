@@ -12,17 +12,6 @@
    
    - breakpoints dont work properly if  base address(in GDT) is not 0x0(see head.S). You can do 'break *0xc0001234' but...
    
-   - Access Qemu Monitor :
-     >Qemu 4: Ctr-a c  
-     >Qemu 2 graphical : Ctl+Alt+1 ou 2.  
-     >Qemu 2 : Esc+2 and Esc+1 au lieu de Ctl+Alt+1 ou 2.  
-     >Qemu 2 : Liberate mouse Ctl+Alt
-   
-
-   - Exit Qemu:  
-     > For Qemu4 : Ctrl-a x  
-     or  
-     > (qemu) q
        
 - Build Qemu  from sources
   > ./tools/build-qemu.sh
@@ -31,6 +20,31 @@
   > objcopy -O binary  kernel.elf kernel.bin
 
 - Qemu Monitor commands : https://www.qemu.org/docs/master/system/monitor.html
+
+
+## Qemu Monitor
+- Access Qemu Monitor :  
+         
+    >Qemu 4: Ctr-a c  
+    >Qemu 2 graphical : Ctl+Alt+1 ou 2.  
+    >Qemu 2 : Esc+2 and Esc+1 au lieu de Ctl+Alt+1 ou 2.  
+    >Qemu 2 : Liberate mouse Ctl+Alt
+   
+
+- Exit Qemu:
+
+    > For Qemu4 : Ctrl-a x  
+    or  
+    > (qemu) q
+
+- Scroll  
+
+    > Ctrl+PgUp/PgDown
+
+- Monitor 
+
+    > info registers
+    > info pci
 
 
 ## Debug Qemu with  GQB

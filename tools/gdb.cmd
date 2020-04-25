@@ -15,7 +15,8 @@ symbol-file ~/magOS/bin/LabOS/kernel-debug.sym
 #break  *0x10000c
 #break _start
 #break startup_32
+#b irq_init
 break start_kernel
+b _pci_conf_reg_read
 b irq_1
-b irq_init
 c

@@ -1,7 +1,8 @@
 ## Lab 5
 1. Initialize the Interrupt Table
 2. Initialize the Timer PIT 8253
-3. write a keybord driver(IRQ1)
+3. write a simple PIT driver(IRQ0)
+3. write a keybord driver(IRQ1) (Dont work).
 4. Activate interrupts
 
 
