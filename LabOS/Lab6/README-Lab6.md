@@ -15,13 +15,24 @@ There are two mechanisms of accessing configuration space on x86 PC:
 
 - Enhanced Configuration Access Mechanism (ECAM) – required for PCI express – 4kB per slot, memory mapped
 
+**Configuration Space**  
+![](../../documentation/images/Kernel-PCI-Configuration-Space.png)
+
+
 **PCI bus hierarchy**  
 ![](../../documentation/images/Kernel-PCI-Bus-Hierarchy.png)  
 
 There may be 256 PCI bus. 32 devices can be connected on each bus. a device can handle 8 functions.  
 
+
 CONFIG ADDRESS:  
 ![](../../documentation/images/Kernel-PCI-Config-address.png)
+
+
+**IRQ Handling**  
+Easy in the case of the old PIC, you have the **Interrupt Line field** of the header, which is read/write (you can change it's value!).  
+If you plan to use I/O APIC, it is complicated!!
+
 
 **Linux PCI list**  
 
