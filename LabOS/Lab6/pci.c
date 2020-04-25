@@ -1,7 +1,7 @@
 /* 2020 @AR
 *
 * This simple PCI driver aims:
-*    Detecte PCI devices
+*    Detecte all available PCI devices
 *    
 * Reference : https://wiki.osdev.org/PCI
 */
