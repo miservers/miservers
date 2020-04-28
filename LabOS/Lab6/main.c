@@ -4,9 +4,10 @@
 #include <pic.h>
 #include <timex.h>
 #include <keyboard.h>
+#include <pci.h>
+#include <e1000.h>
 
 extern void kbc_i8042_init();
-extern void pci_probe_devices();
 
 void start_kernel(void);  
  
@@ -26,15 +27,17 @@ void start_kernel () {
 	cons_write(banner);
 
 
-    pic_8259a_init(); // PIC 8259
+  pic_8259a_init(); // PIC 8259
 	kbc_i8042_init(); // Keyboard controller
 	pit_8253_init();  // Timer controller		
 	
 
+	pci_probe_devices();
+	e1000_start();
+
 	sti();
 	cons_write("Interrupts enabled..........[OK]\n");
 	
-	pci_probe_devices();
 	
 	cpu_idle();
 }

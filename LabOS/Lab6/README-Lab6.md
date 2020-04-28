@@ -1,38 +1,57 @@
 ## Lab 5
 1. simple PCI driver
+2. NE200 simple driver
 
 
-### PCI
-Each vendor has a unique ID assigned, and each vendor assigns a unique ID to a device.
+## PCI Bus
+PCI supports 3 address spaces:  
+1. PCI config space
+2. I/O space
+3. MMIO space
 
-**configuration space**  
-256 bytes are assigned to each device function in the basic PCI bus variant, 8 functions per device/slot/card and 32 devices per bus can exist in maximum
+- Each device connected on the PCI bus exhibit a **256 Bits Configration Space**. use 0xCF8 and 0x0CFC ports to retrieve it.  
 
-There are two mechanisms of accessing configuration space on x86 PC:  
-- Through well known I/O ports 
-   - **0xCF8** – PCI CONFIG_ADDRESS (write address first, A0:1=0)
-   - **0xCFC** – PCI CONFIG_DATA (read/write corresponding byte, 16-bit or 32-bit entity, address bits 0 and 1 added to 0xCFC)
+- A device on PCI bus is identified by his (vendorID, deviceID).
 
-- Enhanced Configuration Access Mechanism (ECAM) – required for PCI express – 4kB per slot, memory mapped
-
-**Configuration Space**  
-![](../../documentation/images/Kernel-PCI-Configuration-Space.png)
-
+![](../../documentation/images/Kernel-PCI-Bus.png)  
 
 **PCI bus hierarchy**  
 ![](../../documentation/images/Kernel-PCI-Bus-Hierarchy.png)  
 
+
+**PCI Configuration space**  
+256 bytes are assigned to each device function. 8 functions per device/slot/card and 32 devices per bus can exist in maximum.
+
+Two mechanisms to access configuration space on x86 PC:  
+- Through I/O ports :
+   - **0xCF8** – PCI CONFIG_ADDRESS
+   - **0xCFC** – PCI CONFIG_DATA 
+- MMIO
+
+
+**PCI CONFIG ADDRESS**    
+![](../../documentation/images/Kernel-PCI-Config-address.png)
+
+![](../../documentation/images/Kernel-PCI-Configuration-Space.png)
+
+
 There may be 256 PCI bus. 32 devices can be connected on each bus. a device can handle 8 functions.  
 
 
-CONFIG ADDRESS:  
-![](../../documentation/images/Kernel-PCI-Config-address.png)
+**BAR : base address register**  
+Indicate base address for  IO or DMA communication with this device.  
+![](../../documentation/images/Kernel-PCI-BaseAddressRegister.png)
+
 
 
 **IRQ Handling**  
-Easy in the case of the old PIC, you have the **Interrupt Line field** of the header, which is read/write (you can change it's value!).  
+Easy in the case of the old PIC, you have the  
+
+**Interrupt Line field** of the header, which is read/write (you can change it's value!).  
 If you plan to use I/O APIC, it is complicated!!
 
+PCI List in LabOS  
+![](../../documentation/images/Kernel-PCI-List.png)
 
 **Linux PCI list**  
 
@@ -42,10 +61,46 @@ If you plan to use I/O APIC, it is complicated!!
     
      > info pci
 
+## E1000 NIC
+[Intel Ethernet Controller 8254x GBe](https://pdos.csail.mit.edu/6.828/2019/readings/hardware/8254x_GBe_SDM.pdf)
+
+- Intel PCIe compaibility : PCIe is completely compatible with existing deployed PCI software.
+
+- Memory-Mapped Access to Internal Registers and Memories  
+The internal registers and memories can be accessed as direct memory-mapped offsets
+from the Base Address Register 0 (BAR0).
+
+- When an I/O BAR is mapped, the I/O address range allocated opens a 32-byte window
+in the system I/O address map. Within this window, two I/O addressable registers are
+implemented:
+ - IOADDR
+ - IODATA
+The IOADDR register is used to specify a reference to an internal register, memory, or
+Flash, and then the IODATA register is used as a window to the register, memory or
+Flash address specified by IOADDR:
+
+
+**EEPROM**   
+  Generally a 256bytes  ROM that can  be modified by a special material.  EEPROM stores configuration data for the controller.
+
+  [eeprom-map-appl-note](https://www.intel.ru/content/dam/doc/application-note/82559-eeprom-map-appl-note.pdf) 
+
+  ![](../../documentation/images/Kernel-Network-eeprom.png)
+
+**MAC**  
+  if EEPROM exist, than it contains the MAC address  
+  else read the MAC from addr 0x5400???
+
 
 ## References
-- https://wiki.osdev.org/PCI   : MUST
+MUST:
+- Intel Ethernet 8254x GBe : https://pdos.csail.mit.edu/6.828/2019/readings/hardware/8254x_GBe_SDM.pdf
+- https://wiki.osdev.org/PCI   
+- https://wiki.osdev.org/Intel_Ethernet_i217
+
+Others:
+- http://www.mnc.co.jp/english/INtime/faq07-2_kanren/PCIconfigurationregister.htm
+- EEPROM : https://www.intel.ru/content/dam/doc/application-note/82559-eeprom-map-appl-note.pdf
 - Linux code browser: https://elixir.bootlin.com/linux/latest/source
 - PCI IDS :http://pciids.sourceforge.net/v2.2/pci.ids
-- http://www.mnc.co.jp/english/INtime/faq07-2_kanren/PCIconfigurationregister.htm
 - http://www6.uniovi.es/LDP/LDP/LGNET/156/jangir.html

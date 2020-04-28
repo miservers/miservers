@@ -35,5 +35,9 @@ void printk(const char * format,...);
                   printk(__VA_ARGS__); \
                   printk("\n");        \
                   }while(0)
+
+#define info2(...) do {                 \
+                  printk(__VA_ARGS__); \
+                  }while(0)
                 
 #endif
