@@ -38,6 +38,10 @@ void e1000_start();
 #define E1000_EEC            0x00010  /* EEPROM/Flash Control - RW */
 #define E1000_EERD           0x00014  /* EEPROM Read register - RW */
 
+// Control register bits
+#define E1000_CTRL_ASDE       (1<<5)  // Auto-Speed Detection Enable
+
+
 //EEPROM/FLASH Control Register BITS
 #define E1000_EE_REQ            0x40  //Request bit
 #define E1000_EE_GNT            0x80  //Grant bit 
