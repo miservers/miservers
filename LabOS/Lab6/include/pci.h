@@ -14,16 +14,15 @@
 #define BAR_TYPE_MEMLow   0x02    // below 1MB
 #define BAR_TYPE_MEM64    0x04    // 64 bits addr
 
-//Base Address Register
-struct bar_struct
+/* Base Address Register */
+struct pci_base_address_s
 {
-  u32  bar;
-  u8   space_type;
-  u32  iobase;      //IO base retrieved from BAR
-  u32  membase;     //Memory base from BAR
+  u32  iobase;      // IO base address 
+  u32  membase;     // Memory base address
+  u8   space_type;  // base address : IO or Mem
 };
 
-typedef struct bar_struct bar_t; 
+typedef struct pci_base_address_s base_address_t; 
 
 
 struct pci_device
@@ -42,10 +41,10 @@ struct pci_device
   u8 cache_line_size,latency_timer;
   u8 header_type;
   u8 birst;
-  bar_t bar[BAR_NR];         // base address registers
+  base_address_t base_addr[BAR_NR];         // base address registers
   u16 subsys_vendor_id;
   u16 subsys_id;
-  u8 interrupt_line;
+  u8 interrupt_line;     
   u8 interrupt_pin;
   u8 min_grant;
   u8 max_latency;
@@ -62,5 +61,39 @@ extern pci_device_t pci_devices[PCI_MAX_DEV];
 extern int  pci_dev_nr;   // number of pci devices
 
 void pci_probe_devices(); 
+
+u32 pci_conf_read32 (pci_device_t* pcidev, int offset);
+
+u16 pci_conf_read16 (pci_device_t* pcidev, int offset);
+
+void pci_conf_write32(pci_device_t* pcidev, int offset, u32 data);
+
+void pci_conf_write16(pci_device_t* pcidev, int offset, u16 data);
+
+/* PCI Configuration space registers */
+#define PCI_CONF_REG_00       0x00
+#define PCI_COMMAND           0x04 
+#define PCI_CONF_REG_01       0x04
+#define PCI_CONF_REG_02       0x08
+#define PCI_CONF_REG_03       0x0C
+#define PCI_CONF_REG_04       0x10
+#define PCI_CONF_REG_05       0x14
+#define PCI_CONF_REG_06       0x18
+#define PCI_CONF_REG_07       0x1C
+#define PCI_CONF_REG_08       0x20
+#define PCI_CONF_REG_09       0x24
+#define PCI_CONF_REG_0A       0x28
+#define PCI_CONF_REG_0B       0x2C
+#define PCI_CONF_REG_0C       0x30
+#define PCI_CONF_REG_0D       0x34
+#define PCI_CONF_REG_0E       0x38
+#define PCI_CONF_REG_0F       0x3C
+
+/* Command register */
+#define  PCI_COMMAND_IO        0x1 /* Enable response in I/O space */
+#define  PCI_COMMAND_MEMORY    0x2 /* Enable response in Memory space */
+#define  PCI_COMMAND_MASTER    0x4 /* Enable bus mastering */
+#define  PCI_COMMAND_INTX    0x400 /* INTx Emulation Disable */
+
 
 #endif

@@ -1,4 +1,4 @@
-## Lab 5
+## Lab 6
 1. simple PCI driver
 2. NE200 simple driver
 
@@ -79,6 +79,9 @@ The IOADDR register is used to specify a reference to an internal register, memo
 Flash, and then the IODATA register is used as a window to the register, memory or
 Flash address specified by IOADDR:
 
+**Network Stack**  
+![](../../documentation/images/Kernel-Network-Stack.png)
+
 
 **EEPROM**   
   Generally a 256bytes  ROM that can  be modified by a special material.  EEPROM stores configuration data for the controller.
@@ -90,6 +93,15 @@ Flash address specified by IOADDR:
 **MAC**  
   if EEPROM exist, than it contains the MAC address  
   else read the MAC from addr 0x5400???
+
+**Receive Descriptor**  
+![](../../documentation/images/Kernel-E1000-ReceiveDesc.png)
+
+**Receive Descriptor Queue Structure**   
+![](../../documentation/images/Kernel-E1000-ReceiveDesc-Ring.png)
+
+**Transimit Descriptor**  
+![](../../documentation/images/Kernel-E1000-TransmitDesc.png)
 
 
 ## References

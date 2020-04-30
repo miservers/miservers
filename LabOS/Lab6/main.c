@@ -37,6 +37,8 @@ void start_kernel () {
 
 	sti();
 	cons_write("Interrupts enabled..........[OK]\n");
+
+	e1000_test();
 	
 	
 	cpu_idle();

@@ -65,8 +65,8 @@ _ESP = 52
 _SS  = 56
 
 
-.global system_call, irq_0, irq_1
-.extern timer_handler, keyboard_handler
+.global system_call, irq_0, irq_1, irq_11
+.extern timer_handler, keyboard_handler, e1000_handler
    
 .macro SAVE_ALL
    pushl ds
@@ -134,6 +134,16 @@ irq_1: /*Keyboard*/
    orl $0x200, _EFLAGS(esp)   #enable interrupt just after iret
    RESTORE_ALL
    iret
+
+irq_11: /*Ethernet*/
+   pushl $0  #code error
+   SAVE_ALL
+   ack_pic $PIC2
+   call e1000_handler
+   orl $0x200, _EFLAGS(esp)   #enable interrupt just after iret
+   RESTORE_ALL
+   iret
+
 
 .data
 

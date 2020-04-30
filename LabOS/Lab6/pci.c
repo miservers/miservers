@@ -96,29 +96,73 @@ void pci_print_info (pci_device_t *pcidev)
   
   info2 ("\t");
   for (int i=0; i<BAR_NR; i++)
-    if (pcidev->bar[i].bar)
-      info2 ("BAR%d %x, ", i, pcidev->bar[i]);
+  {
+    if (pcidev->base_addr[i].iobase)
+      info2 ("BAR%d IO %x, ", i, pcidev->base_addr[i].iobase);
+    if (pcidev->base_addr[i].membase)
+      info2 ("BAR%d MEM32 %x, ", i, pcidev->base_addr[i].membase);     
+  }
+
   info2 ("\n");
   
 }
 
 
 //-----------------------------------------------
-//
-// read a DWord in configuration base, using IO port.
-//
+//               Read/Write
+//  a dword in configuration base, using IO port.
+//  @offset : bits 1:0 must always be 00.
 //-----------------------------------------------
-u32 pci_conf_readl(int bus, int device, int func, int offset) 
-{
 
+u32 pci_conf_read32_long(int bus, int device, int func, int offset) 
+{
+  
   u32 addr = 0x80000000 | (bus<<16) | (device<<11) | (func<<8) | (offset & 0xfc);
   
   outl(addr, PCI_CONF_ADDR);
   u32 data= inl(PCI_CONF_DATA);
   
   return data;
-
 }
+
+u32 pci_conf_read32 (pci_device_t* pcidev, int offset)
+{
+  return pci_conf_read32_long (pcidev->bus, pcidev->device, pcidev->function, offset);
+} 
+
+u16 pci_conf_read16 (pci_device_t* pcidev, int offset)
+{
+  u32 data = pci_conf_read32 (pcidev, offset);
+  return ( (data >> ((offset&0x02)*8)) & 0xFFFF );
+} 
+
+void pci_conf_write32(pci_device_t* pcidev, int offset, u32 data) 
+{
+
+  u32 addr = 0x80000000 | (pcidev->bus<<16) | (pcidev->device<<11) | (pcidev->function<<8) | (offset&0xFC);
+  
+  outl(addr, PCI_CONF_ADDR);
+  outl(data, PCI_CONF_DATA);
+}
+
+
+void pci_conf_write16(pci_device_t* pcidev, int offset, u16 data) 
+{
+
+  u32 addr = 0x80000000 | (pcidev->bus<<16) | (pcidev->device<<11) | (pcidev->function<<8) | (offset&0xFC);
+  
+  u32 tmp = pci_conf_read32 (pcidev, offset);
+  
+  if (offset&0x02)                            // offset end with 2. so modify high 16 bits.
+    tmp = (tmp & 0x0000FFFF) | (data<<16);
+  
+  else                                        // data is 16 low bits of the register.
+    tmp = (tmp & 0xFFFF0000)|data;      
+  
+  outl(addr, PCI_CONF_ADDR);
+  outl(tmp,  PCI_CONF_DATA);
+}
+
 
 /*--------------------------------------------------------------------
  * This function use the brut force to search 
@@ -138,10 +182,9 @@ void pci_probe_devices()
 	    for (u8 func = 0; func < 8; func++) 
       {
 
-	      u32 reg0 = pci_conf_readl(bus,device, func, 0x00);
+	      u32 reg0 = pci_conf_read32_long(bus,device, func, PCI_CONF_REG_00);
         
         u16 vendor_id = (u16)reg0;
-
         if (vendor_id != 0xFFFF) 
         {
           pci_device_t *pcidev = &pci_devices[pci_dev_nr++];
@@ -150,48 +193,53 @@ void pci_probe_devices()
           pcidev->function  = func;
           pcidev->vendor_id = vendor_id;
           pcidev->device_id = reg0>>16;
-          
-          u32 reg2 = pci_conf_readl(bus,device, func, 0x08);
+         
+          u32 reg1 = pci_conf_read32(pcidev, PCI_CONF_REG_01);
+          pcidev->command = (u16)(reg1);
+          pcidev->status = (u16)(reg1>>16);
+
+          u32 reg2 = pci_conf_read32(pcidev, PCI_CONF_REG_02);
           pcidev->revision_id = (u8)(reg2);
           pcidev->prog_if     = (u8)(reg2>>8);
           pcidev->subclass    = (u8)(reg2>>16);
           pcidev->class_code  = (u8)(reg2>>24);
 
-          u32 reg3 = pci_conf_readl(bus,device, func, 0x0C);
+          u32 reg3 = pci_conf_read32(pcidev, PCI_CONF_REG_03);
           pcidev->header_type = (reg3>>16) & 0x7F;
           
-          for (int i=0; pcidev->header_type==PCI_TYPE_DEVICE && i<BAR_NR; i++)
+          for (int i=0; pcidev->header_type==PCI_TYPE_DEVICE && i<BAR_NR; i++) // read base address registers
           {
           
-            pcidev->bar[i].bar = pci_conf_readl(bus,device, func, 0x10+i*4);
+            u32 bar = pci_conf_read32(pcidev, PCI_CONF_REG_04+i*4);
 
-            if (pcidev->bar[i].bar & BAR_TYPE_IO) // bar is a io base
+            if (!bar) continue;
+
+            if (bar & BAR_TYPE_IO) // bar is a io base
             {
-              pcidev->bar[i].space_type = BAR_TYPE_IO;
-              pcidev->bar[i].iobase    = pcidev->bar[i].bar & 0xFFFFFFFC; //Bits 31-2 
+              pcidev->base_addr[i].space_type = BAR_TYPE_IO;
+              pcidev->base_addr[i].iobase    = bar & 0xFFFFFFFC; //Bits 31-2 
             }
           
             else //bar is memory base
             {
-              pcidev->bar[i].space_type = pcidev->bar[i].bar & 0x7; //bits 0-2
-              pcidev->bar[i].membase    = pcidev->bar[i].bar & 0xFFFFFFF0; //Bits 31-4
+              pcidev->base_addr[i].space_type = bar & 0x7; //bits 0-2
+              pcidev->base_addr[i].membase    = bar & 0xFFFFFFF0; //Bits 31-4
             }
           
-          }
+          }          
           
-          
-          u32 regb = pci_conf_readl(bus,device, func, 0x2C);
+          u32 regb = pci_conf_read32(pcidev, PCI_CONF_REG_0B);
           pcidev->subsys_vendor_id = (u16)regb;
           pcidev->subsys_id        = (u16)(regb>>16) ;
 
-          u32 reg3c = pci_conf_readl(bus,device, func, 0x3C);
-          pcidev->interrupt_line = (u8)reg3c;
-          pcidev->interrupt_pin  = (reg3c>>8) & 0xFF;
-          pcidev->min_grant      = (reg3c>>16) & 0xFF;
-          pcidev->max_latency    = (reg3c>>24) & 0xFF;
+          u32 regf = pci_conf_read32(pcidev, PCI_CONF_REG_0F);
+          pcidev->interrupt_line = (u8)regf;
+          pcidev->interrupt_pin  = (regf>>8) & 0xFF;
+          pcidev->min_grant      = (regf>>16) & 0xFF;
+          pcidev->max_latency    = (regf>>24) & 0xFF;
 
 #if DEBUG_PCI 
-          pci_print_info(dev);
+          pci_print_info(pcidev);
 #endif
 
         }

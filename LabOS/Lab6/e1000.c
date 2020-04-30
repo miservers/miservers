@@ -1,7 +1,8 @@
 /* 2020 @AR
 *
-*  This driver support : 
-*      - Intel Ethernet 8254x GBe : https://pdos.csail.mit.edu/6.828/2019/readings/hardware/8254x_GBe_SDM.pdf
+*  This straight-forward driver for Intel Ethernet controllers 8254x: 
+*      - https://pdos.csail.mit.edu/6.828/2019/readings/hardware/8254x_GBe_SDM.pdf
+*  8254x are PCI(not PCIe) devices.
 *  https://wiki.osdev.org/Intel_Ethernet_i217
 *  E1000 registers can be found in Linux e1000_hw.h 
 *    
@@ -12,6 +13,7 @@
 #include <pci.h>
 #include <kernel.h>
 #include <errno.h>
+#include <libc.h>
 
  
 #define NET_MAX_DEV             16  // network maximum devices 
@@ -23,6 +25,8 @@ int  net_dev_nr = 0;                     // number of net devices
 
 net_device_t *e1000_dev;                 // E1000 device if existe.  
 
+
+void delay(int t) {while(t--);} // bad way to make a delay
 
 //---------------------------------------------------------------------
 // 
@@ -84,13 +88,13 @@ void e1000_write_cmd (net_device_t *netdev, u32 addr, u32 data)
 void net_print_info (net_device_t *netdev)
 {
   
-  pci_device_t *pcidev =  netdev->pci_dev;
+  pci_device_t *pcidev =  netdev->pcidev;
   
   info2 ("Network Controller %s %s\n", netdev->vendor_name, netdev->dev_name);
   info2 ("\tBus %x, Device %x, Function %x: \n"
-         "\tinterrupt %x \n", 
+         "\tIRQ %x \n", 
                  pcidev->bus, pcidev->device, pcidev->function,  
-                 pcidev->interrupt_line);
+                 netdev->irq);
   
   info2 ("\tIO base at %x\n", netdev->iobase);
   info2 ("\t32 bits Memory base addr at %x\n", netdev->membase);
@@ -215,6 +219,17 @@ void print_mac(net_device_t *netdev)
 
 }
 
+
+//-----------------------------------------------------------
+//              Interrupts-IRQ handler
+// 
+//-----------------------------------------------------------
+void e1000_handler()
+{
+  info ("E1000 handler invoked");
+}
+
+
 //-------------------------------------------------------------------
 //
 // To detect E1000 nic on the PCI: we browse PCI devices list looking
@@ -232,27 +247,93 @@ net_device_t* e1000_probe()
     {
       info ("E1000 present");
       net_device_t *netdev = &net_devices[net_dev_nr++];
-      netdev->vendor_name = "INTEL";
-      netdev->dev_name    = "E1000";
-      netdev->pci_dev     = pcidev;
-      netdev->space_type   = pcidev->bar[0].space_type;
+      netdev->vendor_name  = "INTEL";
+      netdev->dev_name     = "E1000";
+      netdev->pcidev       = pcidev;
+      netdev->space_type   = pcidev->base_addr[0].space_type;
   
       for (int k=0; k<BAR_NR; k++)
       {
-        if (!pcidev->bar[k].bar) continue;
+        if (pcidev->base_addr[k].iobase)
+          netdev->iobase = pcidev->base_addr[k].iobase;
   
-        if (pcidev->bar[k].space_type == BAR_TYPE_IO)
-          netdev->iobase = pcidev->bar[k].iobase;
-  
-        else 
-          netdev->membase = pcidev->bar[k].membase;
+        else if (pcidev->base_addr[k].membase)
+          netdev->membase = pcidev->base_addr[k].membase;
       }
+
+      netdev->irq = pcidev->interrupt_line;
   
       e1000_dev = netdev;
       return netdev;
     }
   }
   return NULL;
+}
+
+//-------------------------------------------------
+//
+//              Initializations
+//  See Ch. 14.5 Transmit Initialization
+//      Ch. 14.4 Receive Initialization
+//-------------------------------------------------
+void init_rx(net_device_t *netdev)
+{
+  // receive buffer size: 1KB
+  u32 rctl = e1000_read_cmd (netdev, E1000_RCTL); 
+ 
+  rctl = (rctl & ~E1000_RCTL_BSIZE) | (E1000_RCTL_BSIZE_1K); //BSiZE=01b
+  rctl &= ~E1000_RCTL_BSEX;  // clear bsex bit
+
+  e1000_write_cmd (netdev, E1000_RCTL,rctl);
+
+}
+
+
+#define TX_RING_ZISE  32    // TX ring size
+
+tx_desc_t tx_ring[TX_RING_ZISE] __attribute__ ((aligned (16)));   
+
+tx_buf_t  tx_buf[TX_RING_ZISE]; 
+
+void init_tx (net_device_t *netdev)
+{
+
+  // Init TX descriptors
+  memset((char *)&tx_ring[0], 0 , TX_RING_ZISE*16);
+
+  for (int i = 0; i < TX_RING_ZISE; i++)
+  {
+    tx_desc_t* txdesc = &tx_ring[i];
+
+    txdesc->addr_low  =  (u32) &tx_buf[i];
+    txdesc->addr_high = 0;
+
+    txdesc->length    = TX_BUF_LEN;
+
+    memset((char *)&tx_buf[i], 0 , TX_BUF_LEN);
+  }
+
+  // Transmit Descriptor Base Address (TDBAL/TDBAH) registers
+  u32 tdbal = (u32)&tx_ring[0];
+  e1000_write_cmd (netdev, E1000_TDBAL, tdbal);
+
+  e1000_write_cmd (netdev, E1000_TDBAH, 0);
+
+  // Transmit Descriptor Length (TDLEN) register = size (in bytes) of tx ring
+  u32 txlen = (TX_RING_ZISE) * 16;
+  e1000_write_cmd (netdev, E1000_TDLEN, (txlen<<7));
+
+  // Transmit Descriptor Head and Tail (TDH/TDT)
+  e1000_write_cmd (netdev, E1000_TDH, 0);
+  e1000_write_cmd (netdev, E1000_TDT, 0);
+
+  // Init of Transmit Control Register (TCTL)
+  u32 tctl = e1000_read_cmd (netdev, E1000_TCTL); 
+  tctl |= E1000_TCTL_EN | E1000_TCTL_PSP | E1000_TCTL_RTLC;         
+  tctl = (tctl & ~E1000_TCTL_CT) | (0x10 << 4);  // Collision Threshold set a 10h
+  tctl = (tctl & ~E1000_TCTL_COLD) | (0x40 << 12);  //full duplex 40h
+  e1000_write_cmd (netdev, E1000_TCTL,tctl);
+
 }
 
 //-------------------------------------------------
@@ -264,34 +345,61 @@ net_device_t* e1000_probe()
 void e1000_start() 
 {
   net_device_t *netdev;
+  u32 ctrl;
 
 
   netdev = e1000_probe();
  
   if (!netdev) 
     goto no_e1000;
+
+  e1000_dev = netdev;
+
   net_print_info(netdev);
 
   e1000_read_mac(netdev);
 
   print_mac (netdev);
 
-  // reset phy
-  // set Auto-Speed Detection Enable (CTRL.ASDE)
-  u32 ctrl = e1000_read_cmd (netdev, E1000_CTRL);
-  ctrl |= E1000_CTRL_ASDE; 
+  /* PHY reset */
+  ctrl  = e1000_read_cmd (netdev, E1000_CTRL); 
+  e1000_write_cmd(netdev, E1000_CTRL, ctrl | E1000_CTRL_PHY_RST);
+  delay(10);
 
+  /* MAC reset */
+  e1000_write_cmd(netdev, E1000_CTRL, ctrl | E1000_CTRL_RST);
+  delay(10);
+  
+  /* Enable Interrupts */
+  e1000_write_cmd(netdev, E1000_IMS, 0xFF);
+  e1000_write_cmd(netdev, E1000_IMC, 0xFF);
+  
+  /* Mastering device */
+  u16 command = pci_conf_read16 (netdev->pcidev, PCI_COMMAND);
+  command |= PCI_COMMAND_MASTER | PCI_COMMAND_INTX;
+  pci_conf_write16(netdev->pcidev, PCI_COMMAND, command); 
+ 
+  init_tx (netdev); 
 
-  return ;
-
+out:
+  return;
 no_e1000:
-   info ("No Intel E1000 exist");
-     
+  info ("No Intel E1000 exist");
+  goto out;   
 }
 
 
+//--------------------------------------------------------------------
+//
+//       Test : send/receive a packet
+//
+//--------------------------------------------------------------------
+void e1000_test ()
+{
+  net_device_t *netdev = e1000_dev;
 
-
+  info ("Testing E1000 driver...");
+}
 
 
 

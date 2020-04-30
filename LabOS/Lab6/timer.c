@@ -25,7 +25,7 @@
 #define CTRL_PORT   0x43  /*Mode control port*/
 
 
-#define DEBUG 0
+#define DEBUG_TIMER 0
 
 unsigned long jiffies = 0;
 
@@ -34,7 +34,7 @@ void timer_handler(unsigned long esp)
   
   jiffies++;
   
-  #if DEBUG==1 
+  #if DEBUG_TIMER==1 
   cons_write("Timer...");
   #endif
 

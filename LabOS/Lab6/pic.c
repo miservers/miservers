@@ -37,6 +37,7 @@
 
 extern void irq_0();
 extern void irq_1();
+extern void irq_11();
 
 /* 
  * PIC 8259A (Programmabl3 Interrupt Controller).
@@ -68,8 +69,11 @@ void pic_8259a_init()
 
 void irq_init()
 {
-   set_intr_gate(IRQ_0, (u32) irq_0);  // Timer 
-   set_intr_gate(IRQ_1, (u32) irq_1);  // keyboard 
+   set_intr_gate(IRQ_0, (u32) irq_0);    // Timer 
+   
+   set_intr_gate(IRQ_1, (u32) irq_1);    // keyboard 
+   
+   set_intr_gate(IRQ_11, (u32) irq_11);  // Ethernet 
 }
 
 
