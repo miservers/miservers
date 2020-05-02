@@ -27,11 +27,11 @@ struct tx_desc
   u32 addr_high;
   
   u16 length;    // buffer length. 16KB by default 
-  u8 cso;        //checksum offset. where to insert TCP checksum
-  u8 cmd;
-  u8 sta;
-  u8 rsv;
-  u8 css;
+  u8  cso;        //checksum offset. where to insert TCP checksum
+  u8  cmd;
+  u8  status;
+  u8  rsv;
+  u8  css;
   u16 special;
 
 } __attribute__ ((packed));
@@ -42,18 +42,6 @@ struct tx_buf_struct
 {
   int a;
 } __attribute__ ((packed));
-
-#define TX_BUF_LEN      4192
-
-typedef  u8 tx_buf_t[TX_BUF_LEN];   
-
-struct tx_ring_struct 
-{
-  struct tx_ring_struct* head; 
-  struct tx_ring_struct* tail; 
-}; 
-
-
 
 
 void e1000_start();
@@ -112,6 +100,17 @@ void e1000_test ();
 #define E1000_TCTL_CT              (0xFF<<4)   // b11:4. Collision Threshold
 #define E1000_TCTL_COLD          (0x3FF<<12)   // b21:12. Collision Distance
 #define E1000_TCTL_RTLC              (1<<24)  // retrasmit on late-collision
+
+/* Transmit Command (TDESC.CMD) */
+#define E1000_TDESC_CMD_EOP           (1<<0)  // End Of Packet
+#define E1000_TDESC_CMD_IC            (1<<2)
+#define E1000_TDESC_CMD_RS            (1<<3)
+#define E1000_TDESC_CMD_DEXT          (1<<5)  // Extension (0b for legacy mode)
+
+/* Transmit Descriptor Status */
+#define E1000_TDESC_STATUS_DD         (1<<0)  // Descriptor Done
+#define E1000_TDESC_STATUS_EC         (1<<1)  // Excess Collisions
+#define E1000_TDESC_STATUS_LC         (1<<2)  // Late Collision
 
 
 

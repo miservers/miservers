@@ -2,7 +2,7 @@
 # Qemu 4.2
 # Usage :
 #        ./start-qemu-Lab.sh [-g]
-#			    -g : run in debug mode (GDB)
+#		      	-g : run in debug mode (GDB)
 #	       
 # Block device options (Qemu 4):
 #    -fda file      :floppy disk 0 image
@@ -19,7 +19,7 @@
 set -x
 
 
-LABOS_ISO=$HOME/magOS/LabOS/bin/vmlabos.iso
+LABOS_ISO=$HOME/magOS/bin/LabOS/vmlabos.iso
 ARCH=i386
 #ARCH=x86_64
 QEMU_OPTS='-vga std ' 
@@ -33,4 +33,6 @@ if [ ""$1 == "-g" ] ; then
 fi
 
 $QEMU_BIN  $DEBUG  $QEMU_OPTS -drive file=$LABOS_ISO,format=raw,index=0,media=disk -D $LOGFILE $LOGOPT
+
+#qemu-system-$ARCH -m 256  $DEBUG  $QEMU_OPTS -boot order=d -hda $LABOS_ISO -D $LOGFILE $LOGOPT
 

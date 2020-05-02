@@ -1,62 +1,65 @@
-# LAB-5 Makefile 2020
+# LAB-6 Makefile 2020
 
-IMG     = vmlabos.iso
-EXE     = bootsect.bin setup.bin kernel.bin 
+img     = vmlabos.iso
 
-SRC_DIR = .
-SRC     = $(wildcard *.c)
-OBJ     = head.o $(SRC:.c=.o) sys_call.o
-OUT_DIR = ../../bin/LabOS
-OUT_IMG = $(OUT_DIR)/$(IMG)
-OUT_EXE = $(addprefix $(OUT_DIR)/, $(EXE)) 
-OUT_OBJ = $(addprefix $(OUT_DIR)/, bootsect.o setup.o $(OBJ))
+src     = $(wildcard *.c)
+bindir  = ../bin
 
-objs    = $(addprefix $(OUT_DIR)/, $(OBJ))
+kern_objs     = boot/head.o $(src:.c=.o) sys_call.o
+objs          = $(addprefix $(bindir)/, $(kern_objs))  
 
 INCLUDE += -I./include
-#ARCH     = x86_64-elf
 ARCH     = i386-elf
 LD       = $(ARCH)-ld  
 CC       = $(ARCH)-gcc
 OBJCOPY  = $(ARCH)-objcopy
-CFLAGS += -g -O0 -Wall  -fno-builtin -nostdinc -fno-omit-frame-pointer  $(INCLUDE)
+MAKE     = make --no-print-directory
+CFLAGS  += -g -O0 -Wall  -fno-builtin -nostdinc -fno-omit-frame-pointer 
 
-all: $(IMG)
+export LD
+export CC
+export CFLAGS
 
-$(OUT_DIR)/%.o:%.S
-	$(CC) $(CFLAGS) -c $< -o $@
+subdirs  = boot drivers net
 
-$(OUT_DIR)/%.o:%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+all: $(img)  
 
+.PHONY:  $(subdirs) all
 
-$(OUT_DIR)/bootsect.bin:$(OUT_DIR)/bootsect.o
-	$(LD) --oformat binary -Ttext 0x0  $^ -o $@
+$(bindir)/%.o:%.S
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
-$(OUT_DIR)/setup.bin:$(OUT_DIR)/setup.o
-	$(LD) --oformat binary -Ttext 0x0  $^ -o $@
+$(bindir)/%.o:%.c
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
-$(OUT_DIR)/kernel.elf: $(objs)
-	@echo Kernel linking: stage 1
-	$(LD) -n -T linker.ld $^ -o $@
-	$(OBJCOPY)  --only-keep-debug $@ $(OUT_DIR)/kernel-debug.sym
+$(subdirs):
+	$(MAKE)  -C $@
+
+$(bindir)/kernel.elf: $(objs) 
+	@echo Linking stage 1
+	$(LD) -n -T linker.ld $^  $(bindir)/drivers/*.o  -o $@
+	$(OBJCOPY)  --only-keep-debug $@ $(bindir)/kernel-debug.sym
 	$(OBJCOPY)  --strip-debug $@ $@
 	
-$(OUT_DIR)/kernel.bin:$(OUT_DIR)/kernel.elf
-	@echo Kernel linking: stage 2
+$(bindir)/kernel.bin:$(bindir)/kernel.elf
+	@echo Linking stage 2
 	$(OBJCOPY) -O binary $<  $@
 
-$(IMG):$(OUT_EXE)
-	@echo -------- Building HD Image---------
-	cat $(OUT_EXE) /dev/zero | dd of=$(OUT_IMG) bs=512 count=2048 status=none
-	#vboxmanage convertfromraw $(OUT_IMG) $(OUT_IMG).vdi --format vdi
+$(img): $(subdirs) $(bindir)/kernel.bin
+	@echo -------- HD Image---------
+	cat  $(bindir)/boot/bootsect.bin $(bindir)/boot/setup.bin $(bindir)/kernel.bin  /dev/zero |\
+	                                         dd of=$(bindir)/$@ bs=512 count=2048 status=none
+	#vboxmanage convertfromraw $(OUT_img) $(OUT_img).vdi --format vdi
 
 
 init:
-	mkdir -p $(OUT_DIR)
+	mkdir -p $(bindir)/boot $(bindir)/drivers $(bindir)/net 
 
 clean:
-	rm -f $(OUT_EXE) $(OUT_OBJ) $(OUT_IMG) $(OUT_IMG).vdi $(OUT_DIR)/kernel-debug.sym $(OUT_DIR)/kernel.elf
+	rm -f $(objs) $(bindir)/$(img)  $(bindir)/$(img).vdi  $(bindir)/kernel.bin $(bindir)/kernel-debug.sym $(bindir)/kernel.elf
+	$(MAKE) -C boot    clean
+	$(MAKE) -C drivers clean
+	$(MAKE) -C net     clean
 
 
 

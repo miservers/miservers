@@ -26,6 +26,17 @@ int  net_dev_nr = 0;                     // number of net devices
 net_device_t *e1000_dev;                 // E1000 device if existe.  
 
 
+#define TX_RING_ZISE      32             // TX ring size
+#define TX_BUF_LEN      1518             // packet buffer len
+
+typedef  u8 tx_buf_t[TX_BUF_LEN];   
+
+tx_desc_t tx_ring[TX_RING_ZISE] __attribute__ ((aligned (16)));   
+
+tx_buf_t  tx_buf[TX_RING_ZISE]  __attribute__ ((aligned (4))); 
+
+
+
 void delay(int t) {while(t--);} // bad way to make a delay
 
 //---------------------------------------------------------------------
@@ -288,13 +299,6 @@ void init_rx(net_device_t *netdev)
 
 }
 
-
-#define TX_RING_ZISE  32    // TX ring size
-
-tx_desc_t tx_ring[TX_RING_ZISE] __attribute__ ((aligned (16)));   
-
-tx_buf_t  tx_buf[TX_RING_ZISE]; 
-
 void init_tx (net_device_t *netdev)
 {
 
@@ -328,6 +332,7 @@ void init_tx (net_device_t *netdev)
   e1000_write_cmd (netdev, E1000_TDT, 0);
 
   // Init of Transmit Control Register (TCTL)
+
   u32 tctl = e1000_read_cmd (netdev, E1000_TCTL); 
   tctl |= E1000_TCTL_EN | E1000_TCTL_PSP | E1000_TCTL_RTLC;         
   tctl = (tctl & ~E1000_TCTL_CT) | (0x10 << 4);  // Collision Threshold set a 10h
@@ -335,6 +340,43 @@ void init_tx (net_device_t *netdev)
   e1000_write_cmd (netdev, E1000_TCTL,tctl);
 
 }
+
+//-------------------------------------------------
+//
+//            Send/Receive a packet
+//
+//-------------------------------------------------
+void e1000_send_packet (char* payload, u32 payload_len)
+{
+  net_device_t *netdev = e1000_dev;
+
+  u32 head = e1000_read_cmd (netdev, E1000_TDH);
+
+  memcpy ( payload, (char *)&tx_buf[head], payload_len);
+
+  tx_desc_t* txdesc = &tx_ring[head];
+
+  txdesc->addr_low  =  (u32) &tx_buf[head];
+  txdesc->addr_high =  0;
+
+  txdesc->length    = payload_len & 0xFFFFFFC0;  // must be 128 aligned
+  txdesc->cmd       = E1000_TDESC_CMD_EOP | E1000_TDESC_CMD_RS ;
+  txdesc->status    = 0;
+
+  info ("STA before : %x", txdesc->status);
+
+  head++;
+  
+  e1000_write_cmd (netdev, head, E1000_TDH);
+  
+  delay(1000);
+
+  info ("Head after : %d", head);  
+  info ("STA after : %x", txdesc->status);
+  
+
+}
+
 
 //-------------------------------------------------
 //
@@ -399,6 +441,27 @@ void e1000_test ()
   net_device_t *netdev = e1000_dev;
 
   info ("Testing E1000 driver...");
+  
+  u32 payload_len = 128; 
+  u8 payload[payload_len];
+  
+  memset((char *)&payload[0], 0x77 , payload_len);
+
+  u32 head = e1000_read_cmd (netdev, E1000_TDH);
+  u32 tail = e1000_read_cmd (netdev, E1000_TDT);
+  
+  info ("HeadB : %d", head);
+  info ("TailB: %d", tail);
+  
+  //for (int i = 0; i < 10; i++)
+    e1000_send_packet ((char *)&payload[0], payload_len);
+
+  head = e1000_read_cmd (netdev, E1000_TDH);
+  tail = e1000_read_cmd (netdev, E1000_TDT);
+  
+  info ("HeadA : %d", head);
+  info ("TailA: %d", tail);
+  
 }
 
 

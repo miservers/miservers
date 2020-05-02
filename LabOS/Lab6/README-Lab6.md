@@ -109,7 +109,8 @@ MUST:
 - Intel Ethernet 8254x GBe : https://pdos.csail.mit.edu/6.828/2019/readings/hardware/8254x_GBe_SDM.pdf
 - https://wiki.osdev.org/PCI   
 - https://wiki.osdev.org/Intel_Ethernet_i217
-
+- https://pdos.csail.mit.edu/6.828/2017/labs/lab6/
+  
 Others:
 - http://www.mnc.co.jp/english/INtime/faq07-2_kanren/PCIconfigurationregister.htm
 - EEPROM : https://www.intel.ru/content/dam/doc/application-note/82559-eeprom-map-appl-note.pdf

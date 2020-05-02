@@ -1,9 +1,18 @@
 ## Tools
 
 **Sublime Text**
+   - Install a package using Control Package : **Crl+Shif+p** and chose **Install package**.  
    - MarkDown Preview: https://facelessuser.github.io/MarkdownPreview/    
-     Alt-m : to preview
-   - Open a file quickly : **Ctrl-p**
+     Alt-m : to preview  
+   - Open a file quickly : **Ctrl-p**  
+   - Install a package:    **Crl+shift+p**  
+   - Code navigation using **Ctags**:   
+      -- https://www.gravitywell.co.uk/insights/how-to-set-up-ctags-for-sublime-text-editor-2/  
+      -- 1. install Ctags ubuntu package  
+      -- 2. install  Ctags under Sublime text using Control Package (**Crl+Shif+p**)  
+      -- rebuild_ctags: **ctrl+t ctrl+r**  
+      -- navigate_to_definition: **ctrl+t ctrl+t or ctrl+alt+]**  
+      -- jump_back: **ctrl+t ctrl+b or ctrl+alt+[**  
 
 **Terminology** : very good terminal emulator, with split.
 
