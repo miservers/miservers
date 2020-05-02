@@ -47,7 +47,7 @@ http://lacl.univ-paris12.fr/cegielski/teach-Pat.html
  - Geekos
  - minix 2.0
  - https://github.com/bhanderson/cpts460 : based on cource ~cs460, see below
-
+ - https://github.com/tehybel/osdev
  - SANOS :http://www.jbox.dk/sanos/
 
 **Cours**  
