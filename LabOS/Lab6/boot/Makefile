@@ -1,7 +1,7 @@
 
-bins     = bootsect.bin setup.bin
-
 bindir  = ../../bin/boot
+
+bins     = $(addprefix $(bindir)/,bootsect.bin setup.bin)
 
 INCLUDE += -I../include
 
@@ -11,11 +11,11 @@ all: $(bins)
 $(bindir)/%.o:%.S
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
-bootsect.bin:$(bindir)/bootsect.o
-	$(LD) --oformat binary -Ttext 0x0  $^ -o $(bindir)/$@
+$(bindir)/bootsect.bin:$(bindir)/bootsect.o
+	$(LD) --oformat binary -Ttext 0x0  $^ -o $@
 
-setup.bin:$(bindir)/setup.o
-	$(LD) --oformat binary -Ttext 0x0  $^ -o $(bindir)/$@
+$(bindir)/setup.bin:$(bindir)/setup.o
+	$(LD) --oformat binary -Ttext 0x0  $^ -o $@
 
 clean:
 	rm -f $(bindir)/*.o $(bindir)/*.bin 

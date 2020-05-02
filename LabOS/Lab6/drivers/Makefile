@@ -1,7 +1,7 @@
 
 
 src     = $(wildcard *.c)
-objs    = $(src:.c=.o)
+objs    = $(addprefix $(bindir)/,$(src:.c=.o))
 
 bindir  = ../../bin/drivers
 
@@ -10,8 +10,8 @@ INCLUDE += -I../include
 
 all: $(objs)
 
-%.o:%.c
-	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $(bindir)/$@
+$(bindir)/%.o:%.c
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 clean:
 	rm -f $(bindir)/*.o
