@@ -6,6 +6,7 @@ src     = $(wildcard *.c)
 
 bindir  = ../bin
 
+# very bad to do so, find other way?
 driv_objs = $(addprefix $(bindir)/drivers/, console.o keyboard.o pci.o e1000.o)
 net_objs  = $(addprefix $(bindir)/net/, if_ether.o)
 kern_objs = $(addprefix $(bindir)/, boot/head.o $(src:.c=.o) sys_call.o)
