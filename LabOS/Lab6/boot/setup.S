@@ -20,9 +20,9 @@ _start:
    #call save_meminfo        # save phy memory size at INITSEG (0x90000)
    
    # Enabling A20
-   inb     $0x92, al                        #
-   orb     $02, al                         # "fast A20" version
-   outb    al, $0x92                       # some chips have only this
+   #inb     $0x92, al                        #
+   #orb     $02, al                         # "fast A20" version
+   #outb    al, $0x92                       # some chips have only this
 
    # Enabling protected mode
    cli

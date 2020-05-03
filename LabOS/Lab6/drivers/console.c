@@ -15,8 +15,8 @@
 
 #define NR_CONS 4
 
-#define SCR_WIDTH    	80	/* # characters on a line */
-#define SCR_LINES    	25	/* # lines on the screen */
+#define COLUMN_NR    	80	/* # characters on a line */
+#define ROW_NR    	  25	/* # lines on the screen */
 #define SCR_SIZE	(80*25)	/* # characters on the screen */
 
 #define DEFAULT_ATTR           ((BLUE<<4 | WHITE) << 8)
@@ -42,11 +42,11 @@ typedef struct console {
 console_t consoles[NR_CONS];
 console_t *curcons; /*currently visible*/
 
-#define pos(cons,row,col) (unsigned short *)(cons->start + cons->origin*2 + (row)*SCR_WIDTH*2 + (col)*2)
-#define cursor_pos(cons) (unsigned short *)(cons->start + cons->origin*2 + cons->row*SCR_WIDTH*2 + cons->col*2 )
-#define cursor(cons) (cons->origin + cons->row*SCR_WIDTH  + cons->col )
+#define pos(cons,row,col) (unsigned short *)(cons->start + cons->origin*2 + (row)*COLUMN_NR*2 + (col)*2)
+#define cursor_pos(cons) (unsigned short *)(cons->start + cons->origin*2 + cons->row*COLUMN_NR*2 + cons->col*2 )
+#define cursor(cons) (cons->origin + cons->row*COLUMN_NR  + cons->col )
 
-extern int enter, page_up, page_down, backspace; /*keyborad.c*/
+extern int enter, up_arrow, down_arrow, page_up, page_down, backspace; /*keyborad.c*/
 void set_gd5446(unsigned int value, int reg);
 
 void cons_clear(int tty)
@@ -77,22 +77,27 @@ void cons_init()
 
 void clear_line(console_t* cons, int nr)
 {
-  memsetw ((short*)pos(cons,nr,0), (short)cons->blank, SCR_WIDTH);
+  memsetw ((short*)pos(cons,nr,0), (short)cons->blank, COLUMN_NR);
 }
 
 #define SCROLL_UP   0
 #define SCROLL_DOWN 1
-void scroll(console_t *cons, int direction)
+void cons_scroll(console_t *cons, int direction)
 {
   
-  if (direction == SCROLL_UP) {
-    cons->origin += SCR_WIDTH;
-    if (cons->origin >= 0x2000) 
+  if (direction == SCROLL_DOWN) {
+    cons->origin += COLUMN_NR;
+  
+    if (cons->origin >= SCR_SIZE) 
       cons_clear(0);
-    clear_line (cons, SCR_LINES-1);
+  
+    clear_line (cons, ROW_NR-1);
   }
-  else if (direction == SCROLL_DOWN)
-    cons->origin -= SCR_WIDTH;
+
+  else if (direction == SCROLL_UP)
+  {
+    cons->origin -= COLUMN_NR;
+  }
   
   set_gd5446(cons->origin, REG_ORIGIN);
 }
@@ -124,14 +129,14 @@ void cons_putchar(register char c)
     curcons->col++;
   }
   
-  if (curcons->col >= SCR_WIDTH) {
+  if (curcons->col >= COLUMN_NR) {
     flush (curcons);
     curcons->row++;
     curcons->col = 0;
   }      
-  if (curcons->row >= SCR_LINES) {
-    scroll(curcons, SCROLL_UP);
-    curcons->row = SCR_LINES-1;
+  if (curcons->row >= ROW_NR) {
+    cons_scroll(curcons, SCROLL_DOWN);
+    curcons->row = ROW_NR-1;
     curcons->col = 0;
   }
   update_cursor(curcons);
@@ -155,13 +160,17 @@ void cons_handler(char (*getc)(void))
     cons_putchar (c);
     flush (curcons);
   }
+
   else if (enter) {
     curcons->inqueue[curcons->in_idx] = '\0';
   }
-  else if (page_up)
-    scroll(curcons, SCROLL_UP);
-  else if (page_down)
-    scroll(curcons, SCROLL_DOWN);
+
+  else if (up_arrow)
+    cons_scroll(curcons, SCROLL_UP);
+  
+  else if (down_arrow)
+    cons_scroll(curcons, SCROLL_DOWN);
+  
   else if (backspace)
     cons_backspace();
 }

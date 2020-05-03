@@ -13,7 +13,8 @@
 _ESP = STACKSEG<<4 + 0x9C00      # linear addr for esp
 
 startup_32:
-	mov $KERNEL_DS, ax
+    cli
+	  mov $KERNEL_DS, ax
    	mov ax, ds
    	mov ax, es
    	mov ax, fs
@@ -26,7 +27,7 @@ startup_32:
    call idt_init     # init IDT table
 
    lidt (_idtr)      # load IDT desc in IDTR register  
-
+   
    call start_kernel
   
 ignore_int:

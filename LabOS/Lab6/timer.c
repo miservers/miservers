@@ -35,7 +35,7 @@ void timer_handler(unsigned long esp)
   jiffies++;
   
   #if DEBUG_TIMER
-  cons_write("Timer...");
+  cons_write(".");
   #endif
 
 }

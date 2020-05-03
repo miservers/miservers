@@ -9,10 +9,10 @@ LD	Makefile	/^LD       = $(ARCH)-ld  $/;"	m
 MAKE	Makefile	/^MAKE     = make --no-print-directory$/;"	m
 OBJCOPY	Makefile	/^OBJCOPY  = $(ARCH)-objcopy$/;"	m
 bindir	Makefile	/^bindir  = ..\/bin$/;"	m
-driv_objs	Makefile	/^driv_objs = $(bindir)\/drivers\/*.o$/;"	m
+driv_objs	Makefile	/^driv_objs = $(addprefix $(bindir)\/drivers\/, console.o keyboard.o pci.o e1000.o)$/;"	m
 img	Makefile	/^img     = vmlabos.iso$/;"	m
-kern_objs	Makefile	/^kern_objs = $(addprefix $(bindir)\/, boot\/head.o $(src:.c=.o) sys_call.o)  $/;"	m
-net_objs	Makefile	/^net_objs  = $(bindir)\/net\/*.o$/;"	m
+kern_objs	Makefile	/^kern_objs = $(addprefix $(bindir)\/, boot\/head.o $(src:.c=.o) sys_call.o)$/;"	m
+net_objs	Makefile	/^net_objs  = $(addprefix $(bindir)\/net\/, if_ether.o)$/;"	m
 src	Makefile	/^src     = $(wildcard *.c)$/;"	m
 subdirs	Makefile	/^subdirs  = boot drivers net$/;"	m
 bindir	boot/Makefile	/^bindir  = ..\/..\/bin\/boot$/;"	m
@@ -93,9 +93,9 @@ show_cursor	drivers/console.c	/^void show_cursor()$/;"	f
 size	drivers/console.c	/^  int  size;             \/* size of video memory *\/$/;"	m	struct:console	file:
 start	drivers/console.c	/^  long start;            \/* start of video memory of this console *\/$/;"	m	struct:console	file:
 update_cursor	drivers/console.c	/^void update_cursor(console_t *cons)$/;"	f
-NET_MAX_DEV	drivers/e1000.c	19;"	d	file:
-TX_BUF_LEN	drivers/e1000.c	30;"	d	file:
-TX_RING_ZISE	drivers/e1000.c	29;"	d	file:
+NET_MAX_DEV	drivers/e1000.c	20;"	d	file:
+TX_BUF_LEN	drivers/e1000.c	31;"	d	file:
+TX_RING_ZISE	drivers/e1000.c	30;"	d	file:
 delay	drivers/e1000.c	/^void delay(int t) {while(t--);} \/\/ bad way to make a delay$/;"	f
 e1000_dev	drivers/e1000.c	/^net_device_t *e1000_dev;                 \/\/ E1000 device if existe.  $/;"	v
 e1000_eeprom_exist	drivers/e1000.c	/^int e1000_eeprom_exist(net_device_t *netdev)$/;"	f
@@ -104,9 +104,8 @@ e1000_handler	drivers/e1000.c	/^void e1000_handler()$/;"	f
 e1000_probe	drivers/e1000.c	/^net_device_t* e1000_probe()$/;"	f
 e1000_read_cmd	drivers/e1000.c	/^u32 e1000_read_cmd (net_device_t *netdev, u32 addr)$/;"	f
 e1000_read_mac	drivers/e1000.c	/^void e1000_read_mac (net_device_t *netdev)$/;"	f
-e1000_send_packet	drivers/e1000.c	/^void e1000_send_packet (char* payload, u32 payload_len)$/;"	f
+e1000_send_packet	drivers/e1000.c	/^void e1000_send_packet (ethframe_t* ethframe)$/;"	f
 e1000_start	drivers/e1000.c	/^void e1000_start() $/;"	f
-e1000_test	drivers/e1000.c	/^void e1000_test ()$/;"	f
 e1000_write_cmd	drivers/e1000.c	/^void e1000_write_cmd (net_device_t *netdev, u32 addr, u32 data)$/;"	f
 init_rx	drivers/e1000.c	/^void init_rx(net_device_t *netdev)$/;"	f
 init_tx	drivers/e1000.c	/^void init_tx (net_device_t *netdev)$/;"	f
@@ -117,20 +116,21 @@ print_mac	drivers/e1000.c	/^void print_mac(net_device_t *netdev)$/;"	f
 tx_buf	drivers/e1000.c	/^tx_buf_t  tx_buf[TX_RING_ZISE]  __attribute__ ((aligned (4))); $/;"	v
 tx_buf_t	drivers/e1000.c	/^typedef  u8 tx_buf_t[TX_BUF_LEN];   $/;"	t	file:
 tx_ring	drivers/e1000.c	/^tx_desc_t tx_ring[TX_RING_ZISE] __attribute__ ((aligned (16)));   $/;"	v
-C	drivers/keyboard.c	17;"	d	file:
-CMD_REG	drivers/keyboard.c	21;"	d	file:
-DATA_PORT	drivers/keyboard.c	22;"	d	file:
-IN_BUF_FULL	drivers/keyboard.c	31;"	d	file:
-KB_ECHO	drivers/keyboard.c	25;"	d	file:
-KB_LED	drivers/keyboard.c	27;"	d	file:
-KB_RESET	drivers/keyboard.c	26;"	d	file:
-OUT_BUF_FULL	drivers/keyboard.c	30;"	d	file:
-STATUS_REG	drivers/keyboard.c	20;"	d	file:
-SYS_FLAG	drivers/keyboard.c	32;"	d	file:
+C	drivers/keyboard.c	18;"	d	file:
+IN_BUF_FULL	drivers/keyboard.c	32;"	d	file:
+KB_CMD_REG	drivers/keyboard.c	22;"	d	file:
+KB_DATA_PORT	drivers/keyboard.c	23;"	d	file:
+KB_ECHO	drivers/keyboard.c	26;"	d	file:
+KB_LED	drivers/keyboard.c	28;"	d	file:
+KB_RESET	drivers/keyboard.c	27;"	d	file:
+KB_STATUS_REG	drivers/keyboard.c	21;"	d	file:
+OUT_BUF_FULL	drivers/keyboard.c	31;"	d	file:
+SYS_FLAG	drivers/keyboard.c	33;"	d	file:
 _KEY_MAP_	drivers/keyboard.c	12;"	d	file:
 _i8042_command	drivers/keyboard.c	/^u8 _i8042_command(u16 cmd, int with_response) {$/;"	f
 _i8042_out_buf_flush	drivers/keyboard.c	/^void _i8042_out_buf_flush () {$/;"	f
 _i8042_read_data	drivers/keyboard.c	/^u8 _i8042_read_data () {$/;"	f
+_i8042_read_polling	drivers/keyboard.c	/^u8 _i8042_read_polling ()$/;"	f
 _i8042_read_status	drivers/keyboard.c	/^u8 _i8042_read_status () {$/;"	f
 _i8042_write_data	drivers/keyboard.c	/^void _i8042_write_data (u8 cmd, u8 data) {$/;"	f
 alt_gr	drivers/keyboard.c	/^int alt_gr = 0;$/;"	v
@@ -139,7 +139,7 @@ caps	drivers/keyboard.c	/^int caps = 0;$/;"	v
 down_arrow	drivers/keyboard.c	/^int up_arrow = 0, down_arrow = 0, left_arrow = 0, right_arrow = 0;$/;"	v
 enter	drivers/keyboard.c	/^int enter = 0;$/;"	v
 fn	drivers/keyboard.c	/^int fn = 0;$/;"	v
-kbc_i8042_init	drivers/keyboard.c	/^void kbc_i8042_init() {$/;"	f
+kbc_i8042_init	drivers/keyboard.c	/^void kbc_i8042_init() $/;"	f
 kbgetc	drivers/keyboard.c	/^char kbgetc()$/;"	f
 keyboard_handler	drivers/keyboard.c	/^void keyboard_handler()$/;"	f
 left_alt	drivers/keyboard.c	/^int left_alt = 0, right_alt = 0;$/;"	v
@@ -199,53 +199,52 @@ UP_ARROW	include/console.h	4;"	d
 WHITE	include/console.h	/^enum COLOR {BLACK=0x00, BLUE=0x01, GREEN=0x02, RED=0x04, GREY=0x08, YELLOW=0x0E, WHITE=0x0f};$/;"	e	enum:COLOR
 YELLOW	include/console.h	/^enum COLOR {BLACK=0x00, BLUE=0x01, GREEN=0x02, RED=0x04, GREY=0x08, YELLOW=0x0E, WHITE=0x0f};$/;"	e	enum:COLOR
 _CONSOLE_H	include/console.h	2;"	d
-E1000_CTRL	include/e1000.h	60;"	d
-E1000_CTRL_ASDE	include/e1000.h	76;"	d
-E1000_CTRL_PHY_RST	include/e1000.h	78;"	d
-E1000_CTRL_RST	include/e1000.h	77;"	d
-E1000_DEV_ID	include/e1000.h	51;"	d
-E1000_EEC	include/e1000.h	62;"	d
-E1000_EERD	include/e1000.h	63;"	d
-E1000_EE_DONE	include/e1000.h	86;"	d
-E1000_EE_GNT	include/e1000.h	82;"	d
-E1000_EE_REQ	include/e1000.h	81;"	d
-E1000_EE_START	include/e1000.h	85;"	d
+E1000_CTRL	include/e1000.h	55;"	d
+E1000_CTRL_ASDE	include/e1000.h	71;"	d
+E1000_CTRL_PHY_RST	include/e1000.h	73;"	d
+E1000_CTRL_RST	include/e1000.h	72;"	d
+E1000_DEV_ID	include/e1000.h	46;"	d
+E1000_EEC	include/e1000.h	57;"	d
+E1000_EERD	include/e1000.h	58;"	d
+E1000_EE_DONE	include/e1000.h	81;"	d
+E1000_EE_GNT	include/e1000.h	77;"	d
+E1000_EE_REQ	include/e1000.h	76;"	d
+E1000_EE_START	include/e1000.h	80;"	d
 E1000_H	include/e1000.h	2;"	d
-E1000_IMC	include/e1000.h	65;"	d
-E1000_IMS	include/e1000.h	64;"	d
-E1000_IOADDR	include/e1000.h	119;"	d
-E1000_IODATA	include/e1000.h	120;"	d
-E1000_MAC_REG	include/e1000.h	117;"	d
-E1000_RCTL	include/e1000.h	66;"	d
-E1000_RCTL_BSEX	include/e1000.h	95;"	d
-E1000_RCTL_BSIZE	include/e1000.h	90;"	d
-E1000_RCTL_BSIZE_1K	include/e1000.h	92;"	d
-E1000_RCTL_BSIZE_256B	include/e1000.h	94;"	d
-E1000_RCTL_BSIZE_2K	include/e1000.h	91;"	d
-E1000_RCTL_BSIZE_512B	include/e1000.h	93;"	d
-E1000_STATUS	include/e1000.h	61;"	d
-E1000_TCTL	include/e1000.h	67;"	d
-E1000_TCTL_COLD	include/e1000.h	101;"	d
-E1000_TCTL_CT	include/e1000.h	100;"	d
-E1000_TCTL_EN	include/e1000.h	98;"	d
-E1000_TCTL_PSP	include/e1000.h	99;"	d
-E1000_TCTL_RTLC	include/e1000.h	102;"	d
-E1000_TDBAH	include/e1000.h	69;"	d
-E1000_TDBAL	include/e1000.h	68;"	d
-E1000_TDESC_CMD_DEXT	include/e1000.h	108;"	d
-E1000_TDESC_CMD_EOP	include/e1000.h	105;"	d
-E1000_TDESC_CMD_IC	include/e1000.h	106;"	d
-E1000_TDESC_CMD_RS	include/e1000.h	107;"	d
-E1000_TDESC_STATUS_DD	include/e1000.h	111;"	d
-E1000_TDESC_STATUS_EC	include/e1000.h	112;"	d
-E1000_TDESC_STATUS_LC	include/e1000.h	113;"	d
-E1000_TDH	include/e1000.h	71;"	d
-E1000_TDLEN	include/e1000.h	70;"	d
-E1000_TDT	include/e1000.h	72;"	d
-I217_DEV_ID	include/e1000.h	52;"	d
-I82577LM_DEV_ID	include/e1000.h	53;"	d
-INTEL_VENDOR_ID	include/e1000.h	50;"	d
-a	include/e1000.h	/^  int a;$/;"	m	struct:tx_buf_struct
+E1000_IMC	include/e1000.h	60;"	d
+E1000_IMS	include/e1000.h	59;"	d
+E1000_IOADDR	include/e1000.h	114;"	d
+E1000_IODATA	include/e1000.h	115;"	d
+E1000_MAC_REG	include/e1000.h	112;"	d
+E1000_RCTL	include/e1000.h	61;"	d
+E1000_RCTL_BSEX	include/e1000.h	90;"	d
+E1000_RCTL_BSIZE	include/e1000.h	85;"	d
+E1000_RCTL_BSIZE_1K	include/e1000.h	87;"	d
+E1000_RCTL_BSIZE_256B	include/e1000.h	89;"	d
+E1000_RCTL_BSIZE_2K	include/e1000.h	86;"	d
+E1000_RCTL_BSIZE_512B	include/e1000.h	88;"	d
+E1000_STATUS	include/e1000.h	56;"	d
+E1000_TCTL	include/e1000.h	62;"	d
+E1000_TCTL_COLD	include/e1000.h	96;"	d
+E1000_TCTL_CT	include/e1000.h	95;"	d
+E1000_TCTL_EN	include/e1000.h	93;"	d
+E1000_TCTL_PSP	include/e1000.h	94;"	d
+E1000_TCTL_RTLC	include/e1000.h	97;"	d
+E1000_TDBAH	include/e1000.h	64;"	d
+E1000_TDBAL	include/e1000.h	63;"	d
+E1000_TDESC_CMD_DEXT	include/e1000.h	103;"	d
+E1000_TDESC_CMD_EOP	include/e1000.h	100;"	d
+E1000_TDESC_CMD_IC	include/e1000.h	101;"	d
+E1000_TDESC_CMD_RS	include/e1000.h	102;"	d
+E1000_TDESC_STATUS_DD	include/e1000.h	106;"	d
+E1000_TDESC_STATUS_EC	include/e1000.h	107;"	d
+E1000_TDESC_STATUS_LC	include/e1000.h	108;"	d
+E1000_TDH	include/e1000.h	66;"	d
+E1000_TDLEN	include/e1000.h	65;"	d
+E1000_TDT	include/e1000.h	67;"	d
+I217_DEV_ID	include/e1000.h	47;"	d
+I82577LM_DEV_ID	include/e1000.h	48;"	d
+INTEL_VENDOR_ID	include/e1000.h	45;"	d
 addr_high	include/e1000.h	/^  u32 addr_high;$/;"	m	struct:tx_desc
 addr_low	include/e1000.h	/^  u32 addr_low;   \/\/ buffer address$/;"	m	struct:tx_desc
 cmd	include/e1000.h	/^  u8  cmd;$/;"	m	struct:tx_desc
@@ -264,7 +263,6 @@ rsv	include/e1000.h	/^  u8  rsv;$/;"	m	struct:tx_desc
 space_type	include/e1000.h	/^  u8   space_type;$/;"	m	struct:net_device_struct
 special	include/e1000.h	/^  u16 special;$/;"	m	struct:tx_desc
 status	include/e1000.h	/^  u8  status;$/;"	m	struct:tx_desc
-tx_buf_struct	include/e1000.h	/^struct tx_buf_struct $/;"	s
 tx_desc	include/e1000.h	/^struct tx_desc$/;"	s
 tx_desc_t	include/e1000.h	/^typedef struct tx_desc tx_desc_t;$/;"	t	typeref:struct:tx_desc
 vendor_name	include/e1000.h	/^  char *vendor_name; \/\/vendor name $/;"	m	struct:net_device_struct
@@ -399,15 +397,14 @@ INTGATE	include/idt.h	9;"	d
 SYSGATE	include/idt.h	10;"	d
 TRAPGATE	include/idt.h	8;"	d
 _IDH_H	include/idt.h	2;"	d
-ETH_TYPE_8021Q	include/if_ether.h	35;"	d
-ETH_TYPE_ARP	include/if_ether.h	33;"	d
-ETH_TYPE_DOMAIN	include/if_ether.h	34;"	d
-ETH_TYPE_IPv4	include/if_ether.h	32;"	d
+ETH_HDR_SIZE	include/if_ether.h	15;"	d
+ETH_TYPE_8021Q	include/if_ether.h	40;"	d
+ETH_TYPE_ARP	include/if_ether.h	38;"	d
+ETH_TYPE_DOMAIN	include/if_ether.h	39;"	d
+ETH_TYPE_IPv4	include/if_ether.h	37;"	d
 IF_ETHER_H	include/if_ether.h	2;"	d
 MAC_LEN	include/if_ether.h	13;"	d
 crc	include/if_ether.h	/^  u32 crc;       \/\/ checksum$/;"	m	struct:ethframe
-data	include/if_ether.h	/^  u8 *data;$/;"	m	struct:ethframe
-data_len	include/if_ether.h	/^  u32 data_len;$/;"	m	struct:ethframe
 eth_type	include/if_ether.h	/^  u16 eth_type;$/;"	m	struct:ethdr
 ethdr	include/if_ether.h	/^typedef struct ethdr $/;"	s
 ethdr_t	include/if_ether.h	/^} __attribute((packed)) ethdr_t;$/;"	t	typeref:struct:ethdr
@@ -416,6 +413,8 @@ ethframe_t	include/if_ether.h	/^} __attribute((packed)) ethframe_t;$/;"	t	typere
 hdr	include/if_ether.h	/^  ethdr_t hdr;$/;"	m	struct:ethframe
 mac_dest	include/if_ether.h	/^  u8 mac_dest[MAC_LEN];$/;"	m	struct:ethdr
 mac_src	include/if_ether.h	/^  u8 mac_src[MAC_LEN];$/;"	m	struct:ethdr
+payload	include/if_ether.h	/^  u8 *payload;$/;"	m	struct:ethframe
+payload_len	include/if_ether.h	/^  u32 payload_len;$/;"	m	struct:ethframe
 _ASM_IO_H	include/io.h	2;"	d
 inb	include/io.h	21;"	d
 inb_p	include/io.h	37;"	d
