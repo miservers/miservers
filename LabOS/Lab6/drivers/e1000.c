@@ -14,6 +14,7 @@
 #include <kernel.h>
 #include <errno.h>
 #include <libc.h>
+#include <if_ether.h>
 
  
 #define NET_MAX_DEV             16  // network maximum devices 
@@ -346,20 +347,27 @@ void init_tx (net_device_t *netdev)
 //            Send/Receive a packet
 //
 //-------------------------------------------------
-void e1000_send_packet (char* payload, u32 payload_len)
+void e1000_send_packet (ethframe_t* ethframe)
 {
   net_device_t *netdev = e1000_dev;
 
+  memcpy ((char *)netdev->mac, (char *)(ethframe->hdr.mac_src), MAC_LEN);
+
+
   u32 head = e1000_read_cmd (netdev, E1000_TDH);
 
-  memcpy ( payload, (char *)&tx_buf[head], payload_len);
+  // Copy Frame content on the head tx buffer
+  memcpy ( (char *)&(ethframe->hdr),  (char *)&(tx_buf[head][0]),                                          ETH_HDR_SIZE);
+  memcpy ( (char *)ethframe->payload, (char *)&(tx_buf[head][ETH_HDR_SIZE]),                       ethframe->payload_len);
+  memcpy ( (char *)&(ethframe->crc),  (char *)&(tx_buf[head][ETH_HDR_SIZE+ethframe->payload_len]),                     4);
 
+  
   tx_desc_t* txdesc = &tx_ring[head];
 
   txdesc->addr_low  =  (u32) &tx_buf[head];
   txdesc->addr_high =  0;
 
-  txdesc->length    = payload_len & 0xFFFFFFC0;  // must be 128 aligned
+  txdesc->length    = (ETH_HDR_SIZE + ethframe->payload_len + 4) & 0xFFFFFF80;  // must be 128 aligned
   txdesc->cmd       = E1000_TDESC_CMD_EOP | E1000_TDESC_CMD_RS ;
   txdesc->status    = 0;
 
@@ -371,6 +379,8 @@ void e1000_send_packet (char* payload, u32 payload_len)
   
   delay(1000);
 
+  //debug
+  head = e1000_read_cmd (netdev, E1000_TDH);
   info ("Head after : %d", head);  
   info ("STA after : %x", txdesc->status);
   
@@ -428,40 +438,6 @@ out:
 no_e1000:
   info ("No Intel E1000 exist");
   goto out;   
-}
-
-
-//--------------------------------------------------------------------
-//
-//       Test : send/receive a packet
-//
-//--------------------------------------------------------------------
-void e1000_test ()
-{
-  net_device_t *netdev = e1000_dev;
-
-  info ("Testing E1000 driver...");
-  
-  u32 payload_len = 128; 
-  u8 payload[payload_len];
-  
-  memset((char *)&payload[0], 0x77 , payload_len);
-
-  u32 head = e1000_read_cmd (netdev, E1000_TDH);
-  u32 tail = e1000_read_cmd (netdev, E1000_TDT);
-  
-  info ("HeadB : %d", head);
-  info ("TailB: %d", tail);
-  
-  //for (int i = 0; i < 10; i++)
-    e1000_send_packet ((char *)&payload[0], payload_len);
-
-  head = e1000_read_cmd (netdev, E1000_TDH);
-  tail = e1000_read_cmd (netdev, E1000_TDT);
-  
-  info ("HeadA : %d", head);
-  info ("TailA: %d", tail);
-  
 }
 
 

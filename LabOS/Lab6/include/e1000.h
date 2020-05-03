@@ -38,11 +38,6 @@ struct tx_desc
 
 typedef struct tx_desc tx_desc_t;
 
-struct tx_buf_struct 
-{
-  int a;
-} __attribute__ ((packed));
-
 
 void e1000_start();
 void e1000_test ();

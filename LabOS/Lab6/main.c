@@ -6,6 +6,7 @@
 #include <keyboard.h>
 #include <pci.h>
 #include <e1000.h>
+#include <if_ether.h>
 
 extern void kbc_i8042_init();
 
@@ -38,8 +39,7 @@ void start_kernel () {
 	sti();
 	cons_write("Interrupts enabled..........[OK]\n");
 
-	e1000_test();
-	
+	ether_send_packet ();
 	
 	cpu_idle();
 }

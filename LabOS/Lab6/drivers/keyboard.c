@@ -13,6 +13,7 @@
 #include <keyboard.h>
 #include <io.h>
 #include <console.h>
+#include <kernel.h>
 
 #define C(c)  (char)(c)
 
@@ -107,12 +108,6 @@ char kbgetc()
   return -NOPRINT;
 }
 
-void keyboard_handler()
-{
-  cons_handler(kbgetc);
-}
-
-
 u8 _i8042_read_status () {
   return inb_p(STATUS_REG);
 }
@@ -194,6 +189,12 @@ void kbc_i8042_init() {
     cons_write("Reset first PS/2 device........[Success]\n");
   else if (data == 0xFC)
     cons_write("Reset first PS/2 device........[Failure]\n");   
-}
+}  
 
+   
+void keyboard_handler()
+{
+  info ("keyboard_handler");   
+  cons_handler(kbgetc);
+}
 

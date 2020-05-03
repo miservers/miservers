@@ -12,12 +12,26 @@
 
 #define MAC_LEN  6
 
-typedef struct {
+#define ETH_HDR_SIZE  14
+
+
+typedef struct ethdr 
+{
   u8 mac_dest[MAC_LEN];
   u8 mac_src[MAC_LEN];
   u16 eth_type;
-} __attribute((packed)) ethhdr_t;
+} __attribute((packed)) ethdr_t;
  
+typedef struct ethframe
+{
+  ethdr_t hdr;
+  u8 *payload;
+  u32 payload_len;
+  u32 crc;       // checksum
+} __attribute((packed)) ethframe_t;
+
+void ether_send_packet ();
+
 
 /* Ether type */
 #define ETH_TYPE_IPv4    0x0800

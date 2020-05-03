@@ -7,7 +7,7 @@ target remote localhost:1234
 
 ### Protected Mode 
 set arch i386
-symbol-file ~/magOS/bin/LabOS/kernel-debug.sym
+symbol-file ~/magOS/LabOS/bin/kernel-debug.sym
 #symbol-file ~/magOS/bin/kernel/kernel-debug.sym
 #symbol-file ~/magOS/bin/usr/user-debug.sym
 

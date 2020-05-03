@@ -24,7 +24,7 @@ ARCH=i386
 #ARCH=x86_64
 QEMU_OPTS='-vga std ' 
 QEMU_OPTS='-L pc-bios'  #' -nographic ' -m 32
-QEMU_OPTS='-netdev user,id=u1 -device e1000,netdev=u1,mac=92:ca:fe:f0:7d:a1 -object filter-dump,id=f1,netdev=u1,file=/tmp/qemu-net.dat'
+QEMU_OPTS='-netdev user,id=qnet0,net=192.168.43.5/24,dhcpstart=192.168.43.9,restrict=no -device e1000,netdev=qnet0,mac=92:ca:fe:f0:7d:a1 -object filter-dump,id=f1,netdev=qnet0,file=/tmp/qemu-net.dat'
 LOGFILE=/tmp/qemu.log
 QEMU_BIN=/opt/qemu/bin/qemu-system-$ARCH
 
