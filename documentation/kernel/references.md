@@ -41,6 +41,7 @@ http://lacl.univ-paris12.fr/cegielski/teach-Pat.html
    - **Dijkstra**: semaphore, tri-color marking algorithm(used in gc)
    
 **Hobby kernels**
+ - https://wiki.osdev.org/Projects : many hobby os
  - TutoOS : http://a.michelizza.free.fr/pmwiki.php?n=TutoOS.TutoOS
  - SOS - simple os
  - duneOS : https://github.com/naegelejd/duneOS
@@ -49,7 +50,10 @@ http://lacl.univ-paris12.fr/cegielski/teach-Pat.html
  - https://github.com/bhanderson/cpts460 : based on cource ~cs460, see below
  - https://github.com/tehybel/osdev
  - SANOS :http://www.jbox.dk/sanos/
+ - https://github.com/Nils-TUD/Escape  : good for e1000
 
+ 
+ 
 **Cours**  
  - http://www.cs.fsu.edu/~baker/devices/notes/
 
