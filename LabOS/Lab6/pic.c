@@ -84,6 +84,8 @@ void irq_init()
    set_intr_gate(IRQ_0, (u32) irq_0);    // Timer 
    
    set_intr_gate(IRQ_1, (u32) irq_1);    // keyboard 
+
+   set_intr_gate(IRQ_9, (u32) irq_11);  // Ethernet?????
    
    set_intr_gate(IRQ_11, (u32) irq_11);  // Ethernet 
 

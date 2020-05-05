@@ -1,33 +1,33 @@
 #include <stdarg.h>
 #include <libc.h>
 
-char * memcpy(char *src, char *dst, int len)
+u8 * memcpy(u8 *src, u8 *dst, int len)
 {
    __asm__ ("rep movsb "
             ::"S"(src), "D"(dst), "c"(len):);
    return dst;
 }
 
-void memset(char *adr, char val, int len)
+void memset(u8 *adr, u8 val, int len)
 {
    __asm__ ("rep stosb "::"D"(adr), "al"(val), "c"(len):);
 }
 
-void memsetw(short *adr, short val, int len)
+void memsetw(u16 *adr, u16 val, int len)
 {
     __asm__  ("rep stosw "::"D"(adr), "ax"(val), "c"(len):);
 }
 
-void memsetd(long *adr, long val, int len)
+void memsetd(u32 *adr, u32 val, int len)
 {
    __asm__ ("rep stosl "::"D"(adr), "a"(val), "c"(len):);
 }
 
 /*convert an integer <n> to ascii string*/
-int itoa( char *buf, int n, int base)
+int itoa( u8 *buf, u32 n, int base)
 {
    int mod, i=0, j=0;
-   char c;
+   u8 c;
    
    do {
       mod = n%base;
@@ -45,9 +45,9 @@ int itoa( char *buf, int n, int base)
    return 0;   
 }
 
-int atoi(char *str)
+int atoi(u8 *str)
 {
-   char *tmp = str;
+   u8 *tmp = str;
    int n=0, base, itmp;
    
    if ((*tmp++ == '0') && (*tmp++ == 'x'))
@@ -64,15 +64,15 @@ int atoi(char *str)
    return n;
 }
 
-int ctoi(char c)
+int ctoi(u8 c)
 {
   return (c - '0');
 }
 
-int utoa( char *buf, unsigned long n, int base)
+int utoa( u8 *buf,  u32 n, int base)
 {
    int mod, i=0, j=0;
-   char c;
+   u8 c;
    
    do {
       mod = n%base;

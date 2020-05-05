@@ -7,10 +7,10 @@
 ARCH	Makefile	/^ARCH     = i386-elf$/;"	m
 ATTR_COLOR	boot/bootsect.S	/^ATTR_COLOR = 0x11$/;"	d
 BAR_NR	include/pci.h	8;"	d
-BAR_TYPE_IO	include/pci.h	11;"	d
-BAR_TYPE_MEM32	include/pci.h	13;"	d
-BAR_TYPE_MEM64	include/pci.h	15;"	d
-BAR_TYPE_MEMLow	include/pci.h	14;"	d
+BAR_TYPE_IO	include/pci.h	12;"	d
+BAR_TYPE_MEM32	include/pci.h	11;"	d
+BAR_TYPE_MEM64	include/pci.h	14;"	d
+BAR_TYPE_MEMLow	include/pci.h	13;"	d
 BLACK	include/console.h	/^enum COLOR {BLACK=0x00, BLUE=0x01, GREEN=0x02, RED=0x04, GREY=0x08, YELLOW=0x0E, WHITE=0x0f};$/;"	e	enum:COLOR
 BLUE	include/console.h	/^enum COLOR {BLACK=0x00, BLUE=0x01, GREEN=0x02, RED=0x04, GREY=0x08, YELLOW=0x0E, WHITE=0x0f};$/;"	e	enum:COLOR
 BOOTSEG	include/segment.h	5;"	d
@@ -18,11 +18,12 @@ C	drivers/keyboard.c	18;"	d	file:
 CC	Makefile	/^CC       = $(ARCH)-gcc$/;"	m
 CLOCK_RATE	timer.c	16;"	d	file:
 COLOR	include/console.h	/^enum COLOR {BLACK=0x00, BLUE=0x01, GREEN=0x02, RED=0x04, GREY=0x08, YELLOW=0x0E, WHITE=0x0f};$/;"	g
-CONS_RAM_WORDS	drivers/console.c	7;"	d	file:
+COLUMN_NR	drivers/console.c	20;"	d	file:
+CONS_RAM_WORDS	drivers/console.c	8;"	d	file:
 CTRL_PORT	timer.c	25;"	d	file:
 DEBUG_PCI	drivers/pci.c	13;"	d	file:
 DEBUG_TIMER	timer.c	28;"	d	file:
-DEFAULT_ATTR	drivers/console.c	22;"	d	file:
+DEFAULT_ATTR	drivers/console.c	24;"	d	file:
 DOWN_ARROW	include/console.h	5;"	d
 E1000_CTRL	include/e1000.h	55;"	d
 E1000_CTRL_ASDE	include/e1000.h	71;"	d
@@ -167,7 +168,7 @@ EPROTO	include/errno.h	74;"	d
 EPROTONOSUPPORT	include/errno.h	96;"	d
 EPROTOTYPE	include/errno.h	94;"	d
 ERANGE	include/errno.h	37;"	d
-ERASE_CHAR	drivers/console.c	23;"	d	file:
+ERASE_CHAR	drivers/console.c	25;"	d	file:
 EREMCHG	include/errno.h	81;"	d
 EREMOTE	include/errno.h	69;"	d
 EREMOTEIO	include/errno.h	124;"	d
@@ -244,34 +245,34 @@ MAKE	Makefile	/^MAKE     = make --no-print-directory$/;"	m
 MASTER	include/pic.h	4;"	d
 NET_MAX_DEV	drivers/e1000.c	20;"	d	file:
 NOPRINT	include/console.h	9;"	d
-NR_CONS	drivers/console.c	16;"	d	file:
+NR_CONS	drivers/console.c	18;"	d	file:
 NULL	include/types.h	5;"	d
 NULL	include/types.h	6;"	d
 OBJCOPY	Makefile	/^OBJCOPY  = $(ARCH)-objcopy$/;"	m
 OUT_BUF_FULL	drivers/keyboard.c	31;"	d	file:
-PCI_COMMAND	include/pci.h	75;"	d
-PCI_COMMAND_INTX	include/pci.h	96;"	d
-PCI_COMMAND_IO	include/pci.h	93;"	d
-PCI_COMMAND_MASTER	include/pci.h	95;"	d
-PCI_COMMAND_MEMORY	include/pci.h	94;"	d
+PCI_COMMAND	include/pci.h	74;"	d
+PCI_COMMAND_INTX	include/pci.h	95;"	d
+PCI_COMMAND_IO	include/pci.h	92;"	d
+PCI_COMMAND_MASTER	include/pci.h	94;"	d
+PCI_COMMAND_MEMORY	include/pci.h	93;"	d
 PCI_CONF_ADDR	drivers/pci.c	15;"	d	file:
 PCI_CONF_DATA	drivers/pci.c	16;"	d	file:
-PCI_CONF_REG_00	include/pci.h	74;"	d
-PCI_CONF_REG_01	include/pci.h	76;"	d
-PCI_CONF_REG_02	include/pci.h	77;"	d
-PCI_CONF_REG_03	include/pci.h	78;"	d
-PCI_CONF_REG_04	include/pci.h	79;"	d
-PCI_CONF_REG_05	include/pci.h	80;"	d
-PCI_CONF_REG_06	include/pci.h	81;"	d
-PCI_CONF_REG_07	include/pci.h	82;"	d
-PCI_CONF_REG_08	include/pci.h	83;"	d
-PCI_CONF_REG_09	include/pci.h	84;"	d
-PCI_CONF_REG_0A	include/pci.h	85;"	d
-PCI_CONF_REG_0B	include/pci.h	86;"	d
-PCI_CONF_REG_0C	include/pci.h	87;"	d
-PCI_CONF_REG_0D	include/pci.h	88;"	d
-PCI_CONF_REG_0E	include/pci.h	89;"	d
-PCI_CONF_REG_0F	include/pci.h	90;"	d
+PCI_CONF_REG_00	include/pci.h	73;"	d
+PCI_CONF_REG_01	include/pci.h	75;"	d
+PCI_CONF_REG_02	include/pci.h	76;"	d
+PCI_CONF_REG_03	include/pci.h	77;"	d
+PCI_CONF_REG_04	include/pci.h	78;"	d
+PCI_CONF_REG_05	include/pci.h	79;"	d
+PCI_CONF_REG_06	include/pci.h	80;"	d
+PCI_CONF_REG_07	include/pci.h	81;"	d
+PCI_CONF_REG_08	include/pci.h	82;"	d
+PCI_CONF_REG_09	include/pci.h	83;"	d
+PCI_CONF_REG_0A	include/pci.h	84;"	d
+PCI_CONF_REG_0B	include/pci.h	85;"	d
+PCI_CONF_REG_0C	include/pci.h	86;"	d
+PCI_CONF_REG_0D	include/pci.h	87;"	d
+PCI_CONF_REG_0E	include/pci.h	88;"	d
+PCI_CONF_REG_0F	include/pci.h	89;"	d
 PCI_H	include/pci.h	2;"	d
 PCI_MAX_DEV	include/pci.h	6;"	d
 PCI_TYPE_CARDBUS_BRIDGE	drivers/pci.c	21;"	d	file:
@@ -285,17 +286,16 @@ PIC2_CMD	pic.c	33;"	d	file:
 PIC2_DATA	pic.c	35;"	d	file:
 PIC_EOI	sys_call.S	/^PIC_EOI    = 0x20   \/\/ END Of Interrupt.  $/;"	d
 RED	include/console.h	/^enum COLOR {BLACK=0x00, BLUE=0x01, GREEN=0x02, RED=0x04, GREY=0x08, YELLOW=0x0E, WHITE=0x0f};$/;"	e	enum:COLOR
-REG_CURSOR	drivers/console.c	13;"	d	file:
-REG_DATA	drivers/console.c	11;"	d	file:
-REG_INDEX	drivers/console.c	10;"	d	file:
-REG_ORIGIN	drivers/console.c	12;"	d	file:
+REG_CURSOR	drivers/console.c	15;"	d	file:
+REG_DATA	drivers/console.c	13;"	d	file:
+REG_INDEX	drivers/console.c	12;"	d	file:
+REG_ORIGIN	drivers/console.c	14;"	d	file:
 RIGHT_ARROW	include/console.h	7;"	d
+ROW_NR	drivers/console.c	21;"	d	file:
 SCREEN_BG	boot/bootsect.S	/^SCREEN_BG  = 0x11 $/;"	d
-SCROLL_DOWN	drivers/console.c	84;"	d	file:
-SCROLL_UP	drivers/console.c	83;"	d	file:
-SCR_LINES	drivers/console.c	19;"	d	file:
-SCR_SIZE	drivers/console.c	20;"	d	file:
-SCR_WIDTH	drivers/console.c	18;"	d	file:
+SCROLL_DOWN	drivers/console.c	28;"	d	file:
+SCROLL_UP	drivers/console.c	27;"	d	file:
+SCR_SIZE	drivers/console.c	22;"	d	file:
 SEGMENT_H	include/segment.h	2;"	d
 SETUPSIZE	include/segment.h	16;"	d
 SLAVE	include/pic.h	5;"	d
@@ -316,8 +316,9 @@ UP_ARROW	include/console.h	4;"	d
 USER_CS	include/segment.h	13;"	d
 USER_DS	include/segment.h	14;"	d
 VIDEO_BASE	drivers/console.c	5;"	d	file:
+VIDEO_END	drivers/console.c	6;"	d	file:
 VIDEO_MODE	boot/bootsect.S	/^VIDEO_MODE = 0x03        # 03h : 80x25 16 color text (CGA,EGA,MCGA,VGA)$/;"	d
-VIDEO_SIZE	drivers/console.c	6;"	d	file:
+VIDEO_SIZE	drivers/console.c	7;"	d	file:
 WHITE	include/console.h	/^enum COLOR {BLACK=0x00, BLUE=0x01, GREEN=0x02, RED=0x04, GREY=0x08, YELLOW=0x0E, WHITE=0x0f};$/;"	e	enum:COLOR
 YELLOW	include/console.h	/^enum COLOR {BLACK=0x00, BLUE=0x01, GREEN=0x02, RED=0x04, GREY=0x08, YELLOW=0x0E, WHITE=0x0f};$/;"	e	enum:COLOR
 _ANSI_STDARG_H_	include/stdarg.h	32;"	d
@@ -380,10 +381,10 @@ __gnuc_va_list	include/stdarg.h	/^typedef __builtin_va_list __gnuc_va_list;$/;"	
 __need___va_list	include/stdarg.h	34;"	d
 __va_copy	include/stdarg.h	53;"	d
 __va_list__	include/stdarg.h	120;"	d
-_i8042_command	drivers/keyboard.c	/^u8 _i8042_command(u16 cmd, int with_response) {$/;"	f
+_i8042_command	drivers/keyboard.c	/^void _i8042_command(u16 cmd) {$/;"	f
 _i8042_out_buf_flush	drivers/keyboard.c	/^void _i8042_out_buf_flush () {$/;"	f
 _i8042_read_data	drivers/keyboard.c	/^u8 _i8042_read_data () {$/;"	f
-_i8042_read_polling	drivers/keyboard.c	/^u8 _i8042_read_polling ()$/;"	f
+_i8042_read_polling	drivers/keyboard.c	/^void _i8042_read_polling ()$/;"	f
 _i8042_read_status	drivers/keyboard.c	/^u8 _i8042_read_status () {$/;"	f
 _i8042_write_data	drivers/keyboard.c	/^void _i8042_write_data (u8 cmd, u8 data) {$/;"	f
 _idt	boot/head.S	/^_idt:$/;"	l
@@ -399,6 +400,7 @@ atoi	libc.c	/^int atoi(char *str)$/;"	f
 attr	drivers/console.c	/^  unsigned short attr;   \/*attribute.8 low bits are zeroed*\/$/;"	m	struct:console	file:
 backspace	drivers/keyboard.c	/^int backspace = 0;$/;"	v
 base_addr	include/pci.h	/^  base_address_t base_addr[BAR_NR];         \/\/ base address registers$/;"	m	struct:pci_device
+base_addr_type	include/e1000.h	/^  u8   base_addr_type;$/;"	m	struct:net_device_struct
 base_address_t	include/pci.h	/^typedef struct pci_base_address_s base_address_t; $/;"	t	typeref:struct:pci_base_address_s
 bindir	Makefile	/^bindir  = ..\/bin$/;"	m
 bindir	boot/Makefile	/^bindir  = ..\/..\/bin\/boot$/;"	m
@@ -424,6 +426,7 @@ cons_clear	drivers/console.c	/^void cons_clear(int tty)$/;"	f
 cons_handler	drivers/console.c	/^void cons_handler(char (*getc)(void))$/;"	f
 cons_init	drivers/console.c	/^void cons_init()$/;"	f
 cons_putchar	drivers/console.c	/^void cons_putchar(register char c)$/;"	f
+cons_scroll	drivers/console.c	/^void cons_scroll (console_t *cons, int direction)$/;"	f
 cons_write	drivers/console.c	/^void cons_write(char *str)$/;"	f
 console	drivers/console.c	/^typedef struct console {$/;"	s	file:
 console_t	drivers/console.c	/^  } console_t;$/;"	t	typeref:struct:console	file:
@@ -435,8 +438,8 @@ css	include/e1000.h	/^  u8  css;$/;"	m	struct:tx_desc
 ctoi	libc.c	/^int ctoi(char c)$/;"	f
 curcons	drivers/console.c	/^console_t *curcons; \/*currently visible*\/$/;"	v
 cursor	drivers/console.c	/^  unsigned short cursor; \/* offset in video RAM for cursor*\/$/;"	m	struct:console	file:
-cursor	drivers/console.c	47;"	d	file:
-cursor_pos	drivers/console.c	46;"	d	file:
+cursor	drivers/console.c	53;"	d	file:
+cursor_pos	drivers/console.c	52;"	d	file:
 debug	include/kernel.h	24;"	d
 debug	include/kernel.h	30;"	d
 delay	drivers/e1000.c	/^void delay(int t) {while(t--);} \/\/ bad way to make a delay$/;"	f
@@ -515,7 +518,8 @@ is_digit	include/libc.h	17;"	d
 itoa	libc.c	/^int itoa( char *buf, int n, int base)$/;"	f
 jiffies	timer.c	/^unsigned long jiffies = 0;$/;"	v
 k	include/keyboard.h	6;"	d
-kbc_i8042_init	drivers/keyboard.c	/^void kbc_i8042_init() $/;"	f
+kb_delay	drivers/keyboard.c	/^void kb_delay ()$/;"	f
+kbc_i8042_init	drivers/keyboard.c	/^void kbc_i8042_init() \/\/ BAD. THIS CODE DISABLE KEYBOARD INTR \/\/$/;"	f
 kbgetc	drivers/keyboard.c	/^char kbgetc()$/;"	f
 kern_objs	Makefile	/^kern_objs = $(addprefix $(bindir)\/, boot\/head.o $(src:.c=.o) sys_call.o)$/;"	m
 keyboard_handler	drivers/keyboard.c	/^void keyboard_handler()$/;"	f
@@ -579,10 +583,11 @@ pci_print_info	drivers/pci.c	/^void pci_print_info (pci_device_t *pcidev) $/;"	f
 pci_probe_devices	drivers/pci.c	/^void pci_probe_devices() $/;"	f
 pcidev	include/e1000.h	/^  pci_device_t *pcidev;$/;"	m	struct:net_device_struct
 pic_8259a_init	pic.c	/^void pic_8259a_init()$/;"	f
+pic_delay	pic.c	/^void pic_delay()$/;"	f
 pid_t	include/types.h	/^typedef int pid_t;$/;"	t
 pit_8253_init	timer.c	/^void pit_8253_init(void)$/;"	f
 popl	sys_call.S	/^   popl ds$/;"	d
-pos	drivers/console.c	45;"	d	file:
+pos	drivers/console.c	51;"	d	file:
 prev_code	drivers/keyboard.c	/^unsigned char prev_code = 0; \/*treat E0 keys*\/$/;"	v
 print_mac	drivers/e1000.c	/^void print_mac(net_device_t *netdev)$/;"	f
 print_msg	boot/bootsect.S	/^print_msg:$/;"	l
@@ -599,7 +604,6 @@ right_shift	drivers/keyboard.c	/^int left_shift = 0, right_shift = 0;$/;"	v
 row	drivers/console.c	/^  int row;               \/*current line*\/$/;"	m	struct:console	file:
 rsv	include/e1000.h	/^  u8  rsv;$/;"	m	struct:tx_desc
 save_meminfo	boot/setup.S	/^save_meminfo:$/;"	l
-scroll	drivers/console.c	/^void scroll(console_t *cons, int direction)$/;"	f
 selector	idt.c	/^   u16 selector;$/;"	m	struct:idt_desc	file:
 set_gd5446	drivers/console.c	/^void set_gd5446(unsigned int  value, int reg)$/;"	f
 set_intr_gate	idt.c	/^void set_intr_gate(u16 n, u32 addr)$/;"	f
@@ -610,8 +614,6 @@ sh_keymap	include/keyboard.h	/^char sh_keymap [] = {$/;"	v
 show_cursor	drivers/console.c	/^void show_cursor()$/;"	f
 size	drivers/console.c	/^  int  size;             \/* size of video memory *\/$/;"	m	struct:console	file:
 size_t	include/types.h	/^typedef unsigned int size_t;$/;"	t
-space_type	include/e1000.h	/^  u8   space_type;$/;"	m	struct:net_device_struct
-space_type	include/pci.h	/^  u8   space_type;  \/\/ base address : IO or Mem$/;"	m	struct:pci_base_address_s
 special	include/e1000.h	/^  u16 special;$/;"	m	struct:tx_desc
 src	Makefile	/^src     = $(wildcard *.c)$/;"	m
 src	drivers/Makefile	/^src     = $(wildcard *.c)$/;"	m
@@ -640,6 +642,7 @@ tx_desc	include/e1000.h	/^struct tx_desc$/;"	s
 tx_desc_t	include/e1000.h	/^typedef struct tx_desc tx_desc_t;$/;"	t	typeref:struct:tx_desc
 tx_ring	drivers/e1000.c	/^tx_desc_t tx_ring[TX_RING_ZISE] __attribute__ ((aligned (16)));   $/;"	v
 type	idt.c	/^   u16 type;$/;"	m	struct:idt_desc	file:
+type	include/pci.h	/^  u8   type;  \/\/ base address : IO or Mem$/;"	m	struct:pci_base_address_s
 u16	include/types.h	/^typedef unsigned short u16;$/;"	t
 u32	include/types.h	/^typedef unsigned int u32;$/;"	t
 u8	include/types.h	/^typedef unsigned char u8;$/;"	t
@@ -657,6 +660,7 @@ va_start	include/stdarg.h	47;"	d
 vendor_id	include/pci.h	/^  u16 vendor_id;$/;"	m	struct:pci_device
 vendor_name	include/e1000.h	/^  char *vendor_name; \/\/vendor name $/;"	m	struct:net_device_struct
 vsprintf	vsprintf.c	/^int vsprintf (char *buf, const char * format, va_list args )$/;"	f
+wait	main.c	/^void wait () {int t = 5; while(t--) halt();}$/;"	f
 warn	include/kernel.h	10;"	d
 while_1	boot/bootsect.S	/^  while_1: $/;"	l
 xcs	include/ptrace.h	/^  unsigned long xcs;$/;"	m	struct:pt_regs

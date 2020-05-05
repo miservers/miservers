@@ -8,9 +8,8 @@
 #define BAR_NR                5    // number of base address registers
 
 
-#define BAR_TYPE_IO       0x01    // Base Address Register(BAR)type IO
-
 #define BAR_TYPE_MEM32    0x00    // Base Address Register(BAR)type Memory 32
+#define BAR_TYPE_IO       0x01    // Base Address Register(BAR)type IO
 #define BAR_TYPE_MEMLow   0x02    // below 1MB
 #define BAR_TYPE_MEM64    0x04    // 64 bits addr
 
@@ -19,7 +18,7 @@ struct pci_base_address_s
 {
   u32  iobase;      // IO base address 
   u32  membase;     // Memory base address
-  u8   space_type;  // base address : IO or Mem
+  u8   type;  // base address : IO or Mem
 };
 
 typedef struct pci_base_address_s base_address_t; 

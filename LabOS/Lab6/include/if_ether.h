@@ -14,8 +14,9 @@
 
 #define ETH_HDR_SIZE  14
 
+#define ETHFRAME_SIZE(ethframeptr) (ETH_HDR_SIZE+ethframeptr->payload_len+4)
 
-typedef struct ethdr 
+typedef struct ethdr_struct 
 {
   u8 mac_dest[MAC_LEN];
   u8 mac_src[MAC_LEN];
@@ -30,7 +31,9 @@ typedef struct ethframe
   u32 crc;       // checksum
 } __attribute((packed)) ethframe_t;
 
-void ether_send_packet ();
+void ether_send_packet (ethframe_t *ethframe);
+
+void test_send_eth ();
 
 
 /* Ether type */

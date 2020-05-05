@@ -46,21 +46,22 @@ setup_end	boot/setup.S	/^setup_end:$/;"	l
 bindir	drivers/Makefile	/^bindir  = ..\/..\/bin\/drivers$/;"	m
 objs	drivers/Makefile	/^objs    = $(addprefix $(bindir)\/,$(src:.c=.o))$/;"	m
 src	drivers/Makefile	/^src     = $(wildcard *.c)$/;"	m
-CONS_RAM_WORDS	drivers/console.c	7;"	d	file:
-DEFAULT_ATTR	drivers/console.c	22;"	d	file:
-ERASE_CHAR	drivers/console.c	23;"	d	file:
-NR_CONS	drivers/console.c	16;"	d	file:
-REG_CURSOR	drivers/console.c	13;"	d	file:
-REG_DATA	drivers/console.c	11;"	d	file:
-REG_INDEX	drivers/console.c	10;"	d	file:
-REG_ORIGIN	drivers/console.c	12;"	d	file:
-SCROLL_DOWN	drivers/console.c	84;"	d	file:
-SCROLL_UP	drivers/console.c	83;"	d	file:
-SCR_LINES	drivers/console.c	19;"	d	file:
-SCR_SIZE	drivers/console.c	20;"	d	file:
-SCR_WIDTH	drivers/console.c	18;"	d	file:
+COLUMN_NR	drivers/console.c	20;"	d	file:
+CONS_RAM_WORDS	drivers/console.c	8;"	d	file:
+DEFAULT_ATTR	drivers/console.c	24;"	d	file:
+ERASE_CHAR	drivers/console.c	25;"	d	file:
+NR_CONS	drivers/console.c	18;"	d	file:
+REG_CURSOR	drivers/console.c	15;"	d	file:
+REG_DATA	drivers/console.c	13;"	d	file:
+REG_INDEX	drivers/console.c	12;"	d	file:
+REG_ORIGIN	drivers/console.c	14;"	d	file:
+ROW_NR	drivers/console.c	21;"	d	file:
+SCROLL_DOWN	drivers/console.c	28;"	d	file:
+SCROLL_UP	drivers/console.c	27;"	d	file:
+SCR_SIZE	drivers/console.c	22;"	d	file:
 VIDEO_BASE	drivers/console.c	5;"	d	file:
-VIDEO_SIZE	drivers/console.c	6;"	d	file:
+VIDEO_END	drivers/console.c	6;"	d	file:
+VIDEO_SIZE	drivers/console.c	7;"	d	file:
 attr	drivers/console.c	/^  unsigned short attr;   \/*attribute.8 low bits are zeroed*\/$/;"	m	struct:console	file:
 blank	drivers/console.c	/^  unsigned short blank;  \/*erase character*\/$/;"	m	struct:console	file:
 clear_line	drivers/console.c	/^void clear_line(console_t* cons, int nr)$/;"	f
@@ -70,24 +71,24 @@ cons_clear	drivers/console.c	/^void cons_clear(int tty)$/;"	f
 cons_handler	drivers/console.c	/^void cons_handler(char (*getc)(void))$/;"	f
 cons_init	drivers/console.c	/^void cons_init()$/;"	f
 cons_putchar	drivers/console.c	/^void cons_putchar(register char c)$/;"	f
+cons_scroll	drivers/console.c	/^void cons_scroll (console_t *cons, int direction)$/;"	f
 cons_write	drivers/console.c	/^void cons_write(char *str)$/;"	f
 console	drivers/console.c	/^typedef struct console {$/;"	s	file:
 console_t	drivers/console.c	/^  } console_t;$/;"	t	typeref:struct:console	file:
 consoles	drivers/console.c	/^console_t consoles[NR_CONS];$/;"	v
 curcons	drivers/console.c	/^console_t *curcons; \/*currently visible*\/$/;"	v
 cursor	drivers/console.c	/^  unsigned short cursor; \/* offset in video RAM for cursor*\/$/;"	m	struct:console	file:
-cursor	drivers/console.c	47;"	d	file:
-cursor_pos	drivers/console.c	46;"	d	file:
+cursor	drivers/console.c	53;"	d	file:
+cursor_pos	drivers/console.c	52;"	d	file:
 flush	drivers/console.c	/^void flush (console_t *cons)$/;"	f
 in_idx	drivers/console.c	/^  int  in_idx;            \/*in index*\/$/;"	m	struct:console	file:
 inqueue	drivers/console.c	/^  char inqueue[128];     \/*for cons read*\/$/;"	m	struct:console	file:
 limit	drivers/console.c	/^  long limit;            \/* limit of this console's video memory *\/$/;"	m	struct:console	file:
 move_cursor_arrow	drivers/console.c	/^void move_cursor_arrow(int arrow)$/;"	f
 origin	drivers/console.c	/^  long origin;           \/* offset in RAM(0xb8000) where GD5446 base points *\/$/;"	m	struct:console	file:
-pos	drivers/console.c	45;"	d	file:
+pos	drivers/console.c	51;"	d	file:
 ramqueue	drivers/console.c	/^  unsigned short ramqueue[CONS_RAM_WORDS]; \/* buffer for video RAM *\/$/;"	m	struct:console	file:
 row	drivers/console.c	/^  int row;               \/*current line*\/$/;"	m	struct:console	file:
-scroll	drivers/console.c	/^void scroll(console_t *cons, int direction)$/;"	f
 set_gd5446	drivers/console.c	/^void set_gd5446(unsigned int  value, int reg)$/;"	f
 show_cursor	drivers/console.c	/^void show_cursor()$/;"	f
 size	drivers/console.c	/^  int  size;             \/* size of video memory *\/$/;"	m	struct:console	file:
@@ -127,10 +128,10 @@ KB_STATUS_REG	drivers/keyboard.c	21;"	d	file:
 OUT_BUF_FULL	drivers/keyboard.c	31;"	d	file:
 SYS_FLAG	drivers/keyboard.c	33;"	d	file:
 _KEY_MAP_	drivers/keyboard.c	12;"	d	file:
-_i8042_command	drivers/keyboard.c	/^u8 _i8042_command(u16 cmd, int with_response) {$/;"	f
+_i8042_command	drivers/keyboard.c	/^void _i8042_command(u16 cmd) {$/;"	f
 _i8042_out_buf_flush	drivers/keyboard.c	/^void _i8042_out_buf_flush () {$/;"	f
 _i8042_read_data	drivers/keyboard.c	/^u8 _i8042_read_data () {$/;"	f
-_i8042_read_polling	drivers/keyboard.c	/^u8 _i8042_read_polling ()$/;"	f
+_i8042_read_polling	drivers/keyboard.c	/^void _i8042_read_polling ()$/;"	f
 _i8042_read_status	drivers/keyboard.c	/^u8 _i8042_read_status () {$/;"	f
 _i8042_write_data	drivers/keyboard.c	/^void _i8042_write_data (u8 cmd, u8 data) {$/;"	f
 alt_gr	drivers/keyboard.c	/^int alt_gr = 0;$/;"	v
@@ -139,7 +140,8 @@ caps	drivers/keyboard.c	/^int caps = 0;$/;"	v
 down_arrow	drivers/keyboard.c	/^int up_arrow = 0, down_arrow = 0, left_arrow = 0, right_arrow = 0;$/;"	v
 enter	drivers/keyboard.c	/^int enter = 0;$/;"	v
 fn	drivers/keyboard.c	/^int fn = 0;$/;"	v
-kbc_i8042_init	drivers/keyboard.c	/^void kbc_i8042_init() $/;"	f
+kb_delay	drivers/keyboard.c	/^void kb_delay ()$/;"	f
+kbc_i8042_init	drivers/keyboard.c	/^void kbc_i8042_init() \/\/ BAD. THIS CODE DISABLE KEYBOARD INTR \/\/$/;"	f
 kbgetc	drivers/keyboard.c	/^char kbgetc()$/;"	f
 keyboard_handler	drivers/keyboard.c	/^void keyboard_handler()$/;"	f
 left_alt	drivers/keyboard.c	/^int left_alt = 0, right_alt = 0;$/;"	v
@@ -247,6 +249,7 @@ I82577LM_DEV_ID	include/e1000.h	48;"	d
 INTEL_VENDOR_ID	include/e1000.h	45;"	d
 addr_high	include/e1000.h	/^  u32 addr_high;$/;"	m	struct:tx_desc
 addr_low	include/e1000.h	/^  u32 addr_low;   \/\/ buffer address$/;"	m	struct:tx_desc
+base_addr_type	include/e1000.h	/^  u8   base_addr_type;$/;"	m	struct:net_device_struct
 cmd	include/e1000.h	/^  u8  cmd;$/;"	m	struct:tx_desc
 cso	include/e1000.h	/^  u8  cso;        \/\/checksum offset. where to insert TCP checksum$/;"	m	struct:tx_desc
 css	include/e1000.h	/^  u8  css;$/;"	m	struct:tx_desc
@@ -260,7 +263,6 @@ net_device_struct	include/e1000.h	/^struct net_device_struct $/;"	s
 net_device_t	include/e1000.h	/^typedef struct net_device_struct net_device_t;$/;"	t	typeref:struct:net_device_struct
 pcidev	include/e1000.h	/^  pci_device_t *pcidev;$/;"	m	struct:net_device_struct
 rsv	include/e1000.h	/^  u8  rsv;$/;"	m	struct:tx_desc
-space_type	include/e1000.h	/^  u8   space_type;$/;"	m	struct:net_device_struct
 special	include/e1000.h	/^  u16 special;$/;"	m	struct:tx_desc
 status	include/e1000.h	/^  u8  status;$/;"	m	struct:tx_desc
 tx_desc	include/e1000.h	/^struct tx_desc$/;"	s
@@ -438,31 +440,31 @@ sh_keymap	include/keyboard.h	/^char sh_keymap [] = {$/;"	v
 _KLIBC_H	include/libc.h	2;"	d
 is_digit	include/libc.h	17;"	d
 BAR_NR	include/pci.h	8;"	d
-BAR_TYPE_IO	include/pci.h	11;"	d
-BAR_TYPE_MEM32	include/pci.h	13;"	d
-BAR_TYPE_MEM64	include/pci.h	15;"	d
-BAR_TYPE_MEMLow	include/pci.h	14;"	d
-PCI_COMMAND	include/pci.h	75;"	d
-PCI_COMMAND_INTX	include/pci.h	96;"	d
-PCI_COMMAND_IO	include/pci.h	93;"	d
-PCI_COMMAND_MASTER	include/pci.h	95;"	d
-PCI_COMMAND_MEMORY	include/pci.h	94;"	d
-PCI_CONF_REG_00	include/pci.h	74;"	d
-PCI_CONF_REG_01	include/pci.h	76;"	d
-PCI_CONF_REG_02	include/pci.h	77;"	d
-PCI_CONF_REG_03	include/pci.h	78;"	d
-PCI_CONF_REG_04	include/pci.h	79;"	d
-PCI_CONF_REG_05	include/pci.h	80;"	d
-PCI_CONF_REG_06	include/pci.h	81;"	d
-PCI_CONF_REG_07	include/pci.h	82;"	d
-PCI_CONF_REG_08	include/pci.h	83;"	d
-PCI_CONF_REG_09	include/pci.h	84;"	d
-PCI_CONF_REG_0A	include/pci.h	85;"	d
-PCI_CONF_REG_0B	include/pci.h	86;"	d
-PCI_CONF_REG_0C	include/pci.h	87;"	d
-PCI_CONF_REG_0D	include/pci.h	88;"	d
-PCI_CONF_REG_0E	include/pci.h	89;"	d
-PCI_CONF_REG_0F	include/pci.h	90;"	d
+BAR_TYPE_IO	include/pci.h	12;"	d
+BAR_TYPE_MEM32	include/pci.h	11;"	d
+BAR_TYPE_MEM64	include/pci.h	14;"	d
+BAR_TYPE_MEMLow	include/pci.h	13;"	d
+PCI_COMMAND	include/pci.h	74;"	d
+PCI_COMMAND_INTX	include/pci.h	95;"	d
+PCI_COMMAND_IO	include/pci.h	92;"	d
+PCI_COMMAND_MASTER	include/pci.h	94;"	d
+PCI_COMMAND_MEMORY	include/pci.h	93;"	d
+PCI_CONF_REG_00	include/pci.h	73;"	d
+PCI_CONF_REG_01	include/pci.h	75;"	d
+PCI_CONF_REG_02	include/pci.h	76;"	d
+PCI_CONF_REG_03	include/pci.h	77;"	d
+PCI_CONF_REG_04	include/pci.h	78;"	d
+PCI_CONF_REG_05	include/pci.h	79;"	d
+PCI_CONF_REG_06	include/pci.h	80;"	d
+PCI_CONF_REG_07	include/pci.h	81;"	d
+PCI_CONF_REG_08	include/pci.h	82;"	d
+PCI_CONF_REG_09	include/pci.h	83;"	d
+PCI_CONF_REG_0A	include/pci.h	84;"	d
+PCI_CONF_REG_0B	include/pci.h	85;"	d
+PCI_CONF_REG_0C	include/pci.h	86;"	d
+PCI_CONF_REG_0D	include/pci.h	87;"	d
+PCI_CONF_REG_0E	include/pci.h	88;"	d
+PCI_CONF_REG_0F	include/pci.h	89;"	d
 PCI_H	include/pci.h	2;"	d
 PCI_MAX_DEV	include/pci.h	6;"	d
 base_addr	include/pci.h	/^  base_address_t base_addr[BAR_NR];         \/\/ base address registers$/;"	m	struct:pci_device
@@ -488,11 +490,11 @@ pci_device	include/pci.h	/^struct pci_device$/;"	s
 pci_device_t	include/pci.h	/^typedef struct pci_device pci_device_t;$/;"	t	typeref:struct:pci_device
 prog_if	include/pci.h	/^  u8 prog_if;$/;"	m	struct:pci_device
 revision_id	include/pci.h	/^  u8 revision_id;$/;"	m	struct:pci_device
-space_type	include/pci.h	/^  u8   space_type;  \/\/ base address : IO or Mem$/;"	m	struct:pci_base_address_s
 status	include/pci.h	/^  u16 status;$/;"	m	struct:pci_device
 subclass	include/pci.h	/^  u16 subclass;$/;"	m	struct:pci_device
 subsys_id	include/pci.h	/^  u16 subsys_id;$/;"	m	struct:pci_device
 subsys_vendor_id	include/pci.h	/^  u16 subsys_vendor_id;$/;"	m	struct:pci_device
+type	include/pci.h	/^  u8   type;  \/\/ base address : IO or Mem$/;"	m	struct:pci_base_address_s
 vendor_id	include/pci.h	/^  u16 vendor_id;$/;"	m	struct:pci_device
 MASTER	include/pic.h	4;"	d
 SLAVE	include/pic.h	5;"	d
@@ -601,6 +603,7 @@ memsetw	libc.c	/^void memsetw(short *adr, short val, int len)$/;"	f
 utoa	libc.c	/^int utoa( char *buf, unsigned long n, int base)$/;"	f
 cpu_idle	main.c	/^void cpu_idle(void)$/;"	f
 start_kernel	main.c	/^void start_kernel () {$/;"	f
+wait	main.c	/^void wait () {int t = 5; while(t--) halt();}$/;"	f
 bindir	net/Makefile	/^bindir  = ..\/..\/bin\/net$/;"	m
 objs	net/Makefile	/^objs    = $(addprefix $(bindir)\/,$(src:.c=.o))$/;"	m
 src	net/Makefile	/^src     = $(wildcard *.c)$/;"	m
@@ -627,6 +630,7 @@ PIC2_CMD	pic.c	33;"	d	file:
 PIC2_DATA	pic.c	35;"	d	file:
 irq_init	pic.c	/^void irq_init()$/;"	f
 pic_8259a_init	pic.c	/^void pic_8259a_init()$/;"	f
+pic_delay	pic.c	/^void pic_delay()$/;"	f
 printk	printk.c	/^void printk(const char * format,...)$/;"	f
 PIC1	sys_call.S	/^PIC1  = 0x20   \/\/ master PIC  port  $/;"	d
 PIC2	sys_call.S	/^PIC2  = 0xA0   \/\/ slave PIC  port$/;"	d

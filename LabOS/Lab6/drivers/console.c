@@ -2,9 +2,11 @@
 #include <io.h>
 #include <libc.h>
 
-#define VIDEO_BASE     0xb8000   /* base of color video memory. 32KB*/
-#define VIDEO_SIZE      0x4000   /* 16K color video memory */
-#define CONS_RAM_WORDS      80   /* video ram buffer size */
+#define VIDEO_BASE         0xb8000   /* base of color video memory. 32KB*/
+#define VIDEO_END          0xbffff   /* base of color video memory. 32KB*/
+#define VIDEO_SIZE          0x4000   /* 16K color video memory */
+#define CONS_RAM_WORDS          80   /* video ram buffer size */
+
 
 /* VGA CRT (CL-GD5446) controller chips. */
 #define REG_INDEX         0x3D4     /* GD5446 index register */
@@ -21,6 +23,10 @@
 
 #define DEFAULT_ATTR           ((BLUE<<4 | WHITE) << 8)
 #define ERASE_CHAR             (DEFAULT_ATTR | 0x00)
+
+#define SCROLL_UP   0
+#define SCROLL_DOWN 1
+
 
 
 typedef struct console {
@@ -54,7 +60,7 @@ void cons_clear(int tty)
   console_t *cons = &consoles[tty];
   cons->col = cons->row = 0;
   cons->origin = 0;
-  memsetw ((short*)pos(cons,0,0), cons->blank, VIDEO_SIZE);
+  memsetw ((u16*)pos(cons,0,0), cons->blank, VIDEO_SIZE);
 }
 
 void cons_init()
@@ -77,21 +83,19 @@ void cons_init()
 
 void clear_line(console_t* cons, int nr)
 {
-  memsetw ((short*)pos(cons,nr,0), (short)cons->blank, COLUMN_NR);
+  memsetw ((u16 *)pos(cons,nr,0), (u16)cons->blank, COLUMN_NR);
 }
 
-#define SCROLL_UP   0
-#define SCROLL_DOWN 1
-void cons_scroll(console_t *cons, int direction)
+
+void cons_scroll (console_t *cons, int direction)
 {
   
   if (direction == SCROLL_DOWN) {
-    cons->origin += COLUMN_NR;
-  
-    if (cons->origin >= SCR_SIZE) 
-      cons_clear(0);
-  
-    clear_line (cons, ROW_NR-1);
+    if ((cons->origin + SCR_SIZE) >= VIDEO_SIZE) { //we reach the end of VGA mem
+      memcpy ((u8 *)(VIDEO_BASE+2*COLUMN_NR), (u8 *)VIDEO_BASE, (VIDEO_SIZE-COLUMN_NR)*2);     
+    }
+    else
+      cons->origin += COLUMN_NR;   
   }
 
   else if (direction == SCROLL_UP)
@@ -123,7 +127,8 @@ void cons_putchar(register char c)
     flush (curcons);
     curcons->col = 0;
     curcons->row++;
-  } 
+  }
+
   else {  
     curcons->ramqueue[curcons->col] = curcons->attr | c;
     curcons->col++;
@@ -133,12 +138,15 @@ void cons_putchar(register char c)
     flush (curcons);
     curcons->row++;
     curcons->col = 0;
-  }      
+  } 
+
   if (curcons->row >= ROW_NR) {
     cons_scroll(curcons, SCROLL_DOWN);
+    clear_line (curcons, ROW_NR-1);
     curcons->row = ROW_NR-1;
     curcons->col = 0;
   }
+  
   update_cursor(curcons);
 }
 

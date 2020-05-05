@@ -104,6 +104,13 @@ Flash address specified by IOADDR:
 ![](../../documentation/images/Kernel-E1000-TransmitDesc.png)
 
 
+## Ethernet, IP, TCP
+
+-**Segments** are units of data in the Transport Layer (TCP/UDP in case of the Internet)  
+-**Packets** are units of data in the Network Layer (IP in case of the Internet)  
+-**Frames** are units of data in the Link Layer (e.g. Wifi, Bluetooth, Ethernet, etc).  
+
+
 ## References
 MUST:
 - Intel Ethernet 8254x GBe : https://pdos.csail.mit.edu/6.828/2019/readings/hardware/8254x_GBe_SDM.pdf

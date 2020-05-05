@@ -2,6 +2,7 @@
 *
 *  This straight-forward driver for Intel Ethernet controllers 8254x: 
 *      - https://pdos.csail.mit.edu/6.828/2019/readings/hardware/8254x_GBe_SDM.pdf
+*      - concerned cards : 82540EP/EM, 82541xx, 82544GC/EI, 82545GM/EM, 82546GB/EB, and 82547xx
 *  8254x are PCI(not PCIe) devices.
 *  https://wiki.osdev.org/Intel_Ethernet_i217
 *  E1000 registers can be found in Linux e1000_hw.h 
@@ -17,6 +18,7 @@
 #include <if_ether.h>
 
  
+
 #define NET_MAX_DEV             16  // network maximum devices 
 
 
@@ -28,11 +30,11 @@ net_device_t *e1000_dev;                 // E1000 device if existe.
 
 
 #define TX_RING_ZISE      32             // TX ring size
-#define TX_BUF_LEN      1518             // packet buffer len
 
-typedef  u8 tx_buf_t[TX_BUF_LEN];   
 
 tx_desc_t tx_ring[TX_RING_ZISE] __attribute__ ((aligned (16)));   
+
+typedef  u8 tx_buf_t[TX_BUF_LEN];   
 
 tx_buf_t  tx_buf[TX_RING_ZISE]  __attribute__ ((aligned (4))); 
 
@@ -51,7 +53,7 @@ u32 e1000_read_cmd (net_device_t *netdev, u32 addr)
 {
   u32 ioaddr, iodata;
 
-  if (netdev->space_type == BAR_TYPE_IO)         
+  if (netdev->base_addr_type == BAR_TYPE_IO)         
   {
     ioaddr = netdev->iobase + E1000_IOADDR;
     iodata = netdev->iobase + E1000_IODATA;
@@ -59,13 +61,13 @@ u32 e1000_read_cmd (net_device_t *netdev, u32 addr)
     return inl(iodata);
   }
 
-  else if (netdev->space_type == BAR_TYPE_MEM32)   
+  else if (netdev->base_addr_type == BAR_TYPE_MEM32)   
   {
     ioaddr = netdev->membase + addr;
     return *((volatile u32*)ioaddr);
   }
 
-  panic("space type %x not supported", netdev->space_type);
+  panic("E1000 Read : Base address Type %#x not supported", netdev->base_addr_type);
   return -EINVAL;
 
 }
@@ -74,7 +76,7 @@ void e1000_write_cmd (net_device_t *netdev, u32 addr, u32 data)
 {
   u32 ioaddr, iodata;
   
-  if (netdev->space_type == BAR_TYPE_IO)
+  if (netdev->base_addr_type == BAR_TYPE_IO)
   {
     ioaddr = netdev->iobase + E1000_IOADDR;
     iodata = netdev->iobase + E1000_IODATA + data;
@@ -82,15 +84,15 @@ void e1000_write_cmd (net_device_t *netdev, u32 addr, u32 data)
     outl(data, iodata);
   }
   
-  else if (netdev->space_type == BAR_TYPE_MEM32)
+  else if (netdev->base_addr_type == BAR_TYPE_MEM32)
   {
     ioaddr = netdev->membase + addr;
     *((volatile u32*)ioaddr) = data;
   }
   
   else
-    panic("space type %x not supported", netdev->space_type);
-
+    panic("E1000 Write : Base address Type %#x not supported", netdev->base_addr_type);
+  
 }
 
 //----------------------------------------------
@@ -262,7 +264,7 @@ net_device_t* e1000_probe()
       netdev->vendor_name  = "INTEL";
       netdev->dev_name     = "E1000";
       netdev->pcidev       = pcidev;
-      netdev->space_type   = pcidev->base_addr[0].space_type;
+      netdev->base_addr_type   = pcidev->base_addr[0].type;
   
       for (int k=0; k<BAR_NR; k++)
       {
@@ -304,18 +306,18 @@ void init_tx (net_device_t *netdev)
 {
 
   // Init TX descriptors
-  memset((char *)&tx_ring[0], 0 , TX_RING_ZISE*16);
+  memset((u8 *)&tx_ring[0], 0 , TX_RING_ZISE*16);
 
   for (int i = 0; i < TX_RING_ZISE; i++)
   {
     tx_desc_t* txdesc = &tx_ring[i];
 
-    txdesc->addr_low  =  (u32) &tx_buf[i];
+    txdesc->addr_low  =  (u32) tx_buf[i];
     txdesc->addr_high = 0;
 
     txdesc->length    = TX_BUF_LEN;
 
-    memset((char *)&tx_buf[i], 0 , TX_BUF_LEN);
+    memset(tx_buf[i], 0 , TX_BUF_LEN);
   }
 
   // Transmit Descriptor Base Address (TDBAL/TDBAH) registers
@@ -347,44 +349,29 @@ void init_tx (net_device_t *netdev)
 //            Send/Receive a packet
 //
 //-------------------------------------------------
-void e1000_send_packet (ethframe_t* ethframe)
+void e1000_send_packet (u8* payload, u32 payload_len)
 {
-  net_device_t *netdev = e1000_dev;
 
-  memcpy ((char *)netdev->mac, (char *)(ethframe->hdr.mac_src), MAC_LEN);
+  u32 tail = e1000_read_cmd (e1000_dev, E1000_TDT);
 
+  memcpy (payload, tx_buf[tail], payload_len);
 
-  u32 head = e1000_read_cmd (netdev, E1000_TDH);
+  tx_ring[tail].addr_low  = (u32) tx_buf[tail];
+  tx_ring[tail].length    = payload_len & 0xFFFFFF80;  // must be 128 aligned
+  tx_ring[tail].cmd       = E1000_TDESC_CMD_EOP | E1000_TDESC_CMD_RS | E1000_CMD_IFCS;
+  tx_ring[tail].status    = 0;
 
-  // Copy Frame content on the head tx buffer
-  memcpy ( (char *)&(ethframe->hdr),  (char *)&(tx_buf[head][0]),                                          ETH_HDR_SIZE);
-  memcpy ( (char *)ethframe->payload, (char *)&(tx_buf[head][ETH_HDR_SIZE]),                       ethframe->payload_len);
-  memcpy ( (char *)&(ethframe->crc),  (char *)&(tx_buf[head][ETH_HDR_SIZE+ethframe->payload_len]),                     4);
-
+  tail = (tail + 1) % TX_RING_ZISE;
   
-  tx_desc_t* txdesc = &tx_ring[head];
-
-  txdesc->addr_low  =  (u32) &tx_buf[head];
-  txdesc->addr_high =  0;
-
-  txdesc->length    = (ETH_HDR_SIZE + ethframe->payload_len + 4) & 0xFFFFFF80;  // must be 128 aligned
-  txdesc->cmd       = E1000_TDESC_CMD_EOP | E1000_TDESC_CMD_RS ;
-  txdesc->status    = 0;
-
-  info ("STA before : %x", txdesc->status);
-
-  head++;
-  
-  e1000_write_cmd (netdev, head, E1000_TDH);
-  
+  e1000_write_cmd (e1000_dev,  E1000_TDT, tail);  
   delay(1000);
 
   //debug
-  head = e1000_read_cmd (netdev, E1000_TDH);
-  info ("Head after : %d", head);  
-  info ("STA after : %x", txdesc->status);
-  
-
+  tail = e1000_read_cmd (e1000_dev, E1000_TDT);
+  u32 head = e1000_read_cmd (e1000_dev, E1000_TDH);
+  info ("head:tail after : %d:%d", head,tail);  
+  info ("Status after : %x", tx_ring[0].status);
+    
 }
 
 
@@ -430,16 +417,16 @@ void e1000_start()
   u16 command = pci_conf_read16 (netdev->pcidev, PCI_COMMAND);
   command |= PCI_COMMAND_MASTER | PCI_COMMAND_INTX;
   pci_conf_write16(netdev->pcidev, PCI_COMMAND, command); 
+
  
-  init_tx (netdev); 
+  init_tx (netdev);    // Initialize Transmission Desc and Ring
 
 out:
   return;
 no_e1000:
-  info ("No Intel E1000 exist");
-  goto out;   
+  warn ("No Intel E1000 exist");
+  goto out;
 }
-
 
 
 

@@ -1,0 +1,6 @@
+QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-root'
+QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-root'
+QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-root'
+05:39:08.377     Main Warn The X11 connection broke: I/O error (code 1)
+XIO:  fatal IO error 2 (Aucun fichier ou dossier de ce type) on X server ":0"
+      after 10969 requests (10969 known processed) with 0 events remaining.

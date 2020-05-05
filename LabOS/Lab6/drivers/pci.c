@@ -10,7 +10,7 @@
 #include <kernel.h>
 #include <pci.h>
 
-#define DEBUG_PCI   0
+#define DEBUG_PCI   1
 
 #define PCI_CONF_ADDR    0x0CF8    //PCI config address register
 #define PCI_CONF_DATA    0x0CFC    //PCI config DATA register
@@ -216,13 +216,13 @@ void pci_probe_devices()
 
             if (bar & BAR_TYPE_IO) // bar is a io base
             {
-              pcidev->base_addr[i].space_type = BAR_TYPE_IO;
+              pcidev->base_addr[i].type = BAR_TYPE_IO;
               pcidev->base_addr[i].iobase    = bar & 0xFFFFFFFC; //Bits 31-2 
             }
           
             else //bar is memory base
             {
-              pcidev->base_addr[i].space_type = bar & 0x7; //bits 0-2
+              pcidev->base_addr[i].type = bar & 0x7; //bits 0-2
               pcidev->base_addr[i].membase    = bar & 0xFFFFFFF0; //Bits 31-4
             }
           

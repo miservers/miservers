@@ -54,13 +54,6 @@ $(img): $(subdirs) $(bindir)/kernel.bin
 	cat  $(bindir)/boot/bootsect.bin $(bindir)/boot/setup.bin $(bindir)/kernel.bin  /dev/zero |\
 	                                         dd of=$(bindir)/$@ bs=512 count=2048 status=none
 
-vbox:
-	rm -f $(bindir)/$(img).vdi                             
-	vboxmanage convertfromraw $(bindir)/$(img) $(bindir)/$(img).vdi --format vdi
-	vboxmanage storageattach LabOS --storagectl "SCSI" --port 0 --device 0 --medium none
-	vboxmanage closemedium disk $(bindir)/$(img).vdi
-	vboxmanage storageattach LabOS --storagectl "SCSI" --port 0 --device 0 --type hdd --medium $(bindir)/$(img).vdi
-
 
 init:
 	mkdir -p $(bindir)/boot $(bindir)/drivers $(bindir)/net 

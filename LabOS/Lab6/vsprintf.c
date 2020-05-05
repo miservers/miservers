@@ -9,7 +9,7 @@ int vsprintf (char *buf, const char * format, va_list args )
    char c;
    int i, j, k;
    unsigned long n;
-   char nbstr[80]; /*for nb to string conversion*/
+   u8 nbstr[80]; /*for nb to string conversion*/
    char *str;
    int x_prefix = 0; /*if 1, add 0x prefix*/
    int width = 0;
@@ -47,7 +47,7 @@ int vsprintf (char *buf, const char * format, va_list args )
                         buf[i++] = 'x';
                         x_prefix = 0;
                       }
-                      for(k=0; k<(width - strlen(nbstr)); k++)
+                      for(k=0; k<(width - strlen((char*)nbstr)); k++)
                         buf[i++]='0';
                       j=0;
                       while (nbstr[j])

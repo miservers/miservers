@@ -3,6 +3,8 @@
 
 #include <pci.h>
 
+#define TX_BUF_LEN      1518             // packet buffer len
+
 
 struct net_device_struct 
 {
@@ -10,7 +12,7 @@ struct net_device_struct
   char *vendor_name; //vendor name 
   u32  iobase;      //IO base retrieved from BAR0
   u32  membase;     //Memory base from BAR2
-  u8   space_type;
+  u8   base_addr_type;
 
   u32  irq;
 
@@ -21,7 +23,7 @@ struct net_device_struct
 
 typedef struct net_device_struct net_device_t;
 
-struct tx_desc
+struct tx_desc_struct
 {
   u32 addr_low;   // buffer address
   u32 addr_high;
@@ -36,11 +38,15 @@ struct tx_desc
 
 } __attribute__ ((packed));
 
-typedef struct tx_desc tx_desc_t;
+typedef struct tx_desc_struct tx_desc_t;
 
+extern net_device_t *e1000_dev;     // E1000 device if existe. 
 
 void e1000_start();
 void e1000_test ();
+
+void e1000_send_packet (u8* payload, u32 payload_len);
+
 
 #define INTEL_VENDOR_ID     0x8086  // Vendor ID for Intel 
 #define E1000_DEV_ID        0x100E  // Device ID for the e1000 Qemu, Bochs, and VirtualBox emmulated NICs
@@ -98,6 +104,7 @@ void e1000_test ();
 
 /* Transmit Command (TDESC.CMD) */
 #define E1000_TDESC_CMD_EOP           (1<<0)  // End Of Packet
+#define E1000_CMD_IFCS                (1<<1)  /* Insert FCS */
 #define E1000_TDESC_CMD_IC            (1<<2)
 #define E1000_TDESC_CMD_RS            (1<<3)
 #define E1000_TDESC_CMD_DEXT          (1<<5)  // Extension (0b for legacy mode)
@@ -113,14 +120,6 @@ void e1000_test ();
 
 #define E1000_IOADDR         0x00000   // I/O-Mapped Internal Register. see manual Ch 13.2.2
 #define E1000_IODATA         0x00004
-
-
-
-
-
-
-
-
 
 
 

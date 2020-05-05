@@ -1,18 +1,20 @@
 #ifndef _KLIBC_H
 #define _KLIBC_H
 
-char* memcpy(char *src, char *dst, int len);
+#include <types.h>
 
-void memset(char *adr, char val, int len);
-void memsetw(short *adr, short val, int len);
-void memsetd(long *adr, long val, int len);
+u8* memcpy(u8 *src, u8 *dst, int len);
 
-int itoa(char *buf, int n, int base);
-int utoa(char *buf, unsigned long n, int base);
+void memset(u8 *adr, u8 val, int len);
+void memsetw(u16 *adr, u16 val, int len);
+void memsetd(u32 *adr, u32 val, int len);
 
-int atoi(char *str);
+int itoa(u8 *buf, u32 n, int base);
+int utoa(u8 *buf, u32 n, int base);
 
-int ctoi(char c);
+int atoi(u8 *str);
+
+int ctoi(u8 c);
 
 #define is_digit(c)   (((c - '0') >= 0 && (c - '0') <= 9)?1:0)
 
