@@ -10,7 +10,7 @@
 #include <kernel.h>
 #include <pci.h>
 
-#define DEBUG_PCI   1
+#define DEBUG_PCI   0
 
 #define PCI_CONF_ADDR    0x0CF8    //PCI config address register
 #define PCI_CONF_DATA    0x0CFC    //PCI config DATA register

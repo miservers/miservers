@@ -104,12 +104,16 @@ Flash address specified by IOADDR:
 ![](../../documentation/images/Kernel-E1000-TransmitDesc.png)
 
 
-## Ethernet, IP, TCP
+## Ethernet, ARP, IP, TCP
 
 -**Segments** are units of data in the Transport Layer (TCP/UDP in case of the Internet)  
 -**Packets** are units of data in the Network Layer (IP in case of the Internet)  
 -**Frames** are units of data in the Link Layer (e.g. Wifi, Bluetooth, Ethernet, etc).  
 
+- Network debug:
+  1. Run Qemu with option "filter-dump" to dump network trafic on a file
+  2. use wireshark (option -r) to read from file
+  3. Activate Validate checksum : check option in wireshark->preference->protocols->IPv4, Ethernet,etc 
 
 ## References
 MUST:

@@ -25,4 +25,8 @@ typedef unsigned short dev_t; /*dev=(major<<8 | minor)*/
 typedef unsigned int size_t;
 #endif
 
+
+#define _packed_   __attribute__((packed)) 
+
+
 #endif

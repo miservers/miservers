@@ -2,9 +2,9 @@
 src     = $(wildcard *.c)
 objs    = $(addprefix $(bindir)/,$(src:.c=.o))
 
-bindir  = ../../bin/drivers
+bindir  = ../../bin/mm
 
-INCLUDE += -I../include 
+INCLUDE += -I../include
 
 
 all: $(objs)

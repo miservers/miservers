@@ -42,7 +42,7 @@ typedef struct tx_desc_struct tx_desc_t;
 
 extern net_device_t *e1000_dev;     // E1000 device if existe. 
 
-void e1000_start();
+void e1000_init ();
 void e1000_test ();
 
 void e1000_send_packet (u8* payload, u32 payload_len);

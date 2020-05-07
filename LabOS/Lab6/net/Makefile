@@ -1,5 +1,4 @@
 
-
 src     = $(wildcard *.c)
 objs    = $(addprefix $(bindir)/,$(src:.c=.o))
 

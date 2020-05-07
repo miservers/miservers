@@ -8,19 +8,21 @@
 *  E1000 registers can be found in Linux e1000_hw.h 
 *    
 */
-#include <e1000.h>
+#include <net/e1000.h>
 #include <types.h>
 #include <io.h>
 #include <pci.h>
 #include <kernel.h>
 #include <errno.h>
 #include <libc.h>
-#include <if_ether.h>
+#include <net/if_ether.h>
+#include <net/net.h>
+#include <mm.h>
 
  
 
-#define NET_MAX_DEV             16  // network maximum devices 
-
+#define NET_MAX_DEV             16       // network maximum devices 
+ 
 
 net_device_t net_devices[NET_MAX_DEV];   // all registered net devices are here
 
@@ -29,15 +31,10 @@ int  net_dev_nr = 0;                     // number of net devices
 net_device_t *e1000_dev;                 // E1000 device if existe.  
 
 
-#define TX_RING_ZISE      32             // TX ring size
+#define TX_RING_ZISE      128             // TX ring size
 
 
 tx_desc_t tx_ring[TX_RING_ZISE] __attribute__ ((aligned (16)));   
-
-typedef  u8 tx_buf_t[TX_BUF_LEN];   
-
-tx_buf_t  tx_buf[TX_RING_ZISE]  __attribute__ ((aligned (4))); 
-
 
 
 void delay(int t) {while(t--);} // bad way to make a delay
@@ -290,7 +287,7 @@ net_device_t* e1000_probe()
 //  See Ch. 14.5 Transmit Initialization
 //      Ch. 14.4 Receive Initialization
 //-------------------------------------------------
-void init_rx(net_device_t *netdev)
+void e1000_rx_init(net_device_t *netdev)
 {
   // receive buffer size: 1KB
   u32 rctl = e1000_read_cmd (netdev, E1000_RCTL); 
@@ -302,7 +299,7 @@ void init_rx(net_device_t *netdev)
 
 }
 
-void init_tx (net_device_t *netdev)
+void e1000_tx_init (net_device_t *netdev)
 {
 
   // Init TX descriptors
@@ -312,30 +309,26 @@ void init_tx (net_device_t *netdev)
   {
     tx_desc_t* txdesc = &tx_ring[i];
 
-    txdesc->addr_low  =  (u32) tx_buf[i];
+    txdesc->addr_low  = 0;
     txdesc->addr_high = 0;
+    txdesc->length    = 0;
 
-    txdesc->length    = TX_BUF_LEN;
-
-    memset(tx_buf[i], 0 , TX_BUF_LEN);
   }
 
   // Transmit Descriptor Base Address (TDBAL/TDBAH) registers
-  u32 tdbal = (u32)&tx_ring[0];
+  u32 tdbal = (u32) tx_ring;
   e1000_write_cmd (netdev, E1000_TDBAL, tdbal);
-
   e1000_write_cmd (netdev, E1000_TDBAH, 0);
 
   // Transmit Descriptor Length (TDLEN) register = size (in bytes) of tx ring
-  u32 txlen = (TX_RING_ZISE) * 16;
-  e1000_write_cmd (netdev, E1000_TDLEN, (txlen<<7));
+  u32 txlen = (TX_RING_ZISE) * sizeof (struct tx_desc_struct);
+  e1000_write_cmd (netdev, E1000_TDLEN, txlen);
 
   // Transmit Descriptor Head and Tail (TDH/TDT)
   e1000_write_cmd (netdev, E1000_TDH, 0);
   e1000_write_cmd (netdev, E1000_TDT, 0);
 
   // Init of Transmit Control Register (TCTL)
-
   u32 tctl = e1000_read_cmd (netdev, E1000_TCTL); 
   tctl |= E1000_TCTL_EN | E1000_TCTL_PSP | E1000_TCTL_RTLC;         
   tctl = (tctl & ~E1000_TCTL_CT) | (0x10 << 4);  // Collision Threshold set a 10h
@@ -352,12 +345,14 @@ void init_tx (net_device_t *netdev)
 void e1000_send_packet (u8* payload, u32 payload_len)
 {
 
+  u8* tx_buf = kmalloc (TX_BUF_LEN, GFP_KERNEL);
+
   u32 tail = e1000_read_cmd (e1000_dev, E1000_TDT);
 
-  memcpy (payload, tx_buf[tail], payload_len);
+  memcpy (payload, tx_buf, payload_len);
 
-  tx_ring[tail].addr_low  = (u32) tx_buf[tail];
-  tx_ring[tail].length    = payload_len & 0xFFFFFF80;  // must be 128 aligned
+  tx_ring[tail].addr_low  = (u32) tx_buf;
+  tx_ring[tail].length    = payload_len;
   tx_ring[tail].cmd       = E1000_TDESC_CMD_EOP | E1000_TDESC_CMD_RS | E1000_CMD_IFCS;
   tx_ring[tail].status    = 0;
 
@@ -377,11 +372,11 @@ void e1000_send_packet (u8* payload, u32 payload_len)
 
 //-------------------------------------------------
 //
-//  MAIN : E1000 START
+//  MAIN : E1000 Initialization
 //
 //-------------------------------------------------
 
-void e1000_start() 
+void e1000_init () 
 {
   net_device_t *netdev;
   u32 ctrl;
@@ -419,7 +414,7 @@ void e1000_start()
   pci_conf_write16(netdev->pcidev, PCI_COMMAND, command); 
 
  
-  init_tx (netdev);    // Initialize Transmission Desc and Ring
+  e1000_tx_init (netdev);    // Initialize Transmission Desc and Ring
 
 out:
   return;

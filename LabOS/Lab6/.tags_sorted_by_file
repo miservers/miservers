@@ -11,10 +11,13 @@ OBJCOPY	Makefile	/^OBJCOPY  = $(ARCH)-objcopy$/;"	m
 bindir	Makefile	/^bindir  = ..\/bin$/;"	m
 driv_objs	Makefile	/^driv_objs = $(addprefix $(bindir)\/drivers\/, console.o keyboard.o pci.o e1000.o)$/;"	m
 img	Makefile	/^img     = vmlabos.iso$/;"	m
+kern_deps	Makefile	/^kern_deps=$(kern_objs) $(libc_objs) $(mm_objs) $(driv_objs)  $(net_objs)$/;"	m
 kern_objs	Makefile	/^kern_objs = $(addprefix $(bindir)\/, boot\/head.o $(src:.c=.o) sys_call.o)$/;"	m
-net_objs	Makefile	/^net_objs  = $(addprefix $(bindir)\/net\/, if_ether.o)$/;"	m
+libc_objs	Makefile	/^libc_objs = $(addprefix $(bindir)\/libc\/, libc.o printk.o vsprintf.o)$/;"	m
+mm_objs	Makefile	/^mm_objs   = $(addprefix $(bindir)\/mm\/, memory.o kmalloc.o)$/;"	m
+modules	Makefile	/^modules  = boot libc mm drivers net $/;"	m
+net_objs	Makefile	/^net_objs  = $(addprefix $(bindir)\/net\/, if_ether.o arp.o)$/;"	m
 src	Makefile	/^src     = $(wildcard *.c)$/;"	m
-subdirs	Makefile	/^subdirs  = boot drivers net$/;"	m
 bindir	boot/Makefile	/^bindir  = ..\/..\/bin\/boot$/;"	m
 bins	boot/Makefile	/^bins     = $(addprefix $(bindir)\/,bootsect.bin setup.bin)$/;"	m
 ATTR_COLOR	boot/bootsect.S	/^ATTR_COLOR = 0x11$/;"	d
@@ -94,28 +97,25 @@ show_cursor	drivers/console.c	/^void show_cursor()$/;"	f
 size	drivers/console.c	/^  int  size;             \/* size of video memory *\/$/;"	m	struct:console	file:
 start	drivers/console.c	/^  long start;            \/* start of video memory of this console *\/$/;"	m	struct:console	file:
 update_cursor	drivers/console.c	/^void update_cursor(console_t *cons)$/;"	f
-NET_MAX_DEV	drivers/e1000.c	20;"	d	file:
-TX_BUF_LEN	drivers/e1000.c	31;"	d	file:
-TX_RING_ZISE	drivers/e1000.c	30;"	d	file:
+NET_MAX_DEV	drivers/e1000.c	24;"	d	file:
+TX_RING_ZISE	drivers/e1000.c	34;"	d	file:
 delay	drivers/e1000.c	/^void delay(int t) {while(t--);} \/\/ bad way to make a delay$/;"	f
 e1000_dev	drivers/e1000.c	/^net_device_t *e1000_dev;                 \/\/ E1000 device if existe.  $/;"	v
 e1000_eeprom_exist	drivers/e1000.c	/^int e1000_eeprom_exist(net_device_t *netdev)$/;"	f
 e1000_eerd_read	drivers/e1000.c	/^u32 e1000_eerd_read(net_device_t *dev, u8 addr)$/;"	f
 e1000_handler	drivers/e1000.c	/^void e1000_handler()$/;"	f
+e1000_init	drivers/e1000.c	/^void e1000_init () $/;"	f
 e1000_probe	drivers/e1000.c	/^net_device_t* e1000_probe()$/;"	f
 e1000_read_cmd	drivers/e1000.c	/^u32 e1000_read_cmd (net_device_t *netdev, u32 addr)$/;"	f
 e1000_read_mac	drivers/e1000.c	/^void e1000_read_mac (net_device_t *netdev)$/;"	f
-e1000_send_packet	drivers/e1000.c	/^void e1000_send_packet (ethframe_t* ethframe)$/;"	f
-e1000_start	drivers/e1000.c	/^void e1000_start() $/;"	f
+e1000_rx_init	drivers/e1000.c	/^void e1000_rx_init(net_device_t *netdev)$/;"	f
+e1000_send_packet	drivers/e1000.c	/^void e1000_send_packet (u8* payload, u32 payload_len)$/;"	f
+e1000_tx_init	drivers/e1000.c	/^void e1000_tx_init (net_device_t *netdev)$/;"	f
 e1000_write_cmd	drivers/e1000.c	/^void e1000_write_cmd (net_device_t *netdev, u32 addr, u32 data)$/;"	f
-init_rx	drivers/e1000.c	/^void init_rx(net_device_t *netdev)$/;"	f
-init_tx	drivers/e1000.c	/^void init_tx (net_device_t *netdev)$/;"	f
 net_dev_nr	drivers/e1000.c	/^int  net_dev_nr = 0;                     \/\/ number of net devices$/;"	v
 net_devices	drivers/e1000.c	/^net_device_t net_devices[NET_MAX_DEV];   \/\/ all registered net devices are here$/;"	v
 net_print_info	drivers/e1000.c	/^void net_print_info (net_device_t *netdev)$/;"	f
 print_mac	drivers/e1000.c	/^void print_mac(net_device_t *netdev)$/;"	f
-tx_buf	drivers/e1000.c	/^tx_buf_t  tx_buf[TX_RING_ZISE]  __attribute__ ((aligned (4))); $/;"	v
-tx_buf_t	drivers/e1000.c	/^typedef  u8 tx_buf_t[TX_BUF_LEN];   $/;"	t	file:
 tx_ring	drivers/e1000.c	/^tx_desc_t tx_ring[TX_RING_ZISE] __attribute__ ((aligned (16)));   $/;"	v
 C	drivers/keyboard.c	18;"	d	file:
 IN_BUF_FULL	drivers/keyboard.c	32;"	d	file:
@@ -187,6 +187,15 @@ set_intr_gate	idt.c	/^void set_intr_gate(u16 n, u32 addr)$/;"	f
 set_system_gate	idt.c	/^void set_system_gate(u16 n, u32 addr)$/;"	f
 set_trap_gate	idt.c	/^void set_trap_gate(u16 n, u32 addr)$/;"	f
 type	idt.c	/^   u16 type;$/;"	m	struct:idt_desc	file:
+BITOPS_H	include/bitops.h	2;"	d
+clear_bit	include/bitops.h	/^static void inline clear_bit(int nr, int *addr)$/;"	f
+find_first_bit	include/bitops.h	/^static int inline find_first_bit(int nbits, int *addr)$/;"	f
+find_first_zero_bit	include/bitops.h	/^static int inline find_first_zero_bit(int nbits, int *addr)$/;"	f
+mask	include/bitops.h	12;"	d
+set_bit	include/bitops.h	/^static void inline set_bit(int nr, int *addr)$/;"	f
+switch_endian16	include/bitops.h	/^static inline u16  switch_endian16 (u16 a)$/;"	f
+test_bit	include/bitops.h	13;"	d
+to_big_endian16	include/bitops.h	/^static inline u16  to_big_endian16 (u16 a)$/;"	f
 BLACK	include/console.h	/^enum COLOR {BLACK=0x00, BLUE=0x01, GREEN=0x02, RED=0x04, GREY=0x08, YELLOW=0x0E, WHITE=0x0f};$/;"	e	enum:COLOR
 BLUE	include/console.h	/^enum COLOR {BLACK=0x00, BLUE=0x01, GREEN=0x02, RED=0x04, GREY=0x08, YELLOW=0x0E, WHITE=0x0f};$/;"	e	enum:COLOR
 COLOR	include/console.h	/^enum COLOR {BLACK=0x00, BLUE=0x01, GREEN=0x02, RED=0x04, GREY=0x08, YELLOW=0x0E, WHITE=0x0f};$/;"	g
@@ -201,73 +210,6 @@ UP_ARROW	include/console.h	4;"	d
 WHITE	include/console.h	/^enum COLOR {BLACK=0x00, BLUE=0x01, GREEN=0x02, RED=0x04, GREY=0x08, YELLOW=0x0E, WHITE=0x0f};$/;"	e	enum:COLOR
 YELLOW	include/console.h	/^enum COLOR {BLACK=0x00, BLUE=0x01, GREEN=0x02, RED=0x04, GREY=0x08, YELLOW=0x0E, WHITE=0x0f};$/;"	e	enum:COLOR
 _CONSOLE_H	include/console.h	2;"	d
-E1000_CTRL	include/e1000.h	55;"	d
-E1000_CTRL_ASDE	include/e1000.h	71;"	d
-E1000_CTRL_PHY_RST	include/e1000.h	73;"	d
-E1000_CTRL_RST	include/e1000.h	72;"	d
-E1000_DEV_ID	include/e1000.h	46;"	d
-E1000_EEC	include/e1000.h	57;"	d
-E1000_EERD	include/e1000.h	58;"	d
-E1000_EE_DONE	include/e1000.h	81;"	d
-E1000_EE_GNT	include/e1000.h	77;"	d
-E1000_EE_REQ	include/e1000.h	76;"	d
-E1000_EE_START	include/e1000.h	80;"	d
-E1000_H	include/e1000.h	2;"	d
-E1000_IMC	include/e1000.h	60;"	d
-E1000_IMS	include/e1000.h	59;"	d
-E1000_IOADDR	include/e1000.h	114;"	d
-E1000_IODATA	include/e1000.h	115;"	d
-E1000_MAC_REG	include/e1000.h	112;"	d
-E1000_RCTL	include/e1000.h	61;"	d
-E1000_RCTL_BSEX	include/e1000.h	90;"	d
-E1000_RCTL_BSIZE	include/e1000.h	85;"	d
-E1000_RCTL_BSIZE_1K	include/e1000.h	87;"	d
-E1000_RCTL_BSIZE_256B	include/e1000.h	89;"	d
-E1000_RCTL_BSIZE_2K	include/e1000.h	86;"	d
-E1000_RCTL_BSIZE_512B	include/e1000.h	88;"	d
-E1000_STATUS	include/e1000.h	56;"	d
-E1000_TCTL	include/e1000.h	62;"	d
-E1000_TCTL_COLD	include/e1000.h	96;"	d
-E1000_TCTL_CT	include/e1000.h	95;"	d
-E1000_TCTL_EN	include/e1000.h	93;"	d
-E1000_TCTL_PSP	include/e1000.h	94;"	d
-E1000_TCTL_RTLC	include/e1000.h	97;"	d
-E1000_TDBAH	include/e1000.h	64;"	d
-E1000_TDBAL	include/e1000.h	63;"	d
-E1000_TDESC_CMD_DEXT	include/e1000.h	103;"	d
-E1000_TDESC_CMD_EOP	include/e1000.h	100;"	d
-E1000_TDESC_CMD_IC	include/e1000.h	101;"	d
-E1000_TDESC_CMD_RS	include/e1000.h	102;"	d
-E1000_TDESC_STATUS_DD	include/e1000.h	106;"	d
-E1000_TDESC_STATUS_EC	include/e1000.h	107;"	d
-E1000_TDESC_STATUS_LC	include/e1000.h	108;"	d
-E1000_TDH	include/e1000.h	66;"	d
-E1000_TDLEN	include/e1000.h	65;"	d
-E1000_TDT	include/e1000.h	67;"	d
-I217_DEV_ID	include/e1000.h	47;"	d
-I82577LM_DEV_ID	include/e1000.h	48;"	d
-INTEL_VENDOR_ID	include/e1000.h	45;"	d
-addr_high	include/e1000.h	/^  u32 addr_high;$/;"	m	struct:tx_desc
-addr_low	include/e1000.h	/^  u32 addr_low;   \/\/ buffer address$/;"	m	struct:tx_desc
-base_addr_type	include/e1000.h	/^  u8   base_addr_type;$/;"	m	struct:net_device_struct
-cmd	include/e1000.h	/^  u8  cmd;$/;"	m	struct:tx_desc
-cso	include/e1000.h	/^  u8  cso;        \/\/checksum offset. where to insert TCP checksum$/;"	m	struct:tx_desc
-css	include/e1000.h	/^  u8  css;$/;"	m	struct:tx_desc
-dev_name	include/e1000.h	/^  char *dev_name;    \/\/net device name$/;"	m	struct:net_device_struct
-iobase	include/e1000.h	/^  u32  iobase;      \/\/IO base retrieved from BAR0$/;"	m	struct:net_device_struct
-irq	include/e1000.h	/^  u32  irq;$/;"	m	struct:net_device_struct
-length	include/e1000.h	/^  u16 length;    \/\/ buffer length. 16KB by default $/;"	m	struct:tx_desc
-mac	include/e1000.h	/^  u8   mac[6];      \/\/MAC address $/;"	m	struct:net_device_struct
-membase	include/e1000.h	/^  u32  membase;     \/\/Memory base from BAR2$/;"	m	struct:net_device_struct
-net_device_struct	include/e1000.h	/^struct net_device_struct $/;"	s
-net_device_t	include/e1000.h	/^typedef struct net_device_struct net_device_t;$/;"	t	typeref:struct:net_device_struct
-pcidev	include/e1000.h	/^  pci_device_t *pcidev;$/;"	m	struct:net_device_struct
-rsv	include/e1000.h	/^  u8  rsv;$/;"	m	struct:tx_desc
-special	include/e1000.h	/^  u16 special;$/;"	m	struct:tx_desc
-status	include/e1000.h	/^  u8  status;$/;"	m	struct:tx_desc
-tx_desc	include/e1000.h	/^struct tx_desc$/;"	s
-tx_desc_t	include/e1000.h	/^typedef struct tx_desc tx_desc_t;$/;"	t	typeref:struct:tx_desc
-vendor_name	include/e1000.h	/^  char *vendor_name; \/\/vendor name $/;"	m	struct:net_device_struct
 E2BIG	include/errno.h	10;"	d
 EACCES	include/errno.h	16;"	d
 EADDRINUSE	include/errno.h	101;"	d
@@ -399,24 +341,6 @@ INTGATE	include/idt.h	9;"	d
 SYSGATE	include/idt.h	10;"	d
 TRAPGATE	include/idt.h	8;"	d
 _IDH_H	include/idt.h	2;"	d
-ETH_HDR_SIZE	include/if_ether.h	15;"	d
-ETH_TYPE_8021Q	include/if_ether.h	40;"	d
-ETH_TYPE_ARP	include/if_ether.h	38;"	d
-ETH_TYPE_DOMAIN	include/if_ether.h	39;"	d
-ETH_TYPE_IPv4	include/if_ether.h	37;"	d
-IF_ETHER_H	include/if_ether.h	2;"	d
-MAC_LEN	include/if_ether.h	13;"	d
-crc	include/if_ether.h	/^  u32 crc;       \/\/ checksum$/;"	m	struct:ethframe
-eth_type	include/if_ether.h	/^  u16 eth_type;$/;"	m	struct:ethdr
-ethdr	include/if_ether.h	/^typedef struct ethdr $/;"	s
-ethdr_t	include/if_ether.h	/^} __attribute((packed)) ethdr_t;$/;"	t	typeref:struct:ethdr
-ethframe	include/if_ether.h	/^typedef struct ethframe$/;"	s
-ethframe_t	include/if_ether.h	/^} __attribute((packed)) ethframe_t;$/;"	t	typeref:struct:ethframe
-hdr	include/if_ether.h	/^  ethdr_t hdr;$/;"	m	struct:ethframe
-mac_dest	include/if_ether.h	/^  u8 mac_dest[MAC_LEN];$/;"	m	struct:ethdr
-mac_src	include/if_ether.h	/^  u8 mac_src[MAC_LEN];$/;"	m	struct:ethdr
-payload	include/if_ether.h	/^  u8 *payload;$/;"	m	struct:ethframe
-payload_len	include/if_ether.h	/^  u32 payload_len;$/;"	m	struct:ethframe
 _ASM_IO_H	include/io.h	2;"	d
 inb	include/io.h	21;"	d
 inb_p	include/io.h	37;"	d
@@ -438,7 +362,185 @@ k	include/keyboard.h	6;"	d
 keymap	include/keyboard.h	/^char keymap [] = {$/;"	v
 sh_keymap	include/keyboard.h	/^char sh_keymap [] = {$/;"	v
 _KLIBC_H	include/libc.h	2;"	d
-is_digit	include/libc.h	17;"	d
+is_digit	include/libc.h	19;"	d
+INIT_LIST_HEAD	include/list.h	23;"	d
+LIST_HEAD	include/list.h	20;"	d
+LIST_HEAD_INIT	include/list.h	18;"	d
+MAGOS_LIST_H	include/list.h	2;"	d
+list_add	include/list.h	/^static inline void list_add(list_head_t *new, list_head_t *head)$/;"	f
+list_add_tail	include/list.h	/^static inline void list_add_tail(list_head_t *new, list_head_t *head)$/;"	f
+list_del	include/list.h	/^static inline void list_del(list_head_t *entry)$/;"	f
+list_empty	include/list.h	34;"	d
+list_entry	include/list.h	28;"	d
+list_for_each	include/list.h	31;"	d
+list_head	include/list.h	/^struct list_head {$/;"	s
+list_head_t	include/list.h	/^typedef struct list_head list_head_t;$/;"	t	typeref:struct:list_head
+next	include/list.h	/^   struct list_head *next, *prev;$/;"	m	struct:list_head	typeref:struct:list_head::list_head
+prev	include/list.h	/^   struct list_head *next, *prev;$/;"	m	struct:list_head	typeref:struct:list_head::
+DMA_END	include/mm.h	26;"	d
+DMA_START	include/mm.h	25;"	d
+GFP_DMA	include/mm.h	37;"	d
+GFP_KERNEL	include/mm.h	38;"	d
+GFP_USER	include/mm.h	39;"	d
+KMALLOC_END	include/mm.h	30;"	d
+KMALLOC_START	include/mm.h	29;"	d
+LD_ENTRY	include/mm.h	17;"	d
+MAGOS_MM_H	include/mm.h	2;"	d
+MAP_ADDR	include/mm.h	10;"	d
+MAP_NR	include/mm.h	9;"	d
+RAM_MAXPAGE	include/mm.h	12;"	d
+RAM_MAXPAGE	include/mm.h	15;"	d
+RESERVED_PAGES	include/mm.h	32;"	d
+START_LOW_MEM	include/mm.h	19;"	d
+SWAPPER_PG_DIR	include/mm.h	34;"	d
+VMALLOC_END	include/mm.h	28;"	d
+VMALLOC_START	include/mm.h	27;"	d
+ZONE_DMA	include/mm.h	21;"	d
+ZONE_HIGHMEM	include/mm.h	23;"	d
+ZONE_NORMAL	include/mm.h	22;"	d
+__get_free_page	include/mm.h	/^inline static unsigned long __get_free_page(int flags)$/;"	f
+ARP_H	include/net/arp.h	2;"	d
+ARP_HW_ETH	include/net/arp.h	38;"	d
+ARP_HW_FIBRE	include/net/arp.h	40;"	d
+ARP_HW_IEEE	include/net/arp.h	39;"	d
+ARP_OP_REPLAY	include/net/arp.h	48;"	d
+ARP_OP_REQUEST	include/net/arp.h	47;"	d
+ARP_PROTO_IPv4	include/net/arp.h	43;"	d
+arp_frame_struct	include/net/arp.h	/^typedef struct arp_frame_struct $/;"	s
+arp_frame_t	include/net/arp.h	/^} _packed_  arp_frame_t;$/;"	t	typeref:struct:arp_frame_struct
+arp_hdr	include/net/arp.h	/^  arp_hdr_t arp_hdr; \/\/ARP header$/;"	m	struct:arp_frame_struct
+arp_hdr_struct	include/net/arp.h	/^typedef struct arp_hdr_struct$/;"	s
+arp_hdr_t	include/net/arp.h	/^} _packed_  arp_hdr_t;$/;"	t	typeref:struct:arp_hdr_struct
+crc	include/net/arp.h	/^   u32 crc;          \/\/ checksum$/;"	m	struct:arp_frame_struct
+dest_ip	include/net/arp.h	/^  ipv4_addr_t  dest_ip; $/;"	m	struct:arp_hdr_struct
+dest_mac	include/net/arp.h	/^  mac_t        dest_mac;$/;"	m	struct:arp_hdr_struct
+ethdr	include/net/arp.h	/^  ethdr_t ethdr;     \/\/ Ethernet header$/;"	m	struct:arp_frame_struct
+hw_addr_len	include/net/arp.h	/^  u8  hw_addr_len;    \/\/ Hardware address length(6)$/;"	m	struct:arp_hdr_struct
+hw_type	include/net/arp.h	/^  u16 hw_type ;       \/\/hardware type$/;"	m	struct:arp_hdr_struct
+opcode	include/net/arp.h	/^  u16 opcode;         \/\/nature of ARP message$/;"	m	struct:arp_hdr_struct
+proto	include/net/arp.h	/^  u16 proto;          \/\/ protocol type$/;"	m	struct:arp_hdr_struct
+proto_addr_len	include/net/arp.h	/^  u8  proto_addr_len; \/\/ protocol address length(4)$/;"	m	struct:arp_hdr_struct
+src_ip	include/net/arp.h	/^  ipv4_addr_t  src_ip;$/;"	m	struct:arp_hdr_struct
+src_mac	include/net/arp.h	/^  mac_t        src_mac;$/;"	m	struct:arp_hdr_struct
+E1000_CMD_IFCS	include/net/e1000.h	107;"	d
+E1000_CTRL	include/net/e1000.h	61;"	d
+E1000_CTRL_ASDE	include/net/e1000.h	77;"	d
+E1000_CTRL_PHY_RST	include/net/e1000.h	79;"	d
+E1000_CTRL_RST	include/net/e1000.h	78;"	d
+E1000_DEV_ID	include/net/e1000.h	52;"	d
+E1000_EEC	include/net/e1000.h	63;"	d
+E1000_EERD	include/net/e1000.h	64;"	d
+E1000_EE_DONE	include/net/e1000.h	87;"	d
+E1000_EE_GNT	include/net/e1000.h	83;"	d
+E1000_EE_REQ	include/net/e1000.h	82;"	d
+E1000_EE_START	include/net/e1000.h	86;"	d
+E1000_H	include/net/e1000.h	2;"	d
+E1000_IMC	include/net/e1000.h	66;"	d
+E1000_IMS	include/net/e1000.h	65;"	d
+E1000_IOADDR	include/net/e1000.h	121;"	d
+E1000_IODATA	include/net/e1000.h	122;"	d
+E1000_MAC_REG	include/net/e1000.h	119;"	d
+E1000_RCTL	include/net/e1000.h	67;"	d
+E1000_RCTL_BSEX	include/net/e1000.h	96;"	d
+E1000_RCTL_BSIZE	include/net/e1000.h	91;"	d
+E1000_RCTL_BSIZE_1K	include/net/e1000.h	93;"	d
+E1000_RCTL_BSIZE_256B	include/net/e1000.h	95;"	d
+E1000_RCTL_BSIZE_2K	include/net/e1000.h	92;"	d
+E1000_RCTL_BSIZE_512B	include/net/e1000.h	94;"	d
+E1000_STATUS	include/net/e1000.h	62;"	d
+E1000_TCTL	include/net/e1000.h	68;"	d
+E1000_TCTL_COLD	include/net/e1000.h	102;"	d
+E1000_TCTL_CT	include/net/e1000.h	101;"	d
+E1000_TCTL_EN	include/net/e1000.h	99;"	d
+E1000_TCTL_PSP	include/net/e1000.h	100;"	d
+E1000_TCTL_RTLC	include/net/e1000.h	103;"	d
+E1000_TDBAH	include/net/e1000.h	70;"	d
+E1000_TDBAL	include/net/e1000.h	69;"	d
+E1000_TDESC_CMD_DEXT	include/net/e1000.h	110;"	d
+E1000_TDESC_CMD_EOP	include/net/e1000.h	106;"	d
+E1000_TDESC_CMD_IC	include/net/e1000.h	108;"	d
+E1000_TDESC_CMD_RS	include/net/e1000.h	109;"	d
+E1000_TDESC_STATUS_DD	include/net/e1000.h	113;"	d
+E1000_TDESC_STATUS_EC	include/net/e1000.h	114;"	d
+E1000_TDESC_STATUS_LC	include/net/e1000.h	115;"	d
+E1000_TDH	include/net/e1000.h	72;"	d
+E1000_TDLEN	include/net/e1000.h	71;"	d
+E1000_TDT	include/net/e1000.h	73;"	d
+I217_DEV_ID	include/net/e1000.h	53;"	d
+I82577LM_DEV_ID	include/net/e1000.h	54;"	d
+INTEL_VENDOR_ID	include/net/e1000.h	51;"	d
+TX_BUF_LEN	include/net/e1000.h	6;"	d
+addr_high	include/net/e1000.h	/^  u32 addr_high;$/;"	m	struct:tx_desc_struct
+addr_low	include/net/e1000.h	/^  u32 addr_low;   \/\/ buffer address$/;"	m	struct:tx_desc_struct
+base_addr_type	include/net/e1000.h	/^  u8   base_addr_type;$/;"	m	struct:net_device_struct
+cmd	include/net/e1000.h	/^  u8  cmd;$/;"	m	struct:tx_desc_struct
+cso	include/net/e1000.h	/^  u8  cso;        \/\/checksum offset. where to insert TCP checksum$/;"	m	struct:tx_desc_struct
+css	include/net/e1000.h	/^  u8  css;$/;"	m	struct:tx_desc_struct
+dev_name	include/net/e1000.h	/^  char *dev_name;    \/\/net device name$/;"	m	struct:net_device_struct
+iobase	include/net/e1000.h	/^  u32  iobase;      \/\/IO base retrieved from BAR0$/;"	m	struct:net_device_struct
+irq	include/net/e1000.h	/^  u32  irq;$/;"	m	struct:net_device_struct
+length	include/net/e1000.h	/^  u16 length;    \/\/ buffer length. 16KB by default $/;"	m	struct:tx_desc_struct
+mac	include/net/e1000.h	/^  u8   mac[6];      \/\/MAC address $/;"	m	struct:net_device_struct
+membase	include/net/e1000.h	/^  u32  membase;     \/\/Memory base from BAR2$/;"	m	struct:net_device_struct
+net_device_struct	include/net/e1000.h	/^struct net_device_struct $/;"	s
+net_device_t	include/net/e1000.h	/^typedef struct net_device_struct net_device_t;$/;"	t	typeref:struct:net_device_struct
+pcidev	include/net/e1000.h	/^  pci_device_t *pcidev;$/;"	m	struct:net_device_struct
+rsv	include/net/e1000.h	/^  u8  rsv;$/;"	m	struct:tx_desc_struct
+special	include/net/e1000.h	/^  u16 special;$/;"	m	struct:tx_desc_struct
+status	include/net/e1000.h	/^  u8  status;$/;"	m	struct:tx_desc_struct
+tx_desc_struct	include/net/e1000.h	/^struct tx_desc_struct$/;"	s
+tx_desc_t	include/net/e1000.h	/^typedef struct tx_desc_struct tx_desc_t;$/;"	t	typeref:struct:tx_desc_struct
+vendor_name	include/net/e1000.h	/^  char *vendor_name; \/\/vendor name $/;"	m	struct:net_device_struct
+ETHFRAME_SIZE	include/net/if_ether.h	17;"	d
+ETH_HDR_SIZE	include/net/if_ether.h	15;"	d
+ETH_TYPE_8021Q	include/net/if_ether.h	41;"	d
+ETH_TYPE_ARP	include/net/if_ether.h	39;"	d
+ETH_TYPE_DOMAIN	include/net/if_ether.h	40;"	d
+ETH_TYPE_IPv4	include/net/if_ether.h	38;"	d
+IF_ETHER_H	include/net/if_ether.h	2;"	d
+crc	include/net/if_ether.h	/^  u32 crc;       \/\/ checksum$/;"	m	struct:ethframe
+eth_type	include/net/if_ether.h	/^  u16 eth_type;$/;"	m	struct:ethdr_struct
+ethdr_struct	include/net/if_ether.h	/^typedef struct ethdr_struct $/;"	s
+ethdr_t	include/net/if_ether.h	/^} __attribute((packed)) ethdr_t;$/;"	t	typeref:struct:ethdr_struct
+ethframe	include/net/if_ether.h	/^typedef struct ethframe$/;"	s
+ethframe_t	include/net/if_ether.h	/^} __attribute((packed)) ethframe_t;$/;"	t	typeref:struct:ethframe
+hdr	include/net/if_ether.h	/^  ethdr_t hdr;$/;"	m	struct:ethframe
+mac_dest	include/net/if_ether.h	/^  mac_t mac_dest;$/;"	m	struct:ethdr_struct
+mac_src	include/net/if_ether.h	/^  mac_t mac_src;$/;"	m	struct:ethdr_struct
+payload	include/net/if_ether.h	/^  u8 *payload;$/;"	m	struct:ethframe
+payload_len	include/net/if_ether.h	/^  u32 payload_len;$/;"	m	struct:ethframe
+IPv4_ADDR_LEN	include/net/net.h	17;"	d
+MAC_LEN	include/net/net.h	16;"	d
+NET_H	include/net/net.h	2;"	d
+bswap16	include/net/net.h	8;"	d
+bswap32	include/net/net.h	9;"	d
+htonl	include/net/net.h	13;"	d
+htons	include/net/net.h	12;"	d
+ip_addr_copy	include/net/net.h	25;"	d
+ipv4_addr_t	include/net/net.h	/^typedef u8 ipv4_addr_t [IPv4_ADDR_LEN]; $/;"	t
+mac_copy	include/net/net.h	26;"	d
+mac_t	include/net/net.h	/^typedef u8 mac_t [MAC_LEN];    $/;"	t
+LABOS_PAGE_H	include/page.h	2;"	d
+PAGE_ALIGN	include/page.h	13;"	d
+PAGE_MASK	include/page.h	8;"	d
+PAGE_NR	include/page.h	10;"	d
+PAGE_SHIFT	include/page.h	7;"	d
+PAGE_SIZE	include/page.h	6;"	d
+PG_locked	include/page.h	33;"	d
+PG_reserved	include/page.h	32;"	d
+_pa	include/page.h	15;"	d
+_va	include/page.h	16;"	d
+addr	include/page.h	/^  unsigned long addr;$/;"	m	struct:page
+count	include/page.h	/^  int count; \/*nb of references on this page*\/$/;"	m	struct:page
+flags	include/page.h	/^  int flags; \/*PG_reserved, locked....*\/$/;"	m	struct:page
+is_page_free	include/page.h	35;"	d
+list	include/page.h	/^  struct list_head list;$/;"	m	struct:page	typeref:struct:page::list_head
+page	include/page.h	/^struct page {$/;"	s
+page_t	include/page.h	/^typedef struct page page_t;$/;"	t	typeref:struct:page
+prot	include/page.h	/^  int prot;\/*rwx protections*\/$/;"	m	struct:page
+set_page_reserved	include/page.h	36;"	d
+virt	include/page.h	/^  unsigned long virt; \/*virtual addr*\/$/;"	m	struct:page
+zero_page	include/page.h	38;"	d
 BAR_NR	include/pci.h	8;"	d
 BAR_TYPE_IO	include/pci.h	12;"	d
 BAR_TYPE_MEM32	include/pci.h	11;"	d
@@ -535,6 +637,7 @@ BOOTSEG	include/segment.h	5;"	d
 INITSEG	include/segment.h	6;"	d
 KERNEL_CS	include/segment.h	11;"	d
 KERNEL_DS	include/segment.h	12;"	d
+PAGE_OFFSET	include/segment.h	19;"	d
 SEGMENT_H	include/segment.h	2;"	d
 SETUPSIZE	include/segment.h	16;"	d
 STACKSEG	include/segment.h	8;"	d
@@ -563,6 +666,13 @@ va_copy	include/stdarg.h	51;"	d
 va_end	include/stdarg.h	48;"	d
 va_list	include/stdarg.h	/^typedef __gnuc_va_list va_list;$/;"	t
 va_start	include/stdarg.h	47;"	d
+MAGOS_STDDEF_H	include/stddef.h	2;"	d
+NULL	include/stddef.h	4;"	d
+NULL	include/stddef.h	5;"	d
+_SIZE_T	include/stddef.h	8;"	d
+offsetof	include/stddef.h	13;"	d
+offsetof	include/stddef.h	14;"	d
+size_t	include/stddef.h	/^typedef unsigned int size_t;$/;"	t
 MAGOS_STRING_H	include/string.h	2;"	d
 strcat	include/string.h	/^static inline  char * strcat(char *s1, char *s2)$/;"	f
 strcmp	include/string.h	/^static inline  int strcmp (char* s1, char* s2)$/;"	f
@@ -584,6 +694,7 @@ NULL	include/types.h	5;"	d
 NULL	include/types.h	6;"	d
 TRUE	include/types.h	8;"	d
 _SIZE_T	include/types.h	24;"	d
+_packed_	include/types.h	29;"	d
 byte	include/types.h	/^typedef unsigned char byte;$/;"	t
 dev_t	include/types.h	/^typedef unsigned short dev_t; \/*dev=(major<<8 | minor)*\/$/;"	t
 fn_ptr	include/types.h	/^typedef int (*fn_ptr)(char *);$/;"	t
@@ -593,21 +704,81 @@ size_t	include/types.h	/^typedef unsigned int size_t;$/;"	t
 u16	include/types.h	/^typedef unsigned short u16;$/;"	t
 u32	include/types.h	/^typedef unsigned int u32;$/;"	t
 u8	include/types.h	/^typedef unsigned char u8;$/;"	t
-atoi	libc.c	/^int atoi(char *str)$/;"	f
-ctoi	libc.c	/^int ctoi(char c)$/;"	f
-itoa	libc.c	/^int itoa( char *buf, int n, int base)$/;"	f
-memcpy	libc.c	/^char * memcpy(char *src, char *dst, int len)$/;"	f
-memset	libc.c	/^void memset(char *adr, char val, int len)$/;"	f
-memsetd	libc.c	/^void memsetd(long *adr, long val, int len)$/;"	f
-memsetw	libc.c	/^void memsetw(short *adr, short val, int len)$/;"	f
-utoa	libc.c	/^int utoa( char *buf, unsigned long n, int base)$/;"	f
+bindir	libc/Makefile	/^bindir  = ..\/..\/bin\/libc$/;"	m
+objs	libc/Makefile	/^objs    = $(addprefix $(bindir)\/,$(src:.c=.o))$/;"	m
+src	libc/Makefile	/^src     = $(wildcard *.c)$/;"	m
+atoi	libc/libc.c	/^int atoi(u8 *str)$/;"	f
+ctoi	libc/libc.c	/^int ctoi(u8 c)$/;"	f
+itoa	libc/libc.c	/^int itoa( u8 *buf, u32 n, int base)$/;"	f
+memcpy	libc/libc.c	/^u8 * memcpy(u8 *src, u8 *dst, int len)$/;"	f
+memset	libc/libc.c	/^void memset(u8 *adr, u8 val, int len)$/;"	f
+memsetd	libc/libc.c	/^void memsetd(u32 *adr, u32 val, int len)$/;"	f
+memsetw	libc/libc.c	/^void memsetw(u16 *adr, u16 val, int len)$/;"	f
+utoa	libc/libc.c	/^int utoa( u8 *buf,  u32 n, int base)$/;"	f
+printk	libc/printk.c	/^void printk(const char * format,...)$/;"	f
+tab_size	libc/vsprintf.c	/^int tab_size = 4; \/*4 spaces*\/$/;"	v
+vsprintf	libc/vsprintf.c	/^int vsprintf (char *buf, const char * format, va_list args )$/;"	f
 cpu_idle	main.c	/^void cpu_idle(void)$/;"	f
+end_mem	main.c	/^unsigned long end_mem;$/;"	v
+low_mem	main.c	/^unsigned long low_mem;$/;"	v
 start_kernel	main.c	/^void start_kernel () {$/;"	f
-wait	main.c	/^void wait () {int t = 5; while(t--) halt();}$/;"	f
+start_low_mem	main.c	/^unsigned long start_low_mem = START_LOW_MEM;$/;"	v
+start_mem	main.c	/^unsigned long start_mem;$/;"	v
+wait	main.c	/^void wait (int t) {while(t--) halt();}$/;"	f
+bindir	mm/Makefile	/^bindir  = ..\/..\/bin\/mm$/;"	m
+objs	mm/Makefile	/^objs    = $(addprefix $(bindir)\/,$(src:.c=.o))$/;"	m
+src	mm/Makefile	/^src     = $(wildcard *.c)$/;"	m
+DEBUG	mm/kmalloc.c	22;"	d	file:
+KMALLOC_MAX_SIZE	mm/kmalloc.c	15;"	d	file:
+KMALLOC_MIN_SIZE	mm/kmalloc.c	14;"	d	file:
+MAX_ORDER	mm/kmalloc.c	21;"	d	file:
+block_head	mm/kmalloc.c	/^struct block_head {$/;"	s	file:
+block_head_t	mm/kmalloc.c	/^typedef struct block_head block_head_t;$/;"	t	typeref:struct:block_head	file:
+blocksize	mm/kmalloc.c	/^  int blocksize; \/*in bytes*\/$/;"	m	struct:size_desc	file:
+firstfree	mm/kmalloc.c	/^  block_head_t *firstfree;$/;"	m	struct:page_desc	file:
+firstfree	mm/kmalloc.c	/^  page_desc_t *firstfree;$/;"	m	struct:size_desc	file:
+flags	mm/kmalloc.c	/^  int flags;$/;"	m	struct:block_head	file:
+get_order	mm/kmalloc.c	/^int get_order(size_t size) $/;"	f
+is_free	mm/kmalloc.c	19;"	d	file:
+kfree	mm/kmalloc.c	/^void kfree (void *addr) {$/;"	f
+kmalloc	mm/kmalloc.c	/^void * kmalloc (size_t size, int flags) $/;"	f
+ksbrk	mm/kmalloc.c	/^int ksbrk (int n, int order, int flags)$/;"	f
+nblocks	mm/kmalloc.c	/^  int nblocks; \/*how many blocks per page*\/$/;"	m	struct:size_desc	file:
+next	mm/kmalloc.c	/^  struct block_head *next;$/;"	m	struct:block_head	typeref:struct:block_head::block_head	file:
+next	mm/kmalloc.c	/^  struct page_desc *next;$/;"	m	struct:page_desc	typeref:struct:page_desc::page_desc	file:
+next_chunk	mm/kmalloc.c	17;"	d	file:
+nfrees	mm/kmalloc.c	/^  int nfrees; \/*free blocks*\/$/;"	m	struct:page_desc	file:
+nfrees	mm/kmalloc.c	/^  int nfrees; \/*nb of free blocks*\/$/;"	m	struct:size_desc	file:
+nmallocs	mm/kmalloc.c	/^  int nmallocs;$/;"	m	struct:size_desc	file:
+npages	mm/kmalloc.c	/^  int npages;$/;"	m	struct:size_desc	file:
+order	mm/kmalloc.c	/^  int order;$/;"	m	struct:page_desc	file:
+page_desc	mm/kmalloc.c	/^struct page_desc {$/;"	s	file:
+page_desc_t	mm/kmalloc.c	/^typedef struct page_desc page_desc_t;$/;"	t	typeref:struct:page_desc	file:
+real_size	mm/kmalloc.c	18;"	d	file:
+show_kheap	mm/kmalloc.c	/^void show_kheap ()$/;"	f
+size_desc	mm/kmalloc.c	/^struct size_desc {$/;"	s	file:
+sizes	mm/kmalloc.c	/^struct size_desc sizes[MAX_ORDER+1] = $/;"	v	typeref:struct:size_desc
+KERNEL_DEBUG	mm/memory.c	7;"	d	file:
+free_dma_pages	mm/memory.c	/^struct list_head free_dma_pages;$/;"	v	typeref:struct:list_head
+free_high_pages	mm/memory.c	/^struct list_head free_high_pages;$/;"	v	typeref:struct:list_head
+free_normal_pages	mm/memory.c	/^struct list_head free_normal_pages;$/;"	v	typeref:struct:list_head
+free_page	mm/memory.c	/^void free_page(unsigned long addr)$/;"	f
+get_free_page	mm/memory.c	/^unsigned long get_free_page(int flags)$/;"	f
+mem_init	mm/memory.c	/^unsigned long mem_init(unsigned long start_mem, unsigned long end_mem)$/;"	f
+mem_map	mm/memory.c	/^page_t * mem_map;    \/* table de toutes pages physiques*\/$/;"	v
+mem_map_len	mm/memory.c	/^int   mem_map_len;$/;"	v
+reserved_pages	mm/memory.c	/^int   reserved_pages;\/*les n premieres pages reserve*\/$/;"	v
+show_mem	mm/memory.c	/^void show_mem ()$/;"	f
 bindir	net/Makefile	/^bindir  = ..\/..\/bin\/net$/;"	m
 objs	net/Makefile	/^objs    = $(addprefix $(bindir)\/,$(src:.c=.o))$/;"	m
 src	net/Makefile	/^src     = $(wildcard *.c)$/;"	m
-ether_send_packet	net/if_ether.c	/^void ether_send_packet ()$/;"	f
+arp_request	net/arp.c	/^void arp_request(ipv4_addr_t *src_ip, ipv4_addr_t *dest_ip)$/;"	f
+arp_request_test	net/arp.c	/^void arp_request_test()$/;"	f
+ether_send_packet	net/if_ether.c	/^void ether_send_packet (u8 *payload, u32 payload_len)$/;"	f
+crc	net/tcp.c	/^  u32 crc;         \/\/ ethernet checksum$/;"	m	struct:tcp_struct	file:
+data	net/tcp.c	/^  u8* data;$/;"	m	struct:tcp_struct	file:
+ethdr	net/tcp.c	/^  ethdr_t ethdr;   \/\/ethernet header$/;"	m	struct:tcp_struct	file:
+tcp_struct	net/tcp.c	/^struct tcp_struct$/;"	s	file:
 IRQ_0	pic.c	13;"	d	file:
 IRQ_1	pic.c	14;"	d	file:
 IRQ_10	pic.c	25;"	d	file:
@@ -631,7 +802,6 @@ PIC2_DATA	pic.c	35;"	d	file:
 irq_init	pic.c	/^void irq_init()$/;"	f
 pic_8259a_init	pic.c	/^void pic_8259a_init()$/;"	f
 pic_delay	pic.c	/^void pic_delay()$/;"	f
-printk	printk.c	/^void printk(const char * format,...)$/;"	f
 PIC1	sys_call.S	/^PIC1  = 0x20   \/\/ master PIC  port  $/;"	d
 PIC2	sys_call.S	/^PIC2  = 0xA0   \/\/ slave PIC  port$/;"	d
 PIC_EOI	sys_call.S	/^PIC_EOI    = 0x20   \/\/ END Of Interrupt.  $/;"	d
@@ -666,5 +836,3 @@ TIMER_2	timer.c	24;"	d	file:
 jiffies	timer.c	/^unsigned long jiffies = 0;$/;"	v
 pit_8253_init	timer.c	/^void pit_8253_init(void)$/;"	f
 timer_handler	timer.c	/^void timer_handler(unsigned long esp)$/;"	f
-tab_size	vsprintf.c	/^int tab_size = 4; \/*4 spaces*\/$/;"	v
-vsprintf	vsprintf.c	/^int vsprintf (char *buf, const char * format, va_list args )$/;"	f

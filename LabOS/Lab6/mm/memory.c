@@ -1,17 +1,12 @@
 /*
- * Copyright 2016 @AR
+ * Copyright 2020 @AR
  *
- * Mamory Paging.
- * PGT : Page Table
- * PGD : Page Directory
+ * Physical Memory managment. Paging is not supported. so we assume that linear addr = phy addr 
  *
-*/ 
-
+ */ 
 #define KERNEL_DEBUG 0
 #include <types.h>
 #include <mm.h>
-#include <page.h>
-#include <pgtable.h>
 #include <bitops.h>
 #include <kernel.h>
 #include <system.h>
@@ -25,10 +20,11 @@ struct list_head free_dma_pages;
 struct list_head free_normal_pages;
 struct list_head free_high_pages;
 
-/*Initilize phyical memory map (mem_map). that manipulate physical address, for this raison we
- * use PAGE_NR macro instead of MAP_NR.
- * start_mem : all pages from 0..start_mem are reserved(kernel boot code/data). 
- *             cannot be allocated neither freed dynamicaly.
+/* Initilize phyical memory map (mem_map). that manipulate physical address.
+ * 
+ * Pages from 0 to start_mem : are reserved(kernel boot code/data). they cannot be allocated n
+ *                             either freed dynamicaly.
+ * 
  */
 unsigned long mem_init(unsigned long start_mem, unsigned long end_mem)
 {
@@ -37,12 +33,16 @@ unsigned long mem_init(unsigned long start_mem, unsigned long end_mem)
    
    mem_map = (page_t *)start_mem;
    mem_map_len = 1 + PAGE_NR(end_mem); /*number of physical pages*/
+ 
    start_mem += (mem_map_len * sizeof(page_t));
    start_mem = PAGE_ALIGN(start_mem);
+   
    reserved_pages = PAGE_NR(start_mem);
+ 
    INIT_LIST_HEAD(&free_dma_pages);
    INIT_LIST_HEAD(&free_normal_pages);
    INIT_LIST_HEAD(&free_high_pages);
+ 
    for (addr = 0; addr < START_LOW_MEM; addr += PAGE_SIZE) {
      page = &mem_map[PAGE_NR(addr)];
      page->addr = addr;
@@ -51,6 +51,7 @@ unsigned long mem_init(unsigned long start_mem, unsigned long end_mem)
      page->prot = 0;
      page->virt = 0;
    }
+
    for (addr = START_LOW_MEM; addr < start_mem; addr += PAGE_SIZE) {
      page = &mem_map[PAGE_NR(addr)];
      page->addr = addr;
@@ -59,6 +60,7 @@ unsigned long mem_init(unsigned long start_mem, unsigned long end_mem)
      page->prot = 0;
      page->virt = 0;
    }
+
    for (addr = start_mem; addr < end_mem; addr += PAGE_SIZE) {
      page = &mem_map[PAGE_NR(addr)];
      page->addr = addr;
@@ -108,8 +110,10 @@ unsigned long get_free_page(int flags)
      list = &free_dma_pages;
    else if (flags & (GFP_KERNEL | GFP_USER))
      list = &free_normal_pages;
+   
    if (list_empty(list))
-     return 0;
+     goto no_available_free_page;
+
    page = list_entry(list->next, page_t, list);
    list_del(&page->list);
    page->count++;
@@ -117,6 +121,9 @@ unsigned long get_free_page(int flags)
    //mmap_page(page->virt, page->addr, KERNEL_PAGE); 
    //zero_mem(page->virt,PAGE_SIZE);
    return page->virt;
+
+no_available_free_page:
+  return 0;
 }
 
 void show_mem ()

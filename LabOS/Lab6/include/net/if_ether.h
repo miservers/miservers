@@ -9,17 +9,19 @@
  */
 
 #include <types.h>
+#include <net/net.h>
 
-#define MAC_LEN  6
 
 #define ETH_HDR_SIZE  14
+#define ETH_SUM_LEN    4     // Checksum length 
+
 
 #define ETHFRAME_SIZE(ethframeptr) (ETH_HDR_SIZE+ethframeptr->payload_len+4)
 
 typedef struct ethdr_struct 
 {
-  u8 mac_dest[MAC_LEN];
-  u8 mac_src[MAC_LEN];
+  mac_t mac_dest;
+  mac_t mac_src;
   u16 eth_type;
 } __attribute((packed)) ethdr_t;
  
@@ -31,9 +33,9 @@ typedef struct ethframe
   u32 crc;       // checksum
 } __attribute((packed)) ethframe_t;
 
-void ether_send_packet (ethframe_t *ethframe);
+void ether_send_packet (u8 *payload, u32 payload_len);
 
-void test_send_eth ();
+u32 ether_checksum (u8 *addr, u32 count);
 
 
 /* Ether type */

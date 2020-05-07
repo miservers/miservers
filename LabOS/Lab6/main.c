@@ -5,12 +5,15 @@
 #include <timex.h>
 #include <keyboard.h>
 #include <pci.h>
-#include <e1000.h>
-#include <if_ether.h>
+#include <net/e1000.h>
+#include <net/arp.h>
 #include <kernel.h>
+#include <mm.h>
 
-extern void kbc_i8042_init();
-extern void _i8042_read_polling ();
+unsigned long start_low_mem = START_LOW_MEM;
+unsigned long low_mem;
+unsigned long start_mem;
+unsigned long end_mem;
 
 void start_kernel(void);  
  
@@ -31,23 +34,28 @@ void start_kernel () {
 
 	cons_write(banner);
 
+	start_mem = START_LOW_MEM;
+	end_mem   = (0x100000 * 32 );  //32 MB. must be determined dynamically
+  start_mem = mem_init(start_mem, end_mem);    //physical mem
+    
+	show_mem ();
+
 										// DO NOT initialize KBC!!.  
 	pit_8253_init();  // Timer controller		
 	pic_8259a_init(); // PIC 8259
 	
 
 	pci_probe_devices();
-	e1000_start();
+	
+	e1000_init ();
 
 	sti();
 	cons_write("Interrupts enabled..........[OK]\n");
 
+	// DEBUG
+	arp_request_test ();
+	//DEBUG END
 
-	while (1){
-		test_send_eth ();
-		wait(100);
-	}
-	
 	cpu_idle();
 }
 

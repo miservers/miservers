@@ -16,4 +16,7 @@
 #define SETUPSIZE   0x1000    // 4KB. Size of setup.bin file. 
 
 
+#define PAGE_OFFSET     0x00000000 /* No offset in Kernel Code. kVirtual addr = phy addr*/
+
+
 #endif
