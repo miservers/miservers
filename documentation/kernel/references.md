@@ -51,6 +51,7 @@ http://lacl.univ-paris12.fr/cegielski/teach-Pat.html
  - https://github.com/tehybel/osdev
  - SANOS :http://www.jbox.dk/sanos/
  - https://github.com/Nils-TUD/Escape  : good for e1000
+ - https://github.com/szhou42/osdev: good for network
 
  
  
