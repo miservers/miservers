@@ -11,7 +11,8 @@ https://www.sourceware.org/binutils/docs-2.12/as.info/Pseudo-Ops.html#Pseudo%20O
 **Patrick cegielski**  
 http://lacl.univ-paris12.fr/cegielski/teach-Pat.html
 
-**Sites**
+**Sites**  
+- http://www.osdever.net/bkerndev/Docs/title.htm: bran's kernel
 - http://www.tldp.org/HOWTO/Linux-i386-Boot-Code-HOWTO
 - http://www.tldp.org/HOWTO/HOWTO-INDEX/howtos.html
 - http://www.brokenthorn.com/Resources/OSDevIndex.html
@@ -51,6 +52,7 @@ http://lacl.univ-paris12.fr/cegielski/teach-Pat.html
  - https://github.com/tehybel/osdev
  - SANOS :http://www.jbox.dk/sanos/
  - https://github.com/Nils-TUD/Escape  : good for e1000
+ - https://github.com/szhou42/osdev: good for network
 
  
  
