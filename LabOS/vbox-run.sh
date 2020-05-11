@@ -17,8 +17,8 @@ if [ ""$1 == "-g" ] ; then
   DEBUG="--dbg"
 fi
 
-#vboxmanage controlvm LabOS poweroff
-#sleep 1
+vboxmanage controlvm LabOS poweroff
+sleep 1
 
 echo "# Convert iso to vdi format" 
 rm -f $img.vdi                             
@@ -29,9 +29,10 @@ vboxmanage storageattach LabOS --storagectl "SCSI" --port 0 --device 0 --medium 
 vboxmanage closemedium disk $img.vdi
 vboxmanage storageattach LabOS --storagectl "SCSI" --port 0 --device 0 --type hdd --medium $img.vdi
 
-echo "# Start the VM"
-virtualbox  $DEBUG  --startvm  LabOS  
 
+echo "# Start the VM"
+virtualbox  $DEBUG  --startvm  LabOS   
+#vboxmanage  startvm LabOS --type headless
 
 
 

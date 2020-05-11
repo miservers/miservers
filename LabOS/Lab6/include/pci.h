@@ -24,7 +24,7 @@ struct pci_base_address_s
 typedef struct pci_base_address_s base_address_t; 
 
 
-struct pci_device
+typedef struct pci_device
 {
   u8 bus;
   u8 device;
@@ -48,9 +48,7 @@ struct pci_device
   u8 min_grant;
   u8 max_latency;
   
-}__attribute__ ((packed));
-
-typedef struct pci_device pci_device_t;
+}_packed_ pci_device_t;
 
 //-----------------------------------
 // devices connected on the PCI bus

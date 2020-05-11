@@ -7,7 +7,7 @@
     bochs-x - X11 plugin for Bochs
     bochsbios - BIOS for the Bochs emulator
     bximage - Disk Image Creation Tool for Bochs
-  # apt-get install bochs bochsbios bochs-term
+  # apt install bochs bochsbios bochs-term
   
 - Lancer Bochs en mode silencieux
    ./bochs -q

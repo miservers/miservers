@@ -57,7 +57,9 @@ inline static unsigned long __get_free_page(int flags)
 /*kmalloc.c*/
 int ksbrk (int n, int order, int flags);
 void * kmalloc(size_t size, int flags); 
+#define kalloc(size)   kmalloc(size,GFP_KERNEL)
 void kfree(void * addr); 
 void show_kheap();
+
 
 #endif

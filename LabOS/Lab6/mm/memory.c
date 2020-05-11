@@ -31,6 +31,7 @@ unsigned long mem_init(unsigned long start_mem, unsigned long end_mem)
    unsigned long addr;
    page_t *page;
    
+
    mem_map = (page_t *)start_mem;
    mem_map_len = 1 + PAGE_NR(end_mem); /*number of physical pages*/
  
@@ -38,7 +39,7 @@ unsigned long mem_init(unsigned long start_mem, unsigned long end_mem)
    start_mem = PAGE_ALIGN(start_mem);
    
    reserved_pages = PAGE_NR(start_mem);
- 
+
    INIT_LIST_HEAD(&free_dma_pages);
    INIT_LIST_HEAD(&free_normal_pages);
    INIT_LIST_HEAD(&free_high_pages);
@@ -68,6 +69,7 @@ unsigned long mem_init(unsigned long start_mem, unsigned long end_mem)
      page->flags = 0;
      page->prot = 0;
      page->virt = 0;
+
      if (addr < ZONE_NORMAL)
        list_add(&page->list, &free_dma_pages);
      else if (addr < ZONE_HIGHMEM)

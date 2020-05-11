@@ -11,29 +11,25 @@
 #include <types.h>
 #include <net/net.h>
 
-
 #define ETH_HDR_SIZE  14
-#define ETH_SUM_LEN    4     // Checksum length 
+#define ETH_CRC_LEN    4     // Checksum length 
 
 
-#define ETHFRAME_SIZE(ethframeptr) (ETH_HDR_SIZE+ethframeptr->payload_len+4)
-
-typedef struct ethdr_struct 
+typedef struct ethhdr 
 {
   mac_t mac_dest;
   mac_t mac_src;
   u16 eth_type;
-} __attribute((packed)) ethdr_t;
+} _packed_ ethhdr_t;
  
 typedef struct ethframe
 {
-  ethdr_t hdr;
-  u8 *payload;
-  u32 payload_len;
-  u32 crc;       // checksum
-} __attribute((packed)) ethframe_t;
+  ethhdr_t ethhdr;
+  // data go here
+} _packed_ ethframe_t;
 
-void ether_send_packet (u8 *payload, u32 payload_len);
+
+void ether_send_packet (ethframe_t* ethframe, u32 frame_len, netif_t *netif);
 
 u32 ether_checksum (u8 *addr, u32 count);
 

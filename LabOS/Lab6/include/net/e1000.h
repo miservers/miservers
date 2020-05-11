@@ -2,28 +2,13 @@
 #define E1000_H
 
 #include <pci.h>
+#include <net/net.h>
+#include <types.h>
 
 #define TX_BUF_LEN      1518             // packet buffer len
 
 
-struct net_device_struct 
-{
-  char *dev_name;    //net device name
-  char *vendor_name; //vendor name 
-  u32  iobase;      //IO base retrieved from BAR0
-  u32  membase;     //Memory base from BAR2
-  u8   base_addr_type;
-
-  u32  irq;
-
-  u8   mac[6];      //MAC address 
-
-  pci_device_t *pcidev;
-};
-
-typedef struct net_device_struct net_device_t;
-
-struct tx_desc_struct
+typedef struct tx_desc
 {
   u32 addr_low;   // buffer address
   u32 addr_high;
@@ -36,9 +21,7 @@ struct tx_desc_struct
   u8  css;
   u16 special;
 
-} __attribute__ ((packed));
-
-typedef struct tx_desc_struct tx_desc_t;
+} _packed_ tx_desc_t;
 
 extern net_device_t *e1000_dev;     // E1000 device if existe. 
 

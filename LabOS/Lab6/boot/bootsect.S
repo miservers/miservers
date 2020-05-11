@@ -83,7 +83,7 @@ load_kernel:
    movb $0, ch         # track/cylinder number  (0-1023 dec., see below)
    movb $2, cl         # sector number  (1-17 dec.). sector 1 reserved for bootsector.
    movb $0, dh         # head number  (0-15 dec.)
-   movb $0x80, dl        # drive number (0=A:, 1=2nd floppy, 80h=drive 0, 81h=drive 1)
+   movb $0x80, dl      # drive number (0=A:, 1=2nd floppy, 80h=drive 0, 81h=drive 1)
    movw $SYSSEG, bx
    movw bx, es
    movw $0, bx         # ES:BX pointer to buffer

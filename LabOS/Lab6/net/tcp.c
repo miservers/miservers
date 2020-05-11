@@ -3,7 +3,7 @@
 
 struct tcp_struct
 {
-  ethdr_t ethdr;   //ethernet header
+  ethhdr_t ethdr;   //ethernet header
   //iphdr_t iphdr;
   //tcphdr_t tcphdr;
 

@@ -1,6 +1,6 @@
 /* 2020 @AR
  *
- * Address Resolution Protocol-ARP
+ * TCP/IP Address Resolution Protocol-ARP
  *
  */
 #include <net/arp.h>
@@ -9,42 +9,50 @@
 #include <libc.h>
 #include <mm.h>
 
-void arp_request(ipv4_addr_t *src_ip, ipv4_addr_t *dest_ip)
+/*
+ * @dest_ip MAC resolution
+ */
+void arp_request(ipaddr_t src_ip, ipaddr_t dest_ip, netif_t *netif)
 {
   // Init arp header
-  arp_frame_t *arp_frame = kmalloc (sizeof(arp_frame_t), GFP_KERNEL);
+  arpframe_t *arpframe = kalloc (sizeof(arpframe_t));
   
-  arp_hdr_t *arp_hdr = &arp_frame->arp_hdr;
+  arpframe->ethhdr.eth_type = htons(ETH_TYPE_ARP);
+  
+  arphdr_t *arphdr = &arpframe->arphdr;
 
-  arp_hdr->hw_type        = htons(ARP_HW_ETH);
-  arp_hdr->proto          = htons(ARP_PROTO_IPv4);
-  arp_hdr->hw_addr_len    = MAC_LEN;
-  arp_hdr->proto_addr_len = IPv4_ADDR_LEN;
-  arp_hdr->opcode         = htons(ARP_OP_REQUEST);
+  // Set ARP Header
+  arphdr->hw_type        = htons(ARP_HW_ETH);
+  arphdr->proto          = htons(ARP_PROTO_IPv4);
+  arphdr->hw_addr_len    = MAC_LEN;
+  arphdr->proto_addr_len = IPv4_ADDR_LEN;
+  arphdr->opcode         = htons(ARP_OP_REQUEST);
   
   // src_mac will be set by Ethernet layer
   // Dest MAC is broadcast addr FF:FF:FF:FF:FF:FF 
-  ip_addr_copy(src_ip, arp_hdr->src_ip);
-  ip_addr_copy(dest_ip, arp_hdr->dest_ip);
+  ip_addr_copy(src_ip, arphdr->src_ip);
+  ip_addr_copy(dest_ip, arphdr->dest_ip);
   
-  ipv4_addr_t ip0 = {0,0,0,0};
-  ip_addr_copy (ip0, arp_hdr->dest_ip);
-
-  arp_frame->ethdr.eth_type = htons(ETH_TYPE_ARP);
+  mac_copy (netif->mac, arphdr->src_mac);
   
   // In case of ARP-Request. dest MAC is broadcast
   mac_t mac_broadcast = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
-  mac_copy(mac_broadcast, arp_hdr->dest_mac);
-  mac_copy(mac_broadcast, &arp_frame->ethdr.mac_dest);
+  mac_copy(mac_broadcast, arphdr->dest_mac);
+  mac_copy(mac_broadcast, &arpframe->ethhdr.mac_dest);
     
   // Ethernet layer will populate src_mac 
   // and send the frame
-  ether_send_packet ((u8*) arp_frame, sizeof(arp_frame_t));
+  ether_send_packet ((ethframe_t*) arpframe, sizeof(arpframe_t), netif);
+
+  kfree(arpframe);
 }
+
 
 void arp_request_test()
 {
-  ipv4_addr_t src_ip = {192, 168, 43, 5};
-  ipv4_addr_t dest_ip = {192, 168, 43, 1};
-  arp_request (&src_ip, &dest_ip);
+  extern netif_t ETH0;
+  ipaddr_t src_ip = {192, 168, 43, 5};
+  ipaddr_t dest_ip = {192, 168, 43, 19};
+  arp_request (src_ip, dest_ip, &ETH0);
 }
+

@@ -10,7 +10,7 @@ bindir  = ../bin
 libc_objs = $(addprefix $(bindir)/libc/, libc.o printk.o vsprintf.o)
 mm_objs   = $(addprefix $(bindir)/mm/, memory.o kmalloc.o)
 driv_objs = $(addprefix $(bindir)/drivers/, console.o keyboard.o pci.o e1000.o)
-net_objs  = $(addprefix $(bindir)/net/, if_ether.o arp.o)
+net_objs  = $(addprefix $(bindir)/net/, if_ether.o net.o arp.o ip.o udp.o)
 kern_objs = $(addprefix $(bindir)/, boot/head.o $(src:.c=.o) sys_call.o)
 
 modules  = boot libc mm drivers net 

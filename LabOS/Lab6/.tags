@@ -36,50 +36,50 @@ DEFAULT_ATTR	drivers/console.c	24;"	d	file:
 DMA_END	include/mm.h	26;"	d
 DMA_START	include/mm.h	25;"	d
 DOWN_ARROW	include/console.h	5;"	d
-E1000_CMD_IFCS	include/net/e1000.h	107;"	d
-E1000_CTRL	include/net/e1000.h	61;"	d
-E1000_CTRL_ASDE	include/net/e1000.h	77;"	d
-E1000_CTRL_PHY_RST	include/net/e1000.h	79;"	d
-E1000_CTRL_RST	include/net/e1000.h	78;"	d
-E1000_DEV_ID	include/net/e1000.h	52;"	d
-E1000_EEC	include/net/e1000.h	63;"	d
-E1000_EERD	include/net/e1000.h	64;"	d
-E1000_EE_DONE	include/net/e1000.h	87;"	d
-E1000_EE_GNT	include/net/e1000.h	83;"	d
-E1000_EE_REQ	include/net/e1000.h	82;"	d
-E1000_EE_START	include/net/e1000.h	86;"	d
+E1000_CMD_IFCS	include/net/e1000.h	90;"	d
+E1000_CTRL	include/net/e1000.h	44;"	d
+E1000_CTRL_ASDE	include/net/e1000.h	60;"	d
+E1000_CTRL_PHY_RST	include/net/e1000.h	62;"	d
+E1000_CTRL_RST	include/net/e1000.h	61;"	d
+E1000_DEV_ID	include/net/e1000.h	35;"	d
+E1000_EEC	include/net/e1000.h	46;"	d
+E1000_EERD	include/net/e1000.h	47;"	d
+E1000_EE_DONE	include/net/e1000.h	70;"	d
+E1000_EE_GNT	include/net/e1000.h	66;"	d
+E1000_EE_REQ	include/net/e1000.h	65;"	d
+E1000_EE_START	include/net/e1000.h	69;"	d
 E1000_H	include/net/e1000.h	2;"	d
-E1000_IMC	include/net/e1000.h	66;"	d
-E1000_IMS	include/net/e1000.h	65;"	d
-E1000_IOADDR	include/net/e1000.h	121;"	d
-E1000_IODATA	include/net/e1000.h	122;"	d
-E1000_MAC_REG	include/net/e1000.h	119;"	d
-E1000_RCTL	include/net/e1000.h	67;"	d
-E1000_RCTL_BSEX	include/net/e1000.h	96;"	d
-E1000_RCTL_BSIZE	include/net/e1000.h	91;"	d
-E1000_RCTL_BSIZE_1K	include/net/e1000.h	93;"	d
-E1000_RCTL_BSIZE_256B	include/net/e1000.h	95;"	d
-E1000_RCTL_BSIZE_2K	include/net/e1000.h	92;"	d
-E1000_RCTL_BSIZE_512B	include/net/e1000.h	94;"	d
-E1000_STATUS	include/net/e1000.h	62;"	d
-E1000_TCTL	include/net/e1000.h	68;"	d
-E1000_TCTL_COLD	include/net/e1000.h	102;"	d
-E1000_TCTL_CT	include/net/e1000.h	101;"	d
-E1000_TCTL_EN	include/net/e1000.h	99;"	d
-E1000_TCTL_PSP	include/net/e1000.h	100;"	d
-E1000_TCTL_RTLC	include/net/e1000.h	103;"	d
-E1000_TDBAH	include/net/e1000.h	70;"	d
-E1000_TDBAL	include/net/e1000.h	69;"	d
-E1000_TDESC_CMD_DEXT	include/net/e1000.h	110;"	d
-E1000_TDESC_CMD_EOP	include/net/e1000.h	106;"	d
-E1000_TDESC_CMD_IC	include/net/e1000.h	108;"	d
-E1000_TDESC_CMD_RS	include/net/e1000.h	109;"	d
-E1000_TDESC_STATUS_DD	include/net/e1000.h	113;"	d
-E1000_TDESC_STATUS_EC	include/net/e1000.h	114;"	d
-E1000_TDESC_STATUS_LC	include/net/e1000.h	115;"	d
-E1000_TDH	include/net/e1000.h	72;"	d
-E1000_TDLEN	include/net/e1000.h	71;"	d
-E1000_TDT	include/net/e1000.h	73;"	d
+E1000_IMC	include/net/e1000.h	49;"	d
+E1000_IMS	include/net/e1000.h	48;"	d
+E1000_IOADDR	include/net/e1000.h	104;"	d
+E1000_IODATA	include/net/e1000.h	105;"	d
+E1000_MAC_REG	include/net/e1000.h	102;"	d
+E1000_RCTL	include/net/e1000.h	50;"	d
+E1000_RCTL_BSEX	include/net/e1000.h	79;"	d
+E1000_RCTL_BSIZE	include/net/e1000.h	74;"	d
+E1000_RCTL_BSIZE_1K	include/net/e1000.h	76;"	d
+E1000_RCTL_BSIZE_256B	include/net/e1000.h	78;"	d
+E1000_RCTL_BSIZE_2K	include/net/e1000.h	75;"	d
+E1000_RCTL_BSIZE_512B	include/net/e1000.h	77;"	d
+E1000_STATUS	include/net/e1000.h	45;"	d
+E1000_TCTL	include/net/e1000.h	51;"	d
+E1000_TCTL_COLD	include/net/e1000.h	85;"	d
+E1000_TCTL_CT	include/net/e1000.h	84;"	d
+E1000_TCTL_EN	include/net/e1000.h	82;"	d
+E1000_TCTL_PSP	include/net/e1000.h	83;"	d
+E1000_TCTL_RTLC	include/net/e1000.h	86;"	d
+E1000_TDBAH	include/net/e1000.h	53;"	d
+E1000_TDBAL	include/net/e1000.h	52;"	d
+E1000_TDESC_CMD_DEXT	include/net/e1000.h	93;"	d
+E1000_TDESC_CMD_EOP	include/net/e1000.h	89;"	d
+E1000_TDESC_CMD_IC	include/net/e1000.h	91;"	d
+E1000_TDESC_CMD_RS	include/net/e1000.h	92;"	d
+E1000_TDESC_STATUS_DD	include/net/e1000.h	96;"	d
+E1000_TDESC_STATUS_EC	include/net/e1000.h	97;"	d
+E1000_TDESC_STATUS_LC	include/net/e1000.h	98;"	d
+E1000_TDH	include/net/e1000.h	55;"	d
+E1000_TDLEN	include/net/e1000.h	54;"	d
+E1000_TDT	include/net/e1000.h	56;"	d
 E2BIG	include/errno.h	10;"	d
 EACCES	include/errno.h	16;"	d
 EADDRINUSE	include/errno.h	101;"	d
@@ -196,8 +196,9 @@ ESRCH	include/errno.h	6;"	d
 ESRMNT	include/errno.h	72;"	d
 ESTALE	include/errno.h	119;"	d
 ESTRPIPE	include/errno.h	89;"	d
-ETHFRAME_SIZE	include/net/if_ether.h	17;"	d
-ETH_HDR_SIZE	include/net/if_ether.h	15;"	d
+ETH0	net/net.c	/^netif_t ETH0={.name      = "th0", $/;"	v
+ETH_CRC_LEN	include/net/if_ether.h	15;"	d
+ETH_HDR_SIZE	include/net/if_ether.h	14;"	d
 ETH_TYPE_8021Q	include/net/if_ether.h	41;"	d
 ETH_TYPE_ARP	include/net/if_ether.h	39;"	d
 ETH_TYPE_DOMAIN	include/net/if_ether.h	40;"	d
@@ -219,16 +220,25 @@ GFP_USER	include/mm.h	39;"	d
 GREEN	include/console.h	/^enum COLOR {BLACK=0x00, BLUE=0x01, GREEN=0x02, RED=0x04, GREY=0x08, YELLOW=0x0E, WHITE=0x0f};$/;"	e	enum:COLOR
 GREY	include/console.h	/^enum COLOR {BLACK=0x00, BLUE=0x01, GREEN=0x02, RED=0x04, GREY=0x08, YELLOW=0x0E, WHITE=0x0f};$/;"	e	enum:COLOR
 HZ	timer.c	15;"	d	file:
-I217_DEV_ID	include/net/e1000.h	53;"	d
-I82577LM_DEV_ID	include/net/e1000.h	54;"	d
+I217_DEV_ID	include/net/e1000.h	36;"	d
+I82577LM_DEV_ID	include/net/e1000.h	37;"	d
 IDT_SIZE	include/idt.h	6;"	d
 IF_ETHER_H	include/net/if_ether.h	2;"	d
 INITSEG	include/segment.h	6;"	d
 INIT_LIST_HEAD	include/list.h	23;"	d
-INTEL_VENDOR_ID	include/net/e1000.h	51;"	d
+INTEL_VENDOR_ID	include/net/e1000.h	34;"	d
 INTGATE	include/idt.h	9;"	d
 IN_BUF_FULL	drivers/keyboard.c	32;"	d	file:
-IPv4_ADDR_LEN	include/net/net.h	17;"	d
+IP_H	include/net/ip.h	2;"	d
+IP_PROTO_ICMP	include/net/ip.h	55;"	d
+IP_PROTO_SATNET	include/net/ip.h	58;"	d
+IP_PROTO_TCP	include/net/ip.h	56;"	d
+IP_PROTO_UDP	include/net/ip.h	57;"	d
+IP_TOS_IMMEDIATE	include/net/ip.h	50;"	d
+IP_TOS_PRIORITY	include/net/ip.h	49;"	d
+IP_TOS_ROUTINE	include/net/ip.h	48;"	d
+IPv4_ADDR_LEN	include/net/net.h	26;"	d
+IPv4_VERSION	include/net/ip.h	45;"	d
 IRQ_0	pic.c	13;"	d	file:
 IRQ_1	pic.c	14;"	d	file:
 IRQ_10	pic.c	25;"	d	file:
@@ -265,7 +275,8 @@ LD_ENTRY	include/mm.h	17;"	d
 LEFT_ARROW	include/console.h	6;"	d
 LIST_HEAD	include/list.h	20;"	d
 LIST_HEAD_INIT	include/list.h	18;"	d
-MAC_LEN	include/net/net.h	16;"	d
+MAC_BROADCAST	include/net/net.h	35;"	d
+MAC_LEN	include/net/net.h	25;"	d
 MAGOS_LIST_H	include/list.h	2;"	d
 MAGOS_MM_H	include/mm.h	2;"	d
 MAGOS_STDDEF_H	include/stddef.h	2;"	d
@@ -276,8 +287,10 @@ MAP_ADDR	include/mm.h	10;"	d
 MAP_NR	include/mm.h	9;"	d
 MASTER	include/pic.h	4;"	d
 MAX_ORDER	mm/kmalloc.c	21;"	d	file:
+MTU	include/net/net.h	9;"	d
+NETIF_DOWN	include/net/net.h	77;"	d
+NETIF_UP	include/net/net.h	76;"	d
 NET_H	include/net/net.h	2;"	d
-NET_MAX_DEV	drivers/e1000.c	24;"	d	file:
 NOPRINT	include/console.h	9;"	d
 NR_CONS	drivers/console.c	18;"	d	file:
 NULL	include/stddef.h	4;"	d
@@ -292,29 +305,29 @@ PAGE_NR	include/page.h	10;"	d
 PAGE_OFFSET	include/segment.h	19;"	d
 PAGE_SHIFT	include/page.h	7;"	d
 PAGE_SIZE	include/page.h	6;"	d
-PCI_COMMAND	include/pci.h	74;"	d
-PCI_COMMAND_INTX	include/pci.h	95;"	d
-PCI_COMMAND_IO	include/pci.h	92;"	d
-PCI_COMMAND_MASTER	include/pci.h	94;"	d
-PCI_COMMAND_MEMORY	include/pci.h	93;"	d
+PCI_COMMAND	include/pci.h	72;"	d
+PCI_COMMAND_INTX	include/pci.h	93;"	d
+PCI_COMMAND_IO	include/pci.h	90;"	d
+PCI_COMMAND_MASTER	include/pci.h	92;"	d
+PCI_COMMAND_MEMORY	include/pci.h	91;"	d
 PCI_CONF_ADDR	drivers/pci.c	15;"	d	file:
 PCI_CONF_DATA	drivers/pci.c	16;"	d	file:
-PCI_CONF_REG_00	include/pci.h	73;"	d
-PCI_CONF_REG_01	include/pci.h	75;"	d
-PCI_CONF_REG_02	include/pci.h	76;"	d
-PCI_CONF_REG_03	include/pci.h	77;"	d
-PCI_CONF_REG_04	include/pci.h	78;"	d
-PCI_CONF_REG_05	include/pci.h	79;"	d
-PCI_CONF_REG_06	include/pci.h	80;"	d
-PCI_CONF_REG_07	include/pci.h	81;"	d
-PCI_CONF_REG_08	include/pci.h	82;"	d
-PCI_CONF_REG_09	include/pci.h	83;"	d
-PCI_CONF_REG_0A	include/pci.h	84;"	d
-PCI_CONF_REG_0B	include/pci.h	85;"	d
-PCI_CONF_REG_0C	include/pci.h	86;"	d
-PCI_CONF_REG_0D	include/pci.h	87;"	d
-PCI_CONF_REG_0E	include/pci.h	88;"	d
-PCI_CONF_REG_0F	include/pci.h	89;"	d
+PCI_CONF_REG_00	include/pci.h	71;"	d
+PCI_CONF_REG_01	include/pci.h	73;"	d
+PCI_CONF_REG_02	include/pci.h	74;"	d
+PCI_CONF_REG_03	include/pci.h	75;"	d
+PCI_CONF_REG_04	include/pci.h	76;"	d
+PCI_CONF_REG_05	include/pci.h	77;"	d
+PCI_CONF_REG_06	include/pci.h	78;"	d
+PCI_CONF_REG_07	include/pci.h	79;"	d
+PCI_CONF_REG_08	include/pci.h	80;"	d
+PCI_CONF_REG_09	include/pci.h	81;"	d
+PCI_CONF_REG_0A	include/pci.h	82;"	d
+PCI_CONF_REG_0B	include/pci.h	83;"	d
+PCI_CONF_REG_0C	include/pci.h	84;"	d
+PCI_CONF_REG_0D	include/pci.h	85;"	d
+PCI_CONF_REG_0E	include/pci.h	86;"	d
+PCI_CONF_REG_0F	include/pci.h	87;"	d
 PCI_H	include/pci.h	2;"	d
 PCI_MAX_DEV	include/pci.h	6;"	d
 PCI_TYPE_CARDBUS_BRIDGE	drivers/pci.c	21;"	d	file:
@@ -359,8 +372,9 @@ TIMER_1	timer.c	23;"	d	file:
 TIMER_2	timer.c	24;"	d	file:
 TRAPGATE	include/idt.h	8;"	d
 TRUE	include/types.h	8;"	d
-TX_BUF_LEN	include/net/e1000.h	6;"	d
-TX_RING_ZISE	drivers/e1000.c	34;"	d	file:
+TX_BUF_LEN	include/net/e1000.h	8;"	d
+TX_RING_ZISE	drivers/e1000.c	26;"	d	file:
+UDP_H	include/net/udp.h	2;"	d
 UP_ARROW	include/console.h	4;"	d
 USER_CS	include/segment.h	13;"	d
 USER_DS	include/segment.h	14;"	d
@@ -453,21 +467,21 @@ _start	boot/setup.S	/^_start:$/;"	l
 _va	include/page.h	16;"	d
 addr	idt.c	/^   u32 addr;$/;"	m	struct:idtr_desc	file:
 addr	include/page.h	/^  unsigned long addr;$/;"	m	struct:page
-addr_high	include/net/e1000.h	/^  u32 addr_high;$/;"	m	struct:tx_desc_struct
-addr_low	include/net/e1000.h	/^  u32 addr_low;   \/\/ buffer address$/;"	m	struct:tx_desc_struct
+addr_high	include/net/e1000.h	/^  u32 addr_high;$/;"	m	struct:tx_desc
+addr_low	include/net/e1000.h	/^  u32 addr_low;   \/\/ buffer address$/;"	m	struct:tx_desc
 alt_gr	drivers/keyboard.c	/^int alt_gr = 0;$/;"	v
-arp_frame_struct	include/net/arp.h	/^typedef struct arp_frame_struct $/;"	s
-arp_frame_t	include/net/arp.h	/^} _packed_  arp_frame_t;$/;"	t	typeref:struct:arp_frame_struct
-arp_hdr	include/net/arp.h	/^  arp_hdr_t arp_hdr; \/\/ARP header$/;"	m	struct:arp_frame_struct
-arp_hdr_struct	include/net/arp.h	/^typedef struct arp_hdr_struct$/;"	s
-arp_hdr_t	include/net/arp.h	/^} _packed_  arp_hdr_t;$/;"	t	typeref:struct:arp_hdr_struct
-arp_request	net/arp.c	/^void arp_request(ipv4_addr_t *src_ip, ipv4_addr_t *dest_ip)$/;"	f
+arp_request	net/arp.c	/^void arp_request(ipaddr_t *src_ip, ipaddr_t *dest_ip, netif_t *netif)$/;"	f
 arp_request_test	net/arp.c	/^void arp_request_test()$/;"	f
+arpframe_struct	include/net/arp.h	/^typedef struct arpframe_struct $/;"	s
+arpframe_t	include/net/arp.h	/^} _packed_  arpframe_t;$/;"	t	typeref:struct:arpframe_struct
+arphdr	include/net/arp.h	/^  arphdr_t arphdr; \/\/ARP header$/;"	m	struct:arpframe_struct
+arphdr	include/net/arp.h	/^typedef struct arphdr$/;"	s
+arphdr_t	include/net/arp.h	/^} _packed_  arphdr_t;$/;"	t	typeref:struct:arphdr
 atoi	libc/libc.c	/^int atoi(u8 *str)$/;"	f
 attr	drivers/console.c	/^  unsigned short attr;   \/*attribute.8 low bits are zeroed*\/$/;"	m	struct:console	file:
 backspace	drivers/keyboard.c	/^int backspace = 0;$/;"	v
 base_addr	include/pci.h	/^  base_address_t base_addr[BAR_NR];         \/\/ base address registers$/;"	m	struct:pci_device
-base_addr_type	include/net/e1000.h	/^  u8   base_addr_type;$/;"	m	struct:net_device_struct
+base_addr_type	include/net/net.h	/^  u8   base_addr_type;$/;"	m	struct:net_device
 base_address_t	include/pci.h	/^typedef struct pci_base_address_s base_address_t; $/;"	t	typeref:struct:pci_base_address_s
 bindir	Makefile	/^bindir  = ..\/bin$/;"	m
 bindir	boot/Makefile	/^bindir  = ..\/..\/bin\/boot$/;"	m
@@ -477,23 +491,27 @@ bindir	mm/Makefile	/^bindir  = ..\/..\/bin\/mm$/;"	m
 bindir	net/Makefile	/^bindir  = ..\/..\/bin\/net$/;"	m
 bins	boot/Makefile	/^bins     = $(addprefix $(bindir)\/,bootsect.bin setup.bin)$/;"	m
 birst	include/pci.h	/^  u8 birst;$/;"	m	struct:pci_device
+bit_field_test	test/test.c	/^void bit_field_test()$/;"	f
 blank	drivers/console.c	/^  unsigned short blank;  \/*erase character*\/$/;"	m	struct:console	file:
 block_head	mm/kmalloc.c	/^struct block_head {$/;"	s	file:
 block_head_t	mm/kmalloc.c	/^typedef struct block_head block_head_t;$/;"	t	typeref:struct:block_head	file:
 blocksize	mm/kmalloc.c	/^  int blocksize; \/*in bytes*\/$/;"	m	struct:size_desc	file:
 boot_flag	boot/bootsect.S	/^boot_flag:  $/;"	l
-bswap16	include/net/net.h	8;"	d
-bswap32	include/net/net.h	9;"	d
+broadcast	include/net/net.h	/^  ipaddr_t   broadcast;$/;"	m	struct:netif
+bswap16	include/net/net.h	12;"	d
+bswap32	include/net/net.h	13;"	d
 bus	include/pci.h	/^  u8 bus;$/;"	m	struct:pci_device
 byte	include/types.h	/^typedef unsigned char byte;$/;"	t
 cache_line_size	include/pci.h	/^  u8 cache_line_size,latency_timer;$/;"	m	struct:pci_device
 caps	drivers/keyboard.c	/^int caps = 0;$/;"	v
+checksum	include/net/ip.h	/^  u16 checksum;       \/\/ header checksum $/;"	m	struct:iphdr
+checksum	include/net/udp.h	/^  u16 checksum;$/;"	m	struct:udphdr
 class_code	include/pci.h	/^  u16 class_code;$/;"	m	struct:pci_device
 class_codes_names	drivers/pci.c	/^char* class_codes_names(pci_device_t *pcidev) $/;"	f
 clear_bit	include/bitops.h	/^static void inline clear_bit(int nr, int *addr)$/;"	f
 clear_line	drivers/console.c	/^void clear_line(console_t* cons, int nr)$/;"	f
 cli	include/system.h	5;"	d
-cmd	include/net/e1000.h	/^  u8  cmd;$/;"	m	struct:tx_desc_struct
+cmd	include/net/e1000.h	/^  u8  cmd;$/;"	m	struct:tx_desc
 col	drivers/console.c	/^  int col;               \/*current column*\/$/;"	m	struct:console	file:
 command	include/pci.h	/^  u16 command;$/;"	m	struct:pci_device
 cons_backspace	drivers/console.c	/^void cons_backspace()$/;"	f
@@ -508,23 +526,26 @@ console_t	drivers/console.c	/^  } console_t;$/;"	t	typeref:struct:console	file:
 consoles	drivers/console.c	/^console_t consoles[NR_CONS];$/;"	v
 count	include/page.h	/^  int count; \/*nb of references on this page*\/$/;"	m	struct:page
 cpu_idle	main.c	/^void cpu_idle(void)$/;"	f
-crc	include/net/arp.h	/^   u32 crc;          \/\/ checksum$/;"	m	struct:arp_frame_struct
-crc	include/net/if_ether.h	/^  u32 crc;       \/\/ checksum$/;"	m	struct:ethframe
+crc	include/net/arp.h	/^   u32 crc;          \/\/ checksum$/;"	m	struct:arpframe_struct
 crc	net/tcp.c	/^  u32 crc;         \/\/ ethernet checksum$/;"	m	struct:tcp_struct	file:
-cso	include/net/e1000.h	/^  u8  cso;        \/\/checksum offset. where to insert TCP checksum$/;"	m	struct:tx_desc_struct
-css	include/net/e1000.h	/^  u8  css;$/;"	m	struct:tx_desc_struct
+cso	include/net/e1000.h	/^  u8  cso;        \/\/checksum offset. where to insert TCP checksum$/;"	m	struct:tx_desc
+css	include/net/e1000.h	/^  u8  css;$/;"	m	struct:tx_desc
 ctoi	libc/libc.c	/^int ctoi(u8 c)$/;"	f
 curcons	drivers/console.c	/^console_t *curcons; \/*currently visible*\/$/;"	v
 cursor	drivers/console.c	/^  unsigned short cursor; \/* offset in video RAM for cursor*\/$/;"	m	struct:console	file:
 cursor	drivers/console.c	53;"	d	file:
 cursor_pos	drivers/console.c	52;"	d	file:
 data	net/tcp.c	/^  u8* data;$/;"	m	struct:tcp_struct	file:
+data	net/udp.c	/^  char data[];$/;"	m	struct:udppacket	file:
 debug	include/kernel.h	24;"	d
 debug	include/kernel.h	30;"	d
 delay	drivers/e1000.c	/^void delay(int t) {while(t--);} \/\/ bad way to make a delay$/;"	f
-dest_ip	include/net/arp.h	/^  ipv4_addr_t  dest_ip; $/;"	m	struct:arp_hdr_struct
-dest_mac	include/net/arp.h	/^  mac_t        dest_mac;$/;"	m	struct:arp_hdr_struct
-dev_name	include/net/e1000.h	/^  char *dev_name;    \/\/net device name$/;"	m	struct:net_device_struct
+dest_ip	include/net/arp.h	/^  ipaddr_t   dest_ip; $/;"	m	struct:arphdr
+dest_ip	include/net/ip.h	/^  ipaddr_t dest_ip;$/;"	m	struct:iphdr
+dest_mac	include/net/arp.h	/^  mac_t      dest_mac;$/;"	m	struct:arphdr
+dest_port	include/net/udp.h	/^  port_t dest_port;$/;"	m	struct:udphdr
+dev	include/net/net.h	/^  net_device_t *dev; $/;"	m	struct:netif
+dev_name	include/net/net.h	/^  char *dev_name;    \/\/net device name$/;"	m	struct:net_device
 dev_t	include/types.h	/^typedef unsigned short dev_t; \/*dev=(major<<8 | minor)*\/$/;"	t
 device	include/pci.h	/^  u8 device;$/;"	m	struct:pci_device
 device_id	include/pci.h	/^  u16 device_id;$/;"	m	struct:pci_device
@@ -556,14 +577,17 @@ enter	drivers/keyboard.c	/^int enter = 0;$/;"	v
 error_code	include/ptrace.h	/^  unsigned long error_code;$/;"	m	struct:pt_regs
 esi	include/ptrace.h	/^  unsigned long esi;$/;"	m	struct:pt_regs
 esp	include/ptrace.h	/^  unsigned long esp;$/;"	m	struct:pt_regs
-eth_type	include/net/if_ether.h	/^  u16 eth_type;$/;"	m	struct:ethdr_struct
-ethdr	include/net/arp.h	/^  ethdr_t ethdr;     \/\/ Ethernet header$/;"	m	struct:arp_frame_struct
-ethdr	net/tcp.c	/^  ethdr_t ethdr;   \/\/ethernet header$/;"	m	struct:tcp_struct	file:
-ethdr_struct	include/net/if_ether.h	/^typedef struct ethdr_struct $/;"	s
-ethdr_t	include/net/if_ether.h	/^} __attribute((packed)) ethdr_t;$/;"	t	typeref:struct:ethdr_struct
-ether_send_packet	net/if_ether.c	/^void ether_send_packet (u8 *payload, u32 payload_len)$/;"	f
+eth_type	include/net/if_ether.h	/^  u16 eth_type;$/;"	m	struct:ethhdr
+ethdr	net/tcp.c	/^  ethhdr_t ethdr;   \/\/ethernet header$/;"	m	struct:tcp_struct	file:
+ether_checksum	net/if_ether.c	/^u32 ether_checksum (u8 *addr, u32 count)$/;"	f
+ether_send_packet	net/if_ether.c	/^void ether_send_packet (ethframe_t* ethframe, u32 frame_len, netif_t *netif)$/;"	f
 ethframe	include/net/if_ether.h	/^typedef struct ethframe$/;"	s
-ethframe_t	include/net/if_ether.h	/^} __attribute((packed)) ethframe_t;$/;"	t	typeref:struct:ethframe
+ethframe_t	include/net/if_ether.h	/^} _packed_ ethframe_t;$/;"	t	typeref:struct:ethframe
+ethhdr	include/net/arp.h	/^  ethhdr_t ethhdr;     \/\/ Ethernet header$/;"	m	struct:arpframe_struct
+ethhdr	include/net/if_ether.h	/^  ethhdr_t ethhdr;$/;"	m	struct:ethframe
+ethhdr	include/net/if_ether.h	/^typedef struct ethhdr $/;"	s
+ethhdr	include/net/ip.h	/^  ethhdr_t ethhdr;     \/\/ Ethernet header$/;"	m	struct:ippacket
+ethhdr_t	include/net/if_ether.h	/^} _packed_ ethhdr_t;$/;"	t	typeref:struct:ethhdr
 find_first_bit	include/bitops.h	/^static int inline find_first_bit(int nbits, int *addr)$/;"	f
 find_first_zero_bit	include/bitops.h	/^static int inline find_first_zero_bit(int nbits, int *addr)$/;"	f
 firstfree	mm/kmalloc.c	/^  block_head_t *firstfree;$/;"	m	struct:page_desc	file:
@@ -573,6 +597,7 @@ flags	mm/kmalloc.c	/^  int flags;$/;"	m	struct:block_head	file:
 flush	drivers/console.c	/^void flush (console_t *cons)$/;"	f
 fn	drivers/keyboard.c	/^int fn = 0;$/;"	v
 fn_ptr	include/types.h	/^typedef int (*fn_ptr)(char *);$/;"	t
+frag_offset	include/net/ip.h	/^  u16 frag_offset;   \/\/ fragment offset(13 bits)      $/;"	m	struct:iphdr
 free_dma_pages	mm/memory.c	/^struct list_head free_dma_pages;$/;"	v	typeref:struct:list_head
 free_high_pages	mm/memory.c	/^struct list_head free_high_pages;$/;"	v	typeref:struct:list_head
 free_normal_pages	mm/memory.c	/^struct list_head free_normal_pages;$/;"	v	typeref:struct:list_head
@@ -584,17 +609,18 @@ get_free_page	mm/memory.c	/^unsigned long get_free_page(int flags)$/;"	f
 get_order	mm/kmalloc.c	/^int get_order(size_t size) $/;"	f
 halt	boot/bootsect.S	/^halt:$/;"	l
 halt	include/system.h	9;"	d
-hdr	include/net/if_ether.h	/^  ethdr_t hdr;$/;"	m	struct:ethframe
 header_type	include/pci.h	/^  u8 header_type;$/;"	m	struct:pci_device
 header_type_name	drivers/pci.c	/^char * header_type_name(pci_device_t *pcidev) $/;"	f
-htonl	include/net/net.h	13;"	d
-htons	include/net/net.h	12;"	d
-hw_addr_len	include/net/arp.h	/^  u8  hw_addr_len;    \/\/ Hardware address length(6)$/;"	m	struct:arp_hdr_struct
-hw_type	include/net/arp.h	/^  u16 hw_type ;       \/\/hardware type$/;"	m	struct:arp_hdr_struct
+htonl	include/net/net.h	19;"	d
+htons	include/net/net.h	18;"	d
+hw_addr_len	include/net/arp.h	/^  u8  hw_addr_len;    \/\/ Hardware address length(6)$/;"	m	struct:arphdr
+hw_type	include/net/arp.h	/^  u16 hw_type ;       \/\/hardware type$/;"	m	struct:arphdr
+id	include/net/ip.h	/^  u16 id;  $/;"	m	struct:iphdr
 idt_desc	idt.c	/^struct idt_desc {$/;"	s	file:
 idt_init	idt.c	/^void idt_init()$/;"	f
 idtr_desc	idt.c	/^struct idtr_desc {$/;"	s	file:
 ignore_int	boot/head.S	/^ignore_int:$/;"	l
+ihl	include/net/ip.h	/^   u8 ihl:4,         \/\/ IP header length(4bits) in 32bits incerements. min 5$/;"	m	struct:iphdr
 img	Makefile	/^img     = vmlabos.iso$/;"	m
 in_idx	drivers/console.c	/^  int  in_idx;            \/*in index*\/$/;"	m	struct:console	file:
 inb	include/io.h	21;"	d
@@ -603,15 +629,26 @@ info	include/kernel.h	33;"	d
 info2	include/kernel.h	39;"	d
 inl	include/io.h	32;"	d
 inqueue	drivers/console.c	/^  char inqueue[128];     \/*for cons read*\/$/;"	m	struct:console	file:
+int3	include/system.h	10;"	d
 interrupt_line	include/pci.h	/^  u8 interrupt_line;     $/;"	m	struct:pci_device
 interrupt_pin	include/pci.h	/^  u8 interrupt_pin;$/;"	m	struct:pci_device
 inw	include/io.h	26;"	d
-iobase	include/net/e1000.h	/^  u32  iobase;      \/\/IO base retrieved from BAR0$/;"	m	struct:net_device_struct
+iobase	include/net/net.h	/^  u32  iobase;       \/\/IO base retrieved from BAR0$/;"	m	struct:net_device
 iobase	include/pci.h	/^  u32  iobase;      \/\/ IO base address $/;"	m	struct:pci_base_address_s
-ip_addr_copy	include/net/net.h	25;"	d
-ipv4_addr_t	include/net/net.h	/^typedef u8 ipv4_addr_t [IPv4_ADDR_LEN]; $/;"	t
+ip	include/net/net.h	/^  ipaddr_t   ip;$/;"	m	struct:netif
+ip_addr_copy	include/net/net.h	37;"	d
+ip_send	net/ip.c	/^void ip_send (ipaddr_t* dest_ip, ippacket_t *ippacket, u32 data_length, netif_t *netif)$/;"	f
+ip_send_test	net/ip.c	/^void ip_send_test ()$/;"	f
+ipaddr_t	include/net/net.h	/^typedef u8 ipaddr_t[IPv4_ADDR_LEN]; $/;"	t
+iphdr	include/net/ip.h	/^  iphdr_t  iphdr;     \/\/ IP header$/;"	m	struct:ippacket
+iphdr	include/net/ip.h	/^typedef struct iphdr$/;"	s
+iphdr_checksum	net/ip.c	/^u16 iphdr_checksum(iphdr_t *iphdr)$/;"	f
+iphdr_t	include/net/ip.h	/^} _packed_ iphdr_t; $/;"	t	typeref:struct:iphdr
+ippacket	include/net/ip.h	/^typedef struct ippacket $/;"	s
+ippacket	net/udp.c	/^  ippacket_ ippacket; $/;"	m	struct:udppacket	file:
+ippacket_t	include/net/ip.h	/^} _packed_  ippacket_t;$/;"	t	typeref:struct:ippacket
 iret	include/system.h	8;"	d
-irq	include/net/e1000.h	/^  u32  irq;$/;"	m	struct:net_device_struct
+irq	include/net/net.h	/^  u32    irq;$/;"	m	struct:net_device
 irq_0	sys_call.S	/^irq_0: \/*Timer*\/$/;"	l
 irq_1	sys_call.S	/^irq_1: \/*Keyboard*\/$/;"	l
 irq_11	sys_call.S	/^irq_11: \/*Ethernet*\/$/;"	l
@@ -622,6 +659,7 @@ is_page_free	include/page.h	35;"	d
 itoa	libc/libc.c	/^int itoa( u8 *buf, u32 n, int base)$/;"	f
 jiffies	timer.c	/^unsigned long jiffies = 0;$/;"	v
 k	include/keyboard.h	6;"	d
+kalloc	include/mm.h	60;"	d
 kb_delay	drivers/keyboard.c	/^void kb_delay ()$/;"	f
 kbc_i8042_init	drivers/keyboard.c	/^void kbc_i8042_init() \/\/ BAD. THIS CODE DISABLE KEYBOARD INTR \/\/$/;"	f
 kbgetc	drivers/keyboard.c	/^char kbgetc()$/;"	f
@@ -637,10 +675,13 @@ left_alt	drivers/keyboard.c	/^int left_alt = 0, right_alt = 0;$/;"	v
 left_arrow	drivers/keyboard.c	/^int up_arrow = 0, down_arrow = 0, left_arrow = 0, right_arrow = 0;$/;"	v
 left_ctrl	drivers/keyboard.c	/^int left_ctrl = 0, right_ctrl = 0;$/;"	v
 left_shift	drivers/keyboard.c	/^int left_shift = 0, right_shift = 0;$/;"	v
-length	include/net/e1000.h	/^  u16 length;    \/\/ buffer length. 16KB by default $/;"	m	struct:tx_desc_struct
+length	include/net/e1000.h	/^  u16 length;    \/\/ buffer length. 16KB by default $/;"	m	struct:tx_desc
+length	include/net/udp.h	/^  u16 length;        \/\/ header+payload$/;"	m	struct:udphdr
 libc_objs	Makefile	/^libc_objs = $(addprefix $(bindir)\/libc\/, libc.o printk.o vsprintf.o)$/;"	m
 limit	drivers/console.c	/^  long limit;            \/* limit of this console's video memory *\/$/;"	m	struct:console	file:
 limit	idt.c	/^   u16 limit;$/;"	m	struct:idtr_desc	file:
+list	include/net/net.h	/^  struct list_head *list;$/;"	m	struct:net_device	typeref:struct:net_device::list_head
+list	include/net/net.h	/^  struct list_head *list;$/;"	m	struct:netif	typeref:struct:netif::list_head
 list	include/page.h	/^  struct list_head list;$/;"	m	struct:page	typeref:struct:page::list_head
 list_add	include/list.h	/^static inline void list_add(list_head_t *new, list_head_t *head)$/;"	f
 list_add_tail	include/list.h	/^static inline void list_add_tail(list_head_t *new, list_head_t *head)$/;"	f
@@ -652,17 +693,21 @@ list_head	include/list.h	/^struct list_head {$/;"	s
 list_head_t	include/list.h	/^typedef struct list_head list_head_t;$/;"	t	typeref:struct:list_head
 load_kernel	boot/bootsect.S	/^load_kernel:$/;"	l
 low_mem	main.c	/^unsigned long low_mem;$/;"	v
-mac	include/net/e1000.h	/^  u8   mac[6];      \/\/MAC address $/;"	m	struct:net_device_struct
-mac_copy	include/net/net.h	26;"	d
-mac_dest	include/net/if_ether.h	/^  mac_t mac_dest;$/;"	m	struct:ethdr_struct
-mac_src	include/net/if_ether.h	/^  mac_t mac_src;$/;"	m	struct:ethdr_struct
-mac_t	include/net/net.h	/^typedef u8 mac_t [MAC_LEN];    $/;"	t
+mac	include/net/net.h	/^  mac_t      mac;$/;"	m	struct:netif
+mac	include/net/net.h	/^  mac_t  mac;       \/\/MAC address $/;"	m	struct:net_device
+mac_copy	include/net/net.h	38;"	d
+mac_dest	include/net/if_ether.h	/^  mac_t mac_dest;$/;"	m	struct:ethhdr
+mac_src	include/net/if_ether.h	/^  mac_t mac_src;$/;"	m	struct:ethhdr
+mac_t	include/net/net.h	/^typedef u8 mac_t[MAC_LEN];    $/;"	t
+main	test/int3.c	/^int main()$/;"	f
+main	test/test.c	/^int main()$/;"	f
 mask	include/bitops.h	12;"	d
+mask	include/net/net.h	/^  ipaddr_t   mask;$/;"	m	struct:netif
 max_latency	include/pci.h	/^  u8 max_latency;$/;"	m	struct:pci_device
 mem_init	mm/memory.c	/^unsigned long mem_init(unsigned long start_mem, unsigned long end_mem)$/;"	f
 mem_map	mm/memory.c	/^page_t * mem_map;    \/* table de toutes pages physiques*\/$/;"	v
 mem_map_len	mm/memory.c	/^int   mem_map_len;$/;"	v
-membase	include/net/e1000.h	/^  u32  membase;     \/\/Memory base from BAR2$/;"	m	struct:net_device_struct
+membase	include/net/net.h	/^  u32  membase;      \/\/Memory base from BAR2$/;"	m	struct:net_device
 membase	include/pci.h	/^  u32  membase;     \/\/ Memory base address$/;"	m	struct:pci_base_address_s
 memcpy	libc/libc.c	/^u8 * memcpy(u8 *src, u8 *dst, int len)$/;"	f
 memset	libc/libc.c	/^void memset(u8 *adr, u8 val, int len)$/;"	f
@@ -673,13 +718,18 @@ mm_objs	Makefile	/^mm_objs   = $(addprefix $(bindir)\/mm\/, memory.o kmalloc.o)$
 modules	Makefile	/^modules  = boot libc mm drivers net $/;"	m
 move_bsect	boot/bootsect.S	/^move_bsect:$/;"	l
 move_cursor_arrow	drivers/console.c	/^void move_cursor_arrow(int arrow)$/;"	f
+mtu	include/net/net.h	/^  u16        mtu; $/;"	m	struct:netif
+name	include/net/net.h	/^  char*        name;$/;"	m	struct:netif
 nblocks	mm/kmalloc.c	/^  int nblocks; \/*how many blocks per page*\/$/;"	m	struct:size_desc	file:
-net_dev_nr	drivers/e1000.c	/^int  net_dev_nr = 0;                     \/\/ number of net devices$/;"	v
-net_device_struct	include/net/e1000.h	/^struct net_device_struct $/;"	s
-net_device_t	include/net/e1000.h	/^typedef struct net_device_struct net_device_t;$/;"	t	typeref:struct:net_device_struct
-net_devices	drivers/e1000.c	/^net_device_t net_devices[NET_MAX_DEV];   \/\/ all registered net devices are here$/;"	v
-net_objs	Makefile	/^net_objs  = $(addprefix $(bindir)\/net\/, if_ether.o arp.o)$/;"	m
+net_device	include/net/net.h	/^typedef struct net_device $/;"	s
+net_device_t	include/net/net.h	/^} net_device_t;$/;"	t	typeref:struct:net_device
+net_objs	Makefile	/^net_objs  = $(addprefix $(bindir)\/net\/, if_ether.o net.o arp.o ip.o udp.o)$/;"	m
 net_print_info	drivers/e1000.c	/^void net_print_info (net_device_t *netdev)$/;"	f
+netdev_list	net/net.c	/^struct list_head   netdev_list;  \/\/ all net devices are here$/;"	v	typeref:struct:list_head
+netif	include/net/net.h	/^typedef struct netif$/;"	s
+netif_init	net/net.c	/^void netif_init ()$/;"	f
+netif_list	net/net.c	/^struct list_head   netif_list;    \/\/ all net interfaces are registered here$/;"	v	typeref:struct:list_head
+netif_t	include/net/net.h	/^} netif_t; $/;"	t	typeref:struct:netif
 next	boot/bootsect.S	/^   next:$/;"	l
 next	include/list.h	/^   struct list_head *next, *prev;$/;"	m	struct:list_head	typeref:struct:list_head::list_head
 next	mm/kmalloc.c	/^  struct block_head *next;$/;"	m	struct:block_head	typeref:struct:block_head::block_head	file:
@@ -690,6 +740,8 @@ nfrees	mm/kmalloc.c	/^  int nfrees; \/*nb of free blocks*\/$/;"	m	struct:size_de
 nmallocs	mm/kmalloc.c	/^  int nmallocs;$/;"	m	struct:size_desc	file:
 nop	include/system.h	7;"	d
 npages	mm/kmalloc.c	/^  int npages;$/;"	m	struct:size_desc	file:
+ntohl	include/net/net.h	22;"	d
+ntohs	include/net/net.h	21;"	d
 null	include/types.h	4;"	d
 objs	drivers/Makefile	/^objs    = $(addprefix $(bindir)\/,$(src:.c=.o))$/;"	m
 objs	libc/Makefile	/^objs    = $(addprefix $(bindir)\/,$(src:.c=.o))$/;"	m
@@ -699,7 +751,7 @@ offset_hi	idt.c	/^   u16 offset_hi;$/;"	m	struct:idt_desc	file:
 offset_lo	idt.c	/^   u16 offset_lo;$/;"	m	struct:idt_desc	file:
 offsetof	include/stddef.h	13;"	d
 offsetof	include/stddef.h	14;"	d
-opcode	include/net/arp.h	/^  u16 opcode;         \/\/nature of ARP message$/;"	m	struct:arp_hdr_struct
+opcode	include/net/arp.h	/^  u16 opcode;         \/\/nature of ARP message$/;"	m	struct:arphdr
 order	mm/kmalloc.c	/^  int order;$/;"	m	struct:page_desc	file:
 origin	drivers/console.c	/^  long origin;           \/* offset in RAM(0xb8000) where GD5446 base points *\/$/;"	m	struct:console	file:
 outb	include/io.h	6;"	d
@@ -713,8 +765,6 @@ page_down	drivers/keyboard.c	/^int page_up = 0, page_down = 0;$/;"	v
 page_t	include/page.h	/^typedef struct page page_t;$/;"	t	typeref:struct:page
 page_up	drivers/keyboard.c	/^int page_up = 0, page_down = 0;$/;"	v
 panic	include/kernel.h	16;"	d
-payload	include/net/if_ether.h	/^  u8 *payload;$/;"	m	struct:ethframe
-payload_len	include/net/if_ether.h	/^  u32 payload_len;$/;"	m	struct:ethframe
 pci_base_address_s	include/pci.h	/^struct pci_base_address_s$/;"	s
 pci_conf_read16	drivers/pci.c	/^u16 pci_conf_read16 (pci_device_t* pcidev, int offset)$/;"	f
 pci_conf_read32	drivers/pci.c	/^u32 pci_conf_read32 (pci_device_t* pcidev, int offset)$/;"	f
@@ -722,17 +772,18 @@ pci_conf_read32_long	drivers/pci.c	/^u32 pci_conf_read32_long(int bus, int devic
 pci_conf_write16	drivers/pci.c	/^void pci_conf_write16(pci_device_t* pcidev, int offset, u16 data) $/;"	f
 pci_conf_write32	drivers/pci.c	/^void pci_conf_write32(pci_device_t* pcidev, int offset, u32 data) $/;"	f
 pci_dev_nr	drivers/pci.c	/^int  pci_dev_nr = 0;                     \/\/ number of pci devices$/;"	v
-pci_device	include/pci.h	/^struct pci_device$/;"	s
-pci_device_t	include/pci.h	/^typedef struct pci_device pci_device_t;$/;"	t	typeref:struct:pci_device
+pci_device	include/pci.h	/^typedef struct pci_device$/;"	s
+pci_device_t	include/pci.h	/^}_packed_ pci_device_t;$/;"	t	typeref:struct:pci_device
 pci_devices	drivers/pci.c	/^pci_device_t pci_devices[PCI_MAX_DEV];   \/\/ devices connected on the PCI bus$/;"	v
 pci_print_info	drivers/pci.c	/^void pci_print_info (pci_device_t *pcidev) $/;"	f
 pci_probe_devices	drivers/pci.c	/^void pci_probe_devices() $/;"	f
-pcidev	include/net/e1000.h	/^  pci_device_t *pcidev;$/;"	m	struct:net_device_struct
+pcidev	include/net/net.h	/^  pci_device_t *pcidev;$/;"	m	struct:net_device
 pic_8259a_init	pic.c	/^void pic_8259a_init()$/;"	f
 pic_delay	pic.c	/^void pic_delay()$/;"	f
 pid_t	include/types.h	/^typedef int pid_t;$/;"	t
 pit_8253_init	timer.c	/^void pit_8253_init(void)$/;"	f
 popl	sys_call.S	/^   popl ds$/;"	d
+port_t	include/net/net.h	/^typedef u16 port_t;$/;"	t
 pos	drivers/console.c	51;"	d	file:
 prev	include/list.h	/^   struct list_head *next, *prev;$/;"	m	struct:list_head	typeref:struct:list_head::
 prev_code	drivers/keyboard.c	/^unsigned char prev_code = 0; \/*treat E0 keys*\/$/;"	v
@@ -741,10 +792,12 @@ print_msg	boot/bootsect.S	/^print_msg:$/;"	l
 printk	libc/printk.c	/^void printk(const char * format,...)$/;"	f
 prog_if	include/pci.h	/^  u8 prog_if;$/;"	m	struct:pci_device
 prot	include/page.h	/^  int prot;\/*rwx protections*\/$/;"	m	struct:page
-proto	include/net/arp.h	/^  u16 proto;          \/\/ protocol type$/;"	m	struct:arp_hdr_struct
-proto_addr_len	include/net/arp.h	/^  u8  proto_addr_len; \/\/ protocol address length(4)$/;"	m	struct:arp_hdr_struct
+proto	include/net/arp.h	/^  u16 proto;          \/\/ protocol type$/;"	m	struct:arphdr
+proto	include/net/ip.h	/^   u8 proto;          \/\/ protocol above IP$/;"	m	struct:iphdr
+proto_addr_len	include/net/arp.h	/^  u8  proto_addr_len; \/\/ protocol address length(4)$/;"	m	struct:arphdr
 pt_regs	include/ptrace.h	/^struct pt_regs {$/;"	s
 pushl	sys_call.S	/^   pushl ds$/;"	d
+qlen	include/net/net.h	/^  u16        qlen;  \/\/queue length$/;"	m	struct:netif
 ramqueue	drivers/console.c	/^  unsigned short ramqueue[CONS_RAM_WORDS]; \/* buffer for video RAM *\/$/;"	m	struct:console	file:
 real_size	mm/kmalloc.c	18;"	d	file:
 reserved_pages	mm/memory.c	/^int   reserved_pages;\/*les n premieres pages reserve*\/$/;"	v
@@ -754,7 +807,7 @@ right_arrow	drivers/keyboard.c	/^int up_arrow = 0, down_arrow = 0, left_arrow = 
 right_ctrl	drivers/keyboard.c	/^int left_ctrl = 0, right_ctrl = 0;$/;"	v
 right_shift	drivers/keyboard.c	/^int left_shift = 0, right_shift = 0;$/;"	v
 row	drivers/console.c	/^  int row;               \/*current line*\/$/;"	m	struct:console	file:
-rsv	include/net/e1000.h	/^  u8  rsv;$/;"	m	struct:tx_desc_struct
+rsv	include/net/e1000.h	/^  u8  rsv;$/;"	m	struct:tx_desc
 save_meminfo	boot/setup.S	/^save_meminfo:$/;"	l
 selector	idt.c	/^   u16 selector;$/;"	m	struct:idt_desc	file:
 set_bit	include/bitops.h	/^static void inline set_bit(int nr, int *addr)$/;"	f
@@ -773,20 +826,23 @@ size_desc	mm/kmalloc.c	/^struct size_desc {$/;"	s	file:
 size_t	include/stddef.h	/^typedef unsigned int size_t;$/;"	t
 size_t	include/types.h	/^typedef unsigned int size_t;$/;"	t
 sizes	mm/kmalloc.c	/^struct size_desc sizes[MAX_ORDER+1] = $/;"	v	typeref:struct:size_desc
-special	include/net/e1000.h	/^  u16 special;$/;"	m	struct:tx_desc_struct
+special	include/net/e1000.h	/^  u16 special;$/;"	m	struct:tx_desc
 src	Makefile	/^src     = $(wildcard *.c)$/;"	m
 src	drivers/Makefile	/^src     = $(wildcard *.c)$/;"	m
 src	libc/Makefile	/^src     = $(wildcard *.c)$/;"	m
 src	mm/Makefile	/^src     = $(wildcard *.c)$/;"	m
 src	net/Makefile	/^src     = $(wildcard *.c)$/;"	m
-src_ip	include/net/arp.h	/^  ipv4_addr_t  src_ip;$/;"	m	struct:arp_hdr_struct
-src_mac	include/net/arp.h	/^  mac_t        src_mac;$/;"	m	struct:arp_hdr_struct
+src_ip	include/net/arp.h	/^  ipaddr_t   src_ip;$/;"	m	struct:arphdr
+src_ip	include/net/ip.h	/^  ipaddr_t src_ip;$/;"	m	struct:iphdr
+src_mac	include/net/arp.h	/^  mac_t      src_mac;$/;"	m	struct:arphdr
+src_port	include/net/udp.h	/^  port_t src_port;   \/\/ optional$/;"	m	struct:udphdr
 start	drivers/console.c	/^  long start;            \/* start of video memory of this console *\/$/;"	m	struct:console	file:
 start_kernel	main.c	/^void start_kernel () {$/;"	f
 start_low_mem	main.c	/^unsigned long start_low_mem = START_LOW_MEM;$/;"	v
 start_mem	main.c	/^unsigned long start_mem;$/;"	v
 startup_32	boot/head.S	/^startup_32:$/;"	l
-status	include/net/e1000.h	/^  u8  status;$/;"	m	struct:tx_desc_struct
+state	include/net/net.h	/^  u8         state; \/\/UP-DOWN$/;"	m	struct:netif
+status	include/net/e1000.h	/^  u8  status;$/;"	m	struct:tx_desc
 status	include/pci.h	/^  u16 status;$/;"	m	struct:pci_device
 sti	include/system.h	6;"	d
 strcat	include/string.h	/^static inline  char * strcat(char *s1, char *s2)$/;"	f
@@ -802,16 +858,26 @@ switch_endian16	include/bitops.h	/^static inline u16  switch_endian16 (u16 a)$/;
 tab_size	libc/vsprintf.c	/^int tab_size = 4; \/*4 spaces*\/$/;"	v
 tcp_struct	net/tcp.c	/^struct tcp_struct$/;"	s	file:
 test_bit	include/bitops.h	13;"	d
+test_udp_send	net/udp.c	/^void test_udp_send()$/;"	f
 timer_handler	timer.c	/^void timer_handler(unsigned long esp)$/;"	f
 to_big_endian16	include/bitops.h	/^static inline u16  to_big_endian16 (u16 a)$/;"	f
-tx_desc_struct	include/net/e1000.h	/^struct tx_desc_struct$/;"	s
-tx_desc_t	include/net/e1000.h	/^typedef struct tx_desc_struct tx_desc_t;$/;"	t	typeref:struct:tx_desc_struct
+tos	include/net/ip.h	/^   u8 tos;           \/\/ type of service$/;"	m	struct:iphdr
+total_length	include/net/ip.h	/^  u16 total_length;  \/\/ total length of IP packet$/;"	m	struct:iphdr
+ttl	include/net/ip.h	/^   u8 ttl;            \/\/ time to live.$/;"	m	struct:iphdr
+tx_desc	include/net/e1000.h	/^typedef struct tx_desc$/;"	s
+tx_desc_t	include/net/e1000.h	/^} _packed_ tx_desc_t;$/;"	t	typeref:struct:tx_desc
 tx_ring	drivers/e1000.c	/^tx_desc_t tx_ring[TX_RING_ZISE] __attribute__ ((aligned (16)));   $/;"	v
 type	idt.c	/^   u16 type;$/;"	m	struct:idt_desc	file:
 type	include/pci.h	/^  u8   type;  \/\/ base address : IO or Mem$/;"	m	struct:pci_base_address_s
 u16	include/types.h	/^typedef unsigned short u16;$/;"	t
 u32	include/types.h	/^typedef unsigned int u32;$/;"	t
 u8	include/types.h	/^typedef unsigned char u8;$/;"	t
+udp_send	net/udp.c	/^void udp_send (ipaddr_t* dest_ip, u8* payload, u32 payload_len, netif_t *netif)$/;"	f
+udphdr	include/net/udp.h	/^typedef struct udphdr$/;"	s
+udphdr	net/udp.c	/^  udphdr_t  udphdr;$/;"	m	struct:udppacket	file:
+udphdr_t	include/net/udp.h	/^} _packed_ udphdr_t;$/;"	t	typeref:struct:udphdr
+udppacket	net/udp.c	/^typedef struct udppacket$/;"	s	file:
+udppacket_t	net/udp.c	/^}_packed_  udppacket_t;$/;"	t	typeref:struct:udppacket	file:
 up_arrow	drivers/keyboard.c	/^int up_arrow = 0, down_arrow = 0, left_arrow = 0, right_arrow = 0;$/;"	v
 update_cursor	drivers/console.c	/^void update_cursor(console_t *cons)$/;"	f
 utoa	libc/libc.c	/^int utoa( u8 *buf,  u32 n, int base)$/;"	f
@@ -824,15 +890,15 @@ va_end	include/stdarg.h	48;"	d
 va_list	include/stdarg.h	/^typedef __gnuc_va_list va_list;$/;"	t
 va_start	include/stdarg.h	47;"	d
 vendor_id	include/pci.h	/^  u16 vendor_id;$/;"	m	struct:pci_device
-vendor_name	include/net/e1000.h	/^  char *vendor_name; \/\/vendor name $/;"	m	struct:net_device_struct
+vendor_name	include/net/net.h	/^  char *vendor_name; \/\/vendor name $/;"	m	struct:net_device
+version	include/net/ip.h	/^      version:4;     \/\/ ip version(4 bits). 4 for ipv4               $/;"	m	struct:iphdr
 virt	include/page.h	/^  unsigned long virt; \/*virtual addr*\/$/;"	m	struct:page
 vsprintf	libc/vsprintf.c	/^int vsprintf (char *buf, const char * format, va_list args )$/;"	f
-wait	main.c	/^void wait (int t) {while(t--) halt();}$/;"	f
 warn	include/kernel.h	10;"	d
 while_1	boot/bootsect.S	/^  while_1: $/;"	l
 xcs	include/ptrace.h	/^  unsigned long xcs;$/;"	m	struct:pt_regs
 xds	include/ptrace.h	/^  unsigned long xds;$/;"	m	struct:pt_regs
 xes	include/ptrace.h	/^  unsigned long xes; \/*x:16 high bits are unused*\/$/;"	m	struct:pt_regs
 xss	include/ptrace.h	/^  unsigned long xss;$/;"	m	struct:pt_regs
-zero_mem	include/system.h	11;"	d
+zero_mem	include/system.h	12;"	d
 zero_page	include/page.h	38;"	d

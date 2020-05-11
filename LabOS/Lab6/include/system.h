@@ -7,6 +7,7 @@
 #define nop() __asm__ __volatile__("nop":::)
 #define iret() __asm__ __volatile__("iret":::)
 #define halt() __asm__ __volatile__("hlt":::)
+#define int3() __asm__ ("INT3":::)
 
 #define zero_mem(addr,nbytes)  \
               __asm__(                          \

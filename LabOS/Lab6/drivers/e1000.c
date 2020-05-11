@@ -20,14 +20,6 @@
 #include <mm.h>
 
  
-
-#define NET_MAX_DEV             16       // network maximum devices 
- 
-
-net_device_t net_devices[NET_MAX_DEV];   // all registered net devices are here
-
-int  net_dev_nr = 0;                     // number of net devices
-
 net_device_t *e1000_dev;                 // E1000 device if existe.  
 
 
@@ -257,7 +249,7 @@ net_device_t* e1000_probe()
     if (pcidev->vendor_id == INTEL_VENDOR_ID && pcidev->device_id == E1000_DEV_ID)
     {
       info ("E1000 present");
-      net_device_t *netdev = &net_devices[net_dev_nr++];
+      net_device_t *netdev =  (net_device_t *)kalloc(sizeof(net_device_t));
       netdev->vendor_name  = "INTEL";
       netdev->dev_name     = "E1000";
       netdev->pcidev       = pcidev;
@@ -321,7 +313,7 @@ void e1000_tx_init (net_device_t *netdev)
   e1000_write_cmd (netdev, E1000_TDBAH, 0);
 
   // Transmit Descriptor Length (TDLEN) register = size (in bytes) of tx ring
-  u32 txlen = (TX_RING_ZISE) * sizeof (struct tx_desc_struct);
+  u32 txlen = (TX_RING_ZISE) * sizeof (tx_desc_t);
   e1000_write_cmd (netdev, E1000_TDLEN, txlen);
 
   // Transmit Descriptor Head and Tail (TDH/TDT)

@@ -10,47 +10,36 @@
 extern net_device_t *e1000_dev;
 
 //-----------------------------------------------------
-//         Send 
-//  add ethernet header to @payload and send it
-// @payload : must start with  a ethdr_t
+//           Send a frame
+// @frame_len : total frame length
 //----------------------------------------------------- 
-void ether_send_packet (u8 *payload, u32 payload_len)
+void ether_send_packet (ethframe_t* ethframe, u32 frame_len, netif_t *netif)
 {
+  u8* payload = (u8 *)(&ethframe->ethhdr + sizeof (ethhdr_t));
+
   if (!e1000_dev)
   {
     warn ("Unable to send a Ethernet packet : E1000 not exist!");
     return;
   }
 
-  net_device_t* dev = e1000_dev;
+  ethhdr_t *ethhdr = &ethframe->ethhdr;
 
-  ethdr_t *ethdr = (ethdr_t *)payload;
+  // dest_mac and eth_type are set by IP or ARP layer
+  
+  mac_copy (netif->mac, ethhdr->mac_src);
 
-  // populate Ethernet header
-  mac_copy (dev->mac, ethdr->mac_src);
- 
-  if (ethdr->eth_type == htons(ETH_TYPE_ARP))
-  {
-    arp_hdr_t *arp_hdr = (arp_hdr_t *) (payload + sizeof(ethdr_t));
-    mac_copy (dev->mac, arp_hdr->src_mac);
-  }
-  // Copy Frame content on the head tx buffer
-  //memcpy ( (u8*)&ethframe->hdr,  buf,                                    ETH_HDR_SIZE         );
-  //memcpy ( ethframe->payload,    buf+ETH_HDR_SIZE,                       ethframe->payload_len);
-  //memcpy ( (u8*)&ethframe->crc,  buf+ETH_HDR_SIZE+ethframe->payload_len, 4                    );
+  // checksum FCS
+  u32 sum = ether_checksum (payload, frame_len);
+  *((u8 *)ethframe + frame_len - ETH_CRC_LEN) = sum; // FCS need to be calculated
 
-  // checksum
-  u32 sum = ether_checksum (payload, payload_len);
-  *(payload + payload_len) = htonl(sum);
-  payload_len += ETH_SUM_LEN;
+  info ("Sending Ethernet frame-> payload length %d Bytes. Checksum %x ", frame_len, sum);
 
-  info ("Sending Ethernet frame-> payload length %d Bytes. Checksum %x ", payload_len, sum);
-
-  e1000_send_packet (payload, payload_len);
+  e1000_send_packet ((u8 *)ethframe, frame_len);
 }
 
 //--------------------------------------------
-//
+// BAD
 //--------------------------------------------
 u32 ether_checksum (u8 *addr, u32 count)
 {
