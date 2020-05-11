@@ -5,7 +5,7 @@
 #include <net/if_ether.h>
 #include <net/net.h>
 
-
+// RFC 826
 typedef struct arphdr
 { 
   u16 hw_type ;       //hardware type

@@ -2,11 +2,40 @@ Networking
 =================
 Ubuntu 
 
-### ifconfig
-    # ifconfig     ; list actif interfaces
-    # ifconfig -a  ; list active and inactive interfaces
+### IP vs Ifconfig
+IP is a replacement for ifconfig command. IP command is orginazed on two layers: Link Layer(**ip link**), IP Layer(**ip a**).
 
-    # ifconfig eth0 up  ; Enable an interface. down to disable it.
+Dispalay all NICs   
+    
+    $ ifconfig                                 
+    $ ip a                                        
+
+Add IP address     
+
+    $ ifconfig eth0 add 192.168.43.17          
+    $ ip a add 192.168.43.17 dev eth0              
+
+
+Set MAC            
+
+    $ ifconfig eth0 hw ether ae:09:29:13:43:a3 
+    $ ip link set dev eth0 address ae:09:29:13:43:a3
+
+Set MTU            
+
+    $ ifconfig eth0 mtu 1800                   
+    $ ip link set dev eth0 mtu 1800                 
+
+Set promiscous     
+    
+    $ ifconfig eth0 promisc                    
+    $ ip link set dev eth0 promisc on               
+
+Enable/Disable NIC 
+    
+    $ ifconfig eth0 [up down]                  
+    $ ip link set eth0 [up dow]                      
+
 
 ### Routing Table
 Routing table explained: https://geek-university.com/ccna/routing-table-explained
