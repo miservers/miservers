@@ -30,7 +30,7 @@ typedef struct arpframe_struct
 }_packed_  arpframe_t;
 
 
-void arp_request(ipaddr_t src_ip, ipaddr_t dest_ip, netif_t *netif);
+void arp_request(ipaddr_t dest_ip, netif_t *netif);
 
 void arp_request_test();
 

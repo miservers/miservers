@@ -12,7 +12,7 @@
 /*
  * @dest_ip MAC resolution
  */
-void arp_request(ipaddr_t src_ip, ipaddr_t dest_ip, netif_t *netif)
+void arp_request(ipaddr_t target_ip, netif_t *netif)
 {
   // Init arp header
   arpframe_t *arpframe = kalloc (sizeof(arpframe_t));
@@ -30,8 +30,8 @@ void arp_request(ipaddr_t src_ip, ipaddr_t dest_ip, netif_t *netif)
   
   // src_mac will be set by Ethernet layer
   // Dest MAC is broadcast addr FF:FF:FF:FF:FF:FF 
-  ip_addr_copy(src_ip, arphdr->src_ip);
-  ip_addr_copy(dest_ip, arphdr->dest_ip);
+  ip_addr_copy(netif->ip, arphdr->src_ip);
+  ip_addr_copy(target_ip, arphdr->dest_ip);
   
   mac_copy (netif->mac, arphdr->src_mac);
   
@@ -51,8 +51,7 @@ void arp_request(ipaddr_t src_ip, ipaddr_t dest_ip, netif_t *netif)
 void arp_request_test()
 {
   extern netif_t ETH0;
-  ipaddr_t src_ip = {192, 168, 43, 5};
-  ipaddr_t dest_ip = {192, 168, 43, 19};
-  arp_request (src_ip, dest_ip, &ETH0);
+  ipaddr_t target_ip = {192, 168, 43, 19};
+  arp_request (target_ip, &ETH0);
 }
 
