@@ -9,15 +9,15 @@
 #include <libc.h>
 #include <mm.h>
 
-/*
- * @dest_ip MAC resolution
+/* Send a broadcast request: hwo has @target_ip?
+ * @target_ip MAC resolution. 
  */
 void arp_request(ipaddr_t target_ip, netif_t *netif)
 {
   // Init arp header
   arpframe_t *arpframe = kalloc (sizeof(arpframe_t));
   
-  arpframe->ethhdr.eth_type = htons(ETH_TYPE_ARP);
+  arpframe->ethframe.ethhdr.eth_type = htons(ETH_TYPE_ARP);
   
   arphdr_t *arphdr = &arpframe->arphdr;
 
@@ -29,7 +29,7 @@ void arp_request(ipaddr_t target_ip, netif_t *netif)
   arphdr->opcode         = htons(ARP_OP_REQUEST);
   
   // src_mac will be set by Ethernet layer
-  // Dest MAC is broadcast addr FF:FF:FF:FF:FF:FF 
+  // Dest MAC is broadcast  FF:FF:FF:FF:FF:FF 
   ip_addr_copy(netif->ip, arphdr->src_ip);
   ip_addr_copy(target_ip, arphdr->dest_ip);
   
@@ -38,7 +38,7 @@ void arp_request(ipaddr_t target_ip, netif_t *netif)
   // In case of ARP-Request. dest MAC is broadcast
   mac_t mac_broadcast = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
   mac_copy(mac_broadcast, arphdr->dest_mac);
-  mac_copy(mac_broadcast, &arpframe->ethhdr.mac_dest);
+  mac_copy(mac_broadcast, &arpframe->ethframe.ethhdr.mac_dest);
     
   // Ethernet layer will populate src_mac 
   // and send the frame

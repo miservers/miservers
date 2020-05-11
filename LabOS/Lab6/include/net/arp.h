@@ -23,9 +23,9 @@ typedef struct arphdr
 
 typedef struct arpframe_struct 
 {  
-  ethhdr_t ethhdr;  // Ethernet header
-  arphdr_t arphdr;  //ARP header
-  u32 crc;          // checksum
+  ethframe_t ethframe;  // Ethernet header
+  arphdr_t   arphdr;    //ARP header
+  u32 crc;              // checksum
 
 }_packed_  arpframe_t;
 
