@@ -75,3 +75,7 @@ Open connections
 	use Wireshark to read capt.log
 	 
 	 
+### Linux Bridge and Tap
+
+![](../documentation/images/Linux-Virtual-Network-Bridge.png)
+

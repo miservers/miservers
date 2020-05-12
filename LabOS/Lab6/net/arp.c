@@ -51,7 +51,7 @@ void arp_request(ipaddr_t target_ip, netif_t *netif)
 void arp_request_test()
 {
   extern netif_t ETH0;
-  ipaddr_t target_ip = {192, 168, 43, 19};
+  ipaddr_t target_ip = {192, 168, 56, 3};
   arp_request (target_ip, &ETH0);
 }
 

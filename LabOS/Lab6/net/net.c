@@ -11,9 +11,9 @@ struct list_head   netif_list;    // all net interfaces are registered here
 struct list_head   netdev_list;  // all net devices are here
 
 netif_t ETH0={.name      = "eth0", 
-              .ip        = {192,168,43,1}, 
+              .ip        = {192,168,56,11}, 
               .mask      = {255,255,255,0},
-              .broadcast = {192,168,43,255},
+              .broadcast = {192,168,56,255},
               .state     = NETIF_UP,
               .mtu       = MTU,   
               .qlen      = 1000};

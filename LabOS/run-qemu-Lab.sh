@@ -19,19 +19,19 @@
 set -x
 
 
-LABOS_ISO=$HOME/magOS/LabOS/bin/vmlabos.iso
+IMG=$HOME/magOS/LabOS/bin/vmlabos.iso
 ARCH=i386
 #ARCH=x86_64
-QEMU_OPTS='-vga std ' 
-QEMU_OPTS='-L pc-bios'  #' -nographic ' -m 32
-QEMU_OPTS=' -serial stdio -show-cursor '
-QEMU_OPTS+=' -netdev user,id=qnet0,net=192.168.43.5/24,dhcpstart=192.168.43.9,restrict=no -device e1000,netdev=qnet0,mac=92:ca:fe:f0:7d:a1 -object filter-dump,id=f1,netdev=qnet0,file=/tmp/qemu-net.dat'
-LOGFILE=/tmp/qemu.log
+OPTS='-vga std ' 
+#QEMU_OPTS+=' -netdev user,id=qnet0,net=192.168.43.5/24,dhcpstart=192.168.43.9,restrict=no -device e1000,netdev=qnet0,mac=92:ca:fe:f0:7d:a1 -object filter-dump,id=f1,netdev=qnet0,file=/tmp/qemu-net.dat'
+NETOPTS='-netdev tap,id=net0,ifname=tap0,script=no,downscript=no -device e1000,netdev=net0,mac=b2:ca:fe:f0:7d:a1'
+NETDUMP='-object filter-dump,id=f1,netdev=net0,file=/tmp/qemu-net.dat'
 QEMU_BIN=/opt/qemu/bin/qemu-system-$ARCH
+
 
 if [ ""$1 == "-g" ] ; then
   DEBUG="-s  -S"
 fi
 
-$QEMU_BIN  $DEBUG  $QEMU_OPTS -drive file=$LABOS_ISO,format=raw,index=0,media=disk -D $LOGFILE $LOGOPT
+$QEMU_BIN -m 64 $DEBUG  $OPTS -drive file=$IMG,format=raw,index=0,media=disk $NETOPTS $NETDUMP
 
