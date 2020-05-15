@@ -14,6 +14,7 @@ br_tap_setup() {
   brctl addif br0 tap0
 
   # Assign IP to br0
+  ip a add 192.168.56.2 dev enp0s25
   ip a add 192.168.56.17 dev br0
 
   # Start 

@@ -115,6 +115,18 @@ Flash address specified by IOADDR:
   2. use wireshark (option -r) to read from file
   3. Activate Validate checksum : check option in wireshark->preference->protocols->IPv4, Ethernet,etc 
 
+### Bridge and Tap
+
+![](../documentation/images/Linux-Virtual-Network-Bridge.png)
+
+**Create a bridge tap** : to reach Qemu  
+  
+   $ tools/bridge-tap.sh [add|del]
+
+    
+
+
+
 ## References
 MUST:
 - Intel Ethernet 8254x GBe : https://pdos.csail.mit.edu/6.828/2019/readings/hardware/8254x_GBe_SDM.pdf

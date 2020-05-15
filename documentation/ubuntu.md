@@ -24,6 +24,11 @@
 
 **LibreOffice Draw** : excellent to draw diagrams.
 
+**Keyboard Layout Customisation**  
+  
+  cp ~/magOS/documentation/files/fr-lenovo-backup /usr/share/X11/xkb/symbols/fr   
+  cp ~/magOS/documentation/files/ara-lenovo-backup /usr/share/X11/xkb/symbols/ara  
+  session logout 
 
 ## Installation and configuration of ubuntu 16.04
 
@@ -31,9 +36,6 @@ Create a bootable USB from windows
     
     Use "rawrite32" to .
 
-Upgrade
-    
-    sudo apt update & apt upgrade
 
 Firewall: NetFilter/iptables
 
@@ -78,11 +80,6 @@ Create an icon in Dash panel
     Type=Application
     StartupNotify=true
 
-compiz: high cpu
-
-    apt install compizconfig-settings-manager
-	On OpenGL, uncheck the option "Sync to VBlank"
-
 ## Services 
 Three tools: systemd, upstart, SystemV
 
@@ -103,18 +100,9 @@ Three tools: systemd, upstart, SystemV
     service start apache2
 ```
   
-## Apache PHP MySQL
-Installation
-```
-  sudo apt-get install apache2 php mysql-server
-```
 - securing Apache
   http://xianshield.org/guides/apache2.0guide.html
 
-
-## Packages
-- Terminator : the best terminal 
-- Konsole: mieux que Gnome Terminal
 
 
 

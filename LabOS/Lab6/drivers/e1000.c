@@ -23,10 +23,14 @@
 net_device_t *e1000_dev;                 // E1000 device if existe.  
 
 
-#define TX_RING_ZISE      128             // TX ring size
+#define RXRING_ZISE      128             // RX ring size
+#define TXRING_ZISE      128             // TX ring size
 
+// Receive Ring
+rxdesc_t rxring[RXRING_ZISE] __attribute__ ((aligned (16)));   
 
-tx_desc_t tx_ring[TX_RING_ZISE] __attribute__ ((aligned (16)));   
+// Transmit Ring
+txdesc_t txring[TXRING_ZISE] __attribute__ ((aligned (16)));   
 
 
 void delay(int t) {while(t--);} // bad way to make a delay
@@ -71,6 +75,7 @@ void e1000_write_cmd (net_device_t *netdev, u32 addr, u32 data)
     iodata = netdev->iobase + E1000_IODATA + data;
     outl(addr, ioaddr);
     outl(data, iodata);
+
   }
   
   else if (netdev->base_addr_type == BAR_TYPE_MEM32)
@@ -281,10 +286,44 @@ net_device_t* e1000_probe()
 //-------------------------------------------------
 void e1000_rx_init(net_device_t *netdev)
 {
-  // receive buffer size: 1KB
+  
+  // set RAL0 RAH0 with the desired MAC addresses.
+  // can be do later by if_config. dont care
+
+  // Initialize the MTA (Multicast Table Array) to 0b
+  for (int i = 0; i < E1000_FILTER_MTA_LEN; i++)
+      e1000_write_cmd (netdev, E1000_FILTER_MTA+i, 0);
+
+
+  // Program the Interrupt Mask Set/Read (IMS) register to enable any 
+  // interrupt the software driver wants to be notified of when the event occurs. 
+  e1000_write_cmd (netdev, E1000_IMC, 0xFF);  
+  e1000_write_cmd (netdev, E1000_IMS, 0xFF);  
+  u32 ims = E1000_IMS_RXT0 | E1000_IMS_RXO | E1000_IMS_RXDMT0 | E1000_IMS_LSC;
+  e1000_write_cmd (netdev, E1000_IMS, ims);  
+
+
+
+  // Receive Descriptor Base Address (RDBAL/RDBAH) registers
+  e1000_write_cmd (netdev, E1000_RDBAL, (u32)rxring);
+  e1000_write_cmd (netdev, E1000_RDBAH, 0);
+
+  // Receive Descriptor Length (RDLEN) register = size (in bytes) of tx ring
+  u32 rxlen = (RXRING_ZISE) * sizeof (rxdesc_t);
+  e1000_write_cmd (netdev, E1000_RDLEN, rxlen);
+
+  // Transmit Descriptor Head and Tail (RDH/RDT)
+  e1000_write_cmd (netdev, E1000_RDH, 0);
+  e1000_write_cmd (netdev, E1000_RDT, RXRING_ZISE-1);
+
+  // Init of Rransmit Control Register (RCTL)
   u32 rctl = e1000_read_cmd (netdev, E1000_RCTL); 
  
-  rctl = (rctl & ~E1000_RCTL_BSIZE) | (E1000_RCTL_BSIZE_1K); //BSiZE=01b
+  rctl |= E1000_RCTL_EN | E1000_RCTL_BAM;
+  rctl &= ~E1000_RCTL_LBM;  // LBM=00b for normal operations
+  
+  // receive buffer size: 1KB
+  rctl = (rctl & ~E1000_RCTL_BSIZE) | (E1000_RCTL_BSIZE_1K); //Block size 1K
   rctl &= ~E1000_RCTL_BSEX;  // clear bsex bit
 
   e1000_write_cmd (netdev, E1000_RCTL,rctl);
@@ -295,11 +334,11 @@ void e1000_tx_init (net_device_t *netdev)
 {
 
   // Init TX descriptors
-  memset((u8 *)&tx_ring[0], 0 , TX_RING_ZISE*16);
+  memset((u8 *)&txring[0], 0 , TXRING_ZISE*16);
 
-  for (int i = 0; i < TX_RING_ZISE; i++)
+  for (int i = 0; i < TXRING_ZISE; i++)
   {
-    tx_desc_t* txdesc = &tx_ring[i];
+    txdesc_t* txdesc = &txring[i];
 
     txdesc->addr_low  = 0;
     txdesc->addr_high = 0;
@@ -308,12 +347,12 @@ void e1000_tx_init (net_device_t *netdev)
   }
 
   // Transmit Descriptor Base Address (TDBAL/TDBAH) registers
-  u32 tdbal = (u32) tx_ring;
+  u32 tdbal = (u32) txring;
   e1000_write_cmd (netdev, E1000_TDBAL, tdbal);
   e1000_write_cmd (netdev, E1000_TDBAH, 0);
 
   // Transmit Descriptor Length (TDLEN) register = size (in bytes) of tx ring
-  u32 txlen = (TX_RING_ZISE) * sizeof (tx_desc_t);
+  u32 txlen = (TXRING_ZISE) * sizeof (txdesc_t);
   e1000_write_cmd (netdev, E1000_TDLEN, txlen);
 
   // Transmit Descriptor Head and Tail (TDH/TDT)
@@ -343,12 +382,12 @@ void e1000_send_packet (u8* payload, u32 payload_len)
 
   memcpy (payload, tx_buf, payload_len);
 
-  tx_ring[tail].addr_low  = (u32) tx_buf;
-  tx_ring[tail].length    = payload_len;
-  tx_ring[tail].cmd       = E1000_TDESC_CMD_EOP | E1000_TDESC_CMD_RS | E1000_CMD_IFCS;
-  tx_ring[tail].status    = 0;
+  txring[tail].addr_low  = (u32) tx_buf;
+  txring[tail].length    = payload_len;
+  txring[tail].cmd       = E1000_TDESC_CMD_EOP | E1000_TDESC_CMD_RS | E1000_CMD_IFCS;
+  txring[tail].status    = 0;
 
-  tail = (tail + 1) % TX_RING_ZISE;
+  tail = (tail + 1) % TXRING_ZISE;
   
   e1000_write_cmd (e1000_dev,  E1000_TDT, tail);  
   delay(1000);
@@ -357,7 +396,7 @@ void e1000_send_packet (u8* payload, u32 payload_len)
   tail = e1000_read_cmd (e1000_dev, E1000_TDT);
   u32 head = e1000_read_cmd (e1000_dev, E1000_TDH);
   info ("head:tail after : %d:%d", head,tail);  
-  info ("Status after : %x", tx_ring[0].status);
+  info ("Status after : %x", txring[0].status);
     
 }
 
@@ -407,6 +446,8 @@ void e1000_init ()
 
  
   e1000_tx_init (netdev);    // Initialize Transmission Desc and Ring
+
+  e1000_rx_init (netdev);
 
 out:
   return;
