@@ -1,7 +1,7 @@
 ## Tools
 
 **Sublime Text**
-   - Install a package using Control Package : **Crl+Shif+p** and chose **Install package**.  
+   - Install a package using Control Package : **Ctrl+Shif+p** and chose **Install package**.  
    - MarkDown Preview: https://facelessuser.github.io/MarkdownPreview/    
      Alt-m : to preview  
    - Open a file quickly : **Ctrl-p**  
@@ -19,8 +19,6 @@
 **vnstat** : to monitor network usage   
      
      vnstat -i wlp3s0
-
-**Shutter**:  screen capture
 
 **LibreOffice Draw** : excellent to draw diagrams.
 
@@ -70,15 +68,16 @@ Disable ipv6
 
 Create an icon in Dash panel
 
-    ; create file ~/.local/share/applications/android-studio.desktop
+    ; create file ~/.local/share/applications/eclipse.desktop
     [Desktop Entry]
-    Name=the name you want shown
-    Comment=
-    Exec=/opt/android-studio/bin/studio.sh
-    Icon=icon name
-    Terminal=false
-    Type=Application
-    StartupNotify=true
+      Name=Eclipse
+      Comment=
+      Exec=/opt/eclipse/eclipse
+      Icon=/opt/eclipse/icon.xpm
+      Terminal=false
+      Type=Application
+      StartupNotify=true
+
 
 ## Services 
 Three tools: systemd, upstart, SystemV

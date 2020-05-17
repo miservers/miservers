@@ -1,37 +1,34 @@
 ### Installation
-```sh
-  apt install mysql-server
-```
+
+    apt install mysql-server
 
 ### Start/Stop
 With service:
-```sh
- service mysql start|stop|status|reload|restart
-```
+
+    service mysql start|stop|status|reload|restart
 
 Without service
 
-    ./mysqld --defaults-file=~/my.cnf
-	./mysqladmin --defaults-file=~/my.cnf -u root -p   shutdown
+    ./mysqld --defaults-file=~/my.cnf  
+	  ./mysqladmin --defaults-file=~/my.cnf -u root -p   shutdown
 	
 
 
 ### Config file
-```sh
-/etc/mysql/mysql.conf.d/mysqld.cnf
+   
+    /etc/mysql/mysql.conf.d/mysqld.cnf
 
-  [mysqld]
-  #
-  # * Basic Settings
-  #
-  user            = mysql
-  pid-file        = /var/run/mysqld/mysqld.pid
-  socket          = /var/run/mysqld/mysqld.sock
-  port            = 3306
-  basedir         = /usr
-  datadir         = /var/lib/mysql
-  tmpdir          = /tmp
-```
+    [mysqld]
+    #
+    # * Basic Settings
+    #
+    user            = mysql
+    pid-file        = /var/run/mysqld/mysqld.pid
+    socket          = /var/run/mysqld/mysqld.sock
+    port            = 3306
+    basedir         = /usr
+    datadir         = /var/lib/mysql
+    tmpdir          = /tmp
 
 ### Logs
 ```sh
@@ -41,6 +38,8 @@ Without service
 Activer les logs debug : show SQL requests
 ```
 # mysql -u root -p
+# or
+$ sudo mysql       # ubuntu 20.04
 
 mysql> SHOW VARIABLES LIKE "general_log%";
 
@@ -70,7 +69,9 @@ mysql> SET GLOBAL general_log = 'ON';
 
 ### Coonection to database 
 ```sh
-$ mysql -u root -p
+$ mysql -u root -p 
+# or
+$ sudo mysql       # ubuntu 20.04
 
 mysql> show databases;
 mysql> use HELLODB;
@@ -81,7 +82,7 @@ mysql> show columns from TABLE-NAME;
 mysql> ALTER TABLE message MODIFY error_description VARCHAR(500) ;
 ```
 
-### Create&Delete a base
+### Create/Delete a base
 ```sh
 mysql> create DATABASE hellodb CHARACTER SET 'utf8';
 mysql> drop DATABASE hellodb;
@@ -91,9 +92,13 @@ mysql> show databases;
 ### Manage a User 
 Create a User
 ```sh
-$ mysql -u root -p
+$ mysql -u root -p 
+# or
+$ sudo mysql       # ubuntu 20.04
 
-mysql> GRANT ALL PRIVILEGES ON mywikidb.* TO 'mywiki'@'localhost' IDENTIFIED BY 'changeit';
+CREATE USER 'myuser1'@'localhost' IDENTIFIED BY 'pass123';
+GRANT ALL PRIVILEGES ON testdb.* TO 'myuser1'@'localhost';
+FLUSH PRIVILEGES;
 ```
 
 Change Password  
@@ -128,6 +133,7 @@ mysql> create table USER (
     ->   firstname varchar(25),lastname varchar(25));
 ```
 
+### Tomcat data source
 Add to _context.xml_ or _server.xml_ in Tomcat:
 ```sh
        <Resource name="jdbc/hellodb" auth="Container" type="javax.sql.DataSource"
