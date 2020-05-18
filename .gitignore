@@ -8,3 +8,6 @@
 *.sym
 *.gdb_history
 *.class
+**/bin
+**/target
+*.jar
