@@ -19,7 +19,6 @@ Maven lifecycle
 
 
 
-## Backend
 ### Hibernate
 
 ### JPA 
@@ -30,7 +29,11 @@ JPA providers :
  
 
 
-### Spring
+### Spring MVC
+![](images/java/spring-mvc.png)
+
+### Spring Boot
+
 
 ### Spring DAO
 

@@ -2,7 +2,7 @@
 ### Compile and Run this example
     mvn compile exec:java
 
-### Maven : project structure creatio/n
+### Maven : project structure creation
     mvn archetype:generate -DgroupId=ma.jpa -DartifactId=test-jpa \
                            -DarchetypeArtifactId=maven-archetype-quickstart \
                            -DinteractiveMode=false
