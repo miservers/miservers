@@ -65,6 +65,19 @@ To use it
   <div>3</div>  
 </div>
 ~~~
+### React CSS 
+**Inline styles** : use camelCased for two names properties.Ex: **backgroundColor** instead of **background-color**.
+~~~
+function App() {
+  return (
+    <div className="App">
+      <h2 style={{backgroundColor: "lightblue", color: "red"}}>List of Users</h2>
+    </div>
+  );
+}
+~~~
+
+
 
 ### Props
 Props are arguments passed to composants:
@@ -118,7 +131,7 @@ function ListItems (props) {
 
 You can use this function to display a list of todos
 ~~~
-const todo = ['item1', 'item2', 'item3'];
+const users = [{id: 1}, 'item2', 'item3'];
 ...
 <ul>
     <ListItems items={todo} />

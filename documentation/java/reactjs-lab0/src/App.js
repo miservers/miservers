@@ -30,14 +30,17 @@ class Toggle extends React.Component {
   }
 }
 
-function ListItems (props) {
-  let items = props.items;
+
+function ListUsers (props) {
+  let users = props.users;
   return (
-    items.map(item => <li>{item}</li>)
+    users.map(user => <li key={ListUsers.id}>{user.name}</li>)
   );
 }
 
-const todo = ['item1', 'item2', 'item3'];
+const lusers = [{id: 1, name: 'allal'}, 
+               {id: 2, name: 'jilali'},
+               {id: 3, name: 'boulam'}];
 
 function App() {
   return (
@@ -46,11 +49,12 @@ function App() {
         <Welcome name="papa" />
 
         <Toggle />
-
-      <ul>
-        <ListItems items={todo} />
+ 
+      <h2 style={{backgroundColor: "lightblue", color: "red"}}>List of Users</h2>
+      <ul style={{listStyleType: "circle"}}>
+        <ListUsers users={lusers} />
       </ul>
-      
+
     </div>
 
     
