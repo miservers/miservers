@@ -151,6 +151,8 @@ had              : avait
 to have          : avoir.  
 to be            : être.  
 versatile        : polyvalent  
+inner            : interne  
+
  
 ## Contractions
 gonna : going to  

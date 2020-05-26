@@ -1,0 +1,91 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<title> JS demo</title>
+
+<script>
+// Class
+class Person {
+	constructor(fname, lname){
+		this.firstName = fname;
+		this.lastName  = lname;
+		this.age = 39;
+	}
+	
+	fullName() {
+		return this.firstName+" "+this.lastName;
+	}
+}
+p1 = new Person("diallo", "momo"); 
+</script>
+
+</head>
+<body>
+
+<h2 id="demo"></h2>
+<div id="fullName"></div>
+<input type="button" id="buttondemo" value="button demo" /> 
+
+<script>
+// Adding event handlers
+document.getElementById("demo").innerHTML = "Welcome ";
+document.getElementById("fullName").innerHTML = p1.fullName();
+
+document.getElementById("buttondemo").onclick = function() {window.alert("button demo clicked!");};
+
+
+// Function expression
+const square = function (n) {return n*n; };
+
+console.log ('sqare of 9 is ', square(9));
+
+//Function expression are usufull to pass a function as a parameter of another function
+function fmap(f, a) {
+  let res = []; 
+  let i; 
+  for (i = 0; i != a.length; i++)
+    res[i] = f(a[i]);
+  return res;
+}
+
+let numbers = [0, 1, 2, 5, 10];
+let asquare = fmap(square,numbers);
+console.log(asquare); //=> [0, 1, 4, 25, 100]
+
+// Arrow function expression
+var cubes = numbers.map(function(n) {return n*n*n});
+console.log(cubes); // [0, 1, 8, 125, 1000]
+
+// that equivalent to 
+cubes = numbers.map(n => {return n*n*n;});
+console.log(cubes); // [0, 1, 8, 125, 1000]
+
+// because function has only one instruction
+cubes = numbers.map(n => (n*n*n));
+console.log(cubes); // [0, 1, 8, 125, 1000]
+
+
+// Maps
+var users = [
+			  {id : 1, name: "Reynolds"},
+  			  {id : 2, name: "Frye"},
+  			  {id : 3, name: "Cobb"}];
+
+users.map(user => console.log(user.name));
+
+var ids = users.map(user => user.id);
+
+console.log (ids);  // [1, 2, 3]
+users.forEach (user => console.log('id=', user.id, 'username=', user.name));
+
+//window.alert("This is an fullName") ;
+document.write("<br><br>Au revoir!");
+
+
+</script>
+
+</body>
+</html>
+

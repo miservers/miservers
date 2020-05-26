@@ -1,0 +1,10 @@
+.Menu {
+  text-align: left;
+  background-color: #B27300;
+  min-height: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}

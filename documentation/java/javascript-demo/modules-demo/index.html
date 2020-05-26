@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Run module on the browser</title>
+
+<script type=”module” src=”Products.mjs”></script>
+</head>
+<script type="javascript">
+    import mimetypes;
+mimetypes.add_type("application/javascript", ".js", True);
+
+import {totalSale, sell} from './Products.mjs'
+
+let item = {
+            name: "milk",
+            price: 10,
+            stock: 1000
+           };
+
+console.log('Before. totalSale', totalSale, ', milk stock=',  item.stock);
+
+sell (item, 50);
+
+console.log('After. totalSale' , totalSale, ', milk stock',  item.stock);
+
+</script>
+</html>
+

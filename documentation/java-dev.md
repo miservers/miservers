@@ -1,15 +1,38 @@
 
-
 ## Java 8 new features
-### Lambda
+### Lambda expressions
+Lambda expressions express instances of **Functinal interfaces**(inteface with a single abstract function). Lambda expression implemente the only abstract function, and so implemente the interface. 
+
 Lambda syntax
 
 ~~~
   (parameters) -> expression;
   or
-  (parameters) -> {more than one instructions;}
+  (parameters) -> {statments;}
 ~~~
 It may have zero or more parameters. parameters are separated by a coma.
+
+**Example** :  
+.1. Create a functional interface: 
+
+~~~java
+@FunctionalInterface
+interface IFunctional{
+	
+	void abstractFunc(int x);
+	
+	default void normalFunc (int a, int b) {
+		System.out.println(a+b);
+	}
+}  
+~~~
+.2. Then Interface can be instanciated with lamda expression:  
+
+~~~
+IFunctional myObj = (x)->System.out.println(3*x);
+
+myObj.abstractFunc(10);
+~~~
 
 
 ### forEach
