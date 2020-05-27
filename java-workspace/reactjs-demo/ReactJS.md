@@ -62,9 +62,9 @@ function App() {
 }
 ~~~
 
-**CSS file**:    
-App.css: new style class must be prefixed with parent name ("App-")
+**CSS file**: new style class must be prefixed with parent name ("App-")
 ~~~
+//App.css
 .App-ListUsers {
   list-style-type: circle;
   color: aqua;
@@ -102,21 +102,22 @@ function Welcome(props) {
 State is a object containing attributes of the class. use setState to update a class attribute.
 ~~~
 class Toggle extends React.Component {
+  
   constructor (props) {
     super(props);
-    this.state = {isToggled: true, nbclicks: 0};
-    // This binding is necessary to make `this` work in the callback
-    this.handleClick = this.handleClick.bind(this);
+    this.state = {isToggled: true, 
+                  nbclicks: 0
+                 };
   }
 
-  handleClick () {
+  handleClick = (event) => {
     this.setState (state => ({isToggled: !state.isToggled, nbclicks: state.nbclicks+1}));
   }
 
   render () {
     return (
       <div>
-      <button onClick={this.handleClick}>
+      <button onClick={this.handleClick} nbclicks='10'>
           Toggle: {this.state.isToggled?'ON':'OFF'}
       </button><br/>
       Clicks: {this.state.nbclicks}

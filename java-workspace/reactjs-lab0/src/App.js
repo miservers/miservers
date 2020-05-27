@@ -9,14 +9,15 @@ function Welcome(props) {
 }
 
 class Toggle extends React.Component {
+  
   constructor (props) {
     super(props);
-    this.state = {isToggled: true, nbclicks: 0};
-    // This binding is necessary to make `this` work in the callback
-    this.handleClick = this.handleClick.bind(this);
+    this.state = {isToggled: true, 
+                  nbclicks: 0
+                 };
   }
 
-  handleClick () {
+  handleClick = (event) => {
     this.setState (state => ({isToggled: !state.isToggled, nbclicks: state.nbclicks+1}));
   }
 
