@@ -6,28 +6,13 @@ wget -qO- https://deb.nodesource.com/setup_14.x | sudo -E bash -
 sudo apt install -y nodejs
 ~~~
 
-### Create an app and start 
-my-app.js
-
-~~~
-var http = require('http');
-var port = 3000;
-http.createServer(function (req, res) {
-res.writeHead(200, {'Content-Type': 'text/html'});
-res.write('Welcome to NodeJS !');
-res.end();
-}).listen(port);
-console.log("Server run on http://localhost:"+port);
-~~~
-
-start
-
-    node my-app.js
-
 
 ### Create a react Project
 
     npx create-react-app reactjs-demo
+
+### start appli
+
     cd reactjs-demo
     npm start
 
@@ -75,6 +60,28 @@ function App() {
     </div>
   );
 }
+~~~
+
+**CSS file**
+App.css: new style class must be prefixed with parent name ("App-")
+~~~
+.App-ListUsers {
+  list-style-type: circle;
+  color: aqua;
+}
+~~~
+In App.js 
+~~~
+import './App.css';
+...
+function App() {
+  return (
+    <div className="App">
+      <ul className="App-ListUsers">
+        <ListUsers users={lusers} />
+      </ul>
+    </div> 
+  );
 ~~~
 
 
@@ -136,6 +143,46 @@ const users = [{id: 1}, 'item2', 'item3'];
 <ul>
     <ListItems items={todo} />
 </ul>
+~~~
+
+### Forms
+~~~
+class LoginForm extends React.Component {
+
+    constructor (props) {
+        super(props);
+
+        this.state = {username: 'Jilali', 
+                      password: ''
+                     };
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+        let username = this.state.username;
+        alert ('Hello ' + username);
+        
+    }
+
+    handleChange = (event) => {
+        let name  = event.target.name;
+        let value = event.target.value;
+        this.setState ({[name]:value});
+    }
+
+    render () {
+        return (
+            <div>
+            <form onSubmit={this.handleSubmit}>    
+            Username:
+                <input type="text" name="username"  value={this.state.username} onChange={this.handleChange}></input>
+            <button type="submit" value="Submit" name="Submit" >Submit</button>
+            </form>
+            </div>
+
+        );
+    }
+}
 ~~~
 
 ### Tools 

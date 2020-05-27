@@ -29,8 +29,9 @@
   color: #61dafb;
 }
 
-.ListUsers {
+.App-ListUsers {
   list-style-type: circle;
+  color: aqua;
 }
 
 @keyframes App-logo-spin {

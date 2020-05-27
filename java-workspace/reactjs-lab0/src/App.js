@@ -1,6 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import LoginForm from './LoginForm'; 
+
 
 function Welcome(props) {
   return <h1>Hello, {props.name}</h1>;
@@ -51,9 +53,11 @@ function App() {
         <Toggle />
  
       <h2 style={{backgroundColor: "lightblue", color: "red"}}>List of Users</h2>
-      <ul style={{listStyleType: "circle"}}>
+      <ul className="App-ListUsers">
         <ListUsers users={lusers} />
       </ul>
+
+      <LoginForm />
 
     </div>
 
