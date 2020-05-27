@@ -43,5 +43,6 @@ add to /etc/hosts
     127.0.0.1   localhost-dev
 
 
+
 ### Spring MVC
-![](../../documemtations/images/java/spring-mvc.png)
+![](../../documemtation/images/java/spring-mvc.png)
