@@ -20,6 +20,37 @@ sudo apt install -y nodejs
 unexpected end of json input while parsing near npx create-react-app   
 --> solution : npm cache clear --force
 
+### React ES6
+#### Arrow functions
+before 
+~~~
+sayHello = function() {
+              return "Hello !";
+}
+~~~
+
+with arrow
+~~~
+sayHello = () => {
+            return "Hello ";
+}
+~~~
+if parameter
+~~~
+sayHello = (name) => {
+            return "Hello " + name;
+}
+~~~
+
+#### this and Arrow functions
+Arrow functions have no binding of **this**.  
+With arrow functions, the **this**  represents the object that defined the arrow function.
+
+### let var const
+**let**: variable has a block scope, like Java.  
+**var**: has a function scope. but not a block scope(visible outside a block).
+**const** :  has a block scope. once created its value can never change.
+
 ### Hooks
 
 ### material ui
@@ -31,23 +62,15 @@ unexpected end of json input while parsing near npx create-react-app
 ### css3 Flexbox
 Example
 ~~~
+// CSS
 .flex-container {
   display: flex;
   flex-wrap: wrap;
-  background-color: Blue;
   flex-direction: row-reverse;
-}
-.flex-container > div {
-  background-color: #f1f1f1;
-  margin: 10px;
-  padding: 20px;
-  font-size: 30px;
 }
 To use it
 <div class="flex-container">
-  <div>1</div>
-  <div>2</div>
-  <div>3</div>  
+...
 </div>
 ~~~
 ### React CSS 
