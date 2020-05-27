@@ -58,6 +58,10 @@ With arrow functions, the **this**  represents the object that defined the arrow
  * https://material-ui.com/getting-started/templates/dashboard/
  
  * Grid : Material Design’s responsive UI is based on a 12-column grid layout.
+### React UI Layout Grids
+https://blog.bitsrc.io/12-react-ui-layout-grid-components-and-libraries-for-2019-16e8aa5d0b08
+ * Grommet 
+   ** https://storybook.grommet.io
 
 ### css3 Flexbox
 Example
@@ -171,38 +175,34 @@ const users = [{id: 1}, 'item2', 'item3'];
 
 ### Forms
 ~~~
-class LoginForm extends React.Component {
-
-    constructor (props) {
-        super(props);
-
-        this.state = {username: 'Jilali', 
-                      password: ''
-                     };
-    }
+class SignupForm extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        let username = this.state.username;
-        alert ('Hello ' + username);
-        
-    }
 
-    handleChange = (event) => {
-        let name  = event.target.name;
-        let value = event.target.value;
-        this.setState ({[name]:value});
+        const data = new FormData(event.target);
+        
+        fetch ('/services/signup', {
+            method: 'POST',
+            body: data,                                  
+        }).then(response => console.log(response));
     }
 
     render () {
         return (
-          <div>
-          <form onSubmit={this.handleSubmit}>    
-          Username:
-          <input type="text" name="username" value={this.state.username} onChange={this.handleChange}></input>
-          <button type="submit" value="Submit" name="Submit" >Submit</button>
-          </form>
-          </div>
+            <div>
+            <form onSubmit={this.handleSubmit}>    
+            <label> Username:
+                <input type="text" name="username" id="username"></input>
+            </label>
+            <label> Email:
+                <input type="email" name="email" id="email"></input>
+            </label>
+            <br />    
+            <button type="submit" value="Submit" name="Submit" >Submit</button>
+    
+            </form>
+            </div>
 
         );
     }

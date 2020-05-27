@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import LoginForm from './LoginForm'; 
+import SignupForm from './SignupForm'; 
 
 
 function Welcome(props) {
@@ -35,15 +35,15 @@ class Toggle extends React.Component {
 
 
 function ListUsers (props) {
-  let users = props.users;
-  return (
-    users.map(user => <li key={ListUsers.id}>{user.name}</li>)
+      let users = props.users;
+      return (
+          users.map(user => <li key={user.id}>{user.name}</li>)
   );
 }
 
 const lusers = [{id: 1, name: 'allal'}, 
-               {id: 2, name: 'jilali'},
-               {id: 3, name: 'boulam'}];
+                {id: 2, name: 'jilali'},
+                {id: 3, name: 'boulam'}];
 
 function App() {
   return (
@@ -53,12 +53,12 @@ function App() {
 
         <Toggle />
  
-      <h2 style={{backgroundColor: "lightblue", color: "red"}}>List of Users</h2>
-      <ul className="App-ListUsers">
-        <ListUsers users={lusers} />
-      </ul>
+        <h2 style={{backgroundColor: "lightblue", color: "red"}}>List of Users</h2>
+        <ul className="App-ListUsers">
+          <ListUsers users={lusers} />
+        </ul>
 
-      <LoginForm />
+        <SignupForm />
 
     </div>
 
