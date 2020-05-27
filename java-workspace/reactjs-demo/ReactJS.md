@@ -62,7 +62,7 @@ function App() {
 }
 ~~~
 
-**CSS file**
+**CSS file**:   
 App.css: new style class must be prefixed with parent name ("App-")
 ~~~
 .App-ListUsers {
