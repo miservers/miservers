@@ -39,8 +39,9 @@ add to /etc/hosts
     127.0.0.1   localhost-dev
 
 
+
 ### Spring MVC
-![](../../documemtation/images/java/spring-mvc.png)
+![](../../documentation/images/java/spring-mvc.png)
 
 
 ### Install mySQL 

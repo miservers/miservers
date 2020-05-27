@@ -45,4 +45,4 @@ add to /etc/hosts
 
 
 ### Spring MVC
-![](../../documemtation/images/java/spring-mvc.png)
+![](../../documentation/images/java/spring-mvc.png)
