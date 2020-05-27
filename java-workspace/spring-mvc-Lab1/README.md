@@ -40,7 +40,7 @@ add to /etc/hosts
 
 
 ### Spring MVC
-![](../../images/java/spring-mvc.png)
+![](../../documemtations/images/java/spring-mvc.png)
 
 
 ### Install mySQL 
