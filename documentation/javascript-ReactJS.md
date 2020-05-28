@@ -81,8 +81,15 @@ To use it
 **Inline styles** : use camelCased for two names properties.Ex: **backgroundColor** instead of **background-color**.
 ~~~
 function App() {
-  return (
-    <div className="App">
+
+  const myStyle = {
+     padding: '10px',
+     border: '1px solid green',
+  }
+
+ return (
+     return (
+    <div className="App" style={myStyle}>
       <h2 style={{backgroundColor: "lightblue", color: "red"}}>List of Users</h2>
     </div>
   );
@@ -114,7 +121,10 @@ function App() {
 
 
 ### Props
-Props are arguments passed to composants:
+Props are variables passed to component by its parent component.  
+ * Props should never be changed in a child component. 
+ * Props are equivalent to parameters of a pure javascript function.
+ * Props are immutable.
 ~~~
 function Welcome(props) {
   return <h1>Hello, {props.name}</h1>;
@@ -126,7 +136,8 @@ function Welcome(props) {
 ~~~
 
 ### State
-State is a object containing attributes of the class. use setState to update a class attribute.
+State on the other hand is still variables, but directly initialized and managed by the component.    
+It is a object containing attributes of the class. use setState to update an attribute.
 ~~~
 class Toggle extends React.Component {
   
@@ -181,7 +192,10 @@ class SignupForm extends React.Component {
         event.preventDefault();
 
         const data = new FormData(event.target);
-        
+
+        const username = data.get('username').toLocaleLowerCase();        
+        data.set ('username', username);
+
         fetch ('/services/signup', {
             method: 'POST',
             body: data,                                  
@@ -227,6 +241,8 @@ class SignupForm extends React.Component {
  * lg : The number of columns on large devices (≥992px)
  * md, sm, xl, xs : colomns on medium (≥768px), small (≥576px) ,extra large(≥1200px), extra small  (<576px) devices  
  
+### References
+ * https://fr.reactjs.org/docs/
 
 
 
