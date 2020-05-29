@@ -13,8 +13,8 @@ Example:
 <input type="button" id="button1" value="button1" /> 
 
 document.getElementById("button1").onclick = function() {
-    window.alert("button 1 clicked!");
-};
+                                    window.alert("button 1 clicked!");
+                                    };
 ~~~
 
 ## Modules 
