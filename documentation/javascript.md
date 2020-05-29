@@ -6,15 +6,14 @@ http://es6-features.org
 ### Adding event handlers
 
 ~~~javascript
-document.getElementById(id).onclick = function(){code}
+document.getElementById(id).onclick = function() { code }
 
-Example:
+// Example
 
 <input type="button" id="button1" value="button1" /> 
 
 document.getElementById("button1").onclick = function() {
-                                    window.alert("button 1 clicked!");
-                                    };
+                                    window.alert("button 1 clicked!");};
 ~~~
 
 ## Modules 
