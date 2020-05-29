@@ -29,14 +29,21 @@
   color: #61dafb;
 }
 
-.App-ListUsers {
-  list-style-type: circle;
-  color: aqua;
+.FilterableProductTable {
+  padding-top: 10px;
+  text-align: center;
+  margin: auto;
 }
 
-.App-FilterableProductTable {
-  border: 1px solid orange;
+.ProductTable {
+  display: table;
+  width: 50%; 
+  margin: auto;
+  text-align: justify;
+  border: red 1px solid;
 }
+
+
 
 @keyframes App-logo-spin {
   from {

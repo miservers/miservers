@@ -96,7 +96,7 @@ function App() {
 }
 ~~~
 
-**CSS file**: new style class must be prefixed with parent name ("App-")
+**CSS file**: 
 ~~~
 //App.css
 .App-ListUsers {
@@ -136,7 +136,7 @@ function Welcome(props) {
 ~~~
 
 ### State
-State on the other hand is still variables, but directly initialized and managed by the component.    
+L’état local est réservé à l’interactivité, c’est-à-dire aux données qui évoluent dans le temps.
 It is a object containing attributes of the class. use setState to update an attribute.
 ~~~
 class Toggle extends React.Component {
@@ -167,23 +167,26 @@ class Toggle extends React.Component {
 
 ### Lists
 ~~~
-function ListItems (props) {
-  let items = props.items;
-  return (
-    items.map(item => <li>{item}</li>)
+const lusers = [{id: 1, name: 'allal'}, 
+                {id: 2, name: 'jilali'},
+                {id: 3, name: 'boulam'}];
+                
+function ListUsers (props) {
+      const listItems = props.users.map(user => <li key={user.id}>{user.name}</li>);
+      return (
+          {listItems}
   );
 }
-~~~
 
-You can use this function to display a list of todos
-~~~
-const users = [{id: 1}, 'item2', 'item3'];
-...
-<ul>
-    <ListItems items={todo} />
-</ul>
-~~~
-
+function App() {
+  return (
+    <div className="App">
+        <ul className="App-ListUsers">
+          <ListUsers users={lusers} />
+        </ul>
+        ...
+ ~~~   
+     
 ### Forms
 ~~~
 class SignupForm extends React.Component {
@@ -232,8 +235,9 @@ class SignupForm extends React.Component {
  
 
 ### Test your front-end against a real API
+ * https://github.com/public-apis/public-apis
  * https://reqres.in/api/users
- * https://reqres.in/api/ 
+ * https://reqres.in
 
 
 

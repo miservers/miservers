@@ -69,3 +69,38 @@ For a List simply write
 ~~~java 
 	myList.forEach(item -> System.out.println(item));
 ~~~
+
+### API for prototype development: json-server
+**Install json-server**
+~~~ 
+npm install -g json-server 
+~~~
+
+**Define your Data in db.json file**
+~~~
+{
+    "Products": [
+        {"category": "Sporting Goods", "price": "$49.99", "stocked": true, "name": "Football"},
+        {"category": "Sporting Goods", "price": "$9.99", "stocked": true, "name": "Baseball"},
+        {"category": "Sporting Goods", "price": "$29.99", "stocked": false, "name": "Basketball"},
+        {"category": "Electronics", "price": "$99.99", "stocked": true, "name": "iPod Touch"},
+        {"category": "Electronics", "price": "$399.99", "stocked": false, "name": "iPhone 5"},
+        {"category": "Electronics", "price": "$199.99", "stocked": true, "name": "Nexus 7"}
+    ],
+    "users": [ 
+        { "id": 1, "name": "Lorem ipsum"}, 
+        { "id": 2, "name": "Taurex Aile"} 
+     ] 
+}  
+~~~
+
+**Start json-server**
+~~~
+json-server -p 2707 db.json
+~~~
+
+**Access to Resources**   
+  * http://localhost:2707/Products  
+  * http://localhost:2707/users  
+
+

@@ -34,6 +34,11 @@ class Toggle extends React.Component {
 }
 
 
+const lusers = [{id: 1, name: 'allal'}, 
+                {id: 2, name: 'jilali'},
+                {id: 3, name: 'boulam'}];
+
+                
 function ListUsers (props) {
       let users = props.users;
       return (
@@ -41,9 +46,6 @@ function ListUsers (props) {
   );
 }
 
-const lusers = [{id: 1, name: 'allal'}, 
-                {id: 2, name: 'jilali'},
-                {id: 3, name: 'boulam'}];
 
 function App() {
   return (

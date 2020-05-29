@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Responsive Table using div</title>
+    <style>
+        #responsive-table {
+            display: table;
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+       
+        #responsive-table-caption {
+            display: table-caption;
+            text-align: center;
+            font-size: larger;
+            font-weight: bold;
+        }
+        #responsive-table-header-row {
+            display: table-header-group;
+            background-color: grey;
+        }
+        .responsive-table-header-cell {
+            display: table-cell;
+            font-weight: bold;
+            text-align: justify;
+        }
+        .responsive-table-body {
+            display: table-row-group;
+        }
+        .responsive-table-row {
+            display: table-row;
+        }
+        .responsive-table-cell {
+            display: table-cell;
+        }
+    </style>
+</head>
+<body>
+    <div id="responsive-table">                 <!--Master div table-->  
+        <div id="responsive-table-caption">     
+            Responsive table with div tags    
+        </div>
+        <div id="responsive-table-header-row">
+            <div class="responsive-table-header-cell">Product</div>
+            <div class="responsive-table-header-cell">Price</div>
+            <div class="responsive-table-header-cell">Quantity</div>
+        </div>
+        <div class="responsive-table-body">
+            <div class="responsive-table-row">
+                <div class="responsive-table-cell">Tomates</div>
+                <div class="responsive-table-cell">3 DH</div>
+                <div class="responsive-table-cell">5</div>
+            </div>
+            <div class="responsive-table-row">
+                <div class="responsive-table-cell">Potato</div>
+                <div class="responsive-table-cell">2 DH</div>
+                <div class="responsive-table-cell">10</div>
+            </div>
+            <div class="responsive-table-row">
+                <div class="responsive-table-cell">Carrot</div>
+                <div class="responsive-table-cell">4 DH</div>
+                <div class="responsive-table-cell">7</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
