@@ -51,7 +51,45 @@ With arrow functions, the **this**  represents the object that defined the arrow
 **var**: has a function scope. but not a block scope(visible outside a block).
 **const** :  has a block scope. once created its value can never change.
 
+### Components
+Components are like JavaScript functions. They accept arbitrary inputs (called “props”) and return React elements describing what should appear on the screen.
+~~~javascript
+// Function components
+function Welcome(props) {
+  return <h1>Hello {props.name}</h1>;
+}
+
+// Class component
+class Welcome extends React.Component {
+  render() {
+    return <h1>Hello {this.props.name}</h1>;
+  }
+}
+
+// This component can bee used like
+<Welcome   name="youssef"/> // display : Hello youssef
+~~~
+
+### Component lifecycle
+ * **constructor(props)**
+ * **render()**
+ * **componentDidMount()**: invoked immediately after the component is insrted into the tree. If you need to load data from a remote endpoint, this is a good place to instantiate the network request. call **setState()** immediately in componentDidMount().
+ * **componentDidUpdate()** . is invoked immediately after updating occurs. This is also a good place to do network requests
+
 ### Hooks
+**useState** : create an new instance of **State** object.
+~~~javascript
+const MyFunctionCompenent = (props) => {
+    let [name, setName] = useState('');
+         
+    return (
+        <input type="text" onChange={(event) => setName(event.target.value)}></input>
+        <h2>Hello {name}</h2>
+    )
+}
+~~~ 
+
+**useEffect** : like componentDidMount, this hook is called immediately after component creation.
 
 ### material ui
  * https://github.com/mui-org/material-ui

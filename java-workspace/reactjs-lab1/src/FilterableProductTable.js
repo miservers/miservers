@@ -3,7 +3,9 @@ import logo from './logo.svg';
 import './FilterableProductTable.css';
 
 /* Implementation of https://fr.reactjs.org/docs/thinking-in-react.html
- *
+ * Start json-server 
+       json-server -p 2707 db.json
+  
   // JSON API send this data
   const listProducts = [
                     {category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football"},
@@ -13,15 +15,29 @@ import './FilterableProductTable.css';
                     {category: "Electronics", price: "$399.99", stocked: false, name: "iPhone 5"},
                     {category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7"}
                     ]; 
-*/
+/**/
  
 class FilterableProductTable extends React.Component {
-  
+  constructor (props) {
+    super(props);
+    this.state = {listProducts:[]
+                 }
+  }
+
+  componentDidMount () {
+    fetch ('http://localhost:2707/Products')
+    .then (response => response.json())
+    .then (data => this.setState(state => state.listProducts=data));
+
+    console.log(this.state);
+    
+  }
+
   render () {
     return (
       <div className="FilterableProductTable">
         <SearchBar />
-        <ProductTable products={listProducts}/>
+        <ProductTable products={this.state.listProducts}/>
       </div>
     );
   }
@@ -51,7 +67,7 @@ class ProductTable extends React.Component {
   }
   
   render () {
-    const listProducts = this.props.products.map(product => <ProductRow product={product}/>);
+    const listProducts = this.props.products.map(product => <ProductRow key={product.name} product={product}/>);
       
     return (
       <div className="ProductTable">

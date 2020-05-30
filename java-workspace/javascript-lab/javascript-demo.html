@@ -84,6 +84,24 @@ users.forEach (user => console.log('id=', user.id, 'username=', user.name));
 document.write("<br><br>Au revoir!");
 
 
+// What is this?
+/* In a method, this refers to the owner object.
+   Alone, this refers to the global object.
+   In a function, this refers to the global object.
+   In a function, in strict mode, this is undefined.
+   In an event, this refers to the element that received the event.
+   Methods like call(), and apply() can refer this to any object.
+*/
+console.log ("++++++++ What is This ++++++++++++++")
+var user = {
+	name: "allal from this",
+	age: 67,
+
+	whatIsThis: function() {console.log("This in a method: "+ this.name);}
+}
+user.whatIsThis ();
+
+
 </script>
 
 </body>

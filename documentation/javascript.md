@@ -16,7 +16,7 @@ document.getElementById("button1").onclick = function() {
                                     window.alert("button 1 clicked!");};
 ~~~
 
-## Modules 
+### Modules 
  1. Create a module **Products.mjs** 
 ~~~javascript
 var totalSale=0; 
@@ -50,17 +50,12 @@ console.log('totalSale' , totalSale, 'DH , milk stock=',  item.stock);
 ~~~
 
 ### Function expression
+Function expression is a normal function but stored in a variable. Function expression are usufull to pass a function as a parameter of another function. In the example bellow **square** is called **callback functions**.
 ~~~javascript
 const square = function (n) {return n*n; };
 
-console.log ('sqare of 9 is ', square(9));
-~~~
-
-Function expression are usufull to pass a function as a parameter of another function
-~~~javascript
 function fmap(f, a) {
-  let res = []; 
-  let i; 
+  let res = [];  let i; 
   for (i = 0; i != a.length; i++)
     res[i] = f(a[i]);
   return res;
@@ -72,7 +67,15 @@ console.log(squares); //=> [0, 1, 4, 25, 100]
 ~~~
 
 ### Arrow function expression
-map is predefined on array object
+Format of Arrow function declaration
+~~~javascript
+let myfunc = (arg1, arg2, ...argN) => expression
+~~~
+
+* **(...args) => expression**  : expression Without curly braces. the function evaluates it and returns the result.
+* **(...args) => { body }**: we need an explicit return to return something.  
+
+**map** is predefined on array object
 ~~~javascript
 numbers = [0, 1, 2, 5, 10]
 
@@ -125,6 +128,20 @@ var person = {
 
 console.log("Full name " + person.fullName());
 ~~~
+
+### Strict mode
+To enable the full javascript new features, you must use strict mode. In this mode "bad syntax" will be treated as real errors(not declared variable is not allowed,etc). 
+~~~javascript
+'use strict';
+~~~
+
+### this
+ * In a method, *this* refers to the owner object.
+ * Alone, *this* refers to the global object.
+ * In a function, *this* refers to the global object.
+ * In a function, in strict mode, *this* is undefined.
+ * In an event, *this* refers to the element that received the event.
+ * Methods like call(), and apply() can refer *this* to any object.
 
 
 ### JavaScript References
