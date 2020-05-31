@@ -70,7 +70,7 @@ For a List simply write
 	myList.forEach(item -> System.out.println(item));
 ~~~
 
-### API for prototype development: json-server
+### json-server : API to develop a Prototype  
 **Install json-server**
 ~~~ 
 npm install -g json-server 

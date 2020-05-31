@@ -1,5 +1,3 @@
-
-
 ### Install NodeJS on ubuntu 
 ~~~
 wget -qO- https://deb.nodesource.com/setup_14.x | sudo -E bash -
@@ -15,6 +13,9 @@ sudo apt install -y nodejs
 
     cd reactjs-demo
     npm start
+
+### Install a dependency
+    npm install --save react-router-dom
 
 **Errors**   
 unexpected end of json input while parsing near npx create-react-app   
@@ -123,6 +124,7 @@ function App() {
   const myStyle = {
      padding: '10px',
      border: '1px solid green',
+     backgroundColor: "DodgerBlue",
   }
 
  return (
@@ -265,12 +267,45 @@ class SignupForm extends React.Component {
 ~~~
 
 ### Tools 
- * Visual Studio Code
+ * **Visual Studio Code**
  
+### json-server : API to develop a Prototype  
+**Install json-server**
+~~~ 
+npm install -g json-server 
+~~~
+
+**Define your Data in db.json file**
+~~~
+{
+    "Products": [
+        {"category": "Sporting Goods", "price": "$49.99", "stocked": true, "name": "Football"},
+        {"category": "Sporting Goods", "price": "$9.99", "stocked": true, "name": "Baseball"},
+        {"category": "Sporting Goods", "price": "$29.99", "stocked": false, "name": "Basketball"},
+        {"category": "Electronics", "price": "$99.99", "stocked": true, "name": "iPod Touch"},
+        {"category": "Electronics", "price": "$399.99", "stocked": false, "name": "iPhone 5"},
+        {"category": "Electronics", "price": "$199.99", "stocked": true, "name": "Nexus 7"}
+    ],
+    "users": [ 
+        { "id": 1, "name": "Lorem ipsum"}, 
+        { "id": 2, "name": "Taurex Aile"} 
+     ] 
+}  
+~~~
+
+**Start json-server**
+~~~
+json-server -p 2707 db.json
+~~~
+
+**Access to Resources**   
+  * http://localhost:2707/Products  
+  * http://localhost:2707/users  
+
+
 ### Best components
- * https://github.com/mui-org/material-ui
- * https://material-ui.com/getting-started/templates/dashboard/
- 
+ * **material-ui**
+ * **React-bootstrap** : React implementation of JQery Bootstrap
 
 ### Test your front-end against a real API
  * https://github.com/public-apis/public-apis
@@ -285,6 +320,8 @@ class SignupForm extends React.Component {
  
 ### References
  * https://fr.reactjs.org/docs/
+ * https://create-react-app.dev
+ * https://www.w3schools.com/bootstrap
 
 
 
