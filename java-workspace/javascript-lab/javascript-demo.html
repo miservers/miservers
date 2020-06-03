@@ -19,6 +19,10 @@ class Person {
 	}
 }
 p1 = new Person("diallo", "momo"); 
+
+function sayHello () {
+	alert ("Event target:" + event.target + " , type:" + event.type);
+}
 </script>
 
 </head>
@@ -26,14 +30,12 @@ p1 = new Person("diallo", "momo");
 
 <h2 id="demo"></h2>
 <div id="fullName"></div>
-<input type="button" id="buttondemo" value="button demo" /> 
+<input type="button" id="buttondemo" value="say Hello" onclick="sayHello()"/> 
 
 <script>
 // Adding event handlers
 document.getElementById("demo").innerHTML = "Welcome ";
 document.getElementById("fullName").innerHTML = p1.fullName();
-
-document.getElementById("buttondemo").onclick = function() {window.alert("button demo clicked!");};
 
 
 // Function expression

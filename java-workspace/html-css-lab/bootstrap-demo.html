@@ -14,13 +14,292 @@
 </head>
 <body>
 <div class="container">
-    <h1>Fisrt page</h1>
-    <p>some text</p>
+    <!-------------------------------->
+    <br/><h2 class="text-center">Row , Col</h2><hr/>
+    <!-------------------------------->
     <div class="row">
         <div class="col">1</div>
         <div class="col">2</div>
         <div class="col">3</div>
+    </div>
+    
+    <!-------------------------------->
+    <br/><h2>Alert</h2><hr/>
+    <!-------------------------------->
+    <div class="alert alert-success">
+      <strong>Success!</strong> Indicates a successful or positive action.
+    </div>
+    <div class="alert alert-info alert-dismissible">
+      <button class="close" data-dismiss="alert">&times;</button>
+      <strong>Info!</strong> Indicates an Info.
+    </div>
+
+    <!-------------------------------->
+    <br/><h2>Button</h2><hr/>
+    <!-------------------------------->    
+    <button type="button" class="btn">btn Basic</button>
+    <button type="button" class="btn btn-primary">btn-primary</button>
+    <button type="button" class="btn btn-secondary">btn-secondary</button>
+    <button type="button" class="btn btn-link">btn-link</button>
+    <br/><br/>
+
+    <!--Button Group -->
+    <div class="btn-group">
+      btn-group:
+      <button type="button" class="btn btn-primary">Apple</button>
+      <button type="button" class="btn btn-secondary">Samsung</button>
+      <button type="button" class="btn btn-primary">Sony</button>
+    </div>
+    <br/><br/>
+
+    <button class="btn btn-primary">
+      <span class="spinner-border"></span>
+      spinner-border
+    </button>
+    <br/><br/>
+
+    <div class="dropdown">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        dropdown-toggle
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Link 1</a>
+        <a class="dropdown-item" href="#">Link 2</a>
+        <a class="dropdown-item" href="#">Link 3</a>
       </div>
-</div>
+    </div>
+    <br/><br/>
+
+    <button data-toggle="collapse" data-target="#demo">collapse</button>
+    <div id="demo" class="collapse">
+      ksd lid sdu text....
+    </div>
+    <br/>
+
+    <!-------------------------------->    
+    <br/><h2>Nav Menu</h2><hr/>
+    <!-------------------------------->
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link1</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link2</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li>
+    </ul>
+
+    <!-------------------------------->
+    <br/><h2>Navbar</h2><hr/>
+    <!-------------------------------->
+    <nav class="navbar navbar-expand-sm bg-dark">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="navbar-brand" href="#">
+            <img src="bird.png" alt="Logo" style="width:20px;">
+          </a>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="#">Link</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Link</a></li>
+      </ul>
+
+      <form class="form-inline" action="/action.do">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search"></input>
+        <button class="btn btn-success">Search</button>
+      </form>
+    </nav>
+
+    <!-------------------------------->
+    <br/><h2>Modal</h2><hr/>
+    <!-------------------------------->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+      Open modal
+    </button>
+
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal">
+      <div class="modal-dialog modal-lg" style="width: 1250px;">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <h4 class="modal-title">New User</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <div class="modal-body">
+            Username:
+            <input class="mr-sm-2" type="text"></input><br/>
+            Email:
+            <input class="mr-sm-2" type="email"></input><br/>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+
+          <div class="modal-footer">
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-------------------------------->
+    <br/><br/><h2>Forms</h2><hr/>
+    <!-------------------------------->
+    <form class="form-horizontal" action="/sinup" method="POST">
+        <div class="row pt-1">
+          <div class="col-sm-2">
+            <label class="control-label" for="username">Username</label>
+          </div>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="username" name="username"></input>
+          </div>  
+        </div>
+        <div class="row pt-1">
+          <div class="col-sm-2">
+            <label class="control-label" for="email">Email</label>
+          </div>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="email" name="email"></input>
+          </div>  
+        </div>
+        <div class="row pt-1">
+          <div class="col-sm-2">
+            <label class="control-label" for="password">Password</label>
+          </div>
+          <div class="col-sm-4">
+            <input type="password" class="form-control" id="password" name="password"></input>
+          </div>  
+        </div>
+        <div class="row pt-1"> 
+          <div class="col-sm-4 mx-auto">
+            <button class="btn btn-success">Sign up</button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+    <br/><br/>
+
+    <!-------------------------------->
+    <br/><h2>Borders</h2><hr/>
+    <!-------------------------------->
+    <div class="border border-primary">border</div>
+    <div class="border border-warning rounded">rounded</div>
+    <div class="border border-0">B</div>
+    <div class="border  border-success border-top-0">C</div>
+
+    <!-------------------------------->
+    <br/><h2 class="text-center">Width, Height</h2><hr/>
+    <!-------------------------------->
+    <div class="w-25 bg-warning">w-25</div>
+    <div class="w-50 bg-success">w-50</div>
+    <div class="w-75 bg-warning">w-75</div>
+
+    <div style="height: 200px; margin-top: 4px;">
+      <div class="h-25 d-inline-block p-2 bg-primary">h-25</div>
+      <div class="h-75 d-inline-block p-2 bg-success">h-75</div>
+    </div>
+
+    <!-------------------------------->
+    <br/><h2>Colors</h2><hr/>
+    <!-------------------------------->
+    <span class="text-success">text-success</span>
+    <span class="text-danger">text-danger</span>
+    
+    <!-------------------------------->
+    <br/><h2>Background Colors</h2><hr/>
+    <!-------------------------------->
+    <div class="bg-info">bg-info</div>
+    <div class="bg-primary">bg-primary</div>
+    <div class="bg-warning">bg-warning</div>
+    
+    <!-------------------------------->
+    <br/><h2>Typography/Text Classes</h2><hr/>
+    <!-------------------------------->
+    <span class="display-4">display-4</span>
+    <span class="font-weight-bold">font-weight-bold</span>
+    <span class="font-italic">font-italic</span>
+    <span class="small">small</span><br/>
+    <div class="text-right">text-right</div><br/>
+    <div class="text-justify">text-justify</div>
+    
+    <!-------------------------------->
+    <br/><h2>Inline </h2><hr/>
+    <!-------------------------------->
+    <div class="bg-primary">
+      <div class="w-25 d-inline-block bg-warning">d-inline-block</div>
+      <div class="w-25 d-inline-block bg-sucess">d-inline-block</div>
+      <div class="w-25 d-inline-block bg-info">d-inline-block</div>
+    </div>
+
+    <!-------------------------------->
+    <br/><h2>Display as table </h2><hr/>
+    <!-------------------------------->
+    <div class="d-table w-75 border border-primary">
+      <div class="d-table-row">
+        <div class="d-table-cell ">1</div>
+        <div class="d-table-cell">2</div>
+      </div>
+      <div class="d-table-row">
+        <div class="d-table-cell ">3</div>
+        <div class="d-table-cell">4</div>
+      </div>
+    </div>
+
+    <!-------------------------------->
+    <br/><br/><h2>Tables</h2><hr/>
+    <!-------------------------------->
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Head</th>
+            <th scope="col">Head</th>
+            <th scope="col">Head</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>1</th>
+            <td>cell</td>
+            <td>cell</td>
+            <td>cell</td>
+          </tr>
+          <tr>
+            <th>2</th>
+            <td>cell</td>
+            <td>cell</td>
+            <td>cell</td>
+          </tr>
+          <tr>
+            <th>3</th>
+            <td>cell</td>
+            <td>cell</td>
+            <td>cell</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-------------------------------->
+    <br/><br/><h2>Grid </h2><hr/>
+    <!-------------------------------->
+    <b>col-*</b>: can't collapse<br/>
+    <b>col-sm-*</b>: may collapse<br/>
+    <div class="container">
+      <div class="row">
+        <div class="col-3 bg-warning">col-3</div>
+        <div class="col-7 bg-primary">col-7</div>
+        <div class="col-2 bg-success">col-2</div>
+      </div>
+      <br/>
+      <div class="row">
+        <div class="col-sm-3 bg-warning">col-sm-3</div>
+        <div class="col-sm-9 bg-success">col-sm-9</div>
+      </div>
+    </div>
+  <br/><br/><br/>
+  </div>
 </body>
 </html>

@@ -1,5 +1,7 @@
 
-## JavaScript
+### JavaScript Demos
+[javascript-demo.html](../java-workspace/javascript-lab/javascript-demo.html)
+
 ### ES6 Features
 http://es6-features.org
 
@@ -14,6 +16,31 @@ document.getElementById(id).onclick = function() { code }
 
 document.getElementById("button1").onclick = function() {
                                     window.alert("button 1 clicked!");};
+~~~
+
+### Event object
+When a W3C event listener’s event occurs and it calls its associated function, it  passes a single argument to the function—a reference to the event object.   
+Event properties:
+ * type : The event that occurred (click, focus, blur, etc.)
+ * target : The element to which the event occurred 
+ * value
+~~~html
+<script>
+  function sayHello () {
+	  alert ("Event target:" + event.target + " , type:" + event.type);
+  }
+
+</script> 
+
+<input type="button" id="buttondemo" value="say Hello" onclick="sayHello()"/> 
+~~~
+
+
+### Objects
+**Plain Object**  
+~~~javascript
+const obj = { a: 'foo', b: 42, c: {} }; //c is an object attribute
+obj.a = 'bar';
 ~~~
 
 ### Modules 

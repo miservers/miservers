@@ -177,32 +177,55 @@ function Welcome(props) {
 
 ### State
 L’état local est réservé à l’interactivité, c’est-à-dire aux données qui évoluent dans le temps.
-It is a object containing attributes of the class. use setState to update an attribute.
-~~~
-class Toggle extends React.Component {
-  
-  constructor (props) {
-    super(props);
-    this.state = {isToggled: true, 
-                  nbclicks: 0
-                 };
-  }
+It is a object containing attributes of the class. use setState to update an attribute.   
+[StateDemo.js](../java-workspace/reactjs-lab2/src/StateDemo.js)  
+~~~javascript
+ const styles = {margin: "10px"};
 
-  handleClick = (event) => {
-    this.setState (state => ({isToggled: !state.isToggled, nbclicks: state.nbclicks+1}));
-  }
+ class StateDemo extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {product: '', price: 0, quantity: 0}
+    }
 
-  render () {
-    return (
-      <div>
-      <button onClick={this.handleClick} nbclicks='10'>
-          Toggle: {this.state.isToggled?'ON':'OFF'}
-      </button><br/>
-      Clicks: {this.state.nbclicks}
-      </div>
-    );
-  }
+    handleChange = (event) => {
+        if (event.target.name == 'product')
+            this.setState ({product: event.target.value})
+        else if (event.target.name == 'price')
+            this.setState ({price: event.target.value})
+        
+    } 
+
+    render () {
+        return (
+            <div>
+                <h2>State Demo</h2><hr/>
+                Product:
+                <input type="text" name="product" onChange={this.handleChange} style={styles}/>
+                Price:
+                <input type="text" name="price" onChange={this.handleChange} style={styles}/>
+                <br/>
+                <b>Added product: {this.state.product}, price: {this.state.price} DH</b>
+
+            </div>
+        );
+    }
 }
+~~~
+
+**Do Not Modify State Directly**  
+~~~javascript
+// Wrong
+this.state.comment = 'Hello';
+
+// Correct
+this.setState({comment: 'Hello'});
+~~~
+
+
+**setState(function)**: a second form of setState() that accepts a function rather than an object.
+~~~javascript
+this.setState((state, props) => ({counter: state.counter + props.increment}));
 ~~~
 
 ### Lists
@@ -265,6 +288,71 @@ class SignupForm extends React.Component {
     }
 }
 ~~~
+### Spaces
+add {' '} to return block:
+~~~javascript
+      <Button variant="primary">primary</Button>{' '}
+      <Button variant="success">success</Button>{' '}
+~~~
+
+### text Align
+Text Center 
+~~~javascript
+  <h2 className="text-center">Aligned text</h2>
+~~~
+
+### Tricks
+**Export, Import var/const**
+Export var/const 
+~~~javascript
+export var users = [ {}, {}, ];
+~~~
+Import var/const
+~~~javascript
+import {users} from './User';
+~~~
+
+### JSX
+See : https://fr.reactjs.org/docs/jsx-in-depth.html
+
+**JSX code**
+~~~javascript
+<MyButton color="blue" shadowSize={2}>
+  Cliquez ici
+</MyButton>
+~~~
+is compiled to  :
+~~~javascript
+React.createElement(
+  MyButton,
+  {color: 'blue', shadowSize: 2},
+  'Cliquez ici'
+)
+~~~
+
+**Composant must start with Majuscule**:
+~~~javascript
+// incorrect!. write Hello insteed
+function hello(props) {
+  return <div>bonjour {props.toWhat}</div>;
+}
+~~~
+
+**Spread Attributes**(**...**)
+App1 and App2 are equivalent
+~~~javascript
+function App1() {
+  return <Greeting firstName="wld" lastName="bni" />;
+}
+
+function App2() {
+  const props = {firstName: 'wld', lastName: 'bni'};
+  return <Greeting {...props} />;
+}
+~~~
+
+### React code style
+https://github.com/airbnb/javascript/tree/master/react
 
 ### Tools 
  * **Visual Studio Code**
@@ -322,6 +410,9 @@ json-server -p 2707 db.json
  * https://fr.reactjs.org/docs/
  * https://create-react-app.dev
  * https://www.w3schools.com/bootstrap
+ * [Best React Libraries](https://www.robinwieruch.de/react-libraries)
+ * [code style](https://github.com/airbnb/javascript/tree/master/react)
+
 
 
 

@@ -31,6 +31,8 @@ p.centredtext {
 ~~~
 
 ### Bootstrap 4
+**BS4 Demos**: [bootstrap-demo.html](../java-workspace/html-css-lab/bootstrap-demo.html)
+
 **Container**: Bootstrap requires a containing element to wrap site contents.
 ~~~html
 <div class="container">
@@ -38,7 +40,39 @@ p.centredtext {
 </div>
 ~~~
 
-**Bootstrap 4 Grid System** is built with flexbox and allows up to **12 columns** across the page.
+**Bootstrap 4 Grid System** is built with flexbox and allows up to **12 columns** across the page. **col-sm-2** equal to 2 columns for smal device.  
+Format : col-a-b, a=sm,lg,xl devices. b=1 to 12 columns.   
+col-*: can't collapse   
+col-sm-*: may collapse    
+
+~~~html
+<div class="row  pt-2">
+  <div class="col-sm-2">
+    <label for="username">Username</label>
+  </div>
+  <div class="col-sm-6">
+    <input type="text" class="form-control" id="username" name="username"></input>
+  </div>  
+</div>
+~~~
+
+**Bootstrap 4 Utilities**: Bootstrap 4 has a lot of utility/helper classes to quickly style elements without using any CSS code. See : https://www.w3schools.com/bootstrap4/bootstrap_utilities.asp.  Examples below.
+
+
+**Spacing**: Format : {property}{sides}-{size}. Example **pt-2** stand for : padding top 2(=8px)  
+See https://www.w3schools.com/bootstrap4/bootstrap_utilities.asp
+
+**Text center** : class="text-center"
+
+**Center Align**: .mx-auto class
+
+
+**Border** class: border, border-0, border-top-0. border Colors: border-primary, border-success,etc. Borders radius: rounded, rounded-circle,...
+
+**Width**: w-50 = width of 50%
+
+
+
 
 ### Responsive Table using div
 See [div-table.html](../java-workspace/html-css-lab/div-table.html)
