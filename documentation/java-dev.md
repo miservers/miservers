@@ -103,4 +103,12 @@ json-server -p 2707 db.json
   * http://localhost:2707/Products  
   * http://localhost:2707/users  
 
+### ToStringBuilder
+very useful utility from **apache-commons** package 
+~~~  java
+  @Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
+~~~
 
