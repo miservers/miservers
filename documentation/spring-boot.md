@@ -16,7 +16,7 @@ For example  **@Email** annotation  throw exception if email is not valid.
 @Entity
 public class User {
 
-    @NotBlank                             // validator
+    @NotBlank          // validator
 	String username;
 
 	@Email(message = "email bad format")  //validator
@@ -58,7 +58,6 @@ Add this dependency to pom.xml
 [spring-boot-h2-database](https://www.baeldung.com/spring-boot-h2-database)
 
 ### Logging with Lombok
-~~~
  * **@Log4j2** – Creates the logger with following statement:
 ~~~java
 private static final org.apache.logging.log4j.Logger log = 
@@ -86,3 +85,4 @@ public class MyClass
     <groupId>org.projectlombok</groupId>
     <artifactId>lombok</artifactId>
 </dependency>
+~~~
