@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -18,9 +20,11 @@ public class User {
 	long id;
 
 	@Column(nullable = false)
+	@NotBlank
 	String username;
 
 	@Column(nullable = false)
+	@Email(message = "email bad format")
 	String email;
 
 	String password;

@@ -1,3 +1,9 @@
+### Url tests
+http://localhost:8080/user   : All users
+http://localhost:8080/user/2 : one user
+
+
+
 ### Spring boot with h2 database
 **pom.xml**
 ~~~xml

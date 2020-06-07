@@ -111,4 +111,20 @@ very useful utility from **apache-commons** package
 		return ToStringBuilder.reflectionToString(this);
 	}
 ~~~
+### Optional class(java 8)
+Optional is an alternative to **null**. very useful for code **lisibility**.
+~~~java
+	String name = "something";
+    Optional<String> opt = Optional.of(name);
+	opt.get();			 // return name value, otherwise throw NoSuchElementException.
+	if (opt.isPresent()) //true if there is a value present, otherwise false.
+~~~ 
 
+
+### RESTful web service
+Conventions:
+ * **GET**: Read. **GET /product** get all products. **GET /product/{id}** read product identified  by id. return **HTTP 200(OK)** status.  if resource identified by ID cannot be found, an **HTTP 404** status is returned. 
+ * **POST**: Create. **POST  /product** create the product transmitted. And return created Id in response, and **HTTP 201 (Created)** status .
+ * **PUT**: Update. **PUT /product/{id}** update product identified by id with that transmitted. If resource not found , an **HTTP 404** status is returned. if found return **HTTP 200(OK)** in response
+ * **DELETE**: Delete. **DELETE /product/{id}**. If it doesn't exist, an **HTTP 404** status is returned. If it exists, it is deleted, and an **HTTP 204** (No Content) status is returned.
+Les web services Rest are resources. a resource is identified by its domain name: product, bill, order, etc. 
