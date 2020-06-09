@@ -151,7 +151,8 @@ had              : avait
 to have          : avoir.  
 to be            : être.  
 versatile        : polyvalent  
-inner            : interne  
+inner            : interne 
+point out        : preciser (specify) 
 
  
 ## Contractions

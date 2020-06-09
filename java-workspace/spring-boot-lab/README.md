@@ -1,11 +1,11 @@
 ### Url tests
-http://localhost:8080/user   : All users
-http://localhost:8080/user/2 : one user
-
+ * http://localhost:8080/user   : All users
+ * http://localhost:8080/user/2 : one user
 
 
 ### Spring boot with h2 database
 **pom.xml**
+
 ~~~xml
         <dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -19,6 +19,7 @@ http://localhost:8080/user/2 : one user
 ~~~
 
 **resources/application.properties**
+
 ~~~
 spring.datasource.url=jdbc:h2:file:~/h2demo
 spring.datasource.driverClassName=org.h2.Driver
@@ -39,6 +40,7 @@ spring.h2.console.settings.web-allow-others=false
 ~~~
 
 **resources/data.sql**
+
 ~~~sql
 INSERT INTO user (id, username, email, password) VALUES
   (1, 'Aliko', 'aliko2@gm.com', 'pass123'),
@@ -46,7 +48,8 @@ INSERT INTO user (id, username, email, password) VALUES
   (3, 'Folrunsho', 'runsho@gm.com', 'pass567');
 ~~~
 
-### turn off/on database schema creation
+**turn off/on database schema creation**
+
 ~~~
 spring.jpa.hibernate.ddl-auto=none
 ~~~

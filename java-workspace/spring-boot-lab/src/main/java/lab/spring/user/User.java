@@ -1,4 +1,4 @@
-package lab.spring.jpa;
+package lab.spring.user;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +13,8 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Entity
 @Table(name = "user")
-public class User {
+public 
+class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,10 +30,9 @@ public class User {
 
 	String password;
 
-	protected User() {  // default constructor
+	public User() {  // default constructor
 	} 
-
-
+	
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);

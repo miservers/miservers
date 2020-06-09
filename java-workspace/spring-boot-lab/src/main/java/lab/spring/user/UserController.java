@@ -1,8 +1,6 @@
-package lab.spring.rest;
+package lab.spring.user;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,56 +13,54 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import lab.spring.jpa.User;
-import lab.spring.jpa.UserDao;
+import lab.spring.exception.DataNotFoundException;
 
 @RestController
 @RequestMapping(value="/api/user", 
-                produces = MediaType.APPLICATION_JSON_VALUE,
-                consumes = MediaType.APPLICATION_JSON_VALUE)
+                produces = MediaType.APPLICATION_JSON_VALUE)
 public 
 class UserController {
 
   
     @Autowired
-    private UserDao userDao;
+    private UserRepo userRepo;
 
     @GetMapping()
     public List<User> all() {
-        return userDao.findAll();
+        return userRepo.findAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<User> one(@PathVariable Long id) {
-        Optional<User> user = userDao.findById(id);
-        if (!user.isPresent())
-            return ResponseEntity.notFound().build();
-        return ResponseEntity.ok().body(user.get());
+        User user = userRepo.findById(id).
+                                      orElseThrow(()-> new DataNotFoundException("no user found with id "+id)); 
+        
+        return ResponseEntity.ok().body(user);
     }
 
     @PostMapping() 
     public ResponseEntity<?> create(@RequestBody User user)  {
-        userDao.save(user);
-        return ResponseEntity.ok("user created");
+        User createdUser = userRepo.save(user);
+        return ResponseEntity.ok().body(createdUser);
     }
 
     @PutMapping()
     public ResponseEntity<?> update(@RequestBody User user)  {
-        userDao.save(user);
+        userRepo.save(user);
         return ResponseEntity.ok("user updated");
     }
 
     @DeleteMapping("/{id}") 
     public ResponseEntity<?> delete(@PathVariable  Long id)  {
-        userDao.deleteById(id);
+        userRepo.deleteById(id);
         return  ResponseEntity.ok("user deleted");
     }
 
-    public UserDao getUserDao() {
-        return userDao;
+    public UserRepo getUserRepo() {
+        return userRepo;
     }
 
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
+    public void setUserRepo(UserRepo userRepo) {
+        this.userRepo = userRepo;
     }
 }
