@@ -1,4 +1,4 @@
-package lab.spring.user;
+package lab.spring.product;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,52 +17,44 @@ import org.springframework.web.bind.annotation.RestController;
 import lab.spring.exception.DataNotFoundException;
 
 @RestController
-@RequestMapping(value="/api/user", 
+@RequestMapping(value="/api/product", 
                 produces = MediaType.APPLICATION_JSON_VALUE)
 @CrossOrigin
 public 
-class UserController {
+class ProductController {
 
   
     @Autowired
-    private UserRepo userRepo;
+    private ProductRepo productRepo;
 
     @GetMapping()
-    public List<User> all() {
-        return userRepo.findAll();
+    public List<Product> all() {
+        return productRepo.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> one(@PathVariable Long id) {
-        User user = userRepo.findById(id).
-                                      orElseThrow(()-> new DataNotFoundException("no user found with id "+id)); 
+    public ResponseEntity<Product> one(@PathVariable Long id) {
+        Product product = productRepo.findById(id).
+                                   orElseThrow(()-> new DataNotFoundException("no product found with id "+id)); 
         
-        return ResponseEntity.ok().body(user);
+        return ResponseEntity.ok().body(product);
     }
 
     @PostMapping() 
-    public ResponseEntity<?> create(@RequestBody User user)  {
-        User createdUser = userRepo.save(user);
-        return ResponseEntity.ok().body(createdUser);
+    public ResponseEntity<?> create(@RequestBody Product product)  {
+        Product created = productRepo.save(product);
+        return ResponseEntity.ok().body(created);
     }
 
     @PutMapping()
-    public ResponseEntity<?> update(@RequestBody User user)  {
-        userRepo.save(user);
-        return ResponseEntity.ok("user updated");
+    public ResponseEntity<?> update(@RequestBody Product product)  {
+        productRepo.save(product);
+        return ResponseEntity.ok("product updated");
     }
 
     @DeleteMapping("/{id}") 
     public ResponseEntity<?> delete(@PathVariable  Long id)  {
-        userRepo.deleteById(id);
-        return  ResponseEntity.ok("user deleted");
-    }
-
-    public UserRepo getUserRepo() {
-        return userRepo;
-    }
-
-    public void setUserRepo(UserRepo userRepo) {
-        this.userRepo = userRepo;
+        productRepo.deleteById(id);
+        return  ResponseEntity.ok("product deleted");
     }
 }

@@ -1,21 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
-import './FilterableProductTable.css';
 
-/* Implementation of https://fr.reactjs.org/docs/thinking-in-react.html
- * Start json-server 
+import {Table,TableBody,TableCell,TableContainer,TableHead,TableRow,Paper}  from '@material-ui/core';
+import './FilterableProductTable.css';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+
+/* Start json-server 
        json-server -p 2707 db.json
   
-  // JSON API send this data
   const listProducts = [
                     {category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football"},
                     {category: "Sporting Goods", price: "$9.99", stocked: true, name: "Baseball"},
-                    {category: "Sporting Goods", price: "$29.99", stocked: false, name: "Basketball"},
-                    {category: "Electronics", price: "$99.99", stocked: true, name: "iPod Touch"},
-                    {category: "Electronics", price: "$399.99", stocked: false, name: "iPhone 5"},
                     {category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7"}
                     ]; 
-/**/
+*/
  
 class FilterableProductTable extends React.Component {
   constructor (props) {
@@ -68,50 +65,35 @@ class ProductTable extends React.Component {
     super(props);
   }
   
+  inStock = (stocked)  => (stocked)? <span style={{display: "table-cell", color: "green"}}>in stock</span>
+                                   : <span style={{display: "table-cell", color: "red"}}>out of stock</span>
+                                   ;
+                                        
+  listProducts = (products) => products.map(product => <TableRow key={product.name}>
+      												   		<TableCell>{product.name}</TableCell>
+      														<TableCell>{product.price}</TableCell>
+      												      	<TableCell>{this.inStock(product.stocked)}</TableCell>
+      													</TableRow>);	
   render () {
-    const listProducts = this.props.products.map(product => <ProductRow key={product.name} product={product}/>);
-      
+    
     return (
-      <div className="ProductTable">
-        <ProductTableHeader/>
-        {listProducts}
-      </div>
+      <TableContainer className="mx-auto" component={Paper}>
+      	<Table responsive striped bordered hover size="sm">
+      		<TableHead>
+      			<TableRow>
+      				<TableCell> Product </TableCell>
+      				<TableCell> Price </TableCell>
+      				<TableCell> Stock </TableCell>
+      			</TableRow>
+      		</TableHead>
+      		<TableBody>
+      			{this.listProducts(this.props.products)}
+      		</TableBody>
+        </Table>
+      </TableContainer>
     );
   }
 }  
-
-class ProductTableHeader extends React.Component {
-      
-    render () {
-      return (
-        <div style={{display: "table-header-group", backgroundColor: "gray"}}>
-          <div style={{display: "table-cell"}}>Name</div>
-          <div style={{display: "table-cell"}}>Price</div>
-          <div style={{display: "table-cell"}}>Stocked</div>
-        </div>
-    );
-  }
-}
-
-class ProductRow extends React.Component {
-  constructor (props){
-    super(props);
-  }
-
-  render () {
-    let inStock = <div style={{display: "table-cell", color: "green"}}>in stock</div>; 
-    if (!this.props.product.stocked) 
-      inStock = <div style={{display: "table-cell", color: "red"}}>out of stock</div>; 
-    
-    return (
-      <div style={{display: "table-row"}}>
-        <div style={{display: "table-cell"}}>{this.props.product.name}</div>
-        <div style={{display: "table-cell"}}>{this.props.product.price}</div>
-        <div style={{display: "table-cell"}}>{inStock}</div>
-      </div>
-    );
-  }
-}
 
 
 export default FilterableProductTable;

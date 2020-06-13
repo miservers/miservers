@@ -1,6 +1,9 @@
 import React from 'react';
-import logo from './logo.svg';
+
 import './FilterableProductTable.css';
+import { Table, Tag, Space, Divider } from 'antd';
+import 'antd/dist/antd.css';
+
 
 /* Implementation of https://fr.reactjs.org/docs/thinking-in-react.html
  * Start json-server 
@@ -69,49 +72,41 @@ class ProductTable extends React.Component {
   }
   
   render () {
-    const listProducts = this.props.products.map(product => <ProductRow key={product.name} product={product}/>);
-      
+
+    const data = this.props.products;
+    
+    const columns = [
+    	  {
+    	    title: 'Name',
+    	    dataIndex: 'name',
+    	    key: 'name',
+    	    render: text => <a>{text}</a>,
+    	  },
+    	  {
+    	    title: 'Price',
+    	    dataIndex: 'price',
+    	    key: 'price',
+    	  },
+    	  {
+    	    title: 'Category',
+    	    dataIndex: 'category',
+    	    key: 'category',
+    	  },
+    	  {
+    	    title: 'Stocked',
+    	    key: 'stocked',
+    	    dataIndex: 'stocked',
+    	    render: stocked => 
+    	    		(stocked)?(<span style={{color: "green"}}>in stock</span>)
+    	    				 :(<span style={{color: "red"}}>out of stock</span>)
+    	    				  
+    	  },
+    	];
+
     return (
-      <div className="ProductTable">
-        <ProductTableHeader/>
-        {listProducts}
-      </div>
+    	<Table columns={columns} dataSource={data} />
     );
   }
 }  
-
-class ProductTableHeader extends React.Component {
-      
-    render () {
-      return (
-        <div style={{display: "table-header-group", backgroundColor: "gray"}}>
-          <div style={{display: "table-cell"}}>Name</div>
-          <div style={{display: "table-cell"}}>Price</div>
-          <div style={{display: "table-cell"}}>Stocked</div>
-        </div>
-    );
-  }
-}
-
-class ProductRow extends React.Component {
-  constructor (props){
-    super(props);
-  }
-
-  render () {
-    let inStock = <div style={{display: "table-cell", color: "green"}}>in stock</div>; 
-    if (!this.props.product.stocked) 
-      inStock = <div style={{display: "table-cell", color: "red"}}>out of stock</div>; 
-    
-    return (
-      <div style={{display: "table-row"}}>
-        <div style={{display: "table-cell"}}>{this.props.product.name}</div>
-        <div style={{display: "table-cell"}}>{this.props.product.price}</div>
-        <div style={{display: "table-cell"}}>{inStock}</div>
-      </div>
-    );
-  }
-}
-
 
 export default FilterableProductTable;
