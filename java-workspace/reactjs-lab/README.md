@@ -4,6 +4,10 @@
  * Json server
  * Hooks : useState, useEffect
 
+### References
+ * [CLSX](https://github.com/lukeed/clsx)
+ * Icons : https://icon-icons.com/fr/download/75053/PNG/64/
+ 
 ## Available Scripts
 
 ### `npm start`

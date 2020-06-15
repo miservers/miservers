@@ -272,7 +272,25 @@ function App() {
   );
 ~~~
 
+**makeStyle from Material UI**
 
+~~~javascript 
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme)=>({
+  button: {
+    flexGrow: 1,
+    backgroundColor: "red"
+  },
+}));
+
+export default function MedAppBar () {
+  const classes = useStyles();
+  
+  return (
+            <Button className={classes.button} color="primary">Login</Button>
+    
+~~~
 
 ### Props
 Props are variables passed to component by its parent component.  
@@ -489,13 +507,13 @@ https://github.com/airbnb/javascript/tree/master/react
 ### json-server : API to develop a Prototype  
 **Install json-server**
 
-~~~ 
+~~~shell
 npm install -g json-server 
 ~~~
 
 **Define your Data in db.json file**
 
-~~~
+~~~json
 {
     "Products": [
         {"category": "Sporting Goods", "price": "$49.99", "stocked": true, "name": "Football"},
@@ -523,10 +541,11 @@ json-server -p 2707 db.json
   * http://localhost:2707/users  
 
 
-### Best components
+### Best Libs/Modules
  * **material-ui** : it is compatible with React-bootstrap
  * **React-bootstrap** : React implementation of JQery Bootstrap
  * **React Router**
+ * [**CLSX**](https://github.com/lukeed/clsx):  utility for constructing `className` strings conditionally.
 
 ### React Bootstrap
 Usage :

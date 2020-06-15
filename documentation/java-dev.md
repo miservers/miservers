@@ -164,6 +164,27 @@ On ubuntu
   $ sudo update-alternatives --config java
 ~~~
   
+### Entity 
+[Entity requirements](https://www.objectdb.com/java/jpa/entity):  
+ * The class must be annotated with the javax.persistence.Entity 
+ * The class must have a public or protected, no-argument constructor.
+ * Fiels must be:
+   ** Java primitive types, char[], User-defined serializable types, etc
+   ** Enumerated types
+   ** Other entities and/or collections of entities
+
+**Embedded**
+
+~~~java
+@Entity
+public class Person {
+    @Embedded Address address;
+}
+~~~
+
+
+   
+   
  
 
 

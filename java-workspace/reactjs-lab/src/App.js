@@ -1,6 +1,7 @@
 import React from 'react';
 
 
+
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
@@ -12,10 +13,12 @@ import {BrowserRouter as Router,Switch,Route,Link} from "react-router-dom";
 import FilterableProductTable from './FilterableProductTable';
 import Home from './Home';
 import Users from './Users';
+import MedAppBar from './MedAppBar';
+import LeftMenu from './LeftMenu';
 
 const useStyles = makeStyles({
 	navBar : {
-		height: 48,
+		height: 80,
 		backgroundColor: 'orange',
 	},
 	menu : {
@@ -33,37 +36,7 @@ function App() {
 	const classes = useStyles();
 	
 	return (
-		<Router>	
-			<Grid container spacing={0}>
-				<Grid item xs={12} className={classes.navBar}>
-					Nav Bar 
-				</Grid>
-				<Grid item xs={3} className={classes.menu}>
-					<ul>
-						<li><Link to="/"> Home </Link></li>
-						<li>
-							<Link to="/users"> Users </Link>
-						</li>
-						<li>
-							<Link to="/product"> Products </Link>
-						</li>
-					</ul>	
-				</Grid>
-				<Grid item xs={9}  className={classes.body}>
-					<Switch>
-						<Route path="/" exact>
-							<Home />
-						</Route>
-						<Route path="/users">
-							<Users />
-						</Route>
-						<Route path="/product">
-							<FilterableProductTable />
-						</Route>
-					</Switch>
-				</Grid>
-			</Grid>
-		</Router>
+		<MedAppBar /> 
 	);
 };
 
