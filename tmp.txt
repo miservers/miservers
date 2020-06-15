@@ -1,2 +1,3 @@
 https://stackblitz.com/edit/material-table-starter-template-tqshgs
 
+https://github.com/mbrn/material-table/issues/1996
