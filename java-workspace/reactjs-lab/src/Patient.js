@@ -1,77 +1,73 @@
 import React , {useState, useEffect} from 'react';
-import { forwardRef } from 'react';
-
-import AddBox from '@material-ui/icons/AddBox';
-import ArrowDownward from '@material-ui/icons/ArrowDownward';
-import Check from '@material-ui/icons/Check';
-import ChevronLeft from '@material-ui/icons/ChevronLeft';
-import ChevronRight from '@material-ui/icons/ChevronRight';
-import Clear from '@material-ui/icons/Clear';
-import DeleteOutline from '@material-ui/icons/DeleteOutline';
-import Edit from '@material-ui/icons/Edit';
-import FilterList from '@material-ui/icons/FilterList';
-import FirstPage from '@material-ui/icons/FirstPage';
-import LastPage from '@material-ui/icons/LastPage';
-import Remove from '@material-ui/icons/Remove';
-import SaveAlt from '@material-ui/icons/SaveAlt';
-import Search from '@material-ui/icons/Search';
-import ViewColumn from '@material-ui/icons/ViewColumn';
-
-
-
-import { orange } from '@material-ui/core/colors';
+import { makeStyles } from '@material-ui/core/styles';
 import MaterialTable, { MTableToolbar } from "material-table";
-import Button from '@material-ui/core/Button';
+import {Button, IconButton,TextField,Dialog,DialogActions,
+		DialogContent,DialogContentText,DialogTitle,Input,Divider} from '@material-ui/core';
 
-const tableIcons = {
-    Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
-    Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
-    Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
-    Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
-    DetailPanel: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
-    Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
-    Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
-    Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
-    FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
-    LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
-    NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
-    PreviousPage: forwardRef((props, ref) => <ChevronLeft {...props} ref={ref} />),
-    ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
-    Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
-    SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
-    ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
-    ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
-  };
+import {Radio,RadioGroup,FormControlLabel,FormControl,FormLabel} from '@material-ui/core';
+import AddBox from '@material-ui/icons/AddBox';
+import { DatePicker, KeyboardDatePicker } from "@material-ui/pickers";
 
-  
+import {tableIcons} from './TableIcons';
+import ServerError from './Errors'
+
 const API_URL = 'http://127.0.0.1:8080/api/patient';
-	
+
+
+const useStyles = makeStyles((theme) => ({
+    form: {
+      '& > *': {
+        marginLeft: theme.spacing(1),
+        marginTop: theme.spacing(1),
+	  },  
+	},
+	button: {
+		marginRight: theme.spacing(1),
+	},
+  }));
+
+
 export default function Patient (props) {
-
-
 	const [patients, setPatients] 		= useState([]); //patients=[] empty table
 	const [selectedRow, setSelectedRow] = useState(-1); 
-
+	const [newPatient, setNewPatient] 	= useState(true);
+	const [serverError, setServerError] = useState(null);
+  
 	
+	const classes = useStyles();
+
 	useEffect(()=> {
 				loadData();
 				}, []);
 	
 	const loadData = async () => {
-							   await fetch (API_URL)
-							    	.then (response => response.json())
-							    	.then (data => setPatients(data));	
-								}
+					let response;
+					try	{
+						response = await fetch(API_URL);
+					} catch(err) {
+						return setServerError(err.name+': '+err.message);
+					}
+					if (!response.ok)
+						return setServerError(response);
+					
+					response.json()
+							.then(data => setPatients(data));	
+				}
 
-	function handlePatientCreation (e) {
-		alert ("lllll")
-	}
+	const handleNewPatientOpen = (e) => setNewPatient(true); 
+
+	const handleNewPatientClose = (e) => setNewPatient(false); 
+	
+	const handleAddNewPatient = (e) => {
+							console.log("Creating a new Patient")
+							setNewPatient(false); 
+						}
 	
 	return (
-		<div>
+		<div className={classes.root}>
+			<ServerError error={serverError} />
 
 			<MaterialTable 
-				icons={tableIcons}
 				title="Patients"
 				columns={[
 					{ title: "Id",      field: "id"       },
@@ -94,27 +90,114 @@ export default function Patient (props) {
 				}}
 				actions={[
 					{
-						icon: 'add',
-						tooltip: 'Add User',
+						icon: () => <AddBox color="secondary" fontSize="large"/>,
+						tooltip: 'Nouveau Patient',
 						isFreeAction: true,
-						onClick: (event, rowData) => {
-						  alert("llllpp")
-						}
+						onClick: (event, rowData) => handleNewPatientOpen(event)
 					  }
 				]}
+				icons={tableIcons}
 			/>
+
+			<Dialog open={newPatient} aria-labelledby="form-dialog-title">
+				<DialogTitle id="form-dialog-title">Nouveau Patient</DialogTitle>
+				
+				<DialogContent>
+					<PatientAdd handleClose={handleNewPatientClose}/>
+				</DialogContent>
+				
+			</Dialog>
+
 		</div>
 	);
 } 
 
+ function PatientAdd({handleClose}) {
+	const [serverError, setServerError] = useState(null);
+   
+	const classes = useStyles();
 
-function createPatient () {
+	const handleSubmit = (e) => {
+		console.log("new user creat");
 
-	return (
-		<div>
-			{alert("Creat")}
+		e.preventDefault();
+
+        const data = new FormData(e.target);
+		// validating data
+		//const username = data.get('username').toLocaleLowerCase();
+        //data.set ('username', username);
+
+		//let response;
+		try	{
+			fetch(API_URL, 
+					{method:'POST',
+					body:data})
+			.then(response => 
+					{if (!response.ok) {
+						console.log(response);
+						return setServerError(response);
+					}
+				});
+					
+		} catch(err) {
+			return setServerError(err.name+': '+err.message);
+		}
+				
+		//response.json()
+		//		.then(data => setPatients(data));	
+
+		//handleClose();
+	}
+
+  return (
+	<div>
+	<ServerError error={serverError} />
+
+    <form className={classes.form} onSubmit={handleSubmit}>
+	  
+		<TextField 	id="firstName" name="firstName" label="Prenom" 
+				   	required autoFocus 
+				   	margin="dense" variant="outlined" value={' '}/>
+		<TextField  id="lastName" name="lastName" label="Nom"  
+					required margin="dense" variant="outlined" value={' '}/>
+		<TextField id="cin" label="CIN"  margin="dense" variant="outlined"/>
+		<TextField id="birthDate" label="Ne(e) le" type="date" InputLabelProps={{shrink: true,}} margin="dense" variant="outlined"/>
+		<br/>
+		<FormControl component="fieldset">
+			<FormLabel component="legend">Sex</FormLabel>
+			<RadioGroup row aria-label="gender" name="gender" defaultValue='FEMME' >
+				<FormControlLabel value="FEMME" control={<Radio />} label="Femme" />
+				<FormControlLabel value="HOMME" control={<Radio />} label="Homme" />
+			</RadioGroup>
+		</FormControl>
+		
+		
+		<Divider/>
+        
+
+		<TextField id="address.address" label="Addresse"  margin="dense" variant="outlined"/>
+        <TextField id="address.zipCode" label="Code Postal"  margin="dense" variant="outlined"/>
+        <TextField id="address.city" label="Ville"  margin="dense" variant="outlined"/>
+		
+		<Divider/>
+
+		<TextField id="cellPhone" label="Telephone"  margin="dense" variant="outlined"/>
+		<TextField id="homePhone" label="Telephone bureau"  margin="dense" variant="outlined"/>
+		<TextField id="email" label="Email"  margin="dense" variant="outlined"/>
+
+		<Divider/>
+
+		<div style={{textAlign: "center"}}>
+			<Button onClick={handleClose} variant="contained" color="secondary" className={classes.button}>
+				Annuter
+			</Button>
+			<Button type="submit"   variant="contained" color="primary">
+				Creer patient
+			</Button>
 		</div>
-	)
+    </form>
+	</div>
+  );
 }
 
 

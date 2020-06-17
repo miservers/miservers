@@ -4,17 +4,16 @@ import React from 'react';
 
 import ReactDOM from 'react-dom';
 import './index.css';
-import * as serviceWorker from './serviceWorker';
 
-import {Container, Grid, Paper}  from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter as Router,Switch,Route,Link} from "react-router-dom";
 import FilterableProductTable from './FilterableProductTable';
-import Home from './Home';
-import Users from './Users';
 import MedAppBar from './MedAppBar';
-import LeftMenu from './LeftMenu';
+
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+// pick a date util library
+import DateFnsUtils from '@date-io/date-fns';
 
 const useStyles = makeStyles({
 	navBar : {
@@ -36,7 +35,9 @@ function App() {
 	const classes = useStyles();
 	
 	return (
-		<MedAppBar /> 
+		<MuiPickersUtilsProvider utils={DateFnsUtils}>
+			<MedAppBar /> 
+		</MuiPickersUtilsProvider>
 	);
 };
 

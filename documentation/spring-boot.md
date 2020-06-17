@@ -52,6 +52,9 @@ public class Application {
 ~~~
 
 
+### Annotations
+ * `@ModelAttribute`: one of the most important Spring annotations. It bind method parameters or return to a named Model bean.
+
 ### Spring validation
 pom.xml  
 
@@ -191,6 +194,21 @@ Les web services Rest are resources. a resource is identified by its domain name
 ### Hard Errors
  * Has been blocked by CORS policy  No 'Access-Control-Allow-Origin' header is present  
    ==> Add **@CrossOrigin** on the spring controller class. 
+ * WebKitFormBoundaryea4RZF1zatntX5RT;charset=UTF-8' not supported"
+   ==> Use `@ModelAttribute` instead of `@RequestBody`
+   ~~~
+   @PostMapping() 
+    public ResponseEntity<?> create(@ModelAttribute Patient patient)  {
+        ....
+   ~~~
+
+ * 
+
+### Tools
+  * **RestMan** : opera extension to build http request
+  * **Postman**: HTTP requests builder. To test your API
+
+
 
 ### References
  * https://howtodoinjava.com/spring-boot/

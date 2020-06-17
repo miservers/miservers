@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -41,13 +42,13 @@ class ProductController {
     }
 
     @PostMapping() 
-    public ResponseEntity<?> create(@RequestBody Product product)  {
+    public ResponseEntity<?> create(@ModelAttribute Product product)  {
         Product created = productRepo.save(product);
         return ResponseEntity.ok().body(created);
     }
 
     @PutMapping()
-    public ResponseEntity<?> update(@RequestBody Product product)  {
+    public ResponseEntity<?> update(@ModelAttribute Product product)  {
         productRepo.save(product);
         return ResponseEntity.ok("product updated");
     }

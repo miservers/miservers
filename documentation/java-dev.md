@@ -183,6 +183,12 @@ public class Person {
 ~~~
 
 
+### Tools
+  * **RestMan** : opera extension to build http request
+  * **Postman**: HTTP requests builder. To test your API
+  * **JSON server**: create a server to mock the backend 
+
+
    
    
  

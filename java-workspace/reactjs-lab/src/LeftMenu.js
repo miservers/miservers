@@ -22,6 +22,7 @@ import AppointmentIcon from './static/images/Appointment.svg';
 import PatientIcon from './static/images/Patient_Male.png';
 import AccountingIcon from './static/images/Accounting.svg';
 import WaitingRoomIcon from './static/images/Waiting_Room.svg';
+import DrugsIcon from './static/images/Drugs.ico';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import FilterableProductTable from './FilterableProductTable';
 import Home from './Home';
@@ -54,26 +55,21 @@ export default function LeftMenu() {
           <ListItemIcon><Avatar variant="square" src={AppointmentIcon} /></ListItemIcon>
           <ListItemText primary="Rendez-vous" />
         </ListItem>
+        
+        <ListItem button key="drug" component="a" href="/drug">
+          <ListItemIcon><Avatar variant="square" src={DrugsIcon} /></ListItemIcon>
+          <ListItemText primary="Médicaments" />
+        </ListItem>
+        
+        <Divider />
+
         <ListItem button key="accounting" component="a" href="/accounting">
           <ListItemIcon><Avatar variant="square" src={AccountingIcon} /></ListItemIcon>
           <ListItemText primary="Comptabilite" />
         </ListItem>
 
-        <Divider />
-
-        <ListItem button key="Users" component="a" href="/users">
-          <ListItemIcon ><PeopleIcon /></ListItemIcon>
-          <ListItemText primary="Users" />
-        </ListItem>
-        <ListItem button key="products" component="a" href="/products">
-          <ListItemIcon><BusinessCenterIcon /></ListItemIcon>
-          <ListItemText primary="Products" />
-        </ListItem>
-      </List>
-
       <Divider />
 
-      <List>
         <ListItem button key="Inbox">
           <ListItemIcon><InboxIcon /></ListItemIcon>
           <ListItemText primary="Inbox" />
@@ -83,6 +79,17 @@ export default function LeftMenu() {
           <ListItemText primary="Send email" />
         </ListItem>
       </List>
+      
+      <Divider />
+
+      <ListItem button key="Users" component="a" href="/users">
+        <ListItemIcon ><PeopleIcon /></ListItemIcon>
+        <ListItemText primary="Users" />
+      </ListItem>
+      <ListItem button key="products" component="a" href="/products">
+        <ListItemIcon><BusinessCenterIcon /></ListItemIcon>
+        <ListItemText primary="Products" />
+      </ListItem>
 
     </div>
   );

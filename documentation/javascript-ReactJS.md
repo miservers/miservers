@@ -248,6 +248,14 @@ function App() {
 }
 ~~~
 
+**Center a block**
+
+~~~html
+    <div style={{textAlign: "center"}}>
+      <button type="button"> HELLOO </button>
+    </div>
+~~~
+
 **CSS file**: 
 
 ~~~
@@ -563,6 +571,7 @@ npm install react-router-dom
 ~~~
 
 ### Material UI
+ * Free templates : https://material-ui.com/getting-started/templates/
  * Tables : very good tables https://material-table.com/#/
  
 
@@ -583,6 +592,10 @@ npm install react-router-dom
    
  * Error when installing a module: Unexpected end of JSON input while parsing near  
    ==> npm cache clean --force
+
+### Tools
+  * **Postman**: HTTP requests builder. To test your API
+  * **JSON server**: create a server to mock the backend 
 
 ### References
  * https://fr.reactjs.org/docs/

@@ -7,7 +7,17 @@
 ### References
  * [CLSX](https://github.com/lukeed/clsx)
  * Icons : https://icon-icons.com/fr/download/75053/PNG/64/
- 
+
+
+### JIRA
+ * https://github.com/mui-org/material-ui/issues/13394 : findDOMNode is deprecated in StrictMode
+
+### Tools
+  * **RestMan** : opera extension to build http request
+  * **Postman**: HTTP requests builder. To test your API
+  * **JSON server**: create a server to mock the backend 
+
+
 ## Available Scripts
 
 ### `npm start`
