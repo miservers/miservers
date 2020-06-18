@@ -17,23 +17,31 @@ class ControllerAdvisor  {
     private static final Logger log = LoggerFactory.getLogger(ControllerAdvisor.class);
 
 	@ExceptionHandler(DataNotFoundException.class)
-    public 
-    final 
+    public final 
     ResponseEntity<ErrorMessage> handleException(DataNotFoundException e) {
-    	log.error(e.getMessage(), e);
+		log.error("Exception Message : "+ e.getMessage());
+    	log.error("Exception Class : "+ e.getClass(), e);
         ErrorMessage err = new ErrorMessage(new Date(), e.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
     }
 	
 	@ExceptionHandler(DataAccessException.class)
-    public 
-    final 
+    public final 
     ResponseEntity<ErrorMessage> handleException(DataAccessException e) {
-    	log.error(e.getMessage(), e);
+    	log.error("Exception Message : "+ e.getMessage());
+    	log.error("Exception Class : "+ e.getClass(), e);
         ErrorMessage err = new ErrorMessage(new Date(), e.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
     }
 	
+	@ExceptionHandler(Exception.class)
+    public final 
+    ResponseEntity<ErrorMessage> handleException(Exception e) {
+		log.error("Exception Message : "+ e.getMessage());
+    	log.error("Exception Class : "+ e.getClass(), e);
+        ErrorMessage err = new ErrorMessage(new Date(), e.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
+    }
 	
 	
 	                      

@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Patient (props) {
 	const [patients, setPatients] 		= useState([]); //patients=[] empty table
 	const [selectedRow, setSelectedRow] = useState(-1); 
-	const [newPatient, setNewPatient] 	= useState(true);
+	const [newPatient, setNewPatient] 	= useState({open:false, patient:null});
 	const [serverError, setServerError] = useState(null);
   
 	
@@ -54,14 +54,13 @@ export default function Patient (props) {
 							.then(data => setPatients(data));	
 				}
 
-	const handleNewPatientOpen = (e) => setNewPatient(true); 
+	const handleNewPatientOpen = (e) => setNewPatient({open:true}); 
 
-	const handleNewPatientClose = (e) => setNewPatient(false); 
+	const handleNewPatientClose = (e, new_patient) => {
+											setNewPatient({open:false, patient:new_patient})
+											console.log("ADDDDD : "+ JSON.stringify(newPatient.patient))
+										}; 
 	
-	const handleAddNewPatient = (e) => {
-							console.log("Creating a new Patient")
-							setNewPatient(false); 
-						}
 	
 	return (
 		<div className={classes.root}>
@@ -99,7 +98,7 @@ export default function Patient (props) {
 				icons={tableIcons}
 			/>
 
-			<Dialog open={newPatient} aria-labelledby="form-dialog-title">
+			<Dialog open={newPatient.open} aria-labelledby="form-dialog-title">
 				<DialogTitle id="form-dialog-title">Nouveau Patient</DialogTitle>
 				
 				<DialogContent>
@@ -113,12 +112,12 @@ export default function Patient (props) {
 } 
 
  function PatientAdd({handleClose}) {
-	const [serverError, setServerError] = useState(null);
-   
+	const [serverResponse, setServerResponse] = useState({status:null, message:null});
+	
 	const classes = useStyles();
 
 	const handleSubmit = (e) => {
-		console.log("new user creat");
+		console.log("new USER CR");
 
 		e.preventDefault();
 
@@ -127,42 +126,55 @@ export default function Patient (props) {
 		//const username = data.get('username').toLocaleLowerCase();
         //data.set ('username', username);
 
-		//let response;
 		try	{
 			fetch(API_URL, 
 					{method:'POST',
 					body:data})
-			.then(response => 
-					{if (!response.ok) {
-						console.log(response);
-						return setServerError(response);
-					}
+			.then(response => {
+							if (response.ok) {
+								response.json().
+									then(data => {console.log("FFF: "+JSON.stringify(data)); handleClose(e,data)})
+											//setServerResponse(
+											//		{status : response.status, 
+											//		 message: 'Patient cree, ID  ' + data.id}
+											//		 ));
+									
+							} else { // server error
+								response.json().
+									then(data => 
+											setServerResponse(
+															{status : response.status, 
+															 message: data.message}
+															 ));
+									
+							}	
 				});
 					
-		} catch(err) {
-			return setServerError(err.name+': '+err.message);
+		} catch(err) { // local JS error
+			return setServerResponse({status:0, message:err.name+': '+err.message});
 		}
 				
 		//response.json()
 		//		.then(data => setPatients(data));	
-
-		//handleClose();
 	}
 
   return (
 	<div>
-	<ServerError error={serverError} />
+
+	<ServerError message={serverResponse} />
 
     <form className={classes.form} onSubmit={handleSubmit}>
 	  
-		<TextField 	id="firstName" name="firstName" label="Prenom" 
+		<TextField 	id="firstName" name="firstName" label="Prenom" value="jamal"
 				   	required autoFocus 
-				   	margin="dense" variant="outlined" value={' '}/>
-		<TextField  id="lastName" name="lastName" label="Nom"  
-					required margin="dense" variant="outlined" value={' '}/>
+				   	margin="dense" variant="outlined"/>
+		<TextField  id="lastName" name="lastName" label="Nom"  value="soalwi"
+					required margin="dense" variant="outlined"/>
 		<TextField id="cin" label="CIN"  margin="dense" variant="outlined"/>
 		<TextField id="birthDate" label="Ne(e) le" type="date" InputLabelProps={{shrink: true,}} margin="dense" variant="outlined"/>
+		
 		<br/>
+		
 		<FormControl component="fieldset">
 			<FormLabel component="legend">Sex</FormLabel>
 			<RadioGroup row aria-label="gender" name="gender" defaultValue='FEMME' >
@@ -196,6 +208,7 @@ export default function Patient (props) {
 			</Button>
 		</div>
     </form>
+
 	</div>
   );
 }

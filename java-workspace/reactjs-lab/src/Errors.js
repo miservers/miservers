@@ -1,30 +1,31 @@
 
 import React from 'react';
+
 import ReactDOM from "react-dom";
 
 import Alert from '@material-ui/lab/Alert';
 
-export default function ServerError ({error}) {
-    if (!error)
-        return null;
+export default function ServerError ({message}) {
+    
+    if (!message)
+        return '';
 
-    console.log('vvvvvvvvv '+error);
+    const showMessage = (mess) => {
+        if (!mess.status)
+            return;
+
+        if (mess.status == 200)
+            return  <Alert severity="success" 
+                           variant="outlined">{mess.message}</Alert>
+        else                
+            return  <Alert severity="error" 
+                            variant="outlined">{mess.message}</Alert>;
+                    
+    }
 
 	return (
-    <div>
-    
-        {error instanceof window.Response ? (
-            <Alert severity="error" 
-            variant="outlined">
-                Backend Server error <b>{error.status}</b>: {error.text}
-                <br />
-          <small>{error.statusText}</small>
-            </Alert>
-       
-          ) : (<Alert severity="error" 
-                variant="outlined">{error}</Alert>)
-        }                
-
-    </div>
+        <div>
+            {showMessage(message)}
+        </div>
 	);
 }

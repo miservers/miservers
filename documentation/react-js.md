@@ -509,8 +509,6 @@ function App2() {
 ### React code style
 https://github.com/airbnb/javascript/tree/master/react
 
-### Tools 
- * **Visual Studio Code**
  
 ### json-server : API to develop a Prototype  
 **Install json-server**
@@ -549,11 +547,19 @@ json-server -p 2707 db.json
   * http://localhost:2707/users  
 
 
+### Tools 
+ * `Visual Studio Code`
+ * `json-server`
+ * `RestMan`: opera extenstion to test an API 
+
 ### Best Libs/Modules
  * **material-ui** : it is compatible with React-bootstrap
  * **React-bootstrap** : React implementation of JQery Bootstrap
  * **React Router**
  * [**CLSX**](https://github.com/lukeed/clsx):  utility for constructing `className` strings conditionally.
+ * **Redux**: global state managment
+ * **SWR**  : Remote data fetching
+
 
 ### React Bootstrap
 Usage :
@@ -587,11 +593,14 @@ npm install react-router-dom
  * md, sm, xl, xs : colomns on medium (≥768px), small (≥576px) ,extra large(≥1200px), extra small  (<576px) devices  
  
 ### Hard Errors 
- * Has been blocked by CORS policy  No 'Access-Control-Allow-Origin' header is present  
+ * `Has been blocked by CORS policy  No 'Access-Control-Allow-Origin' header is present`  
    ==> Add **@CrossOrigin** on the spring controller class. 
    
- * Error when installing a module: Unexpected end of JSON input while parsing near  
+ * `Error when installing a module: Unexpected end of JSON input while parsing near`  
    ==> npm cache clean --force
+
+ * `Failed to execute 'json' on 'Response': body stream is locked`
+    => json promise can be executed only once on this response object 
 
 ### Tools
   * **Postman**: HTTP requests builder. To test your API
