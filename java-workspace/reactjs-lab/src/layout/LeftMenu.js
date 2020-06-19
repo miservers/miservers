@@ -18,15 +18,12 @@ import PeopleIcon from '@material-ui/icons/People';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import Avatar from '@material-ui/core/Avatar';
-import AppointmentIcon from './static/images/Appointment.svg';
-import PatientIcon from './static/images/Patient_Male.png';
-import AccountingIcon from './static/images/Accounting.svg';
-import WaitingRoomIcon from './static/images/Waiting_Room.svg';
-import DrugsIcon from './static/images/Drugs.ico';
+import AppointmentIcon from '../static/images/Appointment.svg';
+import PatientIcon from '../static/images/Patient_Male.png';
+import AccountingIcon from '../static/images/Accounting.svg';
+import WaitingRoomIcon from '../static/images/Waiting_Room.svg';
+import DrugsIcon from '../static/images/Drugs.ico';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import FilterableProductTable from './FilterableProductTable';
-import Home from './Home';
-import Users from './Users';
 
 
 

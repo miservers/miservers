@@ -506,6 +506,47 @@ function App2() {
 }
 ~~~
 
+### Modification of parent State by Child
+~~~js
+import React, {useState} from 'react';
+
+export default function Parent() {
+    const [address, setAddress ] = useState({street:'', city:''});
+
+    const handler = (addr) => setAddress(addr);
+    
+    return (
+      <div>
+          <h2>Demo modification of state by Child</h2> 
+              Address given by my child: {address.street + ' ' + address.city}
+          <br/>
+          <Child handler = {handler} />
+       </div>
+    );
+  }
+  
+  function Child(props) {
+    
+      return (
+        <button onClick = {() => props.handler({street:'12 rue imrane', city: 'casablanca'})}>
+          I'm a child
+        </button>
+      );
+  }
+~~~
+
+### Log an object on console
+Use JSON.stringify():
+
+~~~js
+console.log("message: " + JSON.stringify(data));
+~~~
+
+### State/Hook: Add element to a table
+~~~js
+setPatients([new_patient,...patients]);
+~~~  
+
 ### React code style
 https://github.com/airbnb/javascript/tree/master/react
 
@@ -614,7 +655,7 @@ npm install react-router-dom
  * [code style](https://github.com/airbnb/javascript/tree/master/react)
  * [React+Ant example](https://medium.com/wesionary-team/how-to-implement-ant-design-with-react-7d21b6e261cc)
  * [jsx in depth](https://fr.reactjs.org/docs/jsx-in-depth.html)
-
+ * How to turn website to app: https://www.maketecheasier.com/turn-website-to-app-linux/
 
 
 

@@ -102,10 +102,12 @@ Three tools: systemd, upstart, SystemV
 - securing Apache
   http://xianshield.org/guides/apache2.0guide.html
 
+**Purge journal logs
 
-
-
-
+~~~shell
+  journalctl --disk-usage
+  sudo journalctl --vacuum-size=20M
+~~~
 
 
 Remove netplan on ubuntu 18.04

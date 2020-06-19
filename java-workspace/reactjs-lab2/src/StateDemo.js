@@ -1,4 +1,6 @@
-const styles = {margin: "10px"};
+import React from 'react';
+ 
+ const styles = {margin: "10px"};
 
  class StateDemo extends React.Component {
     constructor(props) {
@@ -29,8 +31,6 @@ const styles = {margin: "10px"};
         );
     }
 }
-import React from 'react';
-
  
 
 export default StateDemo;
