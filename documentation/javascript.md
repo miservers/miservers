@@ -170,6 +170,13 @@ To enable the full javascript new features, you must use strict mode. In this mo
  * In an event, *this* refers to the element that received the event.
  * Methods like call(), and apply() can refer *this* to any object.
 
+### JavaScript Tricks
+**Redirect url**
+
+~~~js
+onClick={window.location.href="/patient/edit"}
+~~~
+
 
 ### JavaScript References
  * https://developer.mozilla.org/fr/docs/Web/JavaScript/Guide

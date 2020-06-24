@@ -134,7 +134,18 @@ Syntax
 
 ~~~
 useEffect(sideEffectFunction, [stateToTrack]);
+
+useEffect(() => {
+  async function fetchData() {
+    // You can await here
+    const response = await MyAPI.getData(someId);
+    // ...
+  }
+  fetchData();
+}, [someId]); // Or [] if effect doesn't need props or state
+
 ~~~
+
 
 **Example with Class and Hook**:
 
@@ -545,7 +556,14 @@ console.log("message: " + JSON.stringify(data));
 ### State/Hook: Add element to a table
 ~~~js
 setPatients([new_patient,...patients]);
-~~~  
+~~~ 
+
+### Conditional rendring
+[article](https://reactjs.org/docs/conditional-rendering.html)
+
+
+### Coding Rules
+ * Ditch the `var` keyword. Use only `let` and `const`. See this [article](https://programmingwithmosh.com/javascript/essential-modern-javascript-features/)
 
 ### React code style
 https://github.com/airbnb/javascript/tree/master/react
@@ -592,6 +610,7 @@ json-server -p 2707 db.json
  * `Visual Studio Code`
  * `json-server`
  * `RestMan`: opera extenstion to test an API 
+ *  `react-devtools` : extention for chrome and firefox
 
 ### Best Libs/Modules
  * **material-ui** : it is compatible with React-bootstrap
@@ -621,6 +640,11 @@ npm install react-router-dom
  * Free templates : https://material-ui.com/getting-started/templates/
  * Tables : very good tables https://material-table.com/#/
  
+** Custom a Button**
+
+~~~html
+<Button type="submit"  variant="contained" color="primary" style={{backgroundColor: 'green'}}>
+~~~
 
 ### Test your front-end against a real API
  * https://github.com/public-apis/public-apis

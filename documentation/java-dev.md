@@ -71,6 +71,15 @@ For a List simply write
 	myList.forEach(item -> System.out.println(item));
 ~~~
 
+**Access local variable from lambda: use wrapper**
+
+~~~java
+var wrapper = new Object(){ String msg = "";};
+myList.forEach(item -> {
+            wrapper.msg += item.toString(); 
+          });
+~~~
+
 ### json-server : API to develop a Prototype  
 **Install json-server**
 

@@ -7,7 +7,7 @@ import Accounting from '../Accounting';
 import Patient from '../patient/Patient';
 import Appointment from '../Appointment';
 import WaitingRoom from '../WaitingRoom';
-
+import PatientEdition from '../patient/PatientEdition';
  
 export default function Routes() {
 
@@ -16,8 +16,11 @@ return (
         <Route path="/" exact>
             <Home />
         </Route>
-        <Route path="/patient">
+        <Route path="/patient" exact>
             <Patient />
+        </Route>
+        <Route path="/patient/edit">
+            <PatientEdition />
         </Route>
         <Route path="/waitingroom">
             <WaitingRoom />
@@ -28,6 +31,7 @@ return (
         <Route path="/accounting">
             <Accounting />
         </Route>
+        
     </Switch>
 );
 }

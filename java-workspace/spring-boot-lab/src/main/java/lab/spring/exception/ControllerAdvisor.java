@@ -1,6 +1,10 @@
 package lab.spring.exception;
 
 import java.util.Date;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +38,23 @@ class ControllerAdvisor  {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
     }
 	
+	@ExceptionHandler(ConstraintViolationException.class)
+    public final 
+    ResponseEntity<ErrorMessage> handleException(ConstraintViolationException e) {
+		log.error("Exception Message : "+ e.getMessage());
+    	log.error("Exception Class : "+ e.getClass(), e);
+    	var wrapper = new Object(){ String msg = "";};
+        Set<ConstraintViolation<?>> constraints = e.getConstraintViolations();
+        constraints.forEach((constraint) -> {
+        						wrapper.msg += constraint.getPropertyPath() 
+        										+" "+ constraint.getMessage() + ". ";
+        					});
+        
+        ErrorMessage err = new ErrorMessage(new Date(), wrapper.msg);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
+    }
+	
+		
 	@ExceptionHandler(Exception.class)
     public final 
     ResponseEntity<ErrorMessage> handleException(Exception e) {
@@ -42,7 +63,8 @@ class ControllerAdvisor  {
         ErrorMessage err = new ErrorMessage(new Date(), e.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
     }
-	
+		
+		
 	
 	                      
 }

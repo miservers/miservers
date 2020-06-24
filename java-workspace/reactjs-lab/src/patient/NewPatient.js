@@ -7,24 +7,23 @@ import {Button, IconButton,TextField,Dialog,DialogActions,
 import {Radio,RadioGroup,FormControlLabel,FormControl,FormLabel} from '@material-ui/core';
 import AddBox from '@material-ui/icons/AddBox';
 import { DatePicker, KeyboardDatePicker } from "@material-ui/pickers";
+import Collapse from '@material-ui/core/Collapse';
 
 import ServerError from '../common/Errors'
-import {useStyles} from '../common/Styles';
 import {API_PATIENT} from '../common/Config';
+import {useStyles} from '../styles/PatientStyles';
 
 
 export default function NewPatient({handleClose}) {
-	const [serverResponse, setServerResponse] = useState({status:null, message:null});
-	
+	const [serverResponse, setServerResponse]   = useState({status:0, message:null});
+	const [alertOpen, setAlertOpen] 			= useState(false);
+
 	const classes = useStyles();
 
 	const handleSubmit = (e) => {
-		console.log("new USER CR");
-
 		e.preventDefault();
 
         const data = new FormData(e.target);
-		
 		try	{
 			fetch(API_PATIENT, 
 					{method:'POST',
@@ -32,37 +31,50 @@ export default function NewPatient({handleClose}) {
 			.then(response => {
 							if (response.ok) 
 								response.json().
-									then(data => handleClose(
-														data, 
-														{status:200, message:"Patient cree avec ID "+data.id}
-														));
+								then(data => handleClose(
+													data, 
+													{status:200, message:"Patient cree avec ID "+data.id}
+													));
 									
 							else // server error
 								response.json().
-									then(data => 
+									then(data =>{ 
 											setServerResponse(
 															{status : response.status, 
 															 message: data.message}
-															 ));
+															 );
+											setAlertOpen(true);
+											});
 									
 				});
 					
 		} catch(err) { // local JS error
-			return setServerResponse({status:0, message:err.name+': '+err.message});
+			console.log ("NewPatient handleSubmit Exception");
+			console.log(err);
+			setServerResponse({status:0, message:err.name+': '+err.message});
+			setAlertOpen(true);
 		}
-	}
-
+	};
+  
+  
   return (
 	<div>
 
-	<ServerError message={serverResponse} />
+	<Collapse in={alertOpen}>
+		{ serverResponse &&
+			<ServerError 
+				{...serverResponse} 
+				onClose={()=>setAlertOpen(false)}
+			/>
+		}
+	</Collapse>
 
     <form className={classes.form} onSubmit={handleSubmit}>
 	  
-		<TextField 	id="firstName" name="firstName" label="Prenom" value="jamal"
+		<TextField 	id="firstName" name="firstName" label="Prenom"
 				   	required autoFocus 
 				   	margin="dense" variant="outlined"/>
-		<TextField  id="lastName" name="lastName" label="Nom"  value="soalwi"
+		<TextField  id="lastName" name="lastName" label="Nom" 
 					required margin="dense" variant="outlined"/>
 		<TextField id="cin" label="CIN"  margin="dense" variant="outlined"/>
 		<TextField id="birthDate" label="Ne(e) le" type="date" InputLabelProps={{shrink: true,}} margin="dense" variant="outlined"/>
@@ -94,11 +106,11 @@ export default function NewPatient({handleClose}) {
 		<Divider/>
 
 		<div style={{textAlign: "center"}}>
-			<Button onClick={handleClose} variant="contained" color="secondary" className={classes.button}>
+			<Button onClick={handleClose} variant="contained" color="default" className={classes.button}>
 				Annuter
 			</Button>
-			<Button type="submit"   variant="contained" color="primary">
-				Creer patient
+			<Button type="submit"  variant="contained" color="primary" style={{backgroundColor: 'green'}}>
+				Valider
 			</Button>
 		</div>
     </form>
