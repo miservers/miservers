@@ -7,7 +7,7 @@ import './index.css';
 
 import { makeStyles } from '@material-ui/core/styles';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import MedAppBar from './layout/MedAppBar';
+import Layout from './layout/Layout';
 
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 // pick a date util library
@@ -34,7 +34,7 @@ function App() {
 	
 	return (
 		<MuiPickersUtilsProvider utils={DateFnsUtils}>
-			<MedAppBar /> 
+			<Layout /> 
 		</MuiPickersUtilsProvider>
 	);
 };

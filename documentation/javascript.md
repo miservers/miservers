@@ -162,6 +162,17 @@ To enable the full javascript new features, you must use strict mode. In this mo
 'use strict';
 ~~~
 
+### Destructuring assignment
+The destructuring assignment syntax is a JavaScript expression that makes it possible to unpack values from arrays, or properties from objects, into distinct variables.
+
+~~~js
+let [a, b, ...rest] = [10, 20, 30, 40, 50];
+
+console.log(a);     // output: 10
+console.log(rest);  // output: Array [30,40,50]
+~~~
+
+
 ### this
  * In a method, *this* refers to the owner object.
  * Alone, *this* refers to the global object.

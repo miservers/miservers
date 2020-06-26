@@ -7,7 +7,7 @@ import Accounting from '../Accounting';
 import Patient from '../patient/Patient';
 import Appointment from '../Appointment';
 import WaitingRoom from '../WaitingRoom';
-import PatientEdition from '../patient/PatientEdition';
+import PatientRecord from '../patient/PatientRecord';
  
 export default function Routes() {
 
@@ -19,8 +19,8 @@ return (
         <Route path="/patient" exact>
             <Patient />
         </Route>
-        <Route path="/patient/edit">
-            <PatientEdition />
+        <Route path="/patient/record">
+            <PatientRecord />
         </Route>
         <Route path="/waitingroom">
             <WaitingRoom />

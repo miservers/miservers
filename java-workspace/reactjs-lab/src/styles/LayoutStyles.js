@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import indigo from '@material-ui/core/colors/indigo';
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 export const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,7 +55,7 @@ export const useStyles = makeStyles((theme) => ({
 
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: theme.spacing(1),
   },
 
 

@@ -177,7 +177,27 @@ void testGetAllUsers()  {
 	
 }
 ~~~
+
+### Pagination
+Example of RestFul service:  
+Url : http://localhost:8080/api/patient?pageNo=0&pageSize=5&sortBy=id
+
+~~~java
+@GetMapping()
+public List<Patient>  all(@RequestParam Integer pageNo,
+                          @RequestParam Integer pageSize,
+                          @RequestParam(defaultValue = "id") String  sortBy    ) {
+
+    Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+    Page<Patient> result  = patientRepo.findAll(paging);
+    if (result.hasContent())
+        return result.getContent();
+    else 
+        return new ArrayList<Patient>();
+}
+~~~
  
+
 ### RESTful web service
 Conventions:
  * **GET**: Read.   

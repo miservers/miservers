@@ -5,11 +5,11 @@ import ReactDOM from "react-dom";
 
 import Alert from '@material-ui/lab/Alert';
 
-export default function PatientEdition() {
+export default function PatientRecord() {
 
     return (
         <div>
-            <h2>Patient Edition</h2>
+            <h2>Dossier patient</h2>
         </div>
     );
 }

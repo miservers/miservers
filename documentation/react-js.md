@@ -671,6 +671,21 @@ npm install react-router-dom
   * **Postman**: HTTP requests builder. To test your API
   * **JSON server**: create a server to mock the backend 
 
+### Run in Production mode
+Compile the project:
+
+~~~sh
+  $ npm run build
+~~~
+
+Run serve
+
+~~~sh
+  $ sudo npm install -g serve
+  $ serve -s build
+ ~~~
+
+
 ### References
  * https://fr.reactjs.org/docs/
  * https://create-react-app.dev
