@@ -1,5 +1,6 @@
 ### CSS Selector
 **ID Selectors (#)** : The CSS rule below will be applied to the HTML element with id="myp1": 
+
 ~~~
 #myp1 {
   text-align: center;
@@ -10,15 +11,25 @@
 ~~~
 
 **Class Selectors (.)**: applied on all HTML elements with class="prodtab" 
+
 ~~~
 .prodtab {
   text-align: center;
   color: red;
 }
 
-<h1 class="prodtab">Red anng   </h1>
 <p class="prodtab">Red and cen.</p> 
 ~~~
+
+* `.class1 .class2` : example .name1 .name2 Selects all elements with name2 that is a descendant of an element with name1    
+* `element.class` : example p.intro   Selects all <p> elements with class="intro"  
+* `:hover` : example  a:hover Selects links on mouse over  
+* `:focus` : example  input:focus Selects the input element which has focus  
+* `:checked` : example  input:checked Selects every checked <input> element  
+
+See:  https://www.w3schools.com/cssref/css_selectors.asp
+
+
 
 ### Center a block or image
 ~~~
@@ -78,4 +89,6 @@ See https://www.w3schools.com/bootstrap4/bootstrap_utilities.asp
 See [div-table.html](../java-workspace/html-css-lab/div-table.html)
 
 ### Flexbox guide
-[Excellent article](https://css-tricks.com/snippets/css/a-guide-to-flexbox/#flexbox-background)
+[Excellent article on CSS](https://css-tricks.com/snippets/css/a-guide-to-flexbox/#flexbox-background)
+
+

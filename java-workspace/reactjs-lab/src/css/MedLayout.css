@@ -1,0 +1,37 @@
+.trigger {
+  font-size: 24px;
+  padding: 0px 14px; /*top-bottom left-right*/
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}
+
+.logo {
+  height: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px;
+}
+
+.site-layout .header {
+	height: 64px;
+	padding-top: 10px;
+	padding-left: 2px;
+	text-align: left;
+	background-color: #69c0ff;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.site-layout .header .search{
+  width: 50%;
+}
+
+	
+.site-layout .content {
+  background: #aaa;
+}

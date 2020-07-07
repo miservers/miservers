@@ -453,12 +453,6 @@ add {' '} to return block:
       <Button variant="success">success</Button>{' '}
 ~~~
 
-### text Align
-Text Center 
-
-~~~javascript
-  <h2 className="text-center">Aligned text</h2>
-~~~
 
 ### Tricks
 **Export, Import var/const**
@@ -613,12 +607,13 @@ json-server -p 2707 db.json
  *  `react-devtools` : extention for chrome and firefox
 
 ### Best Libs/Modules
- * **material-ui** : it is compatible with React-bootstrap
- * **React-bootstrap** : React implementation of JQery Bootstrap
- * **React Router**
+ * `material-ui` : it is compatible with React-bootstrap
+ * `React-bootstrap` : React implementation of JQery Bootstrap
+ * `React Router`
  * [**CLSX**](https://github.com/lukeed/clsx):  utility for constructing `className` strings conditionally.
- * **Redux**: global state managment
- * **SWR**  : Remote data fetching
+ * `Redux`: global state managment
+ * `SWR`  : Remote data fetching
+ * `react-swipeable-views`: swipeable views
 
 
 ### React Bootstrap
@@ -646,6 +641,10 @@ npm install react-router-dom
 <Button type="submit"  variant="contained" color="primary" style={{backgroundColor: 'green'}}>
 ~~~
 
+### ANT Design
+ * `pro-layout`
+ 
+
 ### Test your front-end against a real API
  * https://github.com/public-apis/public-apis
  * https://reqres.in/api/users
@@ -653,10 +652,32 @@ npm install react-router-dom
 
 
 
-### Important code/tags
- * lg : The number of columns on large devices (≥992px)
- * md, sm, xl, xs : colomns on medium (≥768px), small (≥576px) ,extra large(≥1200px), extra small  (<576px) devices  
+### Breakpoints, Grid
+Grid : subdivise screen into `12` columns.
+
+[Default breakpoints](https://material-ui.com/customization/breakpoints/):  
+
+ * xs : Phones. extra small  (<600px) devices
+ * sm:  Tablet, Ipad. small (≥600px) 
+ * md : Tablet large, Ipad pro. medium (≥960px), 
+ * lg : Desktop. large device (≥1280px)
+ * xl:  extra large(≥1920px)  
  
+On ubuntu you can see screen width:  
+  `$ xrandr | grep ' connected'`  => 1366x768 (277mm x 156mm): for my Lenovo x220 :  
+
+###useMediaQuery
+~~~js
+import React from 'react';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
+export default function SimpleMediaQuery() {
+  const matches = useMediaQuery('(min-width:600px)'); //matches: true or false
+
+  return <span>{`(min-width:600px) matches: ${matches}`}</span>;
+}
+~~~
+
 ### Hard Errors 
  * `Has been blocked by CORS policy  No 'Access-Control-Allow-Origin' header is present`  
    ==> Add **@CrossOrigin** on the spring controller class. 
@@ -685,6 +706,8 @@ Run serve
   $ serve -s build
  ~~~
 
+### Icons
+  * https://www.iconfinder.com/iconsets/hospital-19
 
 ### References
  * https://fr.reactjs.org/docs/
@@ -695,6 +718,9 @@ Run serve
  * [React+Ant example](https://medium.com/wesionary-team/how-to-implement-ant-design-with-react-7d21b6e261cc)
  * [jsx in depth](https://fr.reactjs.org/docs/jsx-in-depth.html)
  * How to turn website to app: https://www.maketecheasier.com/turn-website-to-app-linux/
+ * [Excellent article on CSS](https://css-tricks.com/snippets/css/a-guide-to-flexbox/#flexbox-background)
+ 
+ 
 
 
 

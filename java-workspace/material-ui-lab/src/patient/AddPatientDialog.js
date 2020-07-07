@@ -30,13 +30,14 @@ export default function AddPatientDialog ({handleAddPatient}) {
 					{method:'POST',
 					body:data})
 			.then(response => {
-							if (response.ok) 
+							if (response.ok) {
 								response.json().
 								then(patient => handleAddPatient(
 												    patient, 
 													{status:200, message:"Patient cree avec ID "+patient.id}
 													));
-									
+                handleClose();
+							}
 							else // server error
 								response.json().
 									then(data =>{ 

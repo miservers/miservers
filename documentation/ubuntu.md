@@ -28,6 +28,17 @@
   cp ~/magOS/documentation/files/ara-lenovo-backup /usr/share/X11/xkb/symbols/ara  
   session logout 
 
+
+**CPU temperature**
+
+~~~
+sudo apt install hddtemp lm-sensors
+
+watch -n 2 sensors
+
+~~~
+
+
 ## Installation and configuration of ubuntu 16.04
 
 Create a bootable USB from windows

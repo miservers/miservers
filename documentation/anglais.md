@@ -154,7 +154,43 @@ versatile        : polyvalent
 inner            : interne 
 point out        : preciser (specify) 
 
- 
+### Medical vocabulary
+Assurance           -- insurance  
+Blessure            — injury  
+Cabinet médical     — doctor’s office  
+Carnet de santé     — medical record  
+Diagnostic          — diagnosis  
+Douleur             — pain  
+Effet secondaire    — side effect  
+Fièvre         — fever  
+Hôpital       — hospital  
+Infirmier , Infirmière — nurse  
+Inflammation   — inflammation  
+Maladie        — illness  
+Pharmacie      — pharmacy  
+Pouls          — pulse  
+Premiers secours      — first aid medical help     
+Pression artérielle   — blood pressure     
+Radiographie          — x-ray    
+Salive    — saliva  
+Sang      — blood  
+Santé     — health  
+Seringue  — syringe  
+Symptôme  — symptom   
+Urgence   — emergency    
+Allergie  — allergy  
+Rhume     — cold  
+le malade - Patient  
+ordonnance - Prescription  
+renouveler un ordonnance - Refill a prescription  
+un rendez-vous : appointment  
+médecin : doctor  
+carte vitale : insurance card  
+salle d’attente: waiting room  
+to sneeze(bless you) : éternuer  (à tes souhaits / à vos souhaits)  
+
+
+
 ## Contractions
 gonna : going to  
 he's  : he has/he is  
