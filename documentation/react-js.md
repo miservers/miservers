@@ -643,7 +643,29 @@ npm install react-router-dom
 
 ### ANT Design
  * `pro-layout`
+
+
+### Webpack
+Webpack allow to  
+ * use a loacl server
+ * live reload
+ * compile all sources into one exec file: perfs
  
+ [getstarted with webpack: french] (https://www.alsacreations.com/tuto/lire/1754-debuter-avec-webpack.html)
+
+
+### Less 
+`Less` is a language extention for CSS. It aims to render CSS more dynamic: variables, functions etc. less files must be compiled into css, using less nodejs module, or in live by the browser using a special CDN javascript.   
+Example
+
+~~~css 
+@background: #91d5ff;
+
+.site-layout {
+  background: @background;  
+}
+~~~
+
 
 ### Test your front-end against a real API
  * https://github.com/public-apis/public-apis

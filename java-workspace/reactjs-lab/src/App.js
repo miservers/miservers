@@ -1,6 +1,6 @@
 import React from 'react';
 import MedLayout from './layout/MedLayout';
-import './App.css';
+import './App.less';
 
 const App = () => (
   <div className="App">
