@@ -267,6 +267,20 @@ function App() {
     </div>
 ~~~
 
+**Inline CSS with button:hover**
+
+~~~js
+const styles = {button:{width: '100%', 
+                        height: '92px', 
+                        background: 'red', 
+                        margin: '8px 8px',
+                        transition: 'all 0.1s ease-in',
+                        "&:hover": {
+                                    background: "#efefef"
+                                    },
+                        }};
+~~~
+
 **CSS file**: 
 
 ~~~
@@ -630,6 +644,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 ~~~
 npm install react-router-dom
 ~~~
+
+To switch to an Url use `Link`. Dont use `<a href...>` or `document.location.href`
+
+~~~js
+import {Link} from "react-router-dom";
+
+<Link to={'/patient/record/' + record.id}>
+  <img src={PatientRecordSvg} alt="Fiche patient"/>
+</Link>
+~~~ 
+
+
+
 
 ### Material UI
  * Free templates : https://material-ui.com/getting-started/templates/

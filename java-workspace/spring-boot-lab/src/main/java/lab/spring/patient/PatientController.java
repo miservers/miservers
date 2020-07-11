@@ -48,7 +48,7 @@ class PatientController {
     	
     	Map<String, Object> response = new HashMap<String, Object>();
     	response.put("currentPage", pageableResult.getNumber());
-    	response.put("totalPatients", pageableResult.getTotalElements());
+    	response.put("totalCount", pageableResult.getTotalElements());
     	response.put("totalPages", pageableResult.getTotalPages());
     	response.put("patients", pageableResult.getContent());
 
@@ -77,7 +77,7 @@ class PatientController {
     	
     	Map<String, Object> response = new HashMap<String, Object>();
     	response.put("currentPage", pageableResult.getNumber());
-    	response.put("totalPatients", pageableResult.getTotalElements());
+    	response.put("totalCount", pageableResult.getTotalElements());
     	response.put("totalPages", pageableResult.getTotalPages());
     	response.put("patients", pageableResult.getContent());
 

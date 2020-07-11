@@ -1,3 +1,8 @@
+@import '~antd/lib/style/themes/default.less';
+
+@background: @blue-3;
+
+
 .trigger {
   font-size: 24px;
   padding: 0px 14px; /*top-bottom left-right*/
@@ -10,28 +15,27 @@
 }
 
 .logo {
-  height: 32px;
-  background: rgba(255, 255, 255, 0.2);
-  margin: 16px;
+  height: 64px;
+  padding: 0px;
+  margin: 0px;
 }
 
 .site-layout .header {
-	height: 64px;
-	padding-top: 10px;
-	padding-left: 2px;
-	text-align: left;
-	background-color: #69c0ff;
-  display: flex;
+	display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
-}
+  align-items: flex-start;
+  height: 64px;
+	padding-top: 10px;
+	padding-left: 2px;
+	text-align: left;
+	background: @background;
+  }
 
 .site-layout .header .search{
-  width: 50%;
+  width: 30%;
 }
-
-@background: #91d5ff;
 
 .site-layout .sider  {
   background: @background;  
@@ -42,8 +46,18 @@
 }
 	
 .site-layout .content {
-  background: #aaa;
+  background: @green-1;
+  margin: 8px 8px;
+  padding: 24;
+  min-height: 480px;
 }
+
+
+
+
+
+
+
 
 
 

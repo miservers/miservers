@@ -1,39 +1,43 @@
 import React, {useState} from 'react';
-import { Input, Avatar,  Layout, 
-         Row, Col  } from 'antd';
+import { Avatar,  Layout, } from 'antd';
 
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
 } from '@ant-design/icons';
 
-import Icon from '@ant-design/icons';
+import {BrowserRouter as Router, Link} from "react-router-dom";
+
 import Menu from './Menu';
+import PatientSearch from '../patient/PatientSearch'; 
+import PatientAddIcon from '../images/PatientAdd.svg';
+import Routes from '../routes/Routes';
+
+import Logo      from '../images/logo.png';
 
 import '../css/MedLayout.less';
 
-const { Header, Sider, Content } = Layout;
-const { Search } = Input;
 
+const { Header, Content } = Layout;
 
 
 export default function MedLayout () {
   
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   
   const toggle = () => setCollapsed(!collapsed);
   
   const MenuFold = () => 
-          collapsed ? <MenuUnfoldOutlined className='trigger' onClick={toggle} />
+          collapsed ? <MenuUnfoldOutlined className='trigger' onClick={toggle}/>
                     : <MenuFoldOutlined className='trigger' onClick={toggle} />;
                               
   
   return (
     <>
      
+   <Router>
+
     <Layout  className="site-layout">
 
         <Menu collapsed={collapsed}/>
@@ -42,31 +46,30 @@ export default function MedLayout () {
           <Header className="header">
           
                 <MenuFold />
+              
+                <Link to="/" style={{display: 'flex', alignItems: 'flex-start'}}>
+                  <Avatar shape="square" size="large" src={Logo} />
+                </Link>
+              
                 
-                <Search placeholder="chercher un patient" 
-                      onSearch={value => console.log(value)} 
-                      size='middle'
-                      className='search'
-                      enterButton />
-         
+                <PatientSearch />
+                
+                <Avatar shape="square" size="large"  src={PatientAddIcon} />
+                  
                 <Avatar size={32} icon={<UserOutlined/>} />
                 
            </Header>
             
-            <Content
-              className="content"
-              style={{
-                margin: '24px 16px',
-                padding: 24,
-                minHeight: 280,
-              }}
-            >
-              Content
+            <Content className="content" >
+            
+                <Routes />
+                 
             </Content>
         </Layout>
 
-    </Layout>
-    </>
+     </Layout>
+   </Router>          
+   </>
   );
   
 };
