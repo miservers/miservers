@@ -4,7 +4,8 @@ import {Link} from "react-router-dom";
 
 import PatientRecordSvg from '../images/PatientRecord.svg';
 
-import {API_PATIENT} from '../Config';
+
+import {fetchPatients} from '../services/patientService';
 
 export default function Patient () {
 	const [patients, setPatients]       = useState([]); //patients=[] empty table
@@ -15,28 +16,15 @@ export default function Patient () {
      fetchData(pagination);
   }, []);
   
-  const fetchData = async (pagination) => {
-        
-        let url = API_PATIENT;
-        
-        url += '?pageNo=' + (pagination.current-1) +
-               '&pageSize=' + pagination.pageSize;
-          
-        if (pagination.orderBy)
-          url += '&sortBy=' + pagination.orderBy.field +
-                 '&sortDirection=' + pagination.orderBy.orderDirection;
-      
-        if(pagination.search) 
-          url += '&criteria=' + pagination.search;
-            
-        console.log(url);
+  const fetchData =  async (pagination) => {
         
         setLonding(true);
-        const response = await fetch(url);
-        const data     = await response.json();
+        
+        const data = await fetchPatients(pagination);
 
         setPatients(data.patients);
         setPagination({...pagination, total: data.totalCount});
+
         setLonding(false);
   };
       

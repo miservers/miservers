@@ -29,7 +29,7 @@ export default function Home () {
                    {title: 'Utilisateurs',    icon: UsersIcon,       href: '/users'}];
     
   const cols = buttons.map((button) => 
-                  <Col className="gutter-row" span={colspan}>
+                  <Col className="gutter-row" span={colspan} key={button.title} >
                         <Button type="primary" style={styles.button} >
                           <Link to={button.href} >
                             <Avatar shape="square" size="large" src={button.icon} /><br/>

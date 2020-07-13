@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 import lab.spring.exception.DataNotFoundException;
 
 @RestController
-@RequestMapping(value="/api/patient", 
+@RequestMapping(value="/api/patients", 
+				consumes = MediaType.APPLICATION_JSON_VALUE,
                 produces = MediaType.APPLICATION_JSON_VALUE)
 @CrossOrigin
 public 
@@ -87,7 +89,7 @@ class PatientController {
 
     
     @PostMapping() 
-    public ResponseEntity<?> create(@ModelAttribute Patient patient)  {
+    public ResponseEntity<?> create(@RequestBody Patient patient)  {
     	System.out.println("patient to create : "+patient);
         Patient createdUser = patientRepo.save(patient);
         return ResponseEntity.ok().body(createdUser);

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Avatar,  Layout, } from 'antd';
+import { Avatar,  Layout} from 'antd';
 
 import {
   MenuUnfoldOutlined,
@@ -11,8 +11,10 @@ import {BrowserRouter as Router, Link} from "react-router-dom";
 
 import Menu from './Menu';
 import PatientSearch from '../patient/PatientSearch'; 
-import PatientAddIcon from '../images/PatientAdd.svg';
+import PatientAddDialog from '../patient/PatientAddDialog';
 import Routes from '../routes/Routes';
+
+
 
 import Logo      from '../images/logo.png';
 
@@ -54,10 +56,10 @@ export default function MedLayout () {
                 
                 <PatientSearch />
                 
-                <Avatar shape="square" size="large"  src={PatientAddIcon} />
-                  
+                <PatientAddDialog />
+                   
                 <Avatar size={32} icon={<UserOutlined/>} />
-                
+           
            </Header>
             
             <Content className="content" >

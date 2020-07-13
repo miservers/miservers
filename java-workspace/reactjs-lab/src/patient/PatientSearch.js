@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
 import {Select } from 'antd';
 
-import {API_PATIENT_SEARCH} from '../Config';
-
-
+import {searchPatient} from '../services/patientService';
 
 const { Option } = Select;
 
@@ -11,25 +9,17 @@ export default function PatientSearch () {
   const [value, setValue] = useState();
   const [patients, setPatients] = useState([]);
 
-  const searchPatient = async (name) => {
+  const queryPatient = async (name) => {
         
-        let url = API_PATIENT_SEARCH;
-        
-        url += '?pageNo=0'  +
-               '&pageSize=10';
-          
-        url += '&criteria=' + name;
-            
-        console.log(url);
-        
-        const response = await fetch(url);
-        const data     = await response.json();
+      const pagination = {current: 1, pageSize: 10};
+      
+      const data = await searchPatient(name, pagination);
 
-        setPatients(data.patients);
+      setPatients(data.patients);
   };
     
   const onSearch = searchText => {
-    !searchText ? setPatients([]): searchPatient(searchText);
+    !searchText ? setPatients([]): queryPatient(searchText);
   };
 
   const onSelect = data => {

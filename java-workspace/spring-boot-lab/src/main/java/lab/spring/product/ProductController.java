@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lab.spring.exception.DataNotFoundException;
 
 @RestController
-@RequestMapping(value="/api/product", 
+@RequestMapping(value="/api/products", 
                 produces = MediaType.APPLICATION_JSON_VALUE)
 @CrossOrigin
 public 

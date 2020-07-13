@@ -55,6 +55,8 @@ public class Application {
 ### Annotations
  * `@ModelAttribute`: one of the most important Spring annotations. It bind method parameters or return to a named Model bean.
 
+ *`@Data`: is a Lombok annotation to create all the getters, setters, equals, hash, and toString
+
 ### Spring validation
 pom.xml  
 
