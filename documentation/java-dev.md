@@ -136,6 +136,18 @@ Optional is an alternative to **null**. very useful for code **lisibility**.
 	if (opt.isPresent()) //true if there is a value present, otherwise false.
 ~~~
 
+### java.time package (java 8)
+From  now, use `LocalDate` from `java.time`, never use the old crazy `java.util.Date` and `java.sql.date`
+
+Example of using LocalDate in Entity   
+
+~~~java
+  @Column(columnDefinition = "DATE")       //2020-07-14
+  LocalDate   birthDate;
+    
+  @Column(columnDefinition = "TIMESTAMP")  //2020-07-14 H:M:S.SS
+  LocalDate      modificationDate;
+~~~
 
 ### RESTful web service
 Conventions:

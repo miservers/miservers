@@ -199,6 +199,38 @@ public List<Patient>  all(@RequestParam Integer pageNo,
 }
 ~~~
  
+### Query derivation mechanism in Spring Data JPA.
+
+With zero implementation, only declare method with theses keywords in the Repository interface:  
+   **ByFieldName,  Top3By, Is, IsNot, IsNotNull, True, False, StartingWith, Containing, Like, OrderBy, Asc/Desc** 
+   
+[Query Creation](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation)
+
+Examples:  
+
+~~~java
+@Repository
+public interface UserRepo extends JpaRepository<User, Long>{
+  List<User> findByName(String name);
+  List<User> findTop3ByAge();
+  List<User> findByProfesionEquals(String prof);
+  List<User> findByNameIs(String name);
+  List<User> findByNameIsNot(String name);
+  List<User> findByNameIsNull();
+  List<User> findByNameIsNotNull();
+  
+  List<User> findByAgeGreaterThanEqual(Integer age);
+  
+  List<User> findByActiveTrue();
+  List<User> findByActiveFalse();
+  
+  List<User> findByNameStartingWith(String prefix);
+  List<User> findByNameContaining(String infix);
+  List<User> findByNameLike(String likePattern);
+  
+} 
+~~~
+  
 
 ### RESTful web service
 Conventions:

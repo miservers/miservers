@@ -554,6 +554,17 @@ export default function Parent() {
   }
 ~~~
 
+### Display Blob image
+BLOB as string in JSON:
+
+~~~js
+<img className="pic__photo" src={"data:image/png;base64," + patient.picture.blob} />
+
+OR 
+
+avatar={<Avatar size={92} src={"data:image/png;base64," + patient.picture.blob}/>}
+~~~
+
 ### Log an object on console
 Use JSON.stringify():
 
@@ -655,7 +666,34 @@ import {Link} from "react-router-dom";
 </Link>
 ~~~ 
 
+**URL Parameters**  
 
+~~~js
+// Patient.js : http://localhost:3000/patients/record/10004 
+<Link to={'/patients/record/' + id} >
+  <img src={PatientRecordSvg} alt="Fiche patient"/>
+</Link>
+
+// Routes.js
+<Switch>
+    <Route path="/patients/record/:id">
+        <PatientRecord />
+    </Route>
+</Switch>
+
+
+// PatientRecord.js
+import React from 'react';
+import {useParams} from 'react-router-dom';
+
+export default function PatientRecord () {
+  let {id} = useParams();
+  
+  return (
+    <h2> Patient Record: {id} </h2> 
+  );
+}
+~~~
 
 
 ### Material UI

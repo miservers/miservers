@@ -23,7 +23,7 @@ export default function Menu (props) {
   const {collapsed} = props;
  
   //const icons = [{PatientIcon}, WaitingRoomIcon, AppointmentIcon, DrugsIcon, AccountingIcon];
-  const icons = [{title: 'Patient',         icon: PatientIcon,     href: '/patient'},
+  const icons = [{title: 'Patient',         icon: PatientIcon,     href: '/patients'},
                  {title: "Salle d'attente", icon: WaitingRoomIcon, href: '/waitingroom'}, 
                  {title: 'Rendez-vous',     icon: AppointmentIcon,  href: '/appointment'},
                  {title: 'Medicaments',     icon: DrugsIcon,       href: '/drugs'},

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Select } from 'antd';
+import {Select, notification } from 'antd';
 
 import {searchPatient} from '../services/patientService';
 
@@ -13,8 +13,15 @@ export default function PatientSearch () {
         
       const pagination = {current: 1, pageSize: 10};
       
-      const data = await searchPatient(name, pagination);
+      const data =  await searchPatient(name, pagination)
+                          .catch(err => 
+                                notification.error({
+                                  message: err.message,
+                                  placement: 'topLeft',
+                                })); 
 
+      if (!data)
+          return;
       setPatients(data.patients);
   };
     
@@ -47,7 +54,7 @@ export default function PatientSearch () {
         className='search'
         placeholder="chercher un patient"
       >
-          {patients.map (patient =>
+          {patients && patients.map (patient =>
                               <Option key={patient.id}>{patient.lastName+' ' +patient.firstName}</Option>
           )}
   

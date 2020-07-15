@@ -93,6 +93,11 @@ let squares = fmap(square,numbers);
 console.log(squares); //=> [0, 1, 4, 25, 100]
 ~~~
 
+### Display Blob image
+~~~js
+<img className="pic__photo" src={"data:image/png;base64," + patient.picture.blob} />
+~~~
+
 ### Arrow function expression
 Format of Arrow function declaration
 ~~~javascript

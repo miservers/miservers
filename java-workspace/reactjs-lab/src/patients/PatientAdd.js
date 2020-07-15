@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
 
-import { Form, Input, Button , Modal, Radio, Divider} from 'antd';
+import { 
+  Form, Input, Button , Modal, Radio, Divider,
+  notification} from 'antd';
+import { RadiusUpleftOutlined,} from '@ant-design/icons';
 
 import {createPatient} from '../services/patientService';
 
@@ -14,20 +17,32 @@ const layout = {
   },
 };
 
-export default function PatientAddDialog () {
-  const [visible, setVisible] = useState(true);
+export default function PatientAdd () {
+  const [visible, setVisible] = useState(false);
   const [form] = Form.useForm();
   
-  const showDialog = (event) => setVisible(true);
+  const showDialog = () => setVisible(true);
   
-  const onOk = () => {
+  const onOk = async () => {
             form.validateFields()
-                .then(values => {
+                .then(fieldsValue => {
                        //form.resetFields(); 
-                       createPatient(values); 
-                       
-                    })
-                .catch (info => console.log("validation failed: "+info));
+                       const patient = fieldsValue;
+                       createPatient(patient)
+                       .then(data => {
+                          setVisible(false);
+                          form.resetFields();
+                          notification.info({
+                            message: 'Patient cree avec id '+data.id,
+                            placement: 'topLeft',
+                          });
+                          })
+                       .catch(err => 
+                          notification.error({
+                            message: err.message,
+                            placement: 'topLeft',
+                          }));                                                                   
+                    });
                
   }
   
@@ -64,7 +79,7 @@ export default function PatientAddDialog () {
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
               >
-                <Form.Item label="Prenom" name="firstName" initialValue={'khaled'} rules={[required,]} >
+                <Form.Item label="Prenom" name="firstName"  >
                   <Input />
                 </Form.Item>
             
@@ -111,11 +126,6 @@ export default function PatientAddDialog () {
                   <Input />
                 </Form.Item>
 
-                <Form.Item>
-                  <Button type="primary" htmlType="submit">
-                  Submit
-                  </Button>
-                </Form.Item>
             </Form>
          </Modal>
       </>

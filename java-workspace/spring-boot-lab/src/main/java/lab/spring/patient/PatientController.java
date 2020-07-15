@@ -1,5 +1,7 @@
 package lab.spring.patient;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lab.spring.exception.DataNotFoundException;
+import lab.spring.utils.AgeCalculator;
 
 @RestController
 @RequestMapping(value="/api/patients", 
@@ -34,7 +37,7 @@ class PatientController {
 
   
     @Autowired
-    private PatientRepo patientRepo;
+    private PatientRepository patientRepository;
 
     @GetMapping()
     public ResponseEntity<Map<String, Object>>  all(@RequestParam Integer pageNo,
@@ -46,7 +49,7 @@ class PatientController {
     	Sort.Direction direction = sortDirection.equals("asc")?Sort.Direction.ASC:Sort.Direction.DESC;
     	Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(direction ,sortBy));
     	
-    	Page<Patient> pageableResult = patientRepo.findAll(pageable);
+    	Page<Patient> pageableResult = patientRepository.findAll(pageable);
     	
     	Map<String, Object> response = new HashMap<String, Object>();
     	response.put("currentPage", pageableResult.getNumber());
@@ -59,9 +62,10 @@ class PatientController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Patient> one(@PathVariable Long id) {
-        Patient patient = patientRepo.findById(id).
-                                      orElseThrow(()-> new DataNotFoundException("no record found with id "+id)); 
+        Patient patient = patientRepository.findWithPictureById(id);
+                                      //orElseThrow(()-> new DataNotFoundException("no record found with id "+id)); 
         
+        patient.setAge(AgeCalculator.calculateAge(patient.getBirthDate(), LocalDate.now()));
         return ResponseEntity.ok().body(patient);
     }
 
@@ -70,12 +74,12 @@ class PatientController {
     												   @RequestParam Integer pageSize,
     											       @RequestParam(defaultValue = "id") String  sortBy,  
     												   @RequestParam(defaultValue = "asc") String sortDirection,
-    												   @RequestParam  String criteria ) {
+    												   @RequestParam  String name ) {
     	
     	Sort.Direction direction = sortDirection.equals("asc")?Sort.Direction.ASC:Sort.Direction.DESC;
     	Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(direction ,sortBy));
     	
-    	Page<Patient> pageableResult = patientRepo.search(criteria, pageable);
+    	Page<Patient> pageableResult = patientRepository.findByLastNameContainingOrFirstNameContaining(name, name, pageable);
     	
     	Map<String, Object> response = new HashMap<String, Object>();
     	response.put("currentPage", pageableResult.getNumber());
@@ -91,28 +95,32 @@ class PatientController {
     @PostMapping() 
     public ResponseEntity<?> create(@RequestBody Patient patient)  {
     	System.out.println("patient to create : "+patient);
-        Patient createdUser = patientRepo.save(patient);
+    	LocalDate now = LocalDate.now();
+    	patient.setCreationDate(now);
+    	patient.setModificationDate(now);
+        Patient createdUser = patientRepository.save(patient);
         return ResponseEntity.ok().body(createdUser);
     }
 
     @PutMapping()
     public ResponseEntity<?> update(@ModelAttribute Patient patient)  {
-        patientRepo.save(patient);
+    	patient.setModificationDate(LocalDate.now());
+        patientRepository.save(patient);
         return ResponseEntity.ok("patient updated");
     }
 
     @DeleteMapping("/{id}") 
     public ResponseEntity<?> delete(@PathVariable  Long id)  {
-        patientRepo.deleteById(id);
+        patientRepository.deleteById(id);
         return  ResponseEntity.ok("patient deleted");
     }
 
-	public PatientRepo getPatientRepo() {
-		return patientRepo;
+	public PatientRepository getPatientRepo() {
+		return patientRepository;
 	}
 
-	public void setPatientRepo(PatientRepo patientRepo) {
-		this.patientRepo = patientRepo;
+	public void setPatientRepo(PatientRepository patientRepo) {
+		this.patientRepository = patientRepo;
 	}
 
 }

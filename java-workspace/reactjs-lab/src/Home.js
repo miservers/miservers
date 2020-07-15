@@ -21,7 +21,7 @@ export default function Home () {
 	
   const colspan=4;
   
-  const buttons = [{title: 'Patient',         icon: PatientIcon,     href: '/patient'},
+  const buttons = [{title: 'Patient',         icon: PatientIcon,     href: '/patients'},
                    {title: "Salle d'attente", icon: WaitingRoomIcon, href: '/waitingroom'}, 
                    {title: 'Rendez-vous',     icon: AppointmentIcon, href: '/appointment'},
                    {title: 'Medicaments',     icon: DrugsIcon,       href: '/drugs'},

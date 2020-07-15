@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Table, Space } from 'antd';
+import { Table, Space, notification } from 'antd';
 import {Link} from "react-router-dom";
 
 import PatientRecordSvg from '../images/PatientRecord.svg';
@@ -7,32 +7,50 @@ import PatientRecordSvg from '../images/PatientRecord.svg';
 
 import {fetchPatients} from '../services/patientService';
 
-export default function Patient () {
+export default function Patients () {
 	const [patients, setPatients]       = useState([]); //patients=[] empty table
   const [pagination, setPagination]   = useState({current: 1, pageSize: 10, total:0, });
   const [loading, setLonding]         = useState(false);
   
   useEffect(() => {
-     fetchData(pagination);
+     _fetchPatients(pagination);
   }, []);
   
-  const fetchData =  async (pagination) => {
+  const _fetchPatients =  async (pagination) => {
         
         setLonding(true);
         
-        const data = await fetchPatients(pagination);
+        const data = await fetchPatients(pagination)
+                           .catch(err => 
+                                notification.error({
+                                  message: err.message,
+                                  placement: 'topLeft',
+                                })); 
+        
+        setLonding(false);
 
+        if (!data)
+          return;
         setPatients(data.patients);
         setPagination({...pagination, total: data.totalCount});
 
-        setLonding(false);
   };
       
   const onChange = (pagination) => {
-      fetchData(pagination);     
+      _fetchPatients(pagination);     
   };
         
   const columns = [
+    {
+      title: 'Fiche',
+      render: (record) => (
+        <Space size="middle">
+          <Link to={'/patients/record/' + record.id} >
+            <img src={PatientRecordSvg} alt="Fiche patient"/>
+          </Link>
+        </Space>
+      ),
+    },
     {
       title: 'Nom',
       dataIndex: 'lastName',
@@ -54,14 +72,8 @@ export default function Patient () {
       dataIndex: ['address', 'city'],  
     },
     {
-      title: 'Fiche',
-      render: (record) => (
-        <Space size="middle">
-          <Link to={'/patient/record/' + record.id}>
-            <img src={PatientRecordSvg} alt="Fiche patient"/>
-          </Link>
-        </Space>
-      ),
+      title: 'Telephone',
+      dataIndex: 'cellPhone',  
     },
   ];
     

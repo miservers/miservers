@@ -10,8 +10,7 @@ import {
 import {BrowserRouter as Router, Link} from "react-router-dom";
 
 import Menu from './Menu';
-import PatientSearch from '../patient/PatientSearch'; 
-import PatientAddDialog from '../patient/PatientAddDialog';
+import {PatientAdd, PatientSearch} from '../patients';
 import Routes from '../routes/Routes';
 
 
@@ -56,7 +55,7 @@ export default function MedLayout () {
                 
                 <PatientSearch />
                 
-                <PatientAddDialog />
+                <PatientAdd />
                    
                 <Avatar size={32} icon={<UserOutlined/>} />
            

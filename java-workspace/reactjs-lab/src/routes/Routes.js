@@ -4,8 +4,8 @@ import {Switch,Route} from "react-router-dom";
 
 import Home from '../Home';
 import Accounting from '../Accounting';
-import Patient from '../patient/Patient';
-import PatientRecord from '../patient/PatientRecord';
+import Patients from '../patients/Patients';
+import PatientRecord from '../patients/PatientRecord';
 import Appointment from '../Appointment';
 import WaitingRoom from '../WaitingRoom';
 import Drugs from '../Drugs';
@@ -17,10 +17,10 @@ return (
         <Route path="/" exact>
             <Home />
         </Route>
-        <Route path="/patient" exact>
-            <Patient />
+        <Route path="/patients" exact>
+            <Patients />
         </Route>
-        <Route path="/patient/record">
+        <Route path="/patients/record/:id">
             <PatientRecord />
         </Route>
         <Route path="/waitingroom">
