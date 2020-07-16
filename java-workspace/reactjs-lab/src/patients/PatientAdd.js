@@ -3,7 +3,6 @@ import React, {useState} from 'react';
 import { 
   Form, Input, Button , Modal, Radio, Divider,
   notification} from 'antd';
-import { RadiusUpleftOutlined,} from '@ant-design/icons';
 
 import {createPatient} from '../services/patientService';
 
@@ -33,7 +32,7 @@ export default function PatientAdd () {
                           setVisible(false);
                           form.resetFields();
                           notification.info({
-                            message: 'Patient cree avec id '+data.id,
+                            message: 'Patient cree avec id '+data.pid,
                             placement: 'topLeft',
                           });
                           })

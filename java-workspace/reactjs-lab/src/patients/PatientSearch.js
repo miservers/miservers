@@ -55,7 +55,7 @@ export default function PatientSearch () {
         placeholder="chercher un patient"
       >
           {patients && patients.map (patient =>
-                              <Option key={patient.id}>{patient.lastName+' ' +patient.firstName}</Option>
+                              <Option key={patient.pid}>{patient.lastName+' ' +patient.firstName}</Option>
           )}
   
       </Select>

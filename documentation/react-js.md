@@ -666,7 +666,7 @@ import {Link} from "react-router-dom";
 </Link>
 ~~~ 
 
-**URL Parameters**  
+**URL Parameters : useParams**  
 
 ~~~js
 // Patient.js : http://localhost:3000/patients/record/10004 

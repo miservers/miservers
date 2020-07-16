@@ -1,4 +1,4 @@
-package lab.spring.patient;
+package lab.spring.controller;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lab.spring.exception.DataNotFoundException;
+import lab.spring.model.Patient;
+import lab.spring.repository.PatientRepository;
 import lab.spring.utils.AgeCalculator;
 
 @RestController
@@ -42,7 +44,7 @@ class PatientController {
     @GetMapping()
     public ResponseEntity<Map<String, Object>>  all(@RequestParam Integer pageNo,
     												@RequestParam Integer pageSize,
-    												@RequestParam(defaultValue = "id") String  sortBy,  
+    												@RequestParam(defaultValue = "pid") String  sortBy,  
     												@RequestParam(defaultValue = "asc") String sortDirection,
     												@RequestParam(defaultValue = "", required = false ) String search ) {
     	
@@ -60,9 +62,9 @@ class PatientController {
     	return ResponseEntity.ok().body(response);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Patient> one(@PathVariable Long id) {
-        Patient patient = patientRepository.findWithPictureById(id);
+    @GetMapping("/{pid}")
+    public ResponseEntity<Patient> one(@PathVariable Long pid) {
+        Patient patient = patientRepository.findWithPictureByPid(pid);
                                       //orElseThrow(()-> new DataNotFoundException("no record found with id "+id)); 
         
         patient.setAge(AgeCalculator.calculateAge(patient.getBirthDate(), LocalDate.now()));
@@ -72,7 +74,7 @@ class PatientController {
     @GetMapping("/search")
     public ResponseEntity<Map<String, Object>>  search(@RequestParam Integer pageNo,
     												   @RequestParam Integer pageSize,
-    											       @RequestParam(defaultValue = "id") String  sortBy,  
+    											       @RequestParam(defaultValue = "pid") String  sortBy,  
     												   @RequestParam(defaultValue = "asc") String sortDirection,
     												   @RequestParam  String name ) {
     	
@@ -109,9 +111,9 @@ class PatientController {
         return ResponseEntity.ok("patient updated");
     }
 
-    @DeleteMapping("/{id}") 
-    public ResponseEntity<?> delete(@PathVariable  Long id)  {
-        patientRepository.deleteById(id);
+    @DeleteMapping("/{pid}") 
+    public ResponseEntity<?> delete(@PathVariable  Long pid)  {
+        patientRepository.deleteById(pid);
         return  ResponseEntity.ok("patient deleted");
     }
 

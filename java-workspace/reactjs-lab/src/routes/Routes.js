@@ -20,7 +20,7 @@ return (
         <Route path="/patients" exact>
             <Patients />
         </Route>
-        <Route path="/patients/record/:id">
+        <Route path="/patients/record/:pid">
             <PatientRecord />
         </Route>
         <Route path="/waitingroom">

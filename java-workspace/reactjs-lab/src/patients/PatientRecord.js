@@ -3,8 +3,8 @@ import {useParams} from 'react-router-dom';
 
 import { Tabs } from 'antd';
 
-import {Synthesis, Historic, 
-        Biometrics, PatientInfos} from '../patients';
+import {Synthesis, Historic, Allergies,
+        Biometrics, PatientInfos, } from '../patients';
 
 const { TabPane } = Tabs;
 
@@ -14,16 +14,17 @@ function callback(key) {
 
 
 export default function PatientRecord () {
-  let {id} = useParams(); // Patient ID
+  let {pid} = useParams(); // Patient ID
   
   const tabs = [
     {name:'Infos', src: PatientInfos},
     {name:'Synthese', src: Synthesis},
-    {name:'Historique', src: Historic},
-    {name:'Antécédents', src: Historic},
-    {name:'Biométrie', src: Biometrics},
     {name:'Traitements', src: Synthesis},
-    {name:'Vaccins', src: Synthesis},
+    {name:'Antécédents', src: Historic},
+    {name:'Allergies', src: Allergies},
+    {name:'Vaccinations', src: Synthesis},
+    {name:'Historique', src: Historic},
+    {name:'Biométrie', src: Biometrics},
     {name:'Documents', src: Synthesis},
     {name:'Analyses', src: Synthesis},
     {name:'Finances', src: Synthesis},
@@ -31,7 +32,7 @@ export default function PatientRecord () {
   
   const tabPanes = tabs.map((item, index) => 
         <TabPane tab={item.name} key={index}>
-           {<item.src id={id}/>}
+           {<item.src pid={pid}/>}
         </TabPane>);
         
 	return (

@@ -6,17 +6,17 @@ import {fetchPatientById} from '../services/patientService';
 
 const { Title } = Typography;
 
-export default function PatientInfos ({id}) {
+export default function PatientInfos ({pid}) {
   const [patient, setPatient] = useState({address:{}, picture: {}});
   const [picture, setPicture] = useState({});
   
   useEffect(() => {
-     _fetchPatientById(id);
+     _fetchPatientById(pid);
   }, []);
   
-  const _fetchPatientById =  async (id) => {
+  const _fetchPatientById =  async (pid) => {
         
-        const data = await fetchPatientById(id)
+        const data = await fetchPatientById(pid)
                            .catch(err => 
                               notification.error({
                                 message: err.message,
@@ -32,8 +32,18 @@ export default function PatientInfos ({id}) {
         //setPicture(image);
    };
   
-  const item = (label, content) =>   
-          <Descriptions.Item label={<b>{label}</b>}>{content}</Descriptions.Item>;
+  const itemsTable = [
+    {label: "Ne(e) le", content: patient.birthDate},
+    {label: "Numéro du dossier", content: patient.pid},
+    {label: "Ajoute le", content: patient.creationDate},
+    {label: "Addresse", content: patient.address.address+' '+patient.address.city},
+    {label: "Telephone", content: patient.cellPhone},
+    {label: "Profession", content: patient.profession},
+  ];
+  
+  const items = itemsTable.map(item =>   
+          <Descriptions.Item label={<b>{item.label}</b>}>{item.content}</Descriptions.Item>
+  );
     
   return (
    <div style={{padding: '2px', background: '#ececec'}}>
@@ -43,15 +53,13 @@ export default function PatientInfos ({id}) {
          <Card.Meta 
               avatar={<Avatar size={92} shape='square' src={"data:image/png;base64," + patient.picture.blob}/>}
               title={<Title level={3}>{patient.firstName+' '+patient.lastName} </Title>}
-              description={'Age '+patient.age}
+              description={patient.gender + '. Age: '+patient.age}
               />
       </Card.Grid>  
        
       <Card.Grid hoverable={false} style={{width: '70%', textAlign: 'left'}}>
          <Descriptions>
-            {item("Telephone", patient.cellPhone)}
-            {item("Addresse", patient.address.address+' '+patient.address.city)}
-            {item("Ajoute le", patient.creationDate)}
+            {items}
           </Descriptions>
       </Card.Grid>
       

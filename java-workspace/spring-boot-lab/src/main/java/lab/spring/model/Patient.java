@@ -1,6 +1,7 @@
-package lab.spring.patient;
+package lab.spring.model;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -13,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -28,7 +30,7 @@ class Patient {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	long id;
+	long pid; // Patient ID
 
 	@Column(nullable = false)
 	@NotBlank
@@ -61,9 +63,6 @@ class Patient {
 
 	String profession;
 	
-	@OneToOne
-	@Basic(fetch = FetchType.LAZY)
-	Picture picture; 
 	
 	@Column(columnDefinition = "DATE")
 	LocalDate  deathDate;
@@ -73,6 +72,13 @@ class Patient {
 	
 	@Column(columnDefinition = "TIMESTAMP")
 	LocalDate      modificationDate;
+
+	@OneToOne
+	@Basic(fetch = FetchType.LAZY)
+	Picture picture; 
+
+	@OneToMany(mappedBy = "pid")
+	Set<Allergy> allergies;
 	
 	public Patient() {  // default constructor
 	} 
@@ -88,20 +94,23 @@ class Patient {
 	// Getters and Setters
 	//-----------------------------------------------------------------------------
 	
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
+	
 	public String getFirstName() {
 		return firstName;
 	}
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
+	}
+
+	
+
+	public long getPid() {
+		return pid;
+	}
+
+	public void setPid(long pid) {
+		this.pid = pid;
 	}
 
 	public Picture getPicture() {

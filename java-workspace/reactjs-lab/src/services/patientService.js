@@ -47,9 +47,9 @@ async function fetchPatients (pagination) {
     return data;
 };
 
-async function fetchPatientById (id) {
+async function fetchPatientById (pid) {
         
-    let url = API_PATIENT + '/' + id;
+    let url = API_PATIENT + '/' + pid;
             
     console.log(url);
     

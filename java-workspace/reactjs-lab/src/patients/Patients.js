@@ -45,7 +45,7 @@ export default function Patients () {
       title: 'Fiche',
       render: (record) => (
         <Space size="middle">
-          <Link to={'/patients/record/' + record.id} >
+          <Link to={'/patients/record/' + record.pid} >
             <img src={PatientRecordSvg} alt="Fiche patient"/>
           </Link>
         </Space>
@@ -82,7 +82,7 @@ export default function Patients () {
       columns={columns}
       dataSource={patients}
       pagination={{...pagination, showQuickJumper:true, position:['bottomCenter']}}
-      rowKey= {(record) => record.id}
+      rowKey= {(record) => record.pid}
       bordered={false}
       size="middle"
       onChange= {onChange}

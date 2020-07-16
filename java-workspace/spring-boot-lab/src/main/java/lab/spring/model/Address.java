@@ -1,4 +1,4 @@
-package lab.spring.patient;
+package lab.spring.model;
 
 import java.io.Serializable;
 

@@ -1,8 +1,8 @@
 import React from 'react';
 
-export default function Biometrics ({id}) {
+export default function Biometrics ({pid}) {
   
   return (
-    <h2> Patient Biometrics {id}</h2>  
+    <h2> Patient Biometrics {pid}</h2>  
   );
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 
-export default function Historic ({id}) {
+export default function Historic ({pid}) {
   
   return (
-    <h2> Historique du patient {id}</h2>  
+    <h2> Historique du patient {pid}</h2>  
   );
 }
