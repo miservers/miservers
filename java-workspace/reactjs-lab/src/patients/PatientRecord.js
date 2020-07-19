@@ -38,7 +38,7 @@ export default function PatientRecord () {
 	return (
     <>
   
-      <Tabs defaultActiveKey="0" 
+      <Tabs defaultActiveKey="4" 
              onChange={callback}
              tabPosition='left'
              type="card">

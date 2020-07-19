@@ -137,16 +137,14 @@ Optional is an alternative to **null**. very useful for code **lisibility**.
 ~~~
 
 ### java.time package (java 8)
-From  now, use `LocalDate` from `java.time`, never use the old crazy `java.util.Date` and `java.sql.date`
+From  now, use `LocalDate`, and `LocalDateTime` from `java.time` package, never use the old crazy `java.util.Date` and `java.sql.date`
 
 Example of using LocalDate in Entity   
 
 ~~~java
-  @Column(columnDefinition = "DATE")       //2020-07-14
-  LocalDate   birthDate;
+  LocalDate   birthDate; ////2020-07-14
     
-  @Column(columnDefinition = "TIMESTAMP")  //2020-07-14 H:M:S.SS
-  LocalDate      modificationDate;
+  LocalDateTime      modificationDate; //2020-07-14 H:M:S.SS
 ~~~
 
 ### RESTful web service

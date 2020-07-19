@@ -52,7 +52,6 @@ class Patient {
 	@Transient
 	int   age;
 	
-	
 	@Embedded Address address;
 	
 	String cellPhone;
@@ -65,13 +64,15 @@ class Patient {
 	
 	
 	@Column(columnDefinition = "DATE")
-	LocalDate  deathDate;
+	LocalDate  deathDate;   // Sad :-(
+	
+	Integer deathAge;   
 	
 	@Column(columnDefinition = "TIMESTAMP")
-	LocalDate      creationDate;
+	LocalDate      creationDate;			 // in database :-)
 	
-	@Column(columnDefinition = "TIMESTAMP")
-	LocalDate      modificationDate;
+	@Column(columnDefinition = "TIMESTAMP")  
+	LocalDate      modificationDate;		  
 
 	@OneToOne
 	@Basic(fetch = FetchType.LAZY)

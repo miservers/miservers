@@ -2,19 +2,26 @@ import React, {useState} from 'react';
 
 import { 
   Form, Input, Button , Modal, Radio, Divider,
-  notification} from 'antd';
+  notification, DatePicker, Row, Col} from 'antd';
 
 import {createPatient} from '../services/patientService';
 
+const { TextArea } = Input;
+
+const dateFormat = 'DD/MM/YYYY';
 
 const layout = {
   labelCol: {
-    span: 6,
+    span: 8,
   },
   wrapperCol: {
     span: 16,
   },
+  size: 'middle',
 };
+
+const Item = (props) =>
+        <Form.Item {...props} style={{marginBottom: "8px" }}>{props.children}</Form.Item>
 
 export default function PatientAdd () {
   const [visible, setVisible] = useState(false);
@@ -45,7 +52,8 @@ export default function PatientAdd () {
                
   }
   
-  const onCancel = () => setVisible(false);
+  
+  const onCancel = () => {form.resetFields(); setVisible(false)};
   
   const onFinish = (values) => alert("onFinish")
   
@@ -77,54 +85,56 @@ export default function PatientAdd () {
                 name="Nouveau patient"
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
+                style={{paddingTop: '4px', }}
               >
-                <Form.Item label="Prenom" name="firstName"  >
-                  <Input />
-                </Form.Item>
-            
-                <Form.Item label="Nom" name="lastName" initialValue={'jilali'} rules={[required,]} >
-                  <Input />
-                </Form.Item>
-
-                <Form.Item label="Sex"  name="sex" >
-                  <Radio.Group name="sex">
-                      <Radio value={'Male'}>Homme</Radio>
-                      <Radio value={'Female'}>Femme</Radio>
-                    </Radio.Group>
-                </Form.Item>  
+                 <Item label="Nom" name="lastName"  rules={[required,]} >
+                    <Input />
+                 </Item>
                 
-                <Form.Item label="CIN" name="cin" >
+                 <Item label="Prenom" name="firstName" rules={[required,]}>
+                    <Input />
+                 </Item>
+                 
+                 <Item label="Sexe"  name="sex" rules={[required,]}>
+                    <Radio.Group name="sex">
+                        <Radio value={'Male'}>Homme</Radio>
+                        <Radio value={'Female'}>Femme</Radio>
+                      </Radio.Group>
+                 </Item>  
+   
+                 <Item label="Date de naissance" name="birthDate">
+                    <DatePicker format={dateFormat} placeholder={dateFormat}/>
+                 </Item>
+                
+                 <Item label="Addresse">
+                    <Input.Group compact>
+                      <Item  name={['address', 'address']} noStyle>
+                        <Input placeholder="Addresse" style={{ width: '100%' }}/>
+                      </Item>
+                      <br/>
+                      <Item  name={['address', 'zipCode']} noStyle>
+                        <Input placeholder="Code Postal" style={{ width: '50%', marginTop: '8px', marginRight: '2%' }}/>
+                      </Item>
+      
+                      <Item label="Ville" name={['address', 'city']} noStyle>
+                        <Input placeholder="Ville" style={{ width: '48%', marginTop: '8px',}}/>
+                      </Item>
+      
+                    </Input.Group>      
+                </Item>  
+               
+                <Item label="Telephone" name="cellPhone" >
                   <Input />
-                </Form.Item>
-
-                <Divider/>
-
-                <Form.Item label="Addresse">
-                  <Input.Group compact>
-                    <Form.Item  name={['address', 'address']} noStyle>
-                      <Input placeholder="Addresse" style={{ width: '100%' }}/>
-                    </Form.Item>
-                    <br/>
-                    <Form.Item  name={['address', 'zipCode']} noStyle>
-                      <Input placeholder="Code Postal" style={{ width: '50%', marginTop: '8px', marginRight: '2%' }}/>
-                    </Form.Item>
+                </Item>
     
-                    <Form.Item label="Ville" name={['address', 'city']} noStyle>
-                      <Input placeholder="Ville" style={{ width: '48%', marginTop: '8px',}}/>
-                    </Form.Item>
+                <Item label="E-mail" name="email" >
+                  <Input />
+                </Item>
     
-                  </Input.Group>      
-                </Form.Item>  
-                <Divider/>
-
-                <Form.Item label="Telephone" name="cellPhone" >
-                  <Input />
-                </Form.Item>
-
-                <Form.Item label="E-mail" name="email" >
-                  <Input />
-                </Form.Item>
-
+                <Item label="Notes" name="notes">
+                  <TextArea  span={4}/>
+                </Item>
+                
             </Form>
          </Modal>
       </>
