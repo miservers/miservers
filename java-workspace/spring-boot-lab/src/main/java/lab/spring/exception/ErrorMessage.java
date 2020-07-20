@@ -1,24 +1,34 @@
 package lab.spring.exception;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public 
 class ErrorMessage  implements Serializable{
 	
-	Date    timestamp;	
+	LocalDateTime    timestamp;	
 	String  message;
 	
-	public ErrorMessage (Date t, String msg) {
+	public static 
+	ErrorMessage build (String msg) {
+		return new ErrorMessage(LocalDateTime.now(), msg);
+	}
+	
+	public ErrorMessage (String msg) {
+		this.timestamp  = LocalDateTime.now();
+		this.message    = msg;
+	}
+	
+	public ErrorMessage (LocalDateTime t, String msg) {
 		this.timestamp  = t;
 		this.message    = msg;
 	}
 	
-	public Date getTimestamp() {
+	public LocalDateTime getTimestamp() {
 		return timestamp;
 	}
 
-	public void setTimestamp(Date timestamp) {
+	public void setTimestamp(LocalDateTime timestamp) {
 		this.timestamp = timestamp;
 	}
 

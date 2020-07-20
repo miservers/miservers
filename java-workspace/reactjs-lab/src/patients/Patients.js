@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Table, Space, notification } from 'antd';
+import { Table, Space } from 'antd';
 import {Link} from "react-router-dom";
 
 import PatientRecordSvg from '../images/PatientRecord.svg';
@@ -20,12 +20,7 @@ export default function Patients () {
         
         setLonding(true);
         
-        const data = await fetchPatients(pagination)
-                           .catch(err => 
-                                notification.error({
-                                  message: err.message,
-                                  placement: 'topLeft',
-                                })); 
+        const data = await fetchPatients(pagination);
         
         setLonding(false);
 
@@ -78,15 +73,17 @@ export default function Patients () {
   ];
     
 	return (
-		<Table
-      columns={columns}
-      dataSource={patients}
-      pagination={{...pagination, showQuickJumper:true, position:['bottomCenter']}}
-      rowKey= {(record) => record.pid}
-      bordered={false}
-      size="middle"
-      onChange= {onChange}
-      loading={loading}
-    />
+    <>    
+  		<Table
+        columns={columns}
+        dataSource={patients}
+        pagination={{...pagination, showQuickJumper:true, position:['bottomCenter']}}
+        rowKey= {(record) => record.pid}
+        bordered={false}
+        size="middle"
+        onChange= {onChange}
+        loading={loading}
+      />
+    </>
 	);
 }

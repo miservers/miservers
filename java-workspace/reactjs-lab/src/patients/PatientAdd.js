@@ -6,9 +6,10 @@ import {
 
 import {createPatient} from '../services/patientService';
 
+import {dateFormat} from '../Config';
+
 const { TextArea } = Input;
 
-const dateFormat = 'DD/MM/YYYY';
 
 const layout = {
   labelCol: {
@@ -42,12 +43,7 @@ export default function PatientAdd () {
                             message: 'Patient cree avec id '+data.pid,
                             placement: 'topLeft',
                           });
-                          })
-                       .catch(err => 
-                          notification.error({
-                            message: err.message,
-                            placement: 'topLeft',
-                          }));                                                                   
+                          });                                                                                   
                     });
                
   }

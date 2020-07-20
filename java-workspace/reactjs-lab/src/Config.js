@@ -10,3 +10,5 @@ export const API_PATIENT_RECORD = API_PATIENT + '/record/';
 export const API_ALLERGY        = API_URL + '/allergies';
 export const API_ALLERGY_SEARCH = API_ALLERGY + '/search'; 
 
+
+export const dateFormat = 'DD-MM-YYYY';

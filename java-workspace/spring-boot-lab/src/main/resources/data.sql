@@ -25,7 +25,10 @@
  	
  INSERT INTO Allergy 
     (id , pid, substance, reaction, severity, occurence, begin_date, referred_by) values
-    (1, 10000, 'penicillin', 'cough', 2,        '2Mo',  '2006-01-01', 'sqali');
+    (1, 10000, 'penicillin', 'cough', 2,        '2Mo',  '2006-01-01', 'sqali'),
+    (2, 10000, 'pollen',     'asthma', 3,        '2Mo',  '2006-01-01', 'sqali'),
+    (3, 10000, 'nuts', 'sneezing', 2,        '2Mo',  '2006-01-01', 'sqali'),
+    (4, 10000, 'aspirin', 'itchy', 3,        '2Mo',  '2006-01-01', 'sqali');
     
     
 

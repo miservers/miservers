@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lab.spring.exception.DataNotFoundException;
+import lab.spring.exception.ErrorMessage;
 import lab.spring.model.Allergy;
 import lab.spring.repository.AllergyRepository;
 
@@ -70,9 +71,10 @@ class AllergyController {
     }
 
     @PutMapping()
-    public ResponseEntity<?> update(@ModelAttribute Allergy allergy)  {
-        allergyRepository.save(allergy);
-        return ResponseEntity.ok("allergy updated");
+    public ResponseEntity<?> update(@RequestBody Allergy allergy)  {
+    	System.out.println("update :" + allergy);
+    	Allergy result = allergyRepository.save(allergy);
+        return ResponseEntity.ok().body(result);
     }
 
     /**
@@ -82,7 +84,7 @@ class AllergyController {
     @DeleteMapping("/{id}") 
     public ResponseEntity<?> delete(@PathVariable  Long id)  {
         allergyRepository.deleteById(id);
-        return  ResponseEntity.ok().body("allergy deleted");
+        return  ResponseEntity.ok().body(ErrorMessage.build("record deleted"));
     }
 
 }

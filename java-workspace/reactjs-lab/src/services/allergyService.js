@@ -1,7 +1,7 @@
 
 import {API_ALLERGY, API_ALLERGY_SEARCH} from '../Config';
 
-import {fetchAll, fetchById, searchByName, create, deleteById} from './api.js';
+import {fetchAll, fetchById, searchByName, create, deleteById,update} from './api.js';
 
 async function fetchAllergies (pid) {
     let url = API_ALLERGY + '/?pid=' + pid;
@@ -28,13 +28,19 @@ async function  createAllergy (allergy) {
 
 async function  deleteAllergy (id) {
 
-  return deleteById(id, API_ALLERGY);              
+  return  deleteById(id, API_ALLERGY);              
+
+}
+
+async function  updateAllergy (allergy) {
+
+  return  update(allergy, API_ALLERGY);              
 
 }
 
 // EXPORTS
 
-export {fetchAllergies, searchAllergy, fetchAllergyById, createAllergy, deleteAllergy};
+export {fetchAllergies, searchAllergy, fetchAllergyById, createAllergy, deleteAllergy, updateAllergy};
 
 
 

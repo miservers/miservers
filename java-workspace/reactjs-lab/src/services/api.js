@@ -1,3 +1,4 @@
+import { Table, Space, notification,Popconfirm } from 'antd';
 
 const headers = new Headers({
   "Accept": "application/json, text/plain",
@@ -9,27 +10,44 @@ const handleErrors = async (response) => {
   if (response.ok)
     return response;
   else 
-    throw new Error(response.status + '. ' + response.statusText);
+    throw new Error('Backend Server Error: '+response.status + '. ' + response.statusText);
 }
   
-const _fetchFrom  = async (url) => {
-  let data = await fetch(url,
-                         {method: 'GET',
+const _fetch  = async (url, method, data) => {
+  
+  console.log(url);
+  if(method == 'POST' || method == 'PUT' )
+    console.log(JSON.stringify(data));
+  
+  let result = await fetch(url,
+                         {method: method,
                           headers: headers,
                           mode: 'cors',
+                          body: data?JSON.stringify(data):null,
                          })
                    .then (handleErrors)
                    .then (response => response.json())
-                   .catch(err => {throw new Error(err)});
-  return data;
+                   .catch(err => 
+                          notification.error({
+                            message: err.message,
+                            placement: 'topLeft',
+                          })); 
+ 
+                   //.catch(err => {throw new Error(err)});
+  return result;
 }
 
+const _get = async (url) =>  await _fetch(url, 'GET', null);
+
+const _post = async (url, data) =>  await _fetch(url, 'POST', data);
+
+const _delete = async (url) =>  await _fetch(url, 'DELETE');
+
+const _put = async (url, data) =>  await _fetch(url, 'PUT', data);
 
 async function fetchAll (api) {
-        
-    let url = api;
-               
-    let data = _fetchFrom (url);
+                   
+    let data = _get (api);
     
     return data;
 };
@@ -45,9 +63,7 @@ async function fetchByPage (pagination, api) {
       url += '&sortBy=' + pagination.orderBy.field +
              '&sortDirection=' + pagination.orderBy.orderDirection;
         
-    console.log(url);
-    
-    let data = _fetchFrom (url);
+    let data = _get (url);
     
     return data;
 };
@@ -55,10 +71,8 @@ async function fetchByPage (pagination, api) {
 async function fetchById (id, api) {
         
     let url = api + '/' + id;
-            
-    console.log(url);
-    
-    let data = _fetchFrom (url);
+                
+    let data = _get (url);
 
     return data;
 };
@@ -71,10 +85,8 @@ async function  searchByName (name, pagination, api) {
            '&pageSize=' + pagination.pageSize;
      
   url += '&name=' + name;
-      
-  console.log(url);
   
-  let data = _fetchFrom (url);
+  let data = _get (url);
   
   return data;
 }
@@ -83,46 +95,31 @@ async function  searchByName (name, pagination, api) {
  * * URL=api , method POSTE, body:data
  */
 async function  create (data, api) {
-  let url = api;
-  console.log(url);
-  console.log("Data to be created :");console.log(JSON.stringify(data));
-  
-  let result  = await fetch(url,
-                            {method: 'POST',
-                             headers: headers,
-                             mode: 'cors',
-                             body: JSON.stringify(data),
-                      })
-                     .then(handleErrors)
-                     .then (response => response.json())
-                     .catch(err => {throw new Error(err)});
+   let result  = await _post(api, data)
   return result;              
 }
 
+async function  update (data, api) {
+   let result  = await _put(api, data)
+  return result;              
+}
 
 /* DELETE a record on the remote server. 
  * id: record id to be deleted.
  * URL=api/id , method DELETE
  */
 async function  deleteById (id, api) {
-  let url = api + '/' + id;
-  console.log(url);
-  console.log("ID to be deleted :" + id);
   
-  let result  = await fetch(url,
-                            {method: 'DELETE',
-                             headers: headers,
-                             mode: 'cors',
-                      })
-                     .then(handleErrors)
-                     .then (response => response.json())
-                     .catch(err => {throw new Error(err)});
+  let url = api + '/' + id;
+  
+  let result  = await _delete(url); 
+
   return result;              
 }
 
 // EXPORTS
 
-export {fetchAll, fetchByPage, fetchById, searchByName, create, deleteById};
+export {fetchAll, fetchByPage, fetchById, searchByName, create, deleteById, update};
 
 
 

@@ -99,9 +99,15 @@ console.log(squares); //=> [0, 1, 4, 25, 100]
 ~~~
 
 ### Arrow function expression
-Format of Arrow function declaration
+[Syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)  
+
 ~~~javascript
-let myfunc = (arg1, arg2, ...argN) => expression
+let myfunc = (param1, param2, ..., paramN) => expression
+
+// equivalent to
+(param1, …, paramN) => {
+  return expression;
+}
 ~~~
 
 * **(...args) => expression**  : expression Without curly braces. the function evaluates it and returns the result.

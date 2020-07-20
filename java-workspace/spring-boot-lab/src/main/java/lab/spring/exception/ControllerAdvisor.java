@@ -1,5 +1,6 @@
 package lab.spring.exception;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -23,26 +24,23 @@ class ControllerAdvisor  {
 	@ExceptionHandler(DataNotFoundException.class)
     public final 
     ResponseEntity<ErrorMessage> handleException(DataNotFoundException e) {
-		log.error("Exception Message : "+ e.getMessage());
-    	log.error("Exception Class : "+ e.getClass(), e);
-        ErrorMessage err = new ErrorMessage(new Date(), e.getMessage());
+    	log.error("MED DataNotFoundException : ", e);
+        ErrorMessage err = new ErrorMessage(LocalDateTime.now(), e.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
     }
 	
 	@ExceptionHandler(DataAccessException.class)
     public final 
     ResponseEntity<ErrorMessage> handleException(DataAccessException e) {
-    	log.error("Exception Message : "+ e.getMessage());
-    	log.error("Exception Class : "+ e.getClass(), e);
-        ErrorMessage err = new ErrorMessage(new Date(), e.getMessage());
+    	log.error("MED DataAccessException : ", e);
+        ErrorMessage err = new ErrorMessage(LocalDateTime.now(), e.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
     }
 	
 	@ExceptionHandler(ConstraintViolationException.class)
     public final 
     ResponseEntity<ErrorMessage> handleException(ConstraintViolationException e) {
-		log.error("Exception Message : "+ e.getMessage());
-    	log.error("Exception Class : "+ e.getClass(), e);
+    	log.error("MED ConstraintViolationException : ",  e);
     	var wrapper = new Object(){ String msg = "";};
         Set<ConstraintViolation<?>> constraints = e.getConstraintViolations();
         constraints.forEach((constraint) -> {
@@ -50,7 +48,7 @@ class ControllerAdvisor  {
         										+" "+ constraint.getMessage() + ". ";
         					});
         
-        ErrorMessage err = new ErrorMessage(new Date(), wrapper.msg);
+        ErrorMessage err = new ErrorMessage(LocalDateTime.now(), wrapper.msg);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
     }
 	
@@ -58,9 +56,8 @@ class ControllerAdvisor  {
 	@ExceptionHandler(Exception.class)
     public final 
     ResponseEntity<ErrorMessage> handleException(Exception e) {
-		log.error("Exception Message : "+ e.getMessage());
-    	log.error("Exception Class : "+ e.getClass(), e);
-        ErrorMessage err = new ErrorMessage(new Date(), e.getMessage());
+    	log.error("MED General Exception : ",  e);
+        ErrorMessage err = new ErrorMessage(LocalDateTime.now(), e.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
     }
 		
