@@ -1,38 +1,21 @@
 import React, {useState} from 'react';
-import { Avatar,  Layout} from 'antd';
-
-import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
-
-import {BrowserRouter as Router, Link} from "react-router-dom";
-
-import Menu from './Menu';
-import {PatientAdd, PatientSearch} from '../patients';
+import { Layout} from 'antd';
+import {BrowserRouter as Router} from "react-router-dom";
 import Routes from '../routes/Routes';
-
-
-
-import Logo      from '../images/logo.png';
-
+import Menu from './Menu';
+import Header from './Header'; 
 import '../css/MedLayout.less';
 
 
-const { Header, Content } = Layout;
+const {Content } = Layout;
 
 
 export default function MedLayout () {
   
-  const [collapsed, setCollapsed] = useState(true);
+  const [menuCollapsed, setMenuCollapsed] = useState(true);
   
-  const toggle = () => setCollapsed(!collapsed);
+  const toggleMenu = () => setMenuCollapsed(!menuCollapsed);
   
-  const MenuFold = () => 
-          collapsed ? <MenuUnfoldOutlined className='trigger' onClick={toggle}/>
-                    : <MenuFoldOutlined className='trigger' onClick={toggle} />;
-                              
   
   return (
     <>
@@ -40,32 +23,17 @@ export default function MedLayout () {
    <Router>
 
     <Layout  className="site-layout">
-
-        <Menu collapsed={collapsed}/>
+        
+        <Menu collapsed={menuCollapsed}/>
                 
         <Layout>
-          <Header className="header">
-          
-                <MenuFold />
-              
-                <Link to="/" style={{display: 'flex', alignItems: 'flex-start'}}>
-                  <Avatar shape="square" size="large" src={Logo} />
-                </Link>
-              
-                
-                <PatientSearch />
-                
-                <PatientAdd />
-                   
-                <Avatar size={32} icon={<UserOutlined/>} />
-           
-           </Header>
+        
+            <Header toggleMenu={toggleMenu} menuCollapsed={menuCollapsed}/>
             
             <Content className="content" >
-            
                 <Routes />
-                 
             </Content>
+            
         </Layout>
 
      </Layout>

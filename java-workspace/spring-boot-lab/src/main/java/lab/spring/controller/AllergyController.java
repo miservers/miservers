@@ -42,12 +42,12 @@ class AllergyController {
     private AllergyRepository allergyRepository;
 
     @GetMapping()
-    public ResponseEntity<List<Allergy>>  all(@RequestParam Integer pid,
+    public ResponseEntity<List<Allergy>>  all(@RequestParam Long pid,
 											  @RequestParam(defaultValue = "id") String  sortBy,  
 											  @RequestParam(defaultValue = "asc") String sortDirection) {
     	
     	
-    	List<Allergy> allergies = allergyRepository.findAll();
+    	List<Allergy> allergies = allergyRepository.findByPid(pid);
     	   	
     	return ResponseEntity.ok().body(allergies);
     }

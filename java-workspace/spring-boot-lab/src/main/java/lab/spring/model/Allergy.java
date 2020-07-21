@@ -22,16 +22,18 @@ public class Allergy {
 
 	String reaction; // sneezing , cough, Allergic sinusitis 
 
-
 	int severity;   //mild, moderate, severe
 
+	String occurence;  // 
+
+	String status;  // Active, inactive
+	
 	String codes;  //format: code1;code2;...;codeN
 
 	LocalDate  beginDate;
 	
 	LocalDate  endDate;
 	
-	String occurence;  // 
 	
 	String referredBy; // source physician name
 	
@@ -86,6 +88,14 @@ public class Allergy {
 
 	public String getCodes() {
 		return codes;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public void setCodes(String codes) {

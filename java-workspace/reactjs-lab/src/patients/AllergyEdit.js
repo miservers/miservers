@@ -6,7 +6,7 @@ import {
   Form, Input, Button , Modal, Radio, Divider,
   notification, DatePicker, Row, Col} from 'antd';
 
-import {EditFilled, DeleteFilled} from '@ant-design/icons';
+import {EditFilled, DeleteFilled, PlusSquareTwoTone} from '@ant-design/icons';
 
 import {createAllergy, updateAllergy} from '../services/allergyService';
 
@@ -69,13 +69,12 @@ function AllergyEdit ({pid, action, allergy, refresh}) {
   const onFinishFailed = () => alert("onFinishFailed")
   
   const required = () => ({required:true, message: 'champ obligatoire'})
-  
+    
   return (
     <>
-       {(action=='edit')?<EditFilled onClick={showDialog}/>:
-          <Button type="primary" onClick={showDialog}>
-                Ajouter
-           </Button>
+       {(action=='edit')
+          ?<EditFilled onClick={showDialog}/>
+          :<PlusSquareTwoTone  onClick={showDialog} style={{fontSize: 24}}/>
        }     
         <Modal
             title="Nouvelle Allergy"
@@ -87,6 +86,7 @@ function AllergyEdit ({pid, action, allergy, refresh}) {
             closable
             centered
             maskClosable={false}
+            destroyOnClose={true}
           >
 
             <Form
@@ -110,7 +110,11 @@ function AllergyEdit ({pid, action, allergy, refresh}) {
                     <Input />
                  </Item>
 
-                 <Item label="occurence" name="occurence">
+                 <Item label="Occurence" name="occurence">
+                    <Input />
+                 </Item>
+
+                 <Item label="Status" name="status">
                     <Input />
                  </Item>
    
@@ -127,7 +131,7 @@ function AllergyEdit ({pid, action, allergy, refresh}) {
                     <Input />
                  </Item>
   
-                <Item label="comments" name="comments">
+                <Item label="Comments" name="comments">
                   <TextArea  span={4}/>
                 </Item>
                 

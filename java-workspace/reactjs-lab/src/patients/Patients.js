@@ -7,6 +7,9 @@ import PatientRecordSvg from '../images/PatientRecord.svg';
 
 import {fetchPatients} from '../services/patientService';
 
+import '../css/Table.css';
+
+
 export default function Patients () {
 	const [patients, setPatients]       = useState([]); //patients=[] empty table
   const [pagination, setPagination]   = useState({current: 1, pageSize: 10, total:0, });
@@ -80,9 +83,10 @@ export default function Patients () {
         pagination={{...pagination, showQuickJumper:true, position:['bottomCenter']}}
         rowKey= {(record) => record.pid}
         bordered={false}
-        size="middle"
+        size="small"
         onChange= {onChange}
         loading={loading}
+        rowClassName={(record, index) => index % 2 === 0 ? 'table-row-light' :  'table-row-dark'}
       />
     </>
 	);

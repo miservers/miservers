@@ -4,6 +4,8 @@ import { Table, Space,Popconfirm,Typography,
 
 import {EditFilled, DeleteFilled} from '@ant-design/icons';
 
+import '../css/Table.css';
+ 
 import AllergyEdit from './AllergyEdit';
 
 import {fetchAllergies, deleteAllergy} from '../services/allergyService';
@@ -59,23 +61,47 @@ export default function Allergies ({pid}) {
       ),
     },
     {
-      title: 'substance',
+      title: 'Substance',
       dataIndex: 'substance',
     },
     {
-      title: 'reaction',
+      title: 'Reaction',
       dataIndex: 'reaction',
     },
     {
-      title: 'severity',
+      title: 'Severity',
       dataIndex: 'severity',
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+    },
+    {
+      title: 'Ocurrence',
+      dataIndex: 'ocurrence',
+    },
+    {
+      title: 'Debut',
+      dataIndex: 'beginDate',
+    },
+    {
+      title: 'Fin',
+      dataIndex: 'endDate',
+    },
+    {
+      title: 'Reference par',
+      dataIndex: 'referredBy',
+    },
+    {
+      title: 'Notes',
+      dataIndex: 'comments',
     },
 
   ];
     
   return (
     <>
-      <Space>
+      <Space align="baseline">
         <Typography.Title level={4}> Allergies </Typography.Title>
         <AllergyEdit pid={pid} action='add' refresh={_fetchAllergies}/>
       </Space>
@@ -86,9 +112,10 @@ export default function Allergies ({pid}) {
         rowKey= {(allergy) => allergy.id}
         bordered={false}
         pagination={false}
-        size="middle"
+        size="small"
         onChange= {onChange}
         loading={loading}
+        rowClassName={(record, index) => index % 2 === 0 ? 'table-row-light' :  'table-row-dark'}
       />
     </>
   );
