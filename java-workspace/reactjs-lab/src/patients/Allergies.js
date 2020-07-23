@@ -16,7 +16,7 @@ export default function Allergies ({pid}) {
   
   useEffect( () => { 
     async function fetchData () {
-      _fetchAllergies();      
+      await _fetchAllergies();      
     }
     fetchData();
     }, []);
@@ -42,10 +42,6 @@ export default function Allergies ({pid}) {
                   
     await _fetchAllergies(pid);       
   }
-  
-  const handleEdit = async (allergy) => 
-            <AllergyEdit pid={pid} action='edit' refresh={_fetchAllergies}/>
-  
   
   const columns = [
     {

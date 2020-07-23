@@ -13,22 +13,22 @@
  	  (pid, FIRST_NAME,  LAST_NAME, GENDER,  ADDRESS,        CITY,        COUNTRY, CELL_PHONE , BIRTH_DATE, CREATION_DATE, PICTURE_ID) VALUES
     (10000,  'youness',   'chawi',   'HOMME', 'douar slahma', 'El jadida', 'maroc', '0678910111', '1970-06-20', CURRENT_TIMESTAMP, 11),
     (10001,  'khalid',    'mansour',  'HOMME', 'ouled ganem',  'El jadida', 'maroc', '0666626253', '1930-06-20', CURRENT_TIMESTAMP, 12),
-    (10002,  'souad',     'frhan',   'FEMME', '12 cite anam', 'El jadida', 'maroc', '0666676666', '1921-11-20', CURRENT_TIMESTAMP, 13),
-    (10003,  'souad3',     'frhan',   'FEMME', '12 douar amr', 'El jadida', 'maroc', '0666676666', '1970-06-20', CURRENT_TIMESTAMP, 13),
-    (10004,  'souad4',     'frhan',   'FEMME', '12  rue atlas', 'El jadida', 'maroc', '06699676666', '1989-09-20', CURRENT_TIMESTAMP, 13),
-    (10005,  'souad5',     'frhan',   'FEMME', '12  rue atlas', 'El jadida', 'maroc', '0666676666', '1956-06-20', CURRENT_TIMESTAMP, 13),
-    (10006,  'souad6',     'frhan',   'FEMME', '12  rue atlas', 'El jadida', 'maroc', '0666676666', '1912-05-20', CURRENT_TIMESTAMP, 13),
+    (10002,  'halima',     'achrh',   'FEMME', '12 cite anam', 'El jadida', 'maroc', '0666676666', '1921-11-20', CURRENT_TIMESTAMP, 13),
+    (10003,  'siham',     'rali',   'FEMME', '12 douar amr', 'El jadida', 'maroc', '0666676666', '1970-06-20', CURRENT_TIMESTAMP, 13),
+    (10004,  'fatiha',     'sali',   'FEMME', '12  rue atlas', 'El jadida', 'maroc', '06699676666', '1989-09-20', CURRENT_TIMESTAMP, 13),
+    (10005,  'mina',     'malik',   'FEMME', '12  rue atlas', 'El jadida', 'maroc', '0666676666', '1956-06-20', CURRENT_TIMESTAMP, 13),
+    (10006,  'zohra',     'walis',   'FEMME', '12  rue atlas', 'El jadida', 'maroc', '0666676666', '1912-05-20', CURRENT_TIMESTAMP, 13),
     (10007,  'souad7',     'frhan',   'FEMME', '12  rue atlas', 'El jadida', 'maroc', '0666676666', '1999-06-20', CURRENT_TIMESTAMP, 13),
     (10008,  'souad8',     'frhan',   'FEMME', '12 cite atlas', 'El jadida', 'maroc', '0666676666', '2000-04-20', CURRENT_TIMESTAMP, 13),
     (10009,  'souad9',     'frhan',   'FEMME', '12 cite atlas', 'El jadida', 'maroc', '0666676666', '1945-03-20', CURRENT_TIMESTAMP, 13),
     (10010,  'souad10',     'frhan',   'FEMME', '12 cite atlas', 'El jadida', 'maroc', '0666676666', '1992-06-20', CURRENT_TIMESTAMP, 13);
  	
  INSERT INTO Allergy 
-    (id , pid, substance, reaction, severity, occurence, begin_date, referred_by) values
-    (1, 10000, 'penicillin', 'cough', 2,        '2Mo',  '2006-01-01', 'sqali'),
-    (2, 10000, 'pollen',     'asthma', 3,        '2Mo',  '2006-01-01', 'sqali'),
-    (3, 10000, 'nuts', 'sneezing', 2,        '2Mo',  '2006-01-01', 'sqali'),
-    (4, 10000, 'aspirin', 'itchy', 3,        '2Mo',  '2006-01-01', 'sqali');
+    (id , pid, substance,     reaction,   severity, occurence, begin_date,  end_date,     referred_by) values
+    (1, 10000, 'penicillin',  'cough',    2,        '2Mo',    '2006-01-01', '2009-12-23', 'sqali'),
+    (2, 10000, 'pollen',      'asthma',   3,        '2Mo',    '2006-01-01', '2013-10-24', 'sqali'),
+    (3, 10000, 'nuts',        'sneezing', 2,        '2Mo',    '2006-01-01', '2012-11-25', 'sqali'),
+    (4, 10000, 'aspirin',     'itchy',    3,        '2Mo',    '2006-01-01', '2011-09-26', 'sqali');
     
     
 

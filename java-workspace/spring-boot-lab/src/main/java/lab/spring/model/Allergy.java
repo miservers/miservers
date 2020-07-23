@@ -4,11 +4,15 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import lab.spring.constants.Severity;
 
 @Entity
 public class Allergy {
@@ -22,7 +26,8 @@ public class Allergy {
 
 	String reaction; // sneezing , cough, Allergic sinusitis 
 
-	int severity;   //mild, moderate, severe
+	@Enumerated(EnumType.STRING)
+	Severity severity;  
 
 	String occurence;  // 
 
@@ -78,13 +83,7 @@ public class Allergy {
 		this.reaction = reaction;
 	}
 
-	public int getSeverity() {
-		return severity;
-	}
-
-	public void setSeverity(int severity) {
-		this.severity = severity;
-	}
+	
 
 	public String getCodes() {
 		return codes;
@@ -96,6 +95,14 @@ public class Allergy {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public Severity getSeverity() {
+		return severity;
+	}
+
+	public void setSeverity(Severity severity) {
+		this.severity = severity;
 	}
 
 	public void setCodes(String codes) {

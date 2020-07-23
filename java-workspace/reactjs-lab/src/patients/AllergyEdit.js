@@ -14,7 +14,9 @@ import {dateFormat} from '../Config';
 
 const { TextArea } = Input;
 
-
+const ACTION_EDIT = 'edit'
+const ACTION_ADD =  'add'
+ 
 const layout = {
   labelCol: {
     span: 8,
@@ -28,28 +30,39 @@ const layout = {
 const Item = (props) =>
         <Form.Item {...props} style={{marginBottom: "8px" }}>{props.children}</Form.Item>
 
-function AllergyEdit ({pid, action, allergy, refresh}) {
-  const [visible, setVisible] = useState(false);
-  const [fields, setFields]   = useState({});
+function AllergyEdit ({pid, action=ACTION_EDIT, allergy, refresh}) {
+  const [visible, setVisible] = useState(true);
   const [form] = Form.useForm();
   
+ 
+ 
   const showDialog = () => {
-    setVisible(true);
-    if (action == 'edit') {
+    if (action == ACTION_EDIT){
       const beginDate = (allergy.beginDate)?moment(allergy.beginDate):'';
       const endDate = (allergy.endDate)?moment(allergy.endDate):'';
-      setFields({...allergy, beginDate: beginDate, endDate: endDate});
+      form.setFieldsValue({...allergy, beginDate: beginDate, endDate: endDate});
     }
+    else if (action == ACTION_ADD)
+      form.setFieldsValue({});
+      
+    setVisible(true);
+    
   }
   
-  const onOk = async () => {
+  const severities = [
+      { label: 'Benine', value: 'MILD' },
+      { label: 'Modere', value: 'MODERATE'},
+      { label: 'Severe', value: 'SEVERE' },
+  ];
+  const onOk =  () => {
             form.validateFields()
                 .then(fieldsValue => {
                        //form.resetFields(); 
                        const newAllergy = {...allergy, pid: pid, ...fieldsValue};
-                       if (action == 'add')
+                       console.log(newAllergy)
+                       if (action == ACTION_ADD)
                           createAllergy(newAllergy);
-                       else if (action == 'edit')
+                       else if (action == ACTION_EDIT)
                           updateAllergy(newAllergy);                                                                                                                   
                     })
                  .then (()=>{
@@ -72,7 +85,7 @@ function AllergyEdit ({pid, action, allergy, refresh}) {
     
   return (
     <>
-       {(action=='edit')
+       {(action==ACTION_EDIT)
           ?<EditFilled onClick={showDialog}/>
           :<PlusSquareTwoTone  onClick={showDialog} style={{fontSize: 24}}/>
        }     
@@ -82,7 +95,7 @@ function AllergyEdit ({pid, action, allergy, refresh}) {
             onOk={onOk}
             onCancel={onCancel}
             cancelText="Annuler"
-            okText={(action=='add')?'Ajouter':'Save'}
+            okText={(action==ACTION_ADD)?'Ajouter':'Save'}
             closable
             centered
             maskClosable={false}
@@ -96,7 +109,6 @@ function AllergyEdit ({pid, action, allergy, refresh}) {
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 style={{paddingTop: '4px', }}
-                initialValues={fields}
               >
                  <Item label="Substance" name="substance"  rules={[required,]} >
                     <Input />
@@ -107,7 +119,12 @@ function AllergyEdit ({pid, action, allergy, refresh}) {
                  </Item>
                  
                  <Item label="Severity" name="severity" rules={[required,]}>
-                    <Input />
+                   <Radio.Group
+                     options={severities}
+                     onChange={null}
+                     value={null}
+                     optionType="button"
+                   />
                  </Item>
 
                  <Item label="Occurence" name="occurence">
@@ -144,7 +161,7 @@ function AllergyEdit ({pid, action, allergy, refresh}) {
  
  AllergyEdit.propTypes = {
   pid: PropTypes.string,
-  action: PropTypes.oneOf(['add', 'edit']),
+  action: PropTypes.oneOf([ACTION_ADD, ACTION_EDIT]),
   allergy: PropTypes.object,
   refresh: PropTypes.func
 };
