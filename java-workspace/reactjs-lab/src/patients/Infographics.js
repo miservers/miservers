@@ -3,10 +3,11 @@ import { notification, Descriptions,
          Card,Avatar, Typography } from 'antd';
 
 import {fetchPatientById} from '../services/patientService';
+import {GENDER} from '../constants/Constants'
 
 const { Title } = Typography;
 
-export default function PatientInfos ({pid}) {
+export default function Infographics ({pid}) {
   const [patient, setPatient] = useState({address:{}, picture: {}});
   const [picture, setPicture] = useState({});
   
@@ -53,7 +54,7 @@ export default function PatientInfos ({pid}) {
          <Card.Meta 
               avatar={<Avatar size={92} shape='square' src={"data:image/png;base64," + patient.picture.blob}/>}
               title={<Title level={3}>{patient.firstName+' '+patient.lastName} </Title>}
-              description={patient.gender + '. Age: '+patient.age}
+              description={GENDER[patient.gender] + '. Age: '+patient.age}
               />
       </Card.Grid>  
        

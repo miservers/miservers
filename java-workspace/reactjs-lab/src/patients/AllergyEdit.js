@@ -9,6 +9,7 @@ import {
 import {EditFilled, DeleteFilled, PlusSquareTwoTone} from '@ant-design/icons';
 
 import {createAllergy, updateAllergy} from '../services/allergyService';
+import {SEVERITY} from '../constants/Constants'
 
 import {dateFormat} from '../Config';
 
@@ -31,7 +32,7 @@ const Item = (props) =>
         <Form.Item {...props} style={{marginBottom: "8px" }}>{props.children}</Form.Item>
 
 function AllergyEdit ({pid, action=ACTION_EDIT, allergy, refresh}) {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const [form] = Form.useForm();
   
  
@@ -49,11 +50,8 @@ function AllergyEdit ({pid, action=ACTION_EDIT, allergy, refresh}) {
     
   }
   
-  const severities = [
-      { label: 'Benine', value: 'MILD' },
-      { label: 'Modere', value: 'MODERATE'},
-      { label: 'Severe', value: 'SEVERE' },
-  ];
+  const severities = Object.keys(SEVERITY).map(key => ({label: SEVERITY[key], value: key}))
+  
   const onOk =  () => {
             form.validateFields()
                 .then(fieldsValue => {
@@ -82,7 +80,13 @@ function AllergyEdit ({pid, action=ACTION_EDIT, allergy, refresh}) {
   const onFinishFailed = () => alert("onFinishFailed")
   
   const required = () => ({required:true, message: 'champ obligatoire'})
-    
+  
+  const disabledDate = (current) => {
+      // Can not select days before today and today
+      return current && current >= moment().endOf('day');
+  } 
+  
+   
   return (
     <>
        {(action==ACTION_EDIT)
@@ -136,7 +140,7 @@ function AllergyEdit ({pid, action=ACTION_EDIT, allergy, refresh}) {
                  </Item>
    
                  <Item label="Date de début" name="beginDate">
-                    <DatePicker format={dateFormat} placeholder={dateFormat}/>
+                    <DatePicker format={dateFormat} placeholder={dateFormat} disabledDate={disabledDate}/>
                  </Item>
 
                  <Item label="Date de fin" name="endDate">

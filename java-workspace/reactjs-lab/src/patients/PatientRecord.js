@@ -4,7 +4,7 @@ import {useParams} from 'react-router-dom';
 import { Tabs } from 'antd';
 
 import {Synthesis, Historic, Allergies,
-        Biometrics, PatientInfos, } from '../patients';
+        Biometrics, Infographics, } from '../patients';
 
 const { TabPane } = Tabs;
 
@@ -17,7 +17,7 @@ export default function PatientRecord () {
   let {pid} = useParams(); // Patient ID
   
   const tabs = [
-    {name:'Infos', src: PatientInfos},
+    {name:'Infos', src: Infographics},
     {name:'Synthese', src: Synthesis},
     {name:'Traitements', src: Synthesis},
     {name:'Antécédents', src: Historic},

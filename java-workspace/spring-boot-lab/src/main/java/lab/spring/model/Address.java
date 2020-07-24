@@ -11,7 +11,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 public class Address implements Serializable{
 	
 	
-	String 		address;
+	String 		address; 
 	
 	Integer 		streetNumber; // France ADDR Format 
 	@Enumerated(EnumType.ORDINAL) StreetType 	streetType; 

@@ -199,6 +199,16 @@ console.log(rest);  // output: Array [30,40,50]
 onClick={window.location.href="/patient/edit"}
 ~~~
 
+**Associative Array**  
+
+~~~
+let arr = { one: 1, two: 2, three: 3 }; 
+
+let y = arr[two]; // 2
+ 
+Object.keys(arr).map(k => console.log(arr[k])); // 1 2 3
+~~~
+
 
 ### JavaScript References
  * https://developer.mozilla.org/fr/docs/Web/JavaScript/Guide

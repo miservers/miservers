@@ -23,6 +23,8 @@ import javax.validation.constraints.NotBlank;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import lab.spring.constants.Gender;
+
 @Entity
 @Table(name = "patient")
 public 
@@ -44,7 +46,8 @@ class Patient {
 	
 	String cin;  
 	
-	@Enumerated(EnumType.STRING) Gender gender;
+	@Enumerated(EnumType.STRING) 
+	Gender gender;
 	
 	@Column(columnDefinition = "DATE")
 	LocalDate   birthDate;
@@ -84,7 +87,6 @@ class Patient {
 	public Patient() {  // default constructor
 	} 
 	
-	public enum Gender {FEMME, HOMME};
 	
 	@Override
 	public String toString() {

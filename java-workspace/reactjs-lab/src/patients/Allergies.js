@@ -7,6 +7,7 @@ import {EditFilled, DeleteFilled} from '@ant-design/icons';
 import '../css/Table.css';
  
 import AllergyEdit from './AllergyEdit';
+import {SEVERITY} from '../constants/Constants'
 
 import {fetchAllergies, deleteAllergy} from '../services/allergyService';
 
@@ -67,6 +68,7 @@ export default function Allergies ({pid}) {
     {
       title: 'Severity',
       dataIndex: 'severity',
+      render: (value, row, index) => <a>{SEVERITY[value]}</a>
     },
     {
       title: 'Status',
