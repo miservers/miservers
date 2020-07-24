@@ -1,9 +1,11 @@
 
 ### Patient summary record
   * http://www.jointinitiativecouncil.org/registry/Patient_Summary_Standards_JIC_Jan_2018.pdf
+  * HL7 Care Record Summary : http://www.hl7.org/implement/standards/la.cfm?file=/documentcenter/private/standards/cda/igs/crs.zip
 
 #### Standards
- * Allergies:  http://hl7.org/fhir/DSTU2/AllergyIntolerance.html  
+  * HL7 Care Record Summary : http://www.hl7.org/implement/standards/la.cfm?file=/documentcenter/private/standards/cda/igs/crs.zip
+  * Allergies:  http://hl7.org/fhir/DSTU2/AllergyIntolerance.html  
   * Patient Summary : http://www.ehealth-standards.eu/wp-content/uploads/2019/01/17269_CEN-ENQ_25-10-2018_WM.pdf  
   * http://www.hl7.org  
      HL7 CDA® R2 Implementation Guide International Patient Summary

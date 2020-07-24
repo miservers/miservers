@@ -154,6 +154,13 @@ versatile        : polyvalent
 inner            : interne 
 point out        : preciser (specify) 
 
+### computer vocabulary
+wrapped by   : enveloppé par  
+providers    : fournisseurs  
+markup    : balisage   
+process : traitement  
+nested  : imbriqué
+
 ### Medical vocabulary
 Assurance           -- insurance  
 Blessure            — injury  
@@ -184,6 +191,7 @@ le malade - Patient
 ordonnance - Prescription  
 renouveler un ordonnance - Refill a prescription  
 un rendez-vous : appointment  
+rencontre-encounter
 médecin : doctor  
 carte vitale : insurance card  
 salle d’attente: waiting room  
