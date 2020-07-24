@@ -158,7 +158,7 @@ point out        : preciser (specify)
 wrapped by   : enveloppé par  
 providers    : fournisseurs  
 markup    : balisage   
-process : traitement
+process : traitement  
 nested  : imbriqué
 
 ### Medical vocabulary
