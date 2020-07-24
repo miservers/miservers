@@ -186,6 +186,7 @@ le malade - Patient
 ordonnance - Prescription  
 renouveler un ordonnance - Refill a prescription  
 un rendez-vous : appointment  
+rencontre-encounter
 médecin : doctor  
 carte vitale : insurance card  
 salle d’attente: waiting room  
