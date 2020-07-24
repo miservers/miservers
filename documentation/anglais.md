@@ -153,6 +153,8 @@ to be            : être.
 versatile        : polyvalent  
 inner            : interne 
 point out        : preciser (specify) 
+wrapped          : enveloppé  
+
 
 ### Medical vocabulary
 Assurance           -- insurance  
