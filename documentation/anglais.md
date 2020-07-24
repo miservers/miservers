@@ -153,8 +153,13 @@ to be            : être.
 versatile        : polyvalent  
 inner            : interne 
 point out        : preciser (specify) 
-wrapped          : enveloppé  
 
+### computer vocabulary
+wrapped by   : enveloppé par  
+providers    : fournisseurs  
+markup    : balisage   
+process : traitement
+nested  : imbriqué
 
 ### Medical vocabulary
 Assurance           -- insurance  
