@@ -2,10 +2,10 @@ import React, {useState, useEffect} from 'react';
 import { Table, Space } from 'antd';
 import {Link} from "react-router-dom";
 
-import PatientRecordSvg from '../images/PatientRecord.svg';
+import {PatientRecordIcon} from '../icons';
 
 
-import {fetchPatients} from '../services/patientService';
+import {fetchPatients} from '../services';
 
 import '../css/Table.css';
 
@@ -44,7 +44,7 @@ export default function Patients () {
       render: (record) => (
         <Space size="middle">
           <Link to={'/patients/record/' + record.pid} >
-            <img src={PatientRecordSvg} alt="Fiche patient"/>
+            <img src={PatientRecordIcon} alt="Fiche patient"/>
           </Link>
         </Space>
       ),

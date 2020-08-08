@@ -1,7 +1,8 @@
 @import '~antd/lib/style/themes/default.less';
+@import '~antd/dist/antd.less'; // Import Ant Design styles by less entry
 
-@background: @blue-3;
-
+@background: @lime-3;
+@header-height: 40px;
 
 .trigger {
   font-size: 24px;
@@ -15,21 +16,22 @@
 }
 
 .logo {
-  height: 64px;
+  height: 32px;
   padding: 0px;
   margin: 0px;
 }
 
 .site-layout .header {
-	height: 64px;
-	padding-top: 0px;
-	padding-left: 2px;
+	height: @header-height;
+	padding: 4px 2px;
+  background: @background;
 	text-align: left;
-	background: @background;
+
   }
 
 .site-layout .header .search{
   width: 100%;
+  
 }
 
 .site-layout .sider  {
@@ -43,7 +45,7 @@
 .site-layout .content {
   background: @green-1;
   margin: 8px 8px;
-  padding: 24;
+  padding: 4;
   min-height: 480px;
 }
 

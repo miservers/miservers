@@ -196,7 +196,7 @@ médecin : doctor
 carte vitale : insurance card  
 salle d’attente: waiting room  
 to sneeze(bless you) : éternuer  (à tes souhaits / à vos souhaits)  
-
+puffs: bouffees  
 
 
 ## Contractions

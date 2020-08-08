@@ -3,44 +3,21 @@ import {API_ALLERGY, API_ALLERGY_SEARCH} from '../Config';
 
 import {fetchAll, fetchById, searchByName, create, deleteById,update} from './api.js';
 
-async function fetchAllergies (pid) {
-    let url = API_ALLERGY + '/?pid=' + pid;
-    return await fetchAll (url);
-};
+const API = API_ALLERGY;
+const API_SEARCH = API_ALLERGY_SEARCH;
 
-async function fetchAllergyById (id) {
+export const fetchAllergies = async (pid)  => await fetchAll (API + '/?pid=' + pid);
 
-    return await fetchById(id, API_ALLERGY);
-};
+export const fetchAllergyById = async (id) => await fetchById(id, API);
 
+export const  searchAllergy = async (name, pagination) => 
+       await searchByName(name, pagination, API_SEARCH);
 
-async function  searchAllergy (name, pagination) {
-  
-  return await searchByName(name, pagination, API_ALLERGY_SEARCH);
-}
+export const  createAllergy = async (allergy) => await create(allergy, API);              
 
+export const  deleteAllergy = async (id) => await  deleteById(id, API);              
 
-async function  createAllergy (allergy) {
-
-  return await create(allergy, API_ALLERGY);              
-
-}
-
-async function  deleteAllergy (id) {
-
-  return await  deleteById(id, API_ALLERGY);              
-
-}
-
-async function  updateAllergy (allergy) {
-
-  return await update(allergy, API_ALLERGY);              
-
-}
-
-// EXPORTS
-
-export {fetchAllergies, searchAllergy, fetchAllergyById, createAllergy, deleteAllergy, updateAllergy};
+export const  updateAllergy = async (allergy) => await update(allergy, API);              
 
 
 

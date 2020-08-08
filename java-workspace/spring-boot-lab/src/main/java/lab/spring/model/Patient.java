@@ -13,7 +13,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -81,8 +80,11 @@ class Patient {
 	@Basic(fetch = FetchType.LAZY)
 	Picture picture; 
 
-	@OneToMany(mappedBy = "pid")
+	@OneToMany(mappedBy = "pid") @Basic(fetch = FetchType.LAZY)
 	Set<Allergy> allergies;
+	
+	@OneToMany(mappedBy = "pid") @Basic(fetch = FetchType.LAZY)
+	Set<Medication> medications;
 	
 	public Patient() {  // default constructor
 	} 

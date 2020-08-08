@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-
 import { 
-  Form, Input, Button , Modal, Radio, Divider,
-  notification, DatePicker, Row, Col} from 'antd';
+  Form, Input, Button , Radio, Divider,
+  notification, DatePicker} from 'antd';
+import {Modal} from '../components';
+import {createPatient} from '../services';
+import '../css/commons.less';
 
-import {createPatient} from '../services/patientService';
-
-import {dateFormat} from '../Config';
+import {dateFormat} from '../constants/Constants'
 
 const { TextArea } = Input;
 
@@ -70,9 +70,6 @@ export default function PatientAdd () {
             onCancel={onCancel}
             cancelText="Annuler"
             okText="Ajouter"
-            closable
-            centered
-            maskClosable={false}
           >
 
             <Form

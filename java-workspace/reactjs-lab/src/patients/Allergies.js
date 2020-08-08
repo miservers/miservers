@@ -2,14 +2,14 @@ import React, {useState, useEffect} from 'react';
 import { Table, Space,Popconfirm,Typography, 
          Button,  } from 'antd';
 
-import {EditFilled, DeleteFilled} from '@ant-design/icons';
+import {DeleteFilled} from '@ant-design/icons';
 
 import '../css/Table.css';
  
 import AllergyEdit from './AllergyEdit';
 import {SEVERITY} from '../constants/Constants'
 
-import {fetchAllergies, deleteAllergy} from '../services/allergyService';
+import {fetchAllergies, deleteAllergy} from '../services';
 
 export default function Allergies ({pid}) {
   const [allergies, setAllergies]     = useState([]); //allergies=[] empty table
@@ -68,7 +68,7 @@ export default function Allergies ({pid}) {
     {
       title: 'Severity',
       dataIndex: 'severity',
-      render: (value, row, index) => <a>{SEVERITY[value]}</a>
+      render: (value, row, index) => <>{SEVERITY[value]}</>
     },
     {
       title: 'Status',

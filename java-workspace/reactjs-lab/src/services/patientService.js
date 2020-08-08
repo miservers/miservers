@@ -1,40 +1,18 @@
 
 import {API_PATIENT, API_PATIENT_SEARCH} from '../Config';
 
-import {fetchAll, fetchByPage, fetchById, searchByName, create, deleteById} from './api.js';
+import {fetchByPage, fetchById, searchByName, create} from './api.js';
 
-async function fetchPatients (pagination) {
-        
-    return fetchByPage (pagination, API_PATIENT);
+const API = API_PATIENT;
+const API_SEARCH = API_PATIENT_SEARCH;
 
-};
+export const fetchPatients = async (pagination) => fetchByPage (pagination, API);
 
-async function fetchPatientById (pid) {
+export const fetchPatientById = async (pid) => fetchById(pid, API);
 
-    return fetchById(pid, API_PATIENT);
-};
+export const searchPatient = async (name, pagination) => searchByName(name, pagination, API_SEARCH);
 
-
-async function  searchPatient (name, pagination) {
-  
-  return searchByName(name, pagination, API_PATIENT_SEARCH);
-}
-
-
-async function  createPatient (patient) {
-
-  return create(patient, API_PATIENT);              
-
-}
-
-
-// EXPORTS
-
-export {fetchPatients, searchPatient, fetchPatientById, createPatient};
-
-
-
-
+export const  createPatient = async (patient) => create(patient, API);              
 
 
 

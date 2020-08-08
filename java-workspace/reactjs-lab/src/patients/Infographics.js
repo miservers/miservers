@@ -1,22 +1,20 @@
 import React ,{useState, useEffect} from 'react';
 import { notification, Descriptions, 
-         Card,Avatar, Typography } from 'antd';
+         Card,Avatar, Typography, Row, Col} from 'antd';
 
-import {fetchPatientById} from '../services/patientService';
+import {fetchPatientById} from '../services';
 import {GENDER} from '../constants/Constants'
 
-const { Title } = Typography;
+const { Title, Text , Paragraph} = Typography;
 
 export default function Infographics ({pid}) {
   const [patient, setPatient] = useState({address:{}, picture: {}});
-  const [picture, setPicture] = useState({});
-  
+
   useEffect(() => {
      _fetchPatientById(pid);
   }, []);
   
   const _fetchPatientById =  async (pid) => {
-        
         const data = await fetchPatientById(pid)
                            .catch(err => 
                               notification.error({
@@ -43,29 +41,29 @@ export default function Infographics ({pid}) {
   ];
   
   const items = itemsTable.map(item =>   
-          <Descriptions.Item label={<b>{item.label}</b>}>{item.content}</Descriptions.Item>
+          <Descriptions.Item key={item.label} label={<b>{item.label}</b>}>{item.content}</Descriptions.Item>
   );
     
   return (
-   <div style={{padding: '2px', background: '#ececec'}}>
-    <Card>
-      
-      <Card.Grid hoverable={false} style={{width: '30%', textAlign: 'left'}}>
-         <Card.Meta 
-              avatar={<Avatar size={92} shape='square' src={"data:image/png;base64," + patient.picture.blob}/>}
-              title={<Title level={3}>{patient.firstName+' '+patient.lastName} </Title>}
-              description={GENDER[patient.gender] + '. Age: '+patient.age}
-              />
-      </Card.Grid>  
+    <Row style={{textAlign: 'left'}}>      
+      <Col xs={24} lg={4}>
+          <Card
+            size='small'
+            cover={<img src={"data:image/png;base64," + patient.picture.blob} style={{width:140, height:100}}/>}
+            >
+             <Card.Meta 
+                title={<Title  level={4}>{patient.firstName+'  '+patient.lastName}</Title>}
+                description={GENDER[patient.gender] + '. Age: '+patient.age}
+                />
+         </Card>
+      </Col>  
        
-      <Card.Grid hoverable={false} style={{width: '70%', textAlign: 'left'}}>
+      <Col xs={24} lg={20}>
          <Descriptions>
             {items}
           </Descriptions>
-      </Card.Grid>
-      
-     </Card>
-    </div>
+      </Col>          
+     </Row> 
     
   );
 }

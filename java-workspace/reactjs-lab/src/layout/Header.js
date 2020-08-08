@@ -7,28 +7,41 @@ import {
 } from '@ant-design/icons';
 import {Link} from "react-router-dom";
 import {PatientAdd, PatientSearch} from '../patients';
-import Logo      from '../images/logo.png';
+import {PatientIcon, WaitingRoomIcon, AppointmentIcon} from '../icons';
 import '../css/MedLayout.less';
 
 
 export default function Header ({menuCollapsed, toggleMenu}) {
  
-  const MenuFold = () => 
+  const MenuFold = (props) => 
           (menuCollapsed) 
-              ? <MenuUnfoldOutlined className='trigger' onClick={toggleMenu}/>
-              : <MenuFoldOutlined className='trigger' onClick={toggleMenu} />;
+              ? <MenuUnfoldOutlined {...props} className='trigger' onClick={toggleMenu}/>
+              : <MenuFoldOutlined {...props} className='trigger' onClick={toggleMenu} />;
   
   return (
-    <Layout.Header className='header'>
-
-      <Row gutter={8} justify="space-around" align="top">
-        <Col span={4}>
+      <Row gutter={8} 
+           justify="space-around" 
+           align="top" 
+           className='header'>
+        <Col span={2}>
           <MenuFold />
         </Col>
         
-        <Col span={4} >
-          <Link to="/" >
-            <Avatar shape="square" size="large" src={Logo} />
+        <Col span={2} >
+          <Link to="/waitingroom" >
+            <Avatar shape="square" size="default" src={WaitingRoomIcon} />
+          </Link>
+        </Col>
+       
+        <Col span={2} >
+          <Link to="/appointment" >
+            <Avatar shape="square" size="default" src={AppointmentIcon} />
+          </Link>
+        </Col>
+       
+        <Col span={2} >
+          <Link to="/patients" >
+            <Avatar shape="square" size="default" src={PatientIcon} />
           </Link>
         </Col>
         
@@ -43,7 +56,6 @@ export default function Header ({menuCollapsed, toggleMenu}) {
           <Avatar size={32} icon={<UserOutlined/>} />
         </Col>
       </Row>
-    </Layout.Header>
-    
+          
   );
 }

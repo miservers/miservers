@@ -2,7 +2,6 @@ package lab.spring.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Embedded;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
@@ -14,7 +13,10 @@ public class Address implements Serializable{
 	String 		address; 
 	
 	Integer 		streetNumber; // France ADDR Format 
-	@Enumerated(EnumType.ORDINAL) StreetType 	streetType; 
+	
+	@Enumerated(EnumType.STRING) 
+	StreetType 	streetType; 
+	
 	String 		street;
 	
 	String 		city;

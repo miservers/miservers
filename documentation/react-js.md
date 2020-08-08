@@ -739,7 +739,7 @@ Example
 
 
 
-### Breakpoints, Grid
+### Breakpoints, Grid(MUI)
 Grid : subdivise screen into `12` columns.
 
 [Default breakpoints](https://material-ui.com/customization/breakpoints/):  
@@ -753,7 +753,27 @@ Grid : subdivise screen into `12` columns.
 On ubuntu you can see screen width:  
   `$ xrandr | grep ' connected'`  => 1366x768 (277mm x 156mm): for my Lenovo x220 :  
 
-###useMediaQuery
+### Media Query
+#### react-responsive Library
+~~~js
+import { useMediaQuery } from 'react-responsive';
+function PatientRecord () {
+  const isDesktopOrLaptop = useMediaQuery({ minDeviceWidth: 1224 })
+  const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 })
+  
+  return (
+     <Tabs ...
+         tabPosition={isTabletOrMobile?'top':'left'}
+     >
+
+        ...
+
+      </Tabs>
+  )
+~~~
+ 
+
+### useMediaQuery
 ~~~js
 import React from 'react';
 import useMediaQuery from '@material-ui/core/useMediaQuery';

@@ -1,10 +1,9 @@
 import React from 'react';
 import {useParams} from 'react-router-dom';
-
 import { Tabs } from 'antd';
-
+import { useMediaQuery } from 'react-responsive';
 import {Synthesis, Historic, Allergies,
-        Biometrics, Infographics, } from '../patients';
+        Biometrics, Infographics, Medications} from '../patients';
 
 const { TabPane } = Tabs;
 
@@ -15,11 +14,13 @@ function callback(key) {
 
 export default function PatientRecord () {
   let {pid} = useParams(); // Patient ID
+  const isDesktopOrLaptop = useMediaQuery({ minDeviceWidth: 1224 })
+  const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 })
   
   const tabs = [
     {name:'Infos', src: Infographics},
     {name:'Synthese', src: Synthesis},
-    {name:'Traitements', src: Synthesis},
+    {name:'Traitements', src: Medications},
     {name:'Antécédents', src: Historic},
     {name:'Allergies', src: Allergies},
     {name:'Vaccinations', src: Synthesis},
@@ -38,9 +39,9 @@ export default function PatientRecord () {
 	return (
     <>
   
-      <Tabs defaultActiveKey="4" 
+      <Tabs defaultActiveKey="1" 
              onChange={callback}
-             tabPosition='left'
+             tabPosition={isTabletOrMobile?'top':'left'}
              type="card">
 
         {tabPanes}

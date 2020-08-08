@@ -7,8 +7,16 @@ const SEVERITY = {
       SEVERE : 'Severe',
   };
  
- const GENDER = {
+const GENDER = {
   MALE: 'Homme',
   FEMALE: 'Femme'  
 } 
-export {SEVERITY, GENDER}
+
+const STATUS = {
+  ACTIVE: 'Active',
+  INACTIVE: 'Inactive'  
+} 
+
+const dateFormat = 'DD-MM-YYYY';
+
+export {SEVERITY, GENDER,STATUS, dateFormat}

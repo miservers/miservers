@@ -5,13 +5,9 @@ import { Avatar,  Layout,  Menu as AntMenu} from 'antd';
 
 import { Link } from "react-router-dom";
 
-import PatientIcon from '../images/Patient_Male.png';
-import AppointmentIcon from '../images/Appointment.svg';
-import AccountingIcon from '../images/Accounting.svg';
-import WaitingRoomIcon from '../images/Waiting_Room.svg';
-import DrugsIcon from '../images/Drugs.ico';
-import Logo      from '../images/logo.png';
-
+import {PatientIcon, AppointmentIcon, AccountingIcon, 
+        WaitingRoomIcon, DrugsIcon, UsersIcon, Logo } from '../icons';
+        
 import '../css/MedLayout.less';
 
 const { Sider} = Layout;

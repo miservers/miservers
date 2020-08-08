@@ -1,8 +1,17 @@
 import React from 'react';
+import { Calendar } from 'antd';
+
+function onPanelChange(value, mode) {
+  console.log(value.format('YYYY-MM-DD'), mode);
+}
+
 
 export default function Appointment () {
 	
 	return (
-		<h2> Rendez Vous </h2>	
+    <>
+      <Calendar onPanelChange={onPanelChange} />
+    </>	
 	);
 }
+

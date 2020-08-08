@@ -2,12 +2,8 @@ import React from 'react';
 import { Row, Col, Button, Avatar } from 'antd';
 import { Link } from "react-router-dom";
 
-import PatientIcon from './images/Patient_Male.png';
-import AppointmentIcon from './images/Appointment.svg';
-import AccountingIcon from './images/Accounting.svg';
-import WaitingRoomIcon from './images/Waiting_Room.svg';
-import DrugsIcon from './images/Drugs.ico';
-import UsersIcon from './images/Users.svg';
+import {PatientIcon, AppointmentIcon, AccountingIcon, 
+        WaitingRoomIcon, DrugsIcon, UsersIcon} from './icons';
 
 const styles = {button:{width: '100%', 
                         height: '128px', 

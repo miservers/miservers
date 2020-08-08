@@ -25,6 +25,13 @@ let config = {
           },
         ],
       },
+      
+      {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader?modules',
+        include: /flexboxgrid/
+      },
+      
       {
         test: /\.less$/,
         use: [
@@ -36,9 +43,8 @@ let config = {
           }, 
           {
             loader: 'less-loader', // compiles Less to CSS
-          }
+           },
          ],
-    
      },
    ], 
   },   
