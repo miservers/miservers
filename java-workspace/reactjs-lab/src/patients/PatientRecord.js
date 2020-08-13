@@ -3,7 +3,7 @@ import {useParams} from 'react-router-dom';
 import { Tabs } from 'antd';
 import { useMediaQuery } from 'react-responsive';
 import {Synthesis, Historic, Allergies,
-        Biometrics, Infographics, Medications} from '../patients';
+        Biometrics, Infographics, Medications, Vaccines} from '../patients';
 
 const { TabPane } = Tabs;
 
@@ -23,7 +23,7 @@ export default function PatientRecord () {
     {name:'Traitements', src: Medications},
     {name:'Antécédents', src: Historic},
     {name:'Allergies', src: Allergies},
-    {name:'Vaccinations', src: Synthesis},
+    {name:'Vaccines', src: Vaccines},
     {name:'Historique', src: Historic},
     {name:'Biométrie', src: Biometrics},
     {name:'Documents', src: Synthesis},
@@ -39,7 +39,7 @@ export default function PatientRecord () {
 	return (
     <>
   
-      <Tabs defaultActiveKey="1" 
+      <Tabs defaultActiveKey="5" 
              onChange={callback}
              tabPosition={isTabletOrMobile?'top':'left'}
              type="card">

@@ -14,3 +14,6 @@ export const API_ALLERGY_SEARCH = API_ALLERGY + '/search';
 
 export const API_MEDICATION        = API_URL + '/medications';
 export const API_MEDICATION_SEARCH = API_MEDICATION + '/search'; 
+
+export const API_VACCINE        = API_URL + '/vaccines';
+export const API_VACCINE_SEARCH = API_VACCINE + '/search'; 

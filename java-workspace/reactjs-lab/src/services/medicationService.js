@@ -13,11 +13,11 @@ export const fetchMedicationById = async (id) => await fetchById(id, API);
 export const  searchMedication = async (name, pagination) => 
         await searchByName(name, pagination, API_SEARCH);
 
-export const  createMedication = async (allergy) => await create(allergy, API);              
+export const  createMedication = async (medication) => await create(medication, API);              
 
 export const  deleteMedication = async (id) => await  deleteById(id, API);              
 
-export const  updateMedication = async (allergy) => await update(allergy, API);              
+export const  updateMedication = async (medication) => await update(medication, API);              
 
 
 

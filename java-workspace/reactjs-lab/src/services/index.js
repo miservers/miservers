@@ -10,4 +10,6 @@ export {fetchAllergies, searchAllergy, fetchAllergyById,
 export {fetchMedications, searchMedication, fetchMedicationById, 
         createMedication, deleteMedication, updateMedication} from './medicationService';
         
+export {fetchVaccines, searchVaccine, fetchVaccineById, 
+        createVaccine, deleteVaccine, updateVaccine} from './vaccineService';
         

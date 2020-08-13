@@ -10,6 +10,10 @@ const cellStyle = {
   
 }
 
+const hdrStyle = {
+  background:'lightblue', padding: '8px', margin: '0px'
+}
+
 const h = 492;
 
 export default function Synthesis ({pid}) {
@@ -41,9 +45,9 @@ export default function Synthesis ({pid}) {
    
   return (
       <Row>
-        <Col xs={24} sm={24} md={24} lg={12}  style={{...cellStyle, minHeight: h, background: '#d6e4ff' }}>
-            Historique:
-            <Timeline>
+        <Col xs={24} sm={24} md={24} lg={12}  style={{...cellStyle, minHeight: h, background: 'white' }}>
+            <h2 style={hdrStyle}>Historique</h2>
+            <Timeline style={{marginTop: '16px'}}>
               <Timeline.Item>Create a services site 2015-09-01</Timeline.Item>
               <Timeline.Item>Solve initial network problems 2015-09-01</Timeline.Item>
               <Timeline.Item dot={<ClockCircleOutlined className="timeline-clock-icon" />} color="red">
@@ -62,29 +66,31 @@ export default function Synthesis ({pid}) {
         <Col xs={24} sm={24} md={24} lg={12}>
           <Row style={{minHeight: h}}>
             <Col xs={24} sm={24} md={24} lg={24} style={{...cellStyle, background: 'white'}} >
+                <h2 style={hdrStyle}>Traitements en cours</h2>
                 <List
                   size="small"
-                  header={<h3>Traitements en cours</h3>}
                   dataSource={medications}
                   renderItem={medic => <List.Item colStyle={{listStyleType: 'square'}}>{' - '+medic.drug.name+', '+medic.dose+' '+medic.frequency}</List.Item>}
                   loading={loading}
-                  bordered
                   split={false}
+                  style={{padding:'0px'}}
                 />
             </Col>
-            <Col xs={12} sm={12}  md={12} lg={12} style={{...cellStyle, background: '#bae7ff'}}>
-                <p>mesures</p>
-                <p>mesures</p>
+            <Col xs={24} sm={12}  md={12} lg={12} style={{...cellStyle, background: 'white'}}>
+                {<h2 style={hdrStyle}>Mesures</h2>}
+                <p style={{marginTop: '8px'}}>Taille</p>
+                <p>Poids</p>
                 <p>mesures</p>
                 <p>mesures</p>
             </Col>
-            <Col xs={12} sm={12} md={12} lg={12} style={{...cellStyle, background: '#b5f5ec'}}>      
+            <Col xs={24} sm={12} md={12} lg={12} style={{...cellStyle, background: 'white'}}>      
+                <h2 style={hdrStyle}>Allergies</h2>
                 <List
                   size="small"
-                  header={<h3>Allergies</h3>}
                   dataSource={allergies}
-                  loading={loading}
                   renderItem={allergy => <List.Item>{'- '+allergy.substance}</List.Item>}
+                  loading={loading}
+                  split={false}
                 />
             </Col>
           </Row>
