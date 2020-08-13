@@ -50,7 +50,7 @@ export default function Vaccines ({pid}) {
       dataIndex: 'actDate',
     },
     {
-      title: 'Vaccine',
+      title: 'Vaccin',
       dataIndex: 'name',
     },
     {
@@ -86,7 +86,7 @@ export default function Vaccines ({pid}) {
   return (
     <>
       <Space align="baseline">
-        <Typography.Title level={4}> Vaccines </Typography.Title>
+        <Typography.Title level={4}> Vaccins </Typography.Title>
         <VaccineEdit pid={pid} action='add' refresh={_fetchVaccines}/>
       </Space>
           

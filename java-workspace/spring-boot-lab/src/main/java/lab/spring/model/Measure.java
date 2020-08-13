@@ -1,35 +1,36 @@
 package lab.spring.model;
 
-import java.time.LocalTime;
-
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import lab.spring.constants.MeasureNames;
-
+@Entity
 public class Measure {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Long id;
-	
-	@Enumerated(EnumType.STRING)
-	MeasureNames name; // Tall, weight
-	
-	String value;
+	String name; // Tall, weight
 	
 	String unit; //cm, mmHg
-	
-	LocalTime date; // when mesure is taken
 	
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
-	
-	
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
 }

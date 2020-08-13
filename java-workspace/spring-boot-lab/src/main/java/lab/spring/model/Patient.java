@@ -85,7 +85,10 @@ class Patient {
 	
 	@OneToMany(mappedBy = "pid") @Basic(fetch = FetchType.LAZY)
 	Set<Medication> medications;
-	
+
+	@OneToMany(mappedBy = "pid") @Basic(fetch = FetchType.LAZY)
+	Set<Biometric> biometrics;
+
 	public Patient() {  // default constructor
 	} 
 	
@@ -109,6 +112,26 @@ class Patient {
 	}
 
 	
+
+	public Set<Medication> getMedications() {
+		return medications;
+	}
+
+
+	public void setMedications(Set<Medication> medications) {
+		this.medications = medications;
+	}
+
+
+	public Set<Biometric> getBiometrics() {
+		return biometrics;
+	}
+
+
+	public void setBiometrics(Set<Biometric> biometrics) {
+		this.biometrics = biometrics;
+	}
+
 
 	public long getPid() {
 		return pid;

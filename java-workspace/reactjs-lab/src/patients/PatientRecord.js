@@ -23,7 +23,7 @@ export default function PatientRecord () {
     {name:'Traitements', src: Medications},
     {name:'Antécédents', src: Historic},
     {name:'Allergies', src: Allergies},
-    {name:'Vaccines', src: Vaccines},
+    {name:'Vaccins', src: Vaccines},
     {name:'Historique', src: Historic},
     {name:'Biométrie', src: Biometrics},
     {name:'Documents', src: Synthesis},
