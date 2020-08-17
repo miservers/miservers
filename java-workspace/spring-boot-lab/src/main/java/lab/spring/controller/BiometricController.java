@@ -1,21 +1,13 @@
 package lab.spring.controller;
 
-import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -26,64 +18,70 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lab.spring.exception.DataNotFoundException;
 import lab.spring.exception.ErrorMessage;
-import lab.spring.model.Allergy;
-import lab.spring.repository.AllergyRepository;
+import lab.spring.model.Biometric;
+import lab.spring.repository.BiometricRepository;
 
 @RestController
-@RequestMapping(value="/api/allergies", 
+@RequestMapping(value="/api/biometrics", 
 				consumes = MediaType.APPLICATION_JSON_VALUE,
                 produces = MediaType.APPLICATION_JSON_VALUE)
 @CrossOrigin
 public 
-class AllergyController {
+class BiometricController {
 
   
     @Autowired
-    private AllergyRepository allergyRepository;
+    private BiometricRepository biometricRepository;
 
     @GetMapping()
-    public ResponseEntity<List<Allergy>>  all(@RequestParam Long pid,
+    public ResponseEntity<List<Biometric>>  all(@RequestParam Long pid,
 											  @RequestParam(defaultValue = "id") String  sortBy,  
 											  @RequestParam(defaultValue = "asc") String sortDirection) {
     	
     	
-    	List<Allergy> allergies = allergyRepository.findByPid(pid);
+    	List<Biometric> biometrics = biometricRepository.findByPid(pid);
     	   	
-    	return ResponseEntity.ok().body(allergies);
+    	return ResponseEntity.ok().body(biometrics);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Allergy> one(@PathVariable Long id) {
-        Allergy allergy = allergyRepository.findById(id)
+    public ResponseEntity<Biometric> one(@PathVariable Long id) {
+        Biometric biometric = biometricRepository.findById(id)
                              .orElseThrow(()-> new DataNotFoundException("no record found with id "+id)); 
-        return ResponseEntity.ok().body(allergy);
+        return ResponseEntity.ok().body(biometric);
+    }
+
+  
+    @GetMapping("/{pid}/last/{measureName}")
+    public ResponseEntity<Biometric> lastMeasureByName(@PathVariable Long pid, 
+    												   @PathVariable String measureName) {
+        Biometric biometric = biometricRepository.findTopByPidAndMeasureNameOrderByDateDesc(pid, measureName);
+        return ResponseEntity.ok().body(biometric);
     }
 
     
     
     @PostMapping() 
-    public ResponseEntity<?> create(@RequestBody Allergy allergy)  {
-    	System.out.println("allergy to create : "+allergy);
-    	LocalDateTime now = LocalDateTime.now();
-    	allergy.setCreationDate(now);
-        Allergy result = allergyRepository.save(allergy);
+    public ResponseEntity<?> create(@RequestBody Biometric biometric)  {
+    	System.out.println("biometric to create : "+biometric);
+        Biometric result = biometricRepository.save(biometric);
         return ResponseEntity.ok().body(result);
     }
 
     @PutMapping()
-    public ResponseEntity<?> update(@RequestBody Allergy allergy)  {
-    	System.out.println("update :" + allergy);
-    	Allergy result = allergyRepository.save(allergy);
+    public ResponseEntity<?> update(@RequestBody Biometric biometric)  {
+    	System.out.println("update :" + biometric);
+    	Biometric result = biometricRepository.save(biometric);
         return ResponseEntity.ok().body(result);
     }
 
     /**
-     * Delete an allergy
-     * @param id : allergy id
+     * Delete an biometric
+     * @param id : biometric id
      */
     @DeleteMapping("/{id}") 
     public ResponseEntity<?> delete(@PathVariable  Long id)  {
-        allergyRepository.deleteById(id);
+        biometricRepository.deleteById(id);
         return  ResponseEntity.ok().body(ErrorMessage.build("record deleted"));
     }
 

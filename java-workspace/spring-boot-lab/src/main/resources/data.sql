@@ -51,18 +51,19 @@ INSERT INTO Measure
     ('Taille', 'cm'),
     ('Poids', 'Kg'),
     ('IMC', 'Kg/m2'),
-    ('PAS', 'mmHg'),
-    ('PAD', 'mmHg'),
-    ('PUL','pul/min')
+    ('SYS', 'mmHg'),
+    ('DIA', 'mmHg'),
+    ('PUL','PUL/min')
     ;
 
 INSERT INTO Biometric 
     (id , pid,   measure_name,  value,       date) values
     (1,   10000, 'Taille',      169,         '2020-08-13'),
     (2,   10000, 'Poids',       70,          '2020-08-13'),
-    (3,   10000, 'PAS',         129,         '2020-08-13'),
-    (4,   10000, 'PAD',         79,          '2020-08-13'),
-    (5,   10000, 'PUL',         89,          '2020-08-13')    
+    (3,   10000, 'SYS',         129,         '2020-08-13'),
+    (4,   10000, 'DIA',         79,          '2020-08-13'),
+    (5,   10000, 'PUL',         89,          '2020-08-13'),    
+    (6,   10000, 'Poids',       61,          '2020-08-15')
     ;
     
     

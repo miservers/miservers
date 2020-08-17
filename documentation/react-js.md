@@ -129,6 +129,20 @@ const MyFunctionCompenent = (props) => {
 }
 ~~~
 
+**useState of Array**
+
+~~~js
+const [biometrics, setBiometrics] = useState([]);
+
+useEffect( () => { 
+    async function fetchData () {
+        ...                              
+        setBiometrics(biometrics=>[...biometrics, metric]);      
+    }
+    fetchData();
+}, []);
+~~~
+
 **useEffect** : like componentDidMount, this hook is called immediately after component creation. 
 Syntax  
 

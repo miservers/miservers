@@ -24,8 +24,8 @@ export default function PatientRecord () {
     {name:'Antécédents', src: Historic},
     {name:'Allergies', src: Allergies},
     {name:'Vaccins', src: Vaccines},
-    {name:'Historique', src: Historic},
     {name:'Biométrie', src: Biometrics},
+    {name:'Historique', src: Historic},
     {name:'Documents', src: Synthesis},
     {name:'Analyses', src: Synthesis},
     {name:'Finances', src: Synthesis},
@@ -39,7 +39,7 @@ export default function PatientRecord () {
 	return (
     <>
   
-      <Tabs defaultActiveKey="5" 
+      <Tabs defaultActiveKey="6" 
              onChange={callback}
              tabPosition={isTabletOrMobile?'top':'left'}
              type="card">

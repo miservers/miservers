@@ -17,3 +17,7 @@ export const API_MEDICATION_SEARCH = API_MEDICATION + '/search';
 
 export const API_VACCINE        = API_URL + '/vaccines';
 export const API_VACCINE_SEARCH = API_VACCINE + '/search'; 
+
+
+export const API_BIOMETRIC        = API_URL + '/biometrics';
+export const API_BIOMETRIC_SEARCH = API_BIOMETRIC + '/search'; 

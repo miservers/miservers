@@ -12,4 +12,6 @@ export {fetchMedications, searchMedication, fetchMedicationById,
         
 export {fetchVaccines, searchVaccine, fetchVaccineById, 
         createVaccine, deleteVaccine, updateVaccine} from './vaccineService';
-        
+                
+export {fetchBiometrics, fetchLastMeasureByName, searchBiometric, fetchBiometricById, 
+        createBiometric, deleteBiometric, updateBiometric} from './biometricService';
