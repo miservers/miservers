@@ -7,3 +7,4 @@ export {default as  UsersIcon} from './Users.svg';
 export {default as  Logo}     from  './logo.png';
 export {default as  PatientRecordIcon} from './PatientRecord.svg';
 export {default as  HeartPulseIcon} from './HeartPulse.svg';
+export {default as  PatientMeasuresIcon} from './PatientMeasures.svg';

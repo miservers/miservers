@@ -1,58 +1,91 @@
 import React , {useState, useEffect}from 'react';
 import moment from 'moment';
-import { Descriptions, Typography, Row, Col, Avatar, List } from 'antd';
+import { Descriptions, Typography, Row, Col, Avatar, List,Alert, Space } from 'antd';
 
-import {HeartPulseIcon} from '../icons';
+import {HeartPulseIcon, PatientMeasuresIcon} from '../icons';
 import {fetchLastMeasureByName} from '../services';
 import {dateFormat} from '../constants/Constants'
 const { Text } = Typography;
 const {Item}   = Descriptions;
  
+function StyleHTA ({metric}) {
+  console.log(metric);
+  let warning='';
+  if ((metric.measure.name == 'SYS' && metric.value>180) || 
+     (metric.measure.name == 'DIA' && metric.value>110))  
+    warning = ' HTA severe';
+  else if ((metric.measure.name == 'SYS' && metric.value>160) || 
+     (metric.measure.name == 'DIA' && metric.value>100))  
+    warning = ' HTA stade 2';
+  else if ((metric.measure.name == 'SYS' && metric.value>140) || 
+     (metric.measure.name == 'DIA' && metric.value>90))  
+    warning = ' HTA stade 1';
+  else if ((metric.measure.name == 'SYS' && metric.value>130) || 
+     (metric.measure.name == 'DIA' && metric.value>80))  
+    warning = ' pre HTA';
+
+  return (
+     <Space>
+      <span>{metric.measure.name + ': ' + metric.value + ' ' + metric.measure.unit}</span>
+      {warning?<Alert message={warning} type="warning"  showIcon banner/>:''}
+    </Space>
+  )
+}
+
 export default function Biometrics ({pid}) { 
-  const [weight, setWeight] = useState({measure:{name:''}});
-  const [tall, setTall] = useState({measure:{name:''}});
-  const [biometrics, setBiometrics] = useState([]);
+  const [heartMetrics, setHeartMetrics] = useState([]);
+  const [measures, setMeasures] = useState([]); //Tall, weight,
   
   useEffect( () => { 
     async function fetchData () {
-      const weight = await fetchLastMeasureByName(pid, 'Poids');
-      setWeight(weight);
-      const tall = await fetchLastMeasureByName(pid, 'Taille');
-      setTall(tall);
       ['SYS', 'DIA', 'PUL'].map(async(measure) => {
                               const metric = await fetchLastMeasureByName(pid, measure);
-                              setBiometrics(biometrics=>[...biometrics, metric]);      
-                              }) 
+                              setHeartMetrics(heartMetrics=>[...heartMetrics, metric]);      
+                              });
+                               
+      ['Poids', 'Taille'].map(async(measure) => {
+                              const metric = await fetchLastMeasureByName(pid, measure);
+                              setMeasures(measures=>[...measures, metric]);      
+                              });
     }
     fetchData();
     }, []);
   
   return (
     <Row style={{textAlign: 'left'}}>
-      <Col xs={12}>
+      <Col xs={1}>
         <Avatar src={HeartPulseIcon} />
+      </Col>
+      <Col lg={6}>
         <List
           itemLayout="horizontal"
-          dataSource={biometrics}
+          dataSource={heartMetrics}
+          split={false}
           renderItem={metric => (
             <List.Item>
               <List.Item.Meta
-                title={metric.measure.name + ': '+metric.value + ' ' + metric.measure.unit}
-                description={moment(tall.date).format(dateFormat)} />
+                title={<StyleHTA metric={metric} />}
+                description={moment(metric.date).format(dateFormat)} />
             </List.Item>
            )}
           />
       </Col>
-      <Col xs={12}>
-        <Descriptions column={1}> 
-          <Item label='Taille'>{tall.value + ' ' + tall.measure.unit} 
-            <br/> 
-            <Text disabled>Derniere mise a jour: {moment(tall.date).format(dateFormat)}</Text> 
-          </Item>
-          <Item label='Poids'>{weight.value + ' ' + weight.measure.unit} <br/>
-          <Text disabled>Derniere mise a jour: {moment(weight.date).format(dateFormat)}</Text> 
-          </Item>
-        </Descriptions>
+      <Col xs={1}>
+        <Avatar src={PatientMeasuresIcon} />
+      </Col>
+      <Col lg={6}>
+        <List
+          itemLayout="horizontal"
+          dataSource={measures}
+          split={false}
+          renderItem={metric => (
+            <List.Item>
+              <List.Item.Meta
+                title={metric.measure.name + ': '+metric.value + ' ' + metric.measure.unit}
+                description={moment(metric.date).format(dateFormat)} />
+            </List.Item>
+           )}
+          />
       </Col>
    </Row>
   
