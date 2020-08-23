@@ -3,6 +3,7 @@ package lab.spring.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -55,8 +56,13 @@ class BiometricController {
     @GetMapping("/{pid}/last/{measureName}")
     public ResponseEntity<Biometric> lastMeasureByName(@PathVariable Long pid, 
     												   @PathVariable String measureName) {
-        Biometric biometric = biometricRepository.findTopByPidAndMeasureNameOrderByDateDesc(pid, measureName);
-        return ResponseEntity.ok().body(biometric);
+        Biometric biometric = biometricRepository.findTopByPidAndMeasureNameOrderByDateDesc(pid, measureName)
+        					 .orElseThrow(()-> new DataNotFoundException("no measure found with pid: "+pid+" name:"+measureName));
+        System.out.println(biometric);
+        if (biometric != null)
+        	return ResponseEntity.ok().body(biometric);
+        else 
+        	return new ResponseEntity<>(HttpStatus.OK);
     }
 
     

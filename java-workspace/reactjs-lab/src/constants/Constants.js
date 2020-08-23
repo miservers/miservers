@@ -19,4 +19,4 @@ const STATUS = {
 
 const dateFormat = 'DD-MM-YYYY';
 
-export {SEVERITY, GENDER,STATUS, dateFormat}
+export {SEVERITY, GENDER,STATUS, dateFormat};

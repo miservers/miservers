@@ -1,4 +1,5 @@
 import { Table, Space, notification,Popconfirm } from 'antd';
+import {HttpStatus} from '../constants';
 
 const headers = new Headers({
   "Accept": "application/json, text/plain",
@@ -7,10 +8,16 @@ const headers = new Headers({
 
 const handleErrors = async (response) => {
   console.log(response);
-  if (response.ok)
-    return response;
-  else 
-    throw new Error('Backend Server Error: '+response.status + '. ' + response.statusText);
+  switch (response.status) {
+    case HttpStatus.OK: 
+                        return response;
+    case HttpStatus.NO_CONTENT: 
+                        return response;
+    case HttpStatus.NOT_FOUND: 
+                        throw new Error ("Ceci est 404");
+    default: 
+                        throw new Error('Backend Server Error: '+response.status + '. ' + response.statusText);
+  }
 }
   
 const _fetch  = async (url, method, data) => {
@@ -32,9 +39,7 @@ const _fetch  = async (url, method, data) => {
                             message: err.message,
                             placement: 'topLeft',
                           })); 
- 
-                   //.catch(err => {throw new Error(err)});
-  return result;
+   return result;
 }
 
 const _get = async (url) =>  await _fetch(url, 'GET', null);

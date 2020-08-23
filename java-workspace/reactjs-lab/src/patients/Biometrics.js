@@ -40,12 +40,15 @@ export default function Biometrics ({pid}) {
     async function fetchData () {
       ['SYS', 'DIA', 'PUL'].map(async(measure) => {
                               const metric = await fetchLastMeasureByName(pid, measure);
-                              setHeartMetrics(heartMetrics=>[...heartMetrics, metric]);      
+                              console.log(metric)
+                              if (metric) 
+                                setHeartMetrics(heartMetrics=>[...heartMetrics, metric]);      
                               });
                                
       ['Poids', 'Taille'].map(async(measure) => {
                               const metric = await fetchLastMeasureByName(pid, measure);
-                              setMeasures(measures=>[...measures, metric]);      
+                              if (metric)  
+                                setMeasures(measures=>[...measures, metric]);      
                               });
     }
     fetchData();
