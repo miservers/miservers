@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Card, Timeline,  Row, Col, List} from 'antd';
 import { ClockCircleOutlined } from '@ant-design/icons';
-import {fetchAllergies, fetchMedications} from '../services';
+import {fetchAllergies, fetchMedications, fetchLastMeasureByName} from '../services';
 
 const cellStyle = {
   border: 'solid 0px lightgrey',
@@ -19,29 +19,32 @@ const h = 492;
 export default function Synthesis ({pid}) {
   const [allergies, setAllergies]     = useState([]); //allergies=[] empty table
   const [medications, setMedications] = useState([]); //allergies=[] empty table
+  const [measures, setMeasures] = useState([]); //Tall, weight,
   const [loading, setLonding]         = useState(false);
 
   useEffect( () => { 
     async function fetchData () {
-      await _fetchAllergies();      
-    }
-    fetchData();
-  }, []);
-  
-  const _fetchAllergies =  async () => {
-        
-        setLonding(true);
-        
         const allergies = await fetchAllergies(pid);
         setAllergies(allergies);
 
         const medications = await fetchMedications(pid);
         setMedications(medications);
-
-        setLonding(false);
- 
-  };
-
+        
+        ['SYS', 'DIA', 'PUL', 'Poids'].map(async(measure) => {
+                  let metric = await fetchLastMeasureByName(pid, measure);
+                  
+                  if (metric == null) 
+                    metric = {measure:{name:measure, unit:''}, value:'-'}
+                    
+                  setMeasures(measures=>[...measures, metric]);      
+                  });
+      
+    }
+    setLonding(true);
+    fetchData();
+    setLonding(false);
+  }, []);
+  
    
   return (
       <Row>
@@ -78,10 +81,13 @@ export default function Synthesis ({pid}) {
             </Col>
             <Col xs={24} sm={12}  md={12} lg={12} style={{...cellStyle, background: 'white'}}>
                 {<h2 style={hdrStyle}>Mesures</h2>}
-                <p style={{marginTop: '8px'}}>Taille</p>
-                <p>Poids</p>
-                <p>mesures</p>
-                <p>mesures</p>
+                <List
+                  size="small"
+                  dataSource={measures}
+                  renderItem={metric => <List.Item>{'- '+metric.measure.name + ': ' + metric.value + ' ' + metric.measure.unit}</List.Item>}
+                  loading={loading}
+                  split={false}
+                />
             </Col>
             <Col xs={24} sm={12} md={12} lg={12} style={{...cellStyle, background: 'white'}}>      
                 <h2 style={hdrStyle}>Allergies</h2>

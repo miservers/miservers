@@ -14,7 +14,7 @@ const handleErrors = async (response) => {
     case HttpStatus.NO_CONTENT: 
                         return response;
     case HttpStatus.NOT_FOUND: 
-                        throw new Error ("Ceci est 404");
+                        return null;
     default: 
                         throw new Error('Backend Server Error: '+response.status + '. ' + response.statusText);
   }
@@ -32,8 +32,20 @@ const _fetch  = async (url, method, data) => {
                           mode: 'cors',
                           body: data?JSON.stringify(data):null,
                          })
-                   .then (handleErrors)
-                   .then (response => response.json())
+                   .then (response => {
+                            console.log(response);
+                            switch (response.status) {
+                              case HttpStatus.OK: 
+                              case HttpStatus.CREATED: 
+                                                  return response.json();
+                              case HttpStatus.NO_CONTENT: 
+                              case HttpStatus.NOT_FOUND: 
+                                                  return null;
+                              default: 
+                                      let err = 'Server Error: '+response.status + '. ' + response.statusText;
+                                      throw new Error(err);
+                            }
+                          })
                    .catch(err => 
                           notification.error({
                             message: err.message,

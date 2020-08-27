@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import lab.spring.exception.DataNotFoundException;
-import lab.spring.exception.ErrorMessage;
+import lab.spring.exception.NotFoundException;
+import lab.spring.exception.ServerMessage;
 import lab.spring.model.Biometric;
 import lab.spring.repository.BiometricRepository;
 
@@ -48,7 +48,7 @@ class BiometricController {
     @GetMapping("/{id}")
     public ResponseEntity<Biometric> one(@PathVariable Long id) {
         Biometric biometric = biometricRepository.findById(id)
-                             .orElseThrow(()-> new DataNotFoundException("no record found with id "+id)); 
+                             .orElseThrow(()-> new NotFoundException("no record found with id "+id)); 
         return ResponseEntity.ok().body(biometric);
     }
 
@@ -57,12 +57,9 @@ class BiometricController {
     public ResponseEntity<Biometric> lastMeasureByName(@PathVariable Long pid, 
     												   @PathVariable String measureName) {
         Biometric biometric = biometricRepository.findTopByPidAndMeasureNameOrderByDateDesc(pid, measureName)
-        					 .orElseThrow(()-> new DataNotFoundException("no measure found with pid: "+pid+" name:"+measureName));
-        System.out.println(biometric);
-        if (biometric != null)
-        	return ResponseEntity.ok().body(biometric);
-        else 
-        	return new ResponseEntity<>(HttpStatus.OK);
+        					 .orElseThrow(()-> new NotFoundException("no measure found with pid: "+pid+
+        							 								 " and name:"+measureName));
+        return ResponseEntity.ok().body(biometric);
     }
 
     
@@ -71,24 +68,20 @@ class BiometricController {
     public ResponseEntity<?> create(@RequestBody Biometric biometric)  {
     	System.out.println("biometric to create : "+biometric);
         Biometric result = biometricRepository.save(biometric);
-        return ResponseEntity.ok().body(result);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
     @PutMapping()
     public ResponseEntity<?> update(@RequestBody Biometric biometric)  {
     	System.out.println("update :" + biometric);
     	Biometric result = biometricRepository.save(biometric);
-        return ResponseEntity.ok().body(result);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
-    /**
-     * Delete an biometric
-     * @param id : biometric id
-     */
     @DeleteMapping("/{id}") 
     public ResponseEntity<?> delete(@PathVariable  Long id)  {
         biometricRepository.deleteById(id);
-        return  ResponseEntity.ok().body(ErrorMessage.build("record deleted"));
+        return  ResponseEntity.ok().body(ServerMessage.build("record deleted"));
     }
 
 }

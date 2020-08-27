@@ -39,7 +39,7 @@ export default function PatientRecord () {
 	return (
     <>
   
-      <Tabs defaultActiveKey="6" 
+      <Tabs defaultActiveKey="0" 
              onChange={callback}
              tabPosition={isTabletOrMobile?'top':'left'}
              type="card">

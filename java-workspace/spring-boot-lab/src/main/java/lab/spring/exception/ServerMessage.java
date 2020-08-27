@@ -4,22 +4,22 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public 
-class ErrorMessage  implements Serializable{
+class ServerMessage  implements Serializable{
 	
 	LocalDateTime    timestamp;	
 	String  message;
 	
 	public static 
-	ErrorMessage build (String msg) {
-		return new ErrorMessage(LocalDateTime.now(), msg);
+	ServerMessage build (String msg) {
+		return new ServerMessage(LocalDateTime.now(), msg);
 	}
 	
-	public ErrorMessage (String msg) {
+	public ServerMessage (String msg) {
 		this.timestamp  = LocalDateTime.now();
 		this.message    = msg;
 	}
 	
-	public ErrorMessage (LocalDateTime t, String msg) {
+	public ServerMessage (LocalDateTime t, String msg) {
 		this.timestamp  = t;
 		this.message    = msg;
 	}

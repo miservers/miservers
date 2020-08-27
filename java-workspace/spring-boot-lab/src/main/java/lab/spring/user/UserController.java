@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import lab.spring.exception.DataNotFoundException;
+import lab.spring.exception.NotFoundException;
 
 @RestController
 @RequestMapping(value="/api/user", 
@@ -36,7 +36,7 @@ class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<User> one(@PathVariable Long id) {
         User user = userRepo.findById(id).
-                                      orElseThrow(()-> new DataNotFoundException("no user found with id "+id)); 
+                                      orElseThrow(()-> new NotFoundException("no user found with id "+id)); 
         
         return ResponseEntity.ok().body(user);
     }

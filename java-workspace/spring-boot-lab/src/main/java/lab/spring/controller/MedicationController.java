@@ -24,8 +24,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import lab.spring.exception.DataNotFoundException;
-import lab.spring.exception.ErrorMessage;
+import lab.spring.exception.NotFoundException;
+import lab.spring.exception.ServerMessage;
 import lab.spring.model.Medication;
 import lab.spring.repository.MedicationRepository;
 
@@ -55,7 +55,7 @@ class MedicationController {
     @GetMapping("/{pid}")
     public ResponseEntity<Medication> one(@PathVariable Long id) {
         Medication medication = medicationRepository.findById(id)
-                             .orElseThrow(()-> new DataNotFoundException("no record found with id "+id)); 
+                             .orElseThrow(()-> new NotFoundException("no record found with id "+id)); 
         return ResponseEntity.ok().body(medication);
     } 
 
@@ -84,7 +84,7 @@ class MedicationController {
     @DeleteMapping("/{id}") 
     public ResponseEntity<?> delete(@PathVariable  Long id)  {
         medicationRepository.deleteById(id);
-        return  ResponseEntity.ok().body(ErrorMessage.build("record deleted"));
+        return  ResponseEntity.ok().body(ServerMessage.build("record deleted"));
     }
 
 }

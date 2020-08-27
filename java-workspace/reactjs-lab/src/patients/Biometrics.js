@@ -39,16 +39,22 @@ export default function Biometrics ({pid}) {
   useEffect( () => { 
     async function fetchData () {
       ['SYS', 'DIA', 'PUL'].map(async(measure) => {
-                              const metric = await fetchLastMeasureByName(pid, measure);
+                              let metric = await fetchLastMeasureByName(pid, measure);
+                              
                               console.log(metric)
-                              if (metric) 
-                                setHeartMetrics(heartMetrics=>[...heartMetrics, metric]);      
+                              if (metric == null) 
+                                metric = {measure:{name:measure, unit:''}, value:'-'}
+                                
+                              setHeartMetrics(heartMetrics=>[...heartMetrics, metric]);      
                               });
                                
       ['Poids', 'Taille'].map(async(measure) => {
-                              const metric = await fetchLastMeasureByName(pid, measure);
-                              if (metric)  
-                                setMeasures(measures=>[...measures, metric]);      
+                              let metric = await fetchLastMeasureByName(pid, measure);
+                              
+                              if (metric == null) 
+                                metric = {measure:{name:measure, unit:''}, value:'-'}
+                                
+                              setMeasures(measures=>[...measures, metric]);      
                               });
     }
     fetchData();
@@ -68,7 +74,7 @@ export default function Biometrics ({pid}) {
             <List.Item>
               <List.Item.Meta
                 title={<StyleHTA metric={metric} />}
-                description={moment(metric.date).format(dateFormat)} />
+                description={(metric.date != null)?moment(metric.date).format(dateFormat):''} />
             </List.Item>
            )}
           />
@@ -85,7 +91,7 @@ export default function Biometrics ({pid}) {
             <List.Item>
               <List.Item.Meta
                 title={metric.measure.name + ': '+metric.value + ' ' + metric.measure.unit}
-                description={moment(metric.date).format(dateFormat)} />
+                description={(metric.date != null)?moment(metric.date).format(dateFormat):''} />
             </List.Item>
            )}
           />

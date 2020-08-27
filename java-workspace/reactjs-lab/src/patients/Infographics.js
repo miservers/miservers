@@ -1,6 +1,6 @@
 import React ,{useState, useEffect} from 'react';
 import { notification, Descriptions, 
-         Card,Avatar, Typography, Row, Col} from 'antd';
+         Card,Avatar, Typography, Row, Col, Space, Divider} from 'antd';
 
 import {fetchPatientById} from '../services';
 import {GENDER} from '../constants/Constants'
@@ -45,21 +45,25 @@ export default function Infographics ({pid}) {
   );
     
   return (
-    <Row style={{textAlign: 'left'}}>      
+    <Row style={{textAlign: 'left', marginTop:'8px'}}>      
       <Col xs={24} lg={4}>
-          <Card
-            size='small'
-            cover={<img src={"data:image/png;base64," + patient.picture.blob} style={{width:140, height:100}}/>}
-            >
-             <Card.Meta 
-                title={<Title  level={4}>{patient.firstName+'  '+patient.lastName}</Title>}
-                description={GENDER[patient.gender] + '. Age: '+patient.age}
-                />
-         </Card>
+        <img src={"data:image/png;base64," + patient.picture.blob} style={{width:170, height:170}}/>
       </Col>  
        
       <Col xs={24} lg={20}>
-         <Descriptions>
+         <Text  style={{textTransform: 'capitalize', color:'green', fontSize: 18}}>
+              {patient.firstName+'  '+patient.lastName} 
+         </Text>
+         
+         <Divider type='vertical' />
+         
+         <Text  style={{color: 'green', fontSize: 14}}>
+              {'('+GENDER[patient.gender] + ' | '+patient.age+' ans)'} 
+         </Text>
+         
+          <Divider plain/>
+         
+          <Descriptions>
             {items}
           </Descriptions>
       </Col>          
