@@ -36,10 +36,8 @@ class BiometricController {
 
     @GetMapping()
     public ResponseEntity<List<Biometric>>  all(@RequestParam Long pid,
-											  @RequestParam(defaultValue = "id") String  sortBy,  
-											  @RequestParam(defaultValue = "asc") String sortDirection) {
-    	
-    	
+											    @RequestParam(defaultValue = "id") String  sortBy,  
+											    @RequestParam(defaultValue = "asc") String sortDirection) {
     	List<Biometric> biometrics = biometricRepository.findByPid(pid);
     	   	
     	return ResponseEntity.ok().body(biometrics);
@@ -48,7 +46,7 @@ class BiometricController {
     @GetMapping("/{id}")
     public ResponseEntity<Biometric> one(@PathVariable Long id) {
         Biometric biometric = biometricRepository.findById(id)
-                             .orElseThrow(()-> new NotFoundException("no record found with id "+id)); 
+                             .orElseThrow(()-> new NotFoundException("no record with id "+id)); 
         return ResponseEntity.ok().body(biometric);
     }
 
@@ -57,7 +55,7 @@ class BiometricController {
     public ResponseEntity<Biometric> lastMeasureByName(@PathVariable Long pid, 
     												   @PathVariable String measureName) {
         Biometric biometric = biometricRepository.findTopByPidAndMeasureNameOrderByDateDesc(pid, measureName)
-        					 .orElseThrow(()-> new NotFoundException("no measure found with pid: "+pid+
+        					 .orElseThrow(()-> new NotFoundException("no measure with pid: "+pid+
         							 								 " and name:"+measureName));
         return ResponseEntity.ok().body(biometric);
     }
@@ -66,14 +64,12 @@ class BiometricController {
     
     @PostMapping() 
     public ResponseEntity<?> create(@RequestBody Biometric biometric)  {
-    	System.out.println("biometric to create : "+biometric);
         Biometric result = biometricRepository.save(biometric);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
     @PutMapping()
     public ResponseEntity<?> update(@RequestBody Biometric biometric)  {
-    	System.out.println("update :" + biometric);
     	Biometric result = biometricRepository.save(biometric);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }

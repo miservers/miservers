@@ -9,8 +9,8 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Entity
 public class Drug {
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	Long id;
+	@Id
+	String ndc; // National drug code, format 10 digit:  xxxx-yyyy-zz. ndclist.com
 	
 	String name;
 	
@@ -21,15 +21,6 @@ public class Drug {
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
-	}
-
-	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getName() {
@@ -54,6 +45,14 @@ public class Drug {
 
 	public void setDosage(String dosage) {
 		this.dosage = dosage;
+	}
+
+	public String getNdc() {
+		return ndc;
+	}
+
+	public void setNdc(String ndc) {
+		this.ndc = ndc;
 	}
 	
 }

@@ -1,8 +1,8 @@
 package lab.spring.model;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -22,7 +22,7 @@ public class Medication {
 	
 	Long pid;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL )
 	Drug drug;
 
 	String dose; // 2 puffs, 80mg

@@ -6,7 +6,7 @@ import {
   notification, DatePicker, Row, Col} from 'antd';
 import {Modal} from '../components';
 import {EditFilled, DeleteFilled, PlusSquareTwoTone} from '@ant-design/icons';
-import {createAllergy, updateAllergy} from '../services';
+import {createMedication, updateMedication} from '../services';
 import {SEVERITY, dateFormat} from '../constants/Constants'
 
 const { TextArea } = Input;
@@ -27,7 +27,7 @@ const layout = {
 const Item = (props) =>
         <Form.Item {...props} style={{marginBottom: "8px" }}>{props.children}</Form.Item>
 
-function AllergyEdit ({pid, action=ACTION_EDIT, allergy, refresh}) {
+function MedicationEdit ({pid, action=ACTION_EDIT, medication, refresh}) {
   const [visible, setVisible] = useState(false);
   const [form] = Form.useForm();
   
@@ -35,9 +35,9 @@ function AllergyEdit ({pid, action=ACTION_EDIT, allergy, refresh}) {
  
   const showDialog = () => {
     if (action == ACTION_EDIT){
-      const beginDate = (allergy.beginDate)?moment(allergy.beginDate):'';
-      const endDate = (allergy.endDate)?moment(allergy.endDate):'';
-      form.setFieldsValue({...allergy, beginDate: beginDate, endDate: endDate});
+      const startedTaking = (medication.startedTaking)?moment(medication.startedTaking):'';
+      const endTaking = (medication.endTaking)?moment(medication.endTaking):'';
+      form.setFieldsValue({...medication, startedTaking: startedTaking, endTaking: endTaking});
     }
     else if (action == ACTION_ADD)
       form.setFieldsValue({});
@@ -52,12 +52,12 @@ function AllergyEdit ({pid, action=ACTION_EDIT, allergy, refresh}) {
             form.validateFields()
                 .then(fieldsValue => {
                        //form.resetFields(); 
-                       const newAllergy = {...allergy, pid: pid, ...fieldsValue};
-                       console.log(newAllergy)
+                       const newMedication = {...medication, pid: pid, ...fieldsValue};
+                       console.log(newMedication)
                        if (action == ACTION_ADD)
-                          createAllergy(newAllergy);
+                          createMedication(newMedication);
                        else if (action == ACTION_EDIT)
-                          updateAllergy(newAllergy);                                                                                                                   
+                          updateMedication(newMedication);                                                                                                                   
                     })
                  .then (()=>{
                       setVisible(false);
@@ -89,7 +89,7 @@ function AllergyEdit ({pid, action=ACTION_EDIT, allergy, refresh}) {
           :<PlusSquareTwoTone  onClick={showDialog} style={{fontSize: 24}}/>
        }     
         <Modal
-            title="Allergy"
+            title="Medication"
             visible={visible}
             onOk={onOk}
             onCancel={onCancel}
@@ -100,50 +100,35 @@ function AllergyEdit ({pid, action=ACTION_EDIT, allergy, refresh}) {
             <Form
                 {...layout}
                 form={form}
-                name="Nouvelle Allergy"
+                name="Nouvelle Medication"
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 style={{paddingTop: '4px', }}
               >
-                 <Item label="Substance" name="substance"  rules={[required,]} >
+                 <Item label="Medicament" name={['drug','name']}  rules={[required,]} >
                     <Input />
                  </Item>
                 
-                 <Item label="Reaction" name="reaction" rules={[required,]}>
+                 <Item label="Dose" name="dose" rules={[required,]}>
                     <Input />
                  </Item>
                  
-                 <Item label="Severity" name="severity" rules={[required,]}>
-                   <Radio.Group
-                     options={severities}
-                     onChange={null}
-                     value={null}
-                     optionType="button"
-                   />
-                 </Item>
-
-                 <Item label="Occurence" name="occurence">
+                 <Item label="Frequency" name="frequency" rules={[required,]}>
                     <Input />
                  </Item>
 
-                 <Item label="Status" name="status">
-                    <Input />
-                 </Item>
+                
    
-                 <Item label="Date de début" name="beginDate">
+                 <Item label="Date debut" name="startedTaking">
                     <DatePicker format={dateFormat} placeholder={dateFormat} disabledDate={disabledDate}/>
                  </Item>
 
-                 <Item label="Date de fin" name="endDate">
+                 <Item label="Date fin" name="endTaking">
                     <DatePicker format={dateFormat} placeholder={dateFormat}/>
                  </Item>
 
 
-                 <Item label="Référencé par" name="referredBy">
-                    <Input />
-                 </Item>
-  
-                <Item label="Comments" name="comments">
+                <Item label="Notes" name="notes">
                   <TextArea  span={4}/>
                 </Item>
                 
@@ -154,13 +139,13 @@ function AllergyEdit ({pid, action=ACTION_EDIT, allergy, refresh}) {
                
  }
  
- AllergyEdit.propTypes = {
+ MedicationEdit.propTypes = {
   pid: PropTypes.string,
   action: PropTypes.oneOf([ACTION_ADD, ACTION_EDIT]),
-  allergy: PropTypes.object,
+  medication: PropTypes.object,
   refresh: PropTypes.func
 };
 
-export default  AllergyEdit;
+export default  MedicationEdit;
 
 

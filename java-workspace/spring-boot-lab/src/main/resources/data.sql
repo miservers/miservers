@@ -30,16 +30,17 @@
     (3, 10000, 'nuts',        'sneezing', 'SEVERE',        '2Mo',    '2006-01-01', '2012-11-25', 'sqali'),
     (4, 10000, 'aspirin',     'itchy',    'SEVERE',        '2Mo',    '2006-01-01', '2011-09-26', 'sqali');
     
+ /* ndclist.com*/
  INSERT INTO Drug 
-    (id , name) values
-    (50, 'Ventoline'),
-    (51, 'Celestine');
+    (ndc, name, side_Effects) values
+    ('0173-0682-20','Ventoline', 'nausia'),
+    ('0378-0373-01', '  Hydroxychloroquine', '');
     
      
 INSERT INTO Medication 
-    (id , pid,   drug_id,  dose,        frequency, condition, prescribed,  started_Taking,  end_Taking, status) values
-    (1,   10000, 50,      '2 puffs',   '1 daily', 'asthma',   '2013-10-24','2013-10-24', '2013-12-15', 'ACTIVE'),
-    (2,   10000, 51,      '110 goutes',   '2/ d', 'asthma',   '2013-10-24','2013-10-24', '2013-10-30', 'ACTIVE');
+    (id , pid,   drug_ndc,  dose,        frequency, condition, prescribed,  started_Taking,  end_Taking, status) values
+    (1,   10000, '0173-0682-20',      '2 puffs',   '1 daily', 'asthma',   '2013-10-24','2013-10-24', '2013-12-15', 'ACTIVE'),
+    (2,   10000, '0378-0373-01',      '2',   '2/ d', 'covid-19',   '2013-10-24','2013-10-24', '2013-10-30', 'ACTIVE');
 
 INSERT INTO Vaccine 
     (id , pid,   act_Date,     name,       category, lot, reminder) values
