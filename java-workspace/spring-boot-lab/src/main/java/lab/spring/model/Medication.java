@@ -22,7 +22,7 @@ public class Medication {
 	
 	Long pid;
 	
-	@ManyToOne(cascade = CascadeType.ALL )
+	@ManyToOne(cascade = CascadeType.PERSIST )
 	Drug drug;
 
 	String dose; // 2 puffs, 80mg

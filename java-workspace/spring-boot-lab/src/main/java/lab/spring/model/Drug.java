@@ -9,7 +9,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Entity
 public class Drug {
-	@Id
+	@Id  @GeneratedValue(generator="system-uuid")
 	String ndc; // National drug code, format 10 digit:  xxxx-yyyy-zz. ndclist.com
 	
 	String name;
