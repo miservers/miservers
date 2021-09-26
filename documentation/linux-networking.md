@@ -79,3 +79,11 @@ Open connections
 
 ![](../documentation/images/Linux-Virtual-Network-Bridge.png)
 
+### DHCP
+install packet  
+  isc-dhcp-server
+ 
+Configuration file: **/etc/dhcp/dhcpd.conf**
+ 
+ 
+
