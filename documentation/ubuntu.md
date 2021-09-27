@@ -41,6 +41,15 @@ watch -n 2 sensors
 **Compress Photos**: Batch
 
     for f in ./*.jpg; do ffmpeg -i $f -compression_level 80 ffmpeg_compression/$f; done
+    
+**Video Compression**
+    
+    ffmpeg -i 20170903_201830.mp4 -vcodec libx265 -crf 28 ffmpeg_compression/20170903_201830.mp4
+    
+    Batch:
+    
+    for f in ./*.mp4; do  ffmpeg -i $f -vcodec libx265 -crf 28 ffmpeg_compression/$f; done
+    
 
 ## Installation and configuration of ubuntu 16.04
 
