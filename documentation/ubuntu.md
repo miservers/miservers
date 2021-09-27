@@ -40,7 +40,7 @@ watch -n 2 sensors
 
 **Compress Photos**: Batch
 
-    for f in ./*.jpg; do ffmpeg -i $f -compression_level 80 ../ffmpeg_compression/$f; done
+    for f in ./*.jpg; do ffmpeg -i $f -compression_level 80 ffmpeg_compression/$f; done
 
 ## Installation and configuration of ubuntu 16.04
 
