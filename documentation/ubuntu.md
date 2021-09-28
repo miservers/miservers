@@ -52,12 +52,14 @@ watch -n 2 sensors
     
     Batch with condition on file min file zise
     
-    minsize=30000000 #30 MB
-    for f in ./*.mp4; do  
-       if [ $$(wc -c $f) -ge $minsize ]; then 
-          ffmpeg -i $f -vcodec libx265 -crf 28 ffmpeg_compression/$f
-       fi
-    done
+   minsize=30000000 #30 MB
+   for f in ./*.mp4; do
+     fsize=$(wc -c <$f)
+     if [ $fsize -ge $minsize ]; then 
+        ffmpeg -i $f -vcodec libx265 -crf 28 ffmpeg_compression/$f
+     fi
+   done
+
 
 ## Installation and configuration of ubuntu 16.04
 
