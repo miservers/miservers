@@ -7,6 +7,7 @@
  *   http://wiki.osdev.org/Ext2
  *   http://uranus.chrysocome.net/explore2fs/es2fs.htm
  *   http://perl.plover.com/classes/ext2fs/
+ * Block size: 1KB
  * Disk Organization: Sample 20mb Partition Layout
 	Block Offset   Length		Description
 	-- block #0 : 1024 bytes, boot block--
