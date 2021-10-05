@@ -107,7 +107,8 @@ Read a file: Sequence diagram
 
 ## Ext2
 - Organisation du fs ext2
-~~~
+![](/documentation/images/FS-Ext2.jpg)
+
  [boot block] - [ block group 0 ]-...-[ block group N ]  
  
   |superblock    |block group desc table   |data blocks    |superblock_backup   |block group desc table backup |data blocks |
