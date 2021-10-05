@@ -125,6 +125,7 @@ Read a file: Sequence diagram
   block 1 hold superblock, block 2 contains group descriptors, block 0 is NULL and not reprented on the disk.
 - block group start at block (group_num-1) * s_blocks_per_group.
 - Size of the block bitmap = (blocks_per_group/8)/block_size.
+- the block bitmap, which is used to iden-tify the blocks that are used and free inside a group, must be stored in a single block.
 - Find the group of a block:  group = (block_num-1)/ blocks_per_group + 1
   Then the block in that group is block_num - (group*blocks_per_group)
   by this way you can access block_bitmap.
