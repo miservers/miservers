@@ -107,21 +107,24 @@ Read a file: Sequence diagram
 
 ## Ext2
 - Organisation du fs ext2
-  -----------------[ block group 0 ----------]-[ block group 1 -------------------]-| boot block    |superblock    |block group desc table   |data blocks    |superblock_backup   |block group desc table backup |data blocks |
-  ------------------------------------------------------------------------------------------------------------------------------------------
-  0                1024           block 2                   block n
-
+~~~
+ [boot block] - [ block group 0 ]-...-[ block group N ]  
+ 
+  |superblock    |block group desc table   |data blocks    |superblock_backup   |block group desc table backup |data blocks |
+ 
+~~~
 - mount
   struct super_block * do_mount(int dev);
-  // permet de charger en mémoire le super-bloc du péripherique (bloc) specifié.
+  // permet de charger en mÃ©moire le super-bloc du pÃ©ripherique (bloc) specifiÃ©.
 - Initialisation du systeme de fchiers
   void mount_root(void);
-  // permet d'initialiser le systeme de fchiers, en montant à sa racine les fchiers du peripherique
+  // permet d'initialiser le systeme de fchiers, en montant Ã  sa racine les fchiers du peripherique
      bloc racine.
      
 - Super block : is 1024 bytes in length, and is always located at the 1024th byte on the disk.
 - Block size = 1024 << s_log_block_size. common block size 1kB, 2kB, 4kB.
 - Nb of groups = s_blocks_count / s_blocks_per_group. //round up
+- Groups includes data blocks and inodes stored in adjacent tracks
 - All block, groups and inodes are numbred starting from 1. 
   block 1 hold superblock, block 2 contains group descriptors, block 0 is NULL and not reprented on the disk.
 - block group start at block (group_num-1) * s_blocks_per_group.
@@ -163,7 +166,7 @@ group      1     1     2
 if:
  s_inodes_per_group=1624
  block_size=1024
- sizeof(i.>>£>.>>	/node)=128
+ sizeof(i.>>Â£>.>>	/node)=128
 then:
  inodes_per_block = 1024/128 = 8
  inode_table_size = s_inodes_per_group/inodes_per_block = 1624/8 = 203 blocks=====================+
