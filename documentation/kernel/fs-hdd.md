@@ -106,20 +106,20 @@ Read a file: Sequence diagram
 
 
 ## Ext2
-- Organisation du fs ext2
+- Organisation du fs ext2  
 ![](/documentation/images/FS-Ext2.jpg)
 
-- mount
+- mount  
   struct super_block * do_mount(int dev);
   // permet de charger en mémoire le super-bloc du péripherique (bloc) specifié.
-- Initialisation du systeme de fchiers
+- Initialisation du systeme de fchiers  
   void mount_root(void);
   // permet d'initialiser le systeme de fchiers, en montant à sa racine les fchiers du peripherique
      bloc racine.
      
 - Super block : is 1024 bytes in length, and is always located at the 1024th byte on the disk.
 - Block size = 1024 << s_log_block_size. common block size 1kB, 2kB, 4kB.
-- Nb of groups = s_blocks_count / s_blocks_per_group. //round up
+- Nb of groups = s_blocks_count / s_blocks_per_group.
 - Groups includes data blocks and inodes stored in adjacent tracks
 - All block, groups and inodes are numbred starting from 1. 
   block 1 hold superblock, block 2 contains group descriptors, block 0 is NULL and not reprented on the disk.
