@@ -109,11 +109,6 @@ Read a file: Sequence diagram
 - Organisation du fs ext2
 ![](/documentation/images/FS-Ext2.jpg)
 
- [boot block] - [ block group 0 ]-...-[ block group N ]  
- 
-  |superblock    |block group desc table   |data blocks    |superblock_backup   |block group desc table backup |data blocks |
- 
-~~~
 - mount
   struct super_block * do_mount(int dev);
   // permet de charger en mémoire le super-bloc du péripherique (bloc) specifié.
