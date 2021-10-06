@@ -44,10 +44,8 @@ Online Resizing an FS
 RAID 5 : https://www.dataretrieval.com/raid-data-recovery/raid-5-internals-data-storage-performance-and-recovery.html
 
 ### Create a ISO 9660 image
-** From a devide or cdrom 
-    
-    dd if=/dev/sda1 of=~/cdrom_image.iso.
-
-** from a directory  
+1. From a devide or cdrom 
+dd if=/dev/sda1 of=~/disk1_image.iso
+1. from a directory  
     
     mkisofs -o /tmp/cd.iso /tmp/directory/  
