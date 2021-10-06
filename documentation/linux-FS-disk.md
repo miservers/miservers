@@ -45,7 +45,9 @@ RAID 5 : https://www.dataretrieval.com/raid-data-recovery/raid-5-internals-data-
 
 ### Create a ISO 9660 image
 1. From a devide or cdrom  
+
 dd if=/dev/sda1 of=~/disk1_image.iso
+
 1. from a directory  
     
-    mkisofs -o /tmp/cd.iso /tmp/directory/  
+mkisofs -o /tmp/cd.iso /tmp/directory/  
