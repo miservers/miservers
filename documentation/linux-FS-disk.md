@@ -1,5 +1,5 @@
-###p Disk & FS
-
+### Disk & FS
+----------------------------------------------
 List all block devices:
  
     # lsblk
@@ -49,5 +49,5 @@ From a devide or cdrom
     dd if=/dev/sda1 of=~/disk1_image.iso
 
 From a directory  
-   
+
     mkisofs -o /tmp/cd.iso /tmp/directory/ 
