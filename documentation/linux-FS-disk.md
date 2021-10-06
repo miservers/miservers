@@ -1,4 +1,4 @@
-### Disk & FS
+## Disk & FS
 ----------------------------------------------
 List all block devices:
  
@@ -9,14 +9,18 @@ List Partitions Under Linux (case android)
     # fdisk -l /dev/block/mmcblk0 
     # fdisk -l -u=cylinders /sdcard1/qemu/qemu1.img
 
+create a virtual disk of 1MB  
+
+    dd if=/dev/zero of=disk.img bs=512 count=2000 	
+
 Formate using ext2 FS
  
-    # mkfs.ext2 -b 1024 qemu1.img
+    # mkfs.ext2 -b 1024 disk.img
  
-Dump info of disk
+Dump disk infos 
  
-    # dumpe2fs qemu1.img
-
+    # dumpe2fs disk.img
+    # sudo dumpe2fs /dev/sda7  ; for ext2/ext3/ext4
 
 Mount a virtual disk(Android) : use terminalEmulator/root
 
@@ -40,7 +44,7 @@ Online Resizing an FS
     # resize2fs  /dev/VolPrddb/db1
 
 
-#### RAID
+### RAID
 RAID 5 : https://www.dataretrieval.com/raid-data-recovery/raid-5-internals-data-storage-performance-and-recovery.html
 
 ### Create a ISO 9660 image
@@ -51,3 +55,7 @@ From a devide or cdrom
 From a directory  
 
     mkisofs -o /tmp/cd.iso /tmp/directory/ 
+
+mount an iso file
+
+    sudo mount /path/to/cd.iso /mnt/cdrom -o loop
