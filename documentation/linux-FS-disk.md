@@ -1,5 +1,5 @@
 ## Disk & FS
-----------------------------------------------
+------------------------------------------
 List all block devices:
  
     # lsblk
@@ -59,3 +59,18 @@ From a directory
 mount an iso file
 
     sudo mount /path/to/cd.iso /mnt/cdrom -o loop
+
+
+## Ext4 FileSystem internals
+-----------------------------------------
+Create and formate a disk image
+
+    dd if=/dev/zero of=disk.img bs=512 count=2000 # 1MB image
+    pkg install e2fsprogs
+    mkfs -b 4096 -t ext4 disk.img # 4kB blocks
+
+
+
+
+
+
