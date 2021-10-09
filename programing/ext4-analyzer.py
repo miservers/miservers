@@ -16,8 +16,7 @@ f = open ("disk.img", "rb")
 #------- Super Block ---------------
 #
 print ("Super block infos:")
-sb_offset = 1024
-f.seek (sb_offset)   # go to 1024th byte, this is the super block position 
+f.seek (1024)   # go to 1024th byte, this is the super block position 
 
 super_block = f.read (block_size)
 
@@ -27,19 +26,19 @@ s_clusters_per_group, s_inodes_per_group, s_mtime ,s_wtime, s_mnt_count, s_max_m
 magic, rest        \
 = struct.unpack ('<13I2HH4038s', super_block)
 
-print(f"{  s_inodes_count=}")
-print(f"{  s_blocks_count_lo=}")
-print(f"{  s_free_blocks_count_lo=}")
-print(f"{  s_free_inodes_count=}")
-print(f"{  s_first_data_block=}")
-print(f"{  s_log_block_size=}")
-print(f"{  s_blocks_per_group=}")
-print(f"{  s_inodes_per_group=}")
-print(f"{  s_mtime=}")
-print(f"{  s_wtime=}")
-print(f"{  s_mnt_count=}")
-print(f"{  s_max_mnt_count=}")
-print("  magic=", hex(magic))
+print("  Inodes count: ", s_inodes_count)
+print("  Blocks count: " , s_blocks_count_lo)
+print("  Free blocks count: ", s_free_blocks_count_lo)
+print("  Free inodes count: ", s_free_inodes_count)
+print("  First data block: ", s_first_data_block)
+print("  Log block size: ", s_log_block_size)
+print("  Blocks per group: ", s_blocks_per_group)
+print("  Inodes per group: ", s_inodes_per_group)
+print("  Mtime: ", s_mtime)
+print("  Wtime: ", s_wtime)
+print("  Mounts count: ", s_mnt_count)
+print("  Max mounts count : ", s_max_mnt_count)
+print("  Magic number=", hex(magic))
 
 #
 #---------- Group Descriptors --------------

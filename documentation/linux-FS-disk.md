@@ -69,7 +69,9 @@ Create and formate a disk image
     pkg install e2fsprogs
     mkfs -b 4096 -t ext4 disk.img # 4kB blocks
 
+Dump an Inode
 
+    stat employee.json
 
 
 
