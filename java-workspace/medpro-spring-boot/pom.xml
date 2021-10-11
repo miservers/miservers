@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>lab.spring</groupId>
-	<artifactId>spring-boot-lab</artifactId>
+	<artifactId>medpro-spring-boot</artifactId>
 	<version>0.1</version>
 	<name>demo</name>
 	<description>Demo project for Spring Boot</description>

@@ -1,0 +1,13 @@
+{
+  "name": "minimal-server",
+  "version": "1.0.0",
+  "main": "minimalServer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node minimalServer.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
