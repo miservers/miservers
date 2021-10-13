@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>DOM Parser</title>
+</head>
+
+<body>
+    <script>
+        const log = (obj) => {console.log(obj)};
+
+        var head = document.head;
+        
+        log(document)
+
+        log(head)
+
+        log(document.title)
+
+        log(document.body)
+
+        document.body.style.backgroundColor = "red"
+
+        document.onmouseover = () => {document.body.style.backgroundColor = "green"}
+        document.onmouseout = () => {document.body.style.backgroundColor = "blue"}
+
+        // Create element
+        var btn = document.createElement("button")
+        btn.innerHTML = "CLICK ME"
+        btn.onclick = ()=>{alert("HELLO")}
+        document.body.appendChild(btn)
+
+        // Create text node
+        var h2 = document.createElement("H2")
+        var text = document.createTextNode("Text created dynamicaly!")
+        h2.appendChild(text)
+        document.body.appendChild(h2)
+
+       
+    </script>
+
+<h1>Hellow world!</h1>
+
+</body>
+</html>

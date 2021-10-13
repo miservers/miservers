@@ -192,8 +192,27 @@ dns-nameservers 192.168.0.2 192.168.0.3
 dns-search lan
 ~~~
 
+## systemd
+-----------------------------
+ubuntu 20.04
 
+Times taken to start services, to improve boot time
 
+    $ sudo systemd-analyze blame
+
+        53.76s vboxdrv.service                                    
+        7.960s plymouth-quit-wait.service  
+        2s     docker.service                         
+
+Disable a service
+
+    sudo systemctl disable vboxdrv.service docker.service docker.socket
+Services(units) list
+
+    sudo systemctl list-units
+Whereis a service is defined
+
+    sudo systemctl cat vboxdrv.service
 
 
 
