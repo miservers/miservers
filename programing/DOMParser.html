@@ -7,6 +7,12 @@
 </head>
 
 <body>
+
+    <h1>Hellow world!</h1>
+    <div id="browser"></div>
+
+    <hr>
+    
     <script>
         const log = (obj) => {console.log(obj)};
 
@@ -37,10 +43,11 @@
         h2.appendChild(text)
         document.body.appendChild(h2)
 
-       
-    </script>
+        //Navigator
+        document.getElementById("browser").innerText = navigator.appName + " " +navigator.userAgent
 
-<h1>Hellow world!</h1>
+
+    </script>
 
 </body>
 </html>
