@@ -28,6 +28,9 @@
   cp ~/magOS/documentation/files/ara-lenovo-backup /usr/share/X11/xkb/symbols/ara  
   session logout 
 
+**Sound control**
+
+    pavucontrol
 
 **CPU temperature**
 

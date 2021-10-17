@@ -8,10 +8,22 @@
 
 <body>
 
-    <h1>Hellow world!</h1>
-    <div id="browser"></div>
-
+    <h1>This a DOM access demo</h1>
+    <dl>
+        <dt><b>DOM</b>: Tree
+            <dd>- It is referenced by document object</dd>
+        </dt>
+    </dl>
     <hr>
+    <h2>Documentation:</h2>
+    <ul>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/API">WEB API</a></li>
+        <li><a href="https://developer.mozilla.org/fr/docs/Web/HTML">HTML</a></li>
+    </ul>
+    <hr>
+    <div id="browser"></div>
+    <br>
+
     
     <script>
         const log = (obj) => {console.log(obj)};
@@ -46,7 +58,19 @@
         //Navigator
         document.getElementById("browser").innerText = navigator.appName + " " +navigator.userAgent
 
-
+        // File Access
+        async function saveFile (data) {
+            // open file picker
+            [fileHandle] = await window.showOpenFilePicker();
+            // create a new handle
+            const newHandle = await window.showSaveFilePicker();
+            // create a FileSystemWritableFileStream to write to
+            const writableStream = await newHandle.createWritable();
+            // just pass in the data (no options)
+            writableStream.write(data)
+        }
+        var data = "demo file access"
+         saveFile(data)
     </script>
 
 </body>

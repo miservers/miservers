@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Javascript Memos</title>
+        <meta charset="utf-8">
+    </head>
+
+<body>
+    <h1>This is a Memos on Javascript</h1><hr>
+    <p>see browser console to inspect javascript output</p>
+
+    <script>
+        var log = (s) => console.log(s)
+
+        log ("-- CLASSES-- ")
+
+        class Car {
+            constructor(brand) {
+                this.brand = brand;
+            }
+        }
+
+        var mycar = new Car("Fiat")
+        log(mycar.brand)    
+
+        log ("-- Extends --")
+
+        class Taxi extends Car {
+            constructor (brand, color) {
+                super(brand);
+                this.color = color;
+            }
+
+            show() {
+                return "taxi: " + this.color + " " + this.brand;
+            }
+        }
+
+        var taxi = new Taxi("Dacia", "red")
+        log (taxi.show())
+
+        log ("-- Arrays: forEach --")
+
+        var ages = [10, 17, 26, 45]
+
+        ages.forEach(getMajor);
+
+        function getMajor(age) {
+            if (age >= 18) 
+                log (age)
+        }
+
+        log ("-- Console TRACE --")
+    
+        function f1() {
+            f2();
+        }
+        function f2() {
+            console.trace();
+        } 
+
+        f1()
+
+        log ("-- Console TIME --")
+        console.time();
+        for (i = 0; i < 1000000; i++);;
+        console.timeEnd(); 
+    
+    </script>
+</body>
+</html>
