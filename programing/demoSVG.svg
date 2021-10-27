@@ -1,0 +1,30 @@
+<!-- This a SVG demo:
+     Reference:
+        - https://artificial.design/archives/2018/05/23/svg-animation.html
+--> 
+
+<svg version="1.1" 
+     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300">
+    <style>
+      .rect1 { fill: red; }
+      .star { fill: green; }
+      .starAnime {
+            animation-name: starRot;
+            animation-duration: 4s;
+            animation-iteration-count: infinite;
+            transform-origin: 50%  50%;
+        }
+        @keyframes starRot {
+             0%   { transform: translate(0, 0); }
+            20%  { transform: translate(0, 100px); }
+            50%  { transform: translate(0, 0); }
+            60%  { transform: translate(-200px, 0); }
+            70%  { transform: translate(0, 0); }
+            80%  { transform: translate(200px, 0); }
+            100% { transform: translate(0, 0); }
+        }
+    </style>
+    <rect class="rect1" x="0" y="0" width="800" height="400"/>
+    <!--points format: x,y-->
+    <polygon class="star starAnime" points="500,20 440,208 590,88 410,88 560,208"/>
+</svg>
