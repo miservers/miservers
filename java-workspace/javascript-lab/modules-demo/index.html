@@ -2,27 +2,15 @@
 <html>
 <head>
     <title>Run module on the browser</title>
+    <meta charset="UTF-8"/>
 
-<script type=”module” src=”Products.mjs”></script>
+    <script type="module" src="Selling.mjs"></script>
 </head>
-<script type="javascript">
-    import mimetypes;
-mimetypes.add_type("application/javascript", ".js", True);
 
-import {totalSale, sell} from './Products.mjs'
-
-let item = {
-            name: "milk",
-            price: 10,
-            stock: 1000
-           };
-
-console.log('Before. totalSale', totalSale, ', milk stock=',  item.stock);
-
-sell (item, 50);
-
-console.log('After. totalSale' , totalSale, ', milk stock',  item.stock);
-
-</script>
+<body>
+    <h1>Modules</h1>
+    <p id="p1"></p>
+    <p id="p2"></p>
+</body>
 </html>
 

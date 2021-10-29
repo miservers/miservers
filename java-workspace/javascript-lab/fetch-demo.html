@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Javascript Fetch Demo</title>
+        <meta charset="Utf-8"/>
+    </head>
+    <script>
+        const updateP1 = (data) => {
+            let p1 = document.getElementById("p1")
+            p1.textContent = data
+        }
+
+        fetch ("http://ip.jsontest.com/")
+        .then (response => response.json())
+        .then (data => updateP1(JSON.stringify(data)))
+        .catch (err => alert ("Error : " + err))
+
+    </script>
+<body>
+    <h1>Fetch</h1>
+    <p id="p1"></p>
+</body>
+</html>
