@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--
+    https://nodejs.dev/learn/understanding-javascript-promises
+-->
+<html>
+    <head>
+        <title>Promise Demo</title>
+        <meta charset="UTF-8" />
+        <script>
+            const promise1 = new Promise((resolve, reject) => {
+                                    setTimeout(() => {
+                                        resolve('foo');
+                                        }, 3000);
+                                    });
+
+            promise1.then((value) => {
+                                    console.log('value:' + value);
+                                    // expected output: "foo"
+                                });
+
+            console.log(promise1);
+            // expected output: [object Promise]
+
+            //
+            let done = true
+
+            const isItDoneYet = new Promise((resolve, reject) => {
+            if (done) {
+                const workDone = 'Here is the thing I built'
+                resolve(workDone)
+            } else {
+                const why = 'Still working on something else'
+                reject(why)
+            }
+            })
+            console.log(isItDoneYet)
+
+            //
+            setTimeout(function(){ alert("This a setTimout TEST"); console.log(promise1);}, 5000);
+        </script>
+    </head>
+</html>
