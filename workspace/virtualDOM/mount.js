@@ -5,11 +5,11 @@ import {Node} from './h.js'
 //
 const mount = (vNode, _node) => {
     let _el = document.createElement(vNode.tag) 
+    _node.appendChild(_el)
     console.log(vNode)
     console.log(_el)
     if (typeof vNode.children == 'string' || typeof vNode.children == 'number') {
         _el.innerHTML = vNode.children
-        _node.appendChild(_el)
     }
     else if (typeof vNode.children == 'object')
         vNode.children.forEach(vChild => mount(vChild, _el))    

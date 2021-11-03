@@ -1,11 +1,13 @@
 import {h, Node} from './h.js';
 import {mount} from './mount.js';
 
-let vDiv1 = h('div', {id:'div1'}, 'Hello')
+let vH1 = h('h1', {id:'myh1'}, 'Hello World')
 
-let vDiv2 = h('div', {id:'div2'}, 'World')
+let vHr = h('hr', {id:'myhr1'})
 
-let vApp = h('div', {id:'vapp'}, [vDiv1, vDiv2])
+let vDiv1 = h('div', {id:'div1'}, 'this is a demo for virtual dom')
+
+let vApp = h('div', {id:'vapp'}, [vH1, , vHr, vDiv1])
 
 const _app = document.getElementById("app")
 
