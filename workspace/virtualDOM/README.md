@@ -1,3 +1,5 @@
+### DOM manipulation is slow
+L'acces et la mise a jour de l'arbre DOM est rapide, la lenteur vient du rafraichissement de l'UI. 
 ### Virtual DOM
 
 
