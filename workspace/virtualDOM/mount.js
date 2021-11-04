@@ -1,18 +1,20 @@
-import {Node} from './h.js'
-
-// mount a virtual node on the dom node
+// @CR @AR 10/2021
+//
+// mount a virtual node on the real dom node
 // See <https://dom.spec.whatwg.org/#interface-document>
 //
-const mount = (vNode, _node) => {
-    let _el = document.createElement(vNode.tag) 
-    _node.appendChild(_el)
-    console.log(vNode)
-    console.log(_el)
-    if (typeof vNode.children == 'string' || typeof vNode.children == 'number') {
-        _el.innerHTML = vNode.children
+import {VNode, createTextVNode, createVNode} from './vnode.js'
+
+const mount = (vnode, _node) => {
+    let _el = document.createElement(vnode.tag) 
+     if (vnode.nodeType == VNode.TEXT_NODE) {
+        _el.innerHTML = vnode.data
     }
-    else if (typeof vNode.children == 'object')
-        vNode.children.forEach(vChild => mount(vChild, _el))    
+    else if (vnode.childNodes != null)
+        vnode.childNodes.forEach(vChild => mount(vChild, _el))    
+    
+    _node.appendChild(_el)
+    
 }
 
 export {mount}
