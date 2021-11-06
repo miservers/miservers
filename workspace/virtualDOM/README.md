@@ -3,6 +3,8 @@ L'acces et la mise a jour de l'arbre DOM est rapide, la lenteur vient du rafraic
 
 ### Virtual DOM
 
+### Diff and Patch VDOM
+![](./VDOM-DIff.png)
 
 
 #### Coding

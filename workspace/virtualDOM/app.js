@@ -12,7 +12,7 @@ import {mount} from './mount.js';
              li li
 */
 
-let vh2 = createTextVNode('h2', {id:'h1'}, 'Villes')
+let vh2 = createTextVNode('h2', {id:'h1', style:"color:red"}, 'Villes')
 
 let vli1 = createTextVNode('li', {id:'li1'}, 'Casablanca')
 let vli2 = createTextVNode('li', {id:'li1'}, 'Rabat')
@@ -21,7 +21,7 @@ vul.appendChild(vli1).appendChild(vli2)
 
 let vHr = createVNode('hr', {id:'myhr1'})
 
-let vDiv1 = createTextVNode('div', {id:'div1'}, 'this is a demo for virtual dom')
+let vDiv1 = createTextVNode('div', {id:'div1'}, 'Demo for virtual dom from scratch!')
 
 let vApp = createVNode('div', {id:'vapp'})
 vApp.appendChild(vh2).appendChild(vul).appendChild(vHr).appendChild(vDiv1)

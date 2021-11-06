@@ -18,23 +18,26 @@ class VNode {
         this.nodeType = nodeType
         this.data = data
         this.childNodes = new Array() // array of vnodes
-        this.parent = 
+        this.parent = null
 
         this._el = null   // reel DOM element 
     }
 
     appendChild = (vnode) => {
         this.childNodes.push(vnode) 
+        vnode.parent = this
         return this
     }
     removeChild = (vnode) => {
         let idx = this.childNodes.indexOf(vnode)
         this.childNodes.splice(idx,1)
+        vnode.parent = null
         return this
     }
     replaceChild = (old, vnode) => {
         let idx = this.childNodes.indexOf(old)
         this.childNodes[idx] = vnode
+        old.parent = null
         return this
     }
 
