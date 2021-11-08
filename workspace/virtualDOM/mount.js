@@ -1,10 +1,12 @@
 // @CR @AR 10/2021
-//
-// mount a virtual node on the real dom node
-// See <https://dom.spec.whatwg.org/#interface-document>
-//
+
 import {VNode, createTextVNode, createVNode} from './vnode.js'
 
+// mount a virtual node on the real dom node. it's a recursive function
+// See <https://dom.spec.whatwg.org/#interface-document>
+// params :
+//   vnode : virtual node
+//   _node : real DOM node
 const mount = (vnode, _node) => {
     let _el = document.createElement(vnode.tag) 
     
@@ -27,12 +29,10 @@ const mount = (vnode, _node) => {
     
 }
 
+
 const unmount = (vnode) => {
     let _el = vnode._el
-    console.log("B", _el)
     _el.parentNode.removeChild(_el)
-    console.log("A", _el)
-
 }
 
 export {mount, unmount}
