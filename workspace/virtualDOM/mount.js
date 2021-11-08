@@ -27,4 +27,12 @@ const mount = (vnode, _node) => {
     
 }
 
-export {mount}
+const unmount = (vnode) => {
+    let _el = vnode._el
+    console.log("B", _el)
+    _el.parentNode.removeChild(_el)
+    console.log("A", _el)
+
+}
+
+export {mount, unmount}

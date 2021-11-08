@@ -29,18 +29,33 @@ class VNode {
         return this
     }
     removeChild = (vnode) => {
-        let idx = this.childNodes.indexOf(vnode)
+        let idx = this.indexOfChild(vnode)
         this.childNodes.splice(idx,1)
         vnode.parent = null
         return this
     }
     replaceChild = (old, vnode) => {
-        let idx = this.childNodes.indexOf(old)
+        let idx = this.indexOfChild(old)
         this.childNodes[idx] = vnode
         old.parent = null
         return this
     }
-
+    isEqual = (vnode) => {
+        return (this.tag == vnode.tag && this.nodeType == vnode.nodeType &&
+                this.data == vnode.data) //must be completed!
+    }
+    clone = () => {
+        let cloned = Object.assign({}, this) 
+        cloned.childNodes = new Array()
+        this.childNodes.forEach((child, idx) => 
+                                    cloned.childNodes[idx] = child.clone())
+        return cloned
+    }
+    indexOfChild = (child) => {
+        let index = -1;
+        this.childNodes.forEach((e, idx) => {if (e.props.id == child.props.id)  index = idx}) 
+        return index
+    }
 
 }
 
