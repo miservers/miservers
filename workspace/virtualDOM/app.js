@@ -5,7 +5,7 @@ import {VNode, createTextVNode, createVNode} from './vnode.js';
 import {mount} from './mount.js';
 import {diff} from './diff.js'
 
-/* Virtual DOM
+/* Construct the Virtual DOM
               app 
            /   \   \  \
           h2   ul  hr div
@@ -28,9 +28,10 @@ let vApp = createVNode('div', {id:'vapp'})
 vApp.appendChild(vh2).appendChild(vul).appendChild(vHr).appendChild(vDiv1)
 
 
+//mount vnode on real dom
 const _app = document.getElementById("app")
 
-mount (vApp, _app)   //mount vnode on real dom
+mount (vApp, _app)   
 
 
 // Diff and Patch Test

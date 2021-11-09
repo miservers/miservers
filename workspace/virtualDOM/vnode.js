@@ -2,10 +2,6 @@
 //
 // This file define Virtual Node structure 
 // see <https://dom.spec.whatwg.org/#node>
-
-export const ELEMENT_NODE = 1;
-export const ATTRIBUTE_NODE = 2;
-export const TEXT_NODE = 3;
   
 class VNode {
     static ELEMENT_NODE = 1;   // Node types
