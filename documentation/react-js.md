@@ -2,6 +2,8 @@
 Node.JS is server runtime mainly composed of google V8 engine and libuv. V8 compiles javascript code into a native machine code at runtime. 
 libuv gives node.js access to the underlying server filesystem and UDP/TCP sockets.
 
+*render()* function is called every time you want to render UI in the browser. 
+
 ### Install NodeJS on ubuntu 
 ~~~
 wget -qO- https://deb.nodesource.com/setup_14.x | sudo -E bash -
