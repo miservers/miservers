@@ -12,3 +12,4 @@
 **/target
 *.jar
 **/.metadata
+**/node_modules
