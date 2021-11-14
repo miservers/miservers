@@ -1,0 +1,43 @@
+<!Doctype html>
+<html>
+    <head>
+        <title>State Demo</title>
+        <meta charset='UTF-8'>
+        <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    </head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        class Car extends React.Component {
+            constructor (props) {
+                super(props)
+                this.state = {
+                    brand: "Fiat",
+                    color: "black"
+                }
+            }
+
+            changeColor = () => this.setState({color:this.state.incolor})
+
+            render () {
+                return (
+                    <div>
+                        Car brand: {this.state.brand}
+                        <br/>
+                        Car color: {this.state.color}
+                        <br/>
+                        <input type="text" name='color' value={this.state.incolor} onChange={this.changeColor} ></input>
+                        <br/>
+                        <button type='button' onClick={this.changeColor}>Change Color</button>
+                    </div>
+                )
+            }
+        }
+      
+        ReactDOM.render (<Car />, document.getElementById('root'))
+    </script>
+    
+</body>
+</html>

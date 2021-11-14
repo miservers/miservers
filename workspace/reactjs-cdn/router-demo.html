@@ -1,0 +1,38 @@
+<!Doctype html>
+<html>
+    <head>
+        <title>Router Demo by CDN</title>
+        <meta charset='UTF-8'>
+        <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+        <script src='https://unpkg.com/react-router-dom@5.0.0/umd/react-router-dom.min.js' crossorigin></script>
+         <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    </head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const Link = ReactRouterDOM.Link
+        const Route = ReactRouterDOM.Route
+
+        const Home = () => <h2>this is your Home!</h2>
+        const Signin = () => <h2>Hi, enter your login/password!</h2>
+        const Signup = () => <h2>Hi sign Up!</h2>
+        
+        const App = () => {
+            return (
+                <ReactRouterDOM.HashRouter>
+                    <Link to='/'>Home</Link><br/>
+                    <Link to='/signin'>Signin</Link><br/>
+                    <Link to='/signup'>Signup</Link>
+
+                    <Route path='/' exact component={Home} />
+                    <Route path='/signin' exact component={Signin} />
+                    <Route path='/signup' exact component={Signup} />
+                </ReactRouterDOM.HashRouter>
+            )
+        }
+
+        ReactDOM.render (<App />, document.getElementById('root'))
+    </script>
+</body>
+</html>
