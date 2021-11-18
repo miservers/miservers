@@ -1,26 +1,29 @@
 // Delaring React using MODULE  Pattern 
 
 const React = (function(){
-  let self = {} // reference to thismodule
+  let self = {} // reference to this module
   let state
 
   // public functions
-  self.render  = function (Component)  {
-        const comp = Component()
-        comp.render() 
-        console.log('state: ', state)
-        return comp
+  function render (Component)  {
+    const comp = Component()
+    comp.render() 
+    console.log('state: ', state)
+    return comp
   }
 
-  self.useState = function (initValue) {
-        state = state || initValue
-        function setState(newState) {
-          state = newState;
-        }
-        return [state, setState]
+  function useState(initValue) {
+    state = state || initValue
+    function setState(newState) {
+      state = newState;
+    }
+    return [state, setState]
   }
- 
-  return self   
+
+  self.render = render
+  self.useState = useState
+  return self 
+
 })()
 
 
