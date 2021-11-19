@@ -1,3 +1,9 @@
+// This an simple implementation of React useState like hook. Use an array of states 
+// to extend useState for many calls,
+//
+// See this exellent article
+//  https://www.netlify.com/blog/2019/03/11/deep-dive-how-do-react-hooks-really-work/
+
 // Delaring React using MODULE  Pattern 
 
 const React = (function(){
@@ -28,7 +34,7 @@ const React = (function(){
 
 
 const Counter = ()=>{
-  let [count, setCount] = React.useState(1)
+  const [count, setCount] = React.useState(1)
   
   return {
     click: () => {setCount(count+1)},
