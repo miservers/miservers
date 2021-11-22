@@ -1,5 +1,4 @@
 import {User} from './User.js'
-import './App.css';
 
 function App() {
   return (
