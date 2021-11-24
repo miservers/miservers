@@ -11,10 +11,9 @@ const User = () => {
 
     useEffect (() => {
         axios.get('https://jsonplaceholder.typicode.com/users')
-        .then (response => {
-            setUsers(response.data);
-            setLoading(false)})
-        .catch(err => setError(err))   
+        .then (response => setUsers(response.data))
+        .catch(err => setError(err))
+        .then(setLoading(false)) // Always executed
     }, []);
 
     if (error) return <Alert  variant='danger' dismissible>Error : {error.message}</Alert>

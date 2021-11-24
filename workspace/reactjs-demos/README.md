@@ -16,3 +16,21 @@ Axios is a good library to FETCH remode data.
 ~~~sh
 npm install axios
 ~~~
+
+~~~js
+useEffect (() => {
+        axios.get('https://jsonplaceholder.typicode.com/users')
+        .then (response => setUsers(response.data))
+        .catch(err => setError(err))
+        .then(setLoading(false)) // Always executed
+    }, []);
+~~~
+
+#### OAuth Google
+1.
+~~~sh
+npm i react-google-login
+~~~
+2.(Create credentials)[https://console.developers.google.com/apis/credentials] 
+
+3. Create the Login Component 
