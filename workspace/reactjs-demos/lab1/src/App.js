@@ -10,9 +10,10 @@ function App() {
     <div className="App">
       <User /> 
       <AntdDemo />
+
+      <h2>Google OAuth Demo</h2><hr/>
       <Login />
-      <br />
-      <Logout />
+
     </div>
   );
 }

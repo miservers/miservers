@@ -17,17 +17,24 @@ export const Login = () => {
     }
     const onFailure = (error) => console.log(error)
 
+    const onLogoutSuccess = () => setlogged(false)
+    
     if (logged) 
         return (
-            <>
+            <> 
             <Avatar src={<Image src={profile.imageUrl}/> }/> {profile.name}
+            <br/>
+            <GoogleLogout 
+             clientId={clientId}
+             buttonText="Sign out"
+             onLogoutSuccess={onLogoutSuccess}
+            />
             </>
         )
     
     return (
         <>  
-        <h2>Google OAuth Demo</h2><hr/>
-        <GoogleLogin
+         <GoogleLogin
             clientId={clientId}
             buttonText="Sign in"
             onSuccess={onSuccess}
@@ -40,16 +47,14 @@ export const Login = () => {
     )
 }
 
-export const Logout = (name) => {
-
-    const onSuccess = () => console.log(name, 'Logged out!')
-    
+export const Logout = (name, onLogoutSuccess) => {
+    console.log(onLogoutSuccess)
     return (
         <>
         <GoogleLogout 
              clientId={clientId}
              buttonText="Sign out"
-             onLogoutSuccess={onSuccess}
+             onLogoutSuccess={onLogoutSuccess}
         />
         </>
     )
