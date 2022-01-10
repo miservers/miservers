@@ -16,9 +16,14 @@
 
 **Terminology** : very good terminal emulator, with split.
 
-**vnstat** : to monitor network usage   
+### Monitor Network Usage
+**vnstat**  
      
-     vnstat -i wlp3s0
+    vnstat -h
+
+**nethogs**: network usage by process
+
+    sudo nethogs -v 3
 
 **LibreOffice Draw** : excellent to draw diagrams.
 
