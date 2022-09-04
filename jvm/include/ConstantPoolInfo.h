@@ -19,7 +19,7 @@ class ConstantPoolInfo : public Serializable
     u1 tag;
     
     void dump();
-    virtual void load(ifstream&) = 0;
+    void load(ifstream&);
     
     unique_ptr<string> getValue (vector<ConstantPoolInfo*>  const& constantPool);
 };
@@ -28,6 +28,7 @@ class ConstantClassInfo : public ConstantPoolInfo
 {
   public:
     u2 nameIndex;
+    void load(ifstream&);
 };
 
 /* fieldref-info, methodref-info, interfaceref-info*/
