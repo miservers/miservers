@@ -60,7 +60,7 @@ Disassembler::disassemble (const CodeAttribute* codeAttribute)
       pc += operandSize;
       
     if (operandSize >= 1 && !InstructionSet::Instance()->isImmOprand (opCode))
-          cout<<"// "<<*codeAttribute->clazz->getConstantValue(index);
+          cout<<"// "<<*codeAttribute->clazz->getConstantPoolValue(index);
     cout<<endl;
   }
 };

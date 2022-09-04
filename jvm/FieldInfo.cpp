@@ -40,8 +40,8 @@ void
 FieldInfo::dump()
 {
   cout<<dec<<setw(3)<<""
-      <<*clazz->getConstantValue(descriptorIndex)<<" "
-      <<*clazz->getConstantValue(nameIndex)<<": "
+      <<*clazz->getConstantPoolValue(descriptorIndex)<<" "
+      <<*clazz->getConstantPoolValue(nameIndex)<<": "
       "#"<<nameIndex<<".#"<<descriptorIndex<<endl;
   cout<<"\t"<<"access flags: "<<access_flag_lebel(accessFlags)<<endl;
   cout<<"\t"<<"attributesCount: "<<dec<<attributesCount<<endl;

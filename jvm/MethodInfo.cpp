@@ -55,8 +55,8 @@ void
 MethodInfo::dump()
 {
   cout<<dec<<setw(3)<<""
-      <<*clazz->getConstantValue(nameIndex)<<" "
-      <<*clazz->getConstantValue(descriptorIndex)
+      <<*clazz->getConstantPoolValue(nameIndex)<<" "
+      <<*clazz->getConstantPoolValue(descriptorIndex)
       <<" {"<<endl;
   cout<<"\t"<<"access flags: "<<access_flag_lebel(accessFlags)<<endl;
   cout<<"\t"<<"maxStack: "<<codeAttribute->maxStack<<endl;

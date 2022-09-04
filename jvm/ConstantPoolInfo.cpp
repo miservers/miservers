@@ -11,7 +11,7 @@
 #include <memory> //unique_ptr
 using namespace std;
 
-#include "ConstantInfo.h"
+#include "ConstantPoolInfo.h"
 #include "JavaClass.h"
 #include "JvmEndian.h"
 #include "ConstantTag.h"
@@ -22,20 +22,20 @@ using namespace std;
 
 
 void
-ConstantInfo::load(ifstream& inf)
+ConstantPoolInfo::load(ifstream& inf)
 {
   inf.read(&tag, sizeof(tag));  
 }
 
 unique_ptr<string>
-ConstantInfo::getValue(vector<ConstantInfo*>  const& constantPool)
+ConstantPoolInfo::getValue(vector<ConstantPoolInfo*>  const& constantPool)
 {
   unique_ptr<string> s(new string("Must be implemented by the derivied class!"));
   return s;
 }
 
 void
-ConstantInfo::dump()
+ConstantPoolInfo::dump()
 {
   cout<<"Constant Info:"<<endl;
   cout<<setw(10)<<"tag: "<<static_cast<int>(tag)<<endl;
@@ -55,7 +55,7 @@ ConstantClassInfo::dump()
 }
 
 unique_ptr<string>
-ConstantClassInfo::getValue(vector<ConstantInfo*>  const& constantPool)
+ConstantClassInfo::getValue(vector<ConstantPoolInfo*>  const& constantPool)
 {
   return constantPool[nameIndex]->getValue(constantPool);
 }
@@ -83,7 +83,7 @@ ConstantRefInfo::dump()
 }
 
 unique_ptr<string>
-ConstantRefInfo::getValue(vector<ConstantInfo*>  const& constantPool)
+ConstantRefInfo::getValue(vector<ConstantPoolInfo*>  const& constantPool)
 {
   unique_ptr<string> s(new string);
   unique_ptr<string> sNameAndType = constantPool[nameAndTypeIndex]->getValue(constantPool);
@@ -106,7 +106,7 @@ ConstantStringInfo::dump()
 }
 
 unique_ptr<string>
-ConstantStringInfo::getValue(vector<ConstantInfo*>  const& constantPool)
+ConstantStringInfo::getValue(vector<ConstantPoolInfo*>  const& constantPool)
 {
   return constantPool[stringIndex]->getValue(constantPool);
 }
@@ -127,7 +127,7 @@ ConstantUtf8Info::dump()
 }
 
 unique_ptr<string>
-ConstantUtf8Info::getValue(vector<ConstantInfo*>  const& constantPool)
+ConstantUtf8Info::getValue(vector<ConstantPoolInfo*>  const& constantPool)
 {
   unique_ptr<string> s(new string(bytes.data()));
   return s;
@@ -147,7 +147,7 @@ ConstantIntegerInfo::dump()
 }
 
 unique_ptr<string>
-ConstantIntegerInfo::getValue(vector<ConstantInfo*>  const& constantPool)
+ConstantIntegerInfo::getValue(vector<ConstantPoolInfo*>  const& constantPool)
 {
   unique_ptr<string> s(new string(to_string(bytes)));
   return s;
@@ -168,7 +168,7 @@ ConstantNameAndTypeInfo::dump()
 }
 
 unique_ptr<string>
-ConstantNameAndTypeInfo::getValue(std::vector<ConstantInfo*> const& constantPool)
+ConstantNameAndTypeInfo::getValue(std::vector<ConstantPoolInfo*> const& constantPool)
 {
   unique_ptr<string> s(new string);
   unique_ptr<string> name = constantPool[nameIndex]->getValue(constantPool);

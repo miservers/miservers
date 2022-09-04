@@ -14,7 +14,7 @@ using namespace std;
 #include "InstructionSet.h"
 #include "JavaClass.h"
 #include "ObjectRef.h"
-#include "ConstantInfo.h"
+#include "ConstantPoolInfo.h"
 #include "Jvm.h"
 
 Interpreter::Interpreter ()
@@ -201,27 +201,27 @@ Interpreter::execute()
     break;
   case LDC:
     index = operandByte1;
-    data = currentClass->getConstantValue(index);
+    data = currentClass->getConstantPoolValue(index);
     cout<<" #"<<index<<"\t//"<<*data;
-    currentFrame->operandStack.push_back(reinterpret_cast<j_int_t>((*data).c_str()));
     break;
   case NEW:
     {
       int nameIndex = (operandByte1 << 8) + operandByte2;
-      unique_ptr<string> className = currentClass->getConstantValue(nameIndex);
+      unique_ptr<string> className = currentClass->getConstantPoolValue(nameIndex);
       cout<<" #"<<nameIndex<<"\t//"<<*className;
       objectRef = new ObjectRef (nameIndex, *className);
       objectRef->clazz = currentClass; //todo resolve the object class
       objectRef->initFields ();
-      currentFrame->operandStack.push_back(reinterpret_cast<j_int_t>(objectRef));
-      Jvm::Runtime()->edenSpace->add (objectRef);
+      //@TODO
+      // currentFrame->operandStack.push_back((j_int_t)objectRef);
+      // Jvm::Runtime()->edenSpace->add (objectRef);
     }
     break;
   case PUTFIELD:
     {
       index = (operandByte1 <<8) | operandByte2;
       FieldInfo* fieldInfo = currentClass->resolveField(index);
-      data = currentClass->getConstantValue(index);
+      data = currentClass->getConstantPoolValue(index);
       cout<<" #"<<index<<"\t//"<<*data;
       value = currentFrame->operandStack.back();
       currentFrame->operandStack.pop_back();

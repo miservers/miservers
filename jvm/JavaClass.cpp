@@ -37,7 +37,7 @@ void
 JavaClass::load(ifstream& inf)
 {
   int i;
-  ConstantInfo* constantInfo;
+  ConstantPoolInfo* constantInfo;
   u1 tag;
   
   this->header->load(inf);
@@ -48,13 +48,13 @@ JavaClass::load(ifstream& inf)
     exit(EXIT_FAILURE);
   }
   
-  read_u2(constantCount, inf); 
+  read_u2(constantPoolCount, inf); 
   
   //load constants pool
-  constantPool.reserve(constantCount);
+  constantPool.reserve(constantPoolCount);
   constantPool.push_back(NULL);
-  for (i=1; i<constantCount; i++) {
-    constantInfo = new ConstantInfo(); // used only to load tag, then freed
+  for (i=1; i<constantPoolCount; i++) {
+    constantInfo = new ConstantPoolInfo(); // used only to load tag, then freed
     constantInfo->load(inf);
     tag = constantInfo->tag;
     delete constantInfo;
@@ -152,9 +152,9 @@ JavaClass::dump()
   
   //constants pool
   cout<<left;
-  cout<<setw(20)<<"Counstant Count: "<<dec<<constantCount<<endl;
+  cout<<setw(20)<<"Counstant Count: "<<dec<<constantPoolCount<<endl;
   cout<<"Constant Pool:"<<endl;
-  for (i=1; i<constantCount; i++) {
+  for (i=1; i<constantPoolCount; i++) {
     cout<<"\t"<<"#"<<dec<<i<<" = ";
     constantPool.at(i)->dump();
     cout<<"// "<<*constantPool.at(i)->getValue(this->constantPool).get()<<endl;
@@ -196,28 +196,28 @@ HeaderInfo::dump()
 unique_ptr<string> 
 JavaClass::getName ()
 {
-  return this->getConstantValue (thisClass);
+  return this->getConstantPoolValue (thisClass);
 }
 
 size_t
 JavaClass::size ()
 {
   size_t siz = sizeof (this);
-  siz += constantCount * sizeof (constantPool);
+  siz += constantPoolCount * sizeof (constantPool);
   siz += fieldCount * sizeof (fields);
   siz += methodCount * sizeof (methods);
   siz += attributesCount * sizeof (attributes);
   return siz;
 }
 
-ConstantInfo* 
-JavaClass::getConstantInfo(int index)
+ConstantPoolInfo* 
+JavaClass::getConstantPoolInfo(int index)
 {
   return this->constantPool[index];
 }
 
 unique_ptr<string>
-JavaClass::getConstantValue(int index)
+JavaClass::getConstantPoolValue(int index)
 {
   return this->constantPool[index]->getValue(this->constantPool);
 }
@@ -244,8 +244,8 @@ JavaClass::findMethod (MethodRefInfo* methodRef)
 FieldInfo*
 JavaClass::resolveField (u4 index)
 {
-  FieldRefInfo* fieldRef = dynamic_cast<FieldRefInfo*>(getConstantInfo (index));
-  ConstantNameAndTypeInfo* nameAndType = dynamic_cast<ConstantNameAndTypeInfo*>(getConstantInfo (fieldRef->nameAndTypeIndex));
+  FieldRefInfo* fieldRef = dynamic_cast<FieldRefInfo*>(getConstantPoolInfo (index));
+  ConstantNameAndTypeInfo* nameAndType = dynamic_cast<ConstantNameAndTypeInfo*>(getConstantPoolInfo (fieldRef->nameAndTypeIndex));
   for (FieldInfo* fieldInfo : this->fields)
     if (fieldInfo->nameIndex == nameAndType->nameIndex && fieldInfo->descriptorIndex == nameAndType->descriptorIndex)
       return fieldInfo;

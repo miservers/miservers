@@ -11,9 +11,9 @@
 using namespace std;
 
 #include "ObjectRef.h"
-#include "ConstantInfo.h"
+#include "ConstantPoolInfo.h"
 
-ObjectRef::ObjectRef (u2 nameIndex, std::string className) 
+ObjectRef::ObjectRef (u2 nameIndex, string className) 
 { 
   this->nameIndex = nameIndex; 
   this->className = className;

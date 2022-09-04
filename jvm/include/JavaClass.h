@@ -11,11 +11,12 @@
 
 #include "Types.h"
 #include "Serializable.h"
-#include "ConstantInfo.h"
+#include "ConstantPoolInfo.h"
 #include "FieldInfo.h"
 #include "MethodInfo.h"
 #include "AttributeInfo.h"
 #include "ClassLoader.h"
+using namespace std;
 
 class HeaderInfo;
 class ClassLoader;
@@ -24,30 +25,30 @@ class JavaClass : public Serializable
 {
   public:
     HeaderInfo* header;
-    u2 constantCount;
-    std::vector<ConstantInfo*> constantPool;
+    u2 constantPoolCount;
+    vector<ConstantPoolInfo*> constantPool;
     u2 accessFlags;
     u2 thisClass;
     u2 superClass;
     u2 interfaceCount;
-    std::vector<u2> interfaces;
+    vector<u2> interfaces;
     u2 fieldCount;
-    std::vector<FieldInfo*> fields;
+    vector<FieldInfo*> fields;
     u2 methodCount;
-    std::vector<MethodInfo*> methods;
+    vector<MethodInfo*> methods;
     u2 attributesCount;
-    std::vector<AttributeInfo*> attributes;
+    vector<AttributeInfo*> attributes;
 
     ClassLoader* classLoader; //classLoader that loaded this class
     
     JavaClass();
     ~JavaClass();
     void dump();
-    void load(std::ifstream&);
-    std::unique_ptr<std::string> getName ();
+    void load(ifstream&);
+    unique_ptr<string> getName ();
     size_t size ();
-    ConstantInfo* getConstantInfo(int index);
-    std::unique_ptr<std::string> getConstantValue(int index); //final value in constant pool
+    ConstantPoolInfo* getConstantPoolInfo(int index);
+    unique_ptr<string> getConstantPoolValue(int index); //final value in constant pool
     MethodInfo* findMethod (MethodRefInfo*);
     FieldInfo* resolveField (u4 index);
    
@@ -66,7 +67,7 @@ class HeaderInfo : public Serializable
     HeaderInfo() {};
     ~HeaderInfo() {};
     void dump();
-    void load(std::ifstream&);
+    void load(ifstream&);
 };
 
 

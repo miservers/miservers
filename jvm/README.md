@@ -1,4 +1,9 @@
 
 ### Compiling
-- prerequisities
+- prerequisites
+
+- compiling:
+
+    make init
+    make
 
