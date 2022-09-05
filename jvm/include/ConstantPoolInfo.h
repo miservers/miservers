@@ -20,7 +20,6 @@ class ConstantPoolInfo : public Serializable
     
     void dump();
     void load(ifstream&);
-    
     unique_ptr<string> getValue (vector<ConstantPoolInfo*>  const& constantPool);
 };
 
@@ -28,7 +27,10 @@ class ConstantClassInfo : public ConstantPoolInfo
 {
   public:
     u2 nameIndex;
+    
+    void dump();
     void load(ifstream&);
+    unique_ptr<string> getValue (vector<ConstantPoolInfo*>  const& constantPool);
 };
 
 /* fieldref-info, methodref-info, interfaceref-info*/
@@ -37,6 +39,10 @@ class ConstantRefInfo : public ConstantPoolInfo
   public:
     u2 classIndex;
     u2 nameAndTypeIndex;
+
+    void dump();
+    void load(ifstream&);
+    unique_ptr<string> getValue (vector<ConstantPoolInfo*>  const& constantPool);
 };
 
 class FieldRefInfo : public ConstantRefInfo {};
@@ -49,6 +55,10 @@ class ConstantStringInfo : public ConstantPoolInfo
 {
   public :
     u2 stringIndex;
+
+    void dump();
+    void load(ifstream&);
+    unique_ptr<string> getValue (vector<ConstantPoolInfo*>  const& constantPool);
 };
 
 class ConstantUtf8Info : public ConstantPoolInfo 
@@ -56,12 +66,21 @@ class ConstantUtf8Info : public ConstantPoolInfo
   public:
     u2 length;
     vector<u1> bytes;
+
+    void dump();
+    void load(ifstream&);
+    unique_ptr<string> getValue (vector<ConstantPoolInfo*>  const& constantPool);
+
 };
 
 class ConstantIntegerInfo : public ConstantPoolInfo 
 {
   public:
     u4 bytes;
+
+    void dump();
+    void load(ifstream&);
+    unique_ptr<string> getValue (vector<ConstantPoolInfo*>  const& constantPool);
 };
 
 class ConstantFloatInfo : public ConstantPoolInfo 
@@ -85,7 +104,11 @@ class ConstantNameAndTypeInfo: public ConstantPoolInfo
 {
   public:
     u2 nameIndex;
-    u2 descriptorIndex;       
+    u2 descriptorIndex; 
+
+    void dump();
+    void load(ifstream&);  
+    unique_ptr<string> getValue (vector<ConstantPoolInfo*>  const& constantPool);
 };
 
 class ConstantMethodHandleInfo : public ConstantPoolInfo 

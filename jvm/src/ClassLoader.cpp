@@ -3,6 +3,7 @@
  * Class Loader helper
  */
 #include <cstdlib> //exit
+#include <iostream> //cout, hex, dec
 #include <fstream> 
 #include <string>
 #include <unordered_set>
@@ -22,7 +23,8 @@ ClassLoader::load(const string classFile)
   ifstream inf;
   inf.open(classFile.c_str(), ios::binary | ios::in);
   if (!inf.good()) {
-    perror("opening file") ;
+    perror("Error opening file");
+    cout<<classFile<<endl ;
     exit(EXIT_FAILURE);
   }
 

@@ -1,12 +1,16 @@
-EXE=janin
-SRC= $(wildcard *.cpp) 
-OBJ= $(SRC:.cpp=.o)
 
+SRC_DIR := src
+OBJ_DIR := build
+BIN_DIR := bin
 
-OUT_DIR=../bin/jvm
-OUT_OBJ=$(addprefix $(OUT_DIR)/, $(OBJ)) 
+SRC := $(wildcard $(SRC_DIR)/*.cpp) 
+OBJS:= $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o) 
 
-all:$(OUT_DIR)/$(EXE)
+EXE := $(BIN_DIR)/jadi  # Java Disassembler and Interpreter
+
+all:$(EXE)
+
+.PHONY: all
 
 INCLUDE= -I./include
 #GCC_INCLUDE=-I/usr/lib/gcc/i686-redhat-linux/4.4.7/include
@@ -16,20 +20,21 @@ CC=g++
 CFLAGS=-Wall -g -std=c++11 $(INCLUDE) $(GCC_INCLUDE)
 LDFLAGS=
 
-$(OUT_DIR)/%.o:%.cpp
+$(OBJ_DIR)/%.o:$(SRC_DIR)/%.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
 
-$(OUT_DIR)/$(EXE):$(OUT_OBJ)
+$(EXE):$(OBJS)
 	$(CC) $(CCFLAGS) $^ -o $@
-	cp $@ /usr/local/test/
-	chmod +x /usr/local/test/$(EXE)
+	@echo -e '\n************* END ********************'
+	@echo -e '** Java Interpreter: $(EXE)'
+	@echo -e '**************************************'
 	
 init:
-	mkdir -p $(OUT_DIR)
+	mkdir -p $(BIN_DIR) $(OBJ_DIR) 
 	
 clean:
-	rm -f $(OUT_DIR)/$(EXE) $(OUT_OBJ)
+	rm -f $(EXE) $(OBJS)
 	
 	
 	

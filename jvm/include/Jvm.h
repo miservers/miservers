@@ -33,6 +33,9 @@ class Jvm
     
     void startup();
     void shutdown();
+
+    void usage();
+
 };
 
 

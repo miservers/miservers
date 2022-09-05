@@ -41,10 +41,10 @@ JavaClass::load(ifstream& inf)
   u1 tag;
   
   this->header->load(inf);
-  
+  cout<<header<<endl;
   if (header->major != JAVA_SE_8) {
     cout<<"JSE not suppoted : found "<<header->major
-		<<", expected "<<JAVA_SE_8<<endl;
+		<<", expected "<<JAVA_SE_8<<" (JAVA SE 8)"<<endl;
     exit(EXIT_FAILURE);
   }
   

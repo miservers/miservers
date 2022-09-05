@@ -45,7 +45,7 @@ void
 ConstantClassInfo::load(ifstream& inf)
 {
   read_u2(nameIndex, inf);
-}
+} 
 
 void
 ConstantClassInfo::dump()
