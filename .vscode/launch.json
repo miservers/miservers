@@ -1,13 +1,16 @@
 {
     "configurations": [
+        
         {
             "name": "C/C++: g++ build and debug active file",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            //"program": "${fileDirname}/${fileBasenameNoExtension}",
+            "program": "${workspaceFolder}/jvm/bin/jindi",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${fileDirname}",
+            //"cwd": "${fileDirname}",
+            "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
