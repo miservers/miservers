@@ -10,7 +10,7 @@
 using namespace std;
 
 #include "MemSpace.h"
-
+ 
 MemSpace::MemSpace ()
 {
   size_ = 0;
