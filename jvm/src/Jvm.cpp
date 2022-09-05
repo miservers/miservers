@@ -5,6 +5,7 @@
  */
 #include <string>
 #include <iostream>
+#include <iomanip>
 using namespace std;
 
 #include "Jvm.h"
@@ -19,9 +20,9 @@ void
 Jvm::usage()
 {
   cout<<"Usage: "<<endl;
-  cout<<"\t jadi [-p] file"<<endl;
+  cout<<"\t"<<"jadi [-p] class_file"<<endl;
   cout<<"\t"<<"-p: to disassemble the class file"<<endl;
-  cout<<"\t"<<"file: java class file to be interpreted or disassembled"<<endl;
+  cout<<"\t"<<"file: Java Class file to be interpreted or disassembled"<<endl;
 }
 
 Jvm*
@@ -70,8 +71,8 @@ int main(int nargs, char** argv)
   JavaClass* clazz;
   string class_file = "./test/Hello.class";
   int opt_p = 0;
-
-  if (nargs == 0) {
+  
+  if (nargs <= 1) {
     Jvm::Runtime()->usage();
     return 0;
   }
