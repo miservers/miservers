@@ -6,7 +6,7 @@ BIN_DIR := bin
 SRC := $(wildcard $(SRC_DIR)/*.cpp) 
 OBJS:= $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o) 
 
-EXE := $(BIN_DIR)/jadi  # Java Disassembler and Interpreter
+EXE := $(BIN_DIR)/jindi  # Java Interpreter and Disassembler 
 
 all:$(EXE)
 
