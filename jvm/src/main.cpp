@@ -9,15 +9,14 @@ using namespace std;
 #include "Interpreter.h"
 #include "Disassembler.h"
 
-
 int main(int nargs, char** argv)
 {
   int i;
   JavaClass* clazz;
   string class_file = "./test/Hello.class";
   int opt_p = 0;
-  
-  if (nargs <= 1) {
+
+  if (nargs <= 1 && class_file == "") {
     Jvm::Runtime()->usage();
     return 0;
   }
