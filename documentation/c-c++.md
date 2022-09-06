@@ -49,7 +49,7 @@ inside the shared library
  (gdb) b main
  (gdb) b elf_reader.c:45 if i==10        // break if condition
  (gdb) r
- (gdb) ni       // nest instruction
+ (gdb) ni       // next instruction
  (gdb) si
  (gdb) info reg [r1 sp rax etc]  //use space between registers
  (gdb) disp/x $r0

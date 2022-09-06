@@ -12,20 +12,19 @@ all:$(EXE)
 
 .PHONY: all
 
+LIBS = -lpaho-mqtt3c
 INCLUDE= -I./include
-#GCC_INCLUDE=-I/usr/lib/gcc/i686-redhat-linux/4.4.7/include
-AS=as
-LD=ld
 CC=g++ 
-CFLAGS=-Wall -g -std=c++11 $(INCLUDE) $(GCC_INCLUDE)
-LDFLAGS=
+CCFLAGS=-Wall -std=c++17 $(INCLUDE) 
+DEBUGFLAGS=-g 
+
 
 $(OBJ_DIR)/%.o:$(SRC_DIR)/%.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CCFLAGS) $(DEBUGFLAGS) -c $< -o $@
 
 
 $(EXE):$(OBJS)
-	$(CC) $(CCFLAGS) $^ -o $@
+	$(CC) $(CCFLAGS) $(DEBUGFLAGS) $^ -o $@
 	@echo -e '\n************* END ********************'
 	@echo -e '** Java Interpreter: $(EXE)'
 	@echo -e '**************************************'
