@@ -9,6 +9,8 @@
 #include <iomanip> //setw
 #include <typeinfo> //typeid get classname
 #include <memory> //unique_ptr
+#include <boost/log/trivial.hpp>
+
 using namespace std;
 
 #include "JavaClass.h"
@@ -42,6 +44,11 @@ JavaClass::load(ifstream& inf)
   
   this->header->load(inf);
   cout<<hex<<header->magic<<endl;
+  if (header->magic != JAVA_CLASS_MAGIC) {
+    BOOST_LOG_TRIVIAL(fatal) << "A fatal severity message";
+    exit(EXIT_FAILURE);
+  }
+
   if (header->major != JAVA_SE_8) {
     cout<< "JSE not suppoted : found " << hex << showbase << header->major
 		<< ", expected " << hex << showbase << JAVA_SE_8 << " (JAVA SE 8)" << endl;

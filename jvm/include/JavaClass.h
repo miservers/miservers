@@ -16,6 +16,9 @@
 #include "MethodInfo.h"
 #include "AttributeInfo.h"
 #include "ClassLoader.h"
+
+#define JAVA_CLASS_MAGIC  0xCAFEBABE
+
 using namespace std;
 
 class HeaderInfo;
