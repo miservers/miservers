@@ -2,9 +2,9 @@
 #define TYPES_H
 #include <cstdint>
 
-typedef char u1;
-typedef unsigned short u2 ;
-typedef unsigned long  u4 ;
+typedef char      u1;
+typedef uint16_t  u2 ;
+typedef uint32_t  u4 ;
 
 //--- Java types
 // Integral Types 

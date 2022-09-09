@@ -7,7 +7,9 @@
 	"settings": {
 		"window.title": "${dirty}${activeEditorShort}${separator}${rootName}",
 		"files.associations": {
-			"unordered_set": "cpp"
+			"unordered_set": "cpp",
+			"ostream": "cpp",
+			"cstdint": "cpp"
 		}
 	}
 }

@@ -47,15 +47,15 @@ JavaClass::load(ifstream& inf)
   u1 tag;
   
   this->header->load(inf);
-  cout<<hex<<header->magic<<endl;
+  
   if (header->magic != JAVA_CLASS_MAGIC) {
-    BasicConfigurator::configure();
-    LoggerPtr logger(Logger::getLogger("main"));
-    LOG4CXX_FATAL(logger, "Hello World");
+    cout << "Error : Expected header magic: " << hex << showbase << JAVA_CLASS_MAGIC
+    << ", Found : " << hex << showbase << header->magic << endl;
+    exit(EXIT_FAILURE);
   }
 
   if (header->major != JAVA_SE_8) {
-    cout<< "JSE not suppoted : found " << hex << showbase << header->major
+    cout<< "Error : JSE not suppoted : found " << hex << showbase << header->major
 		<< ", expected " << hex << showbase << JAVA_SE_8 << " (JAVA SE 8)" << endl;
     exit(EXIT_FAILURE);
   }
