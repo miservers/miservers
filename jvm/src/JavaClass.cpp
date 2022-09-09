@@ -9,8 +9,12 @@
 #include <iomanip> //setw
 #include <typeinfo> //typeid get classname
 #include <memory> //unique_ptr
-#include <boost/log/trivial.hpp>
+# include "log4cxx/logger.h"
+# include "log4cxx/basicconfigurator.h"
+# include "log4cxx/helpers/exception.h"
 
+using namespace log4cxx;
+using namespace log4cxx::helpers;
 using namespace std;
 
 #include "JavaClass.h"
@@ -45,8 +49,9 @@ JavaClass::load(ifstream& inf)
   this->header->load(inf);
   cout<<hex<<header->magic<<endl;
   if (header->magic != JAVA_CLASS_MAGIC) {
-    BOOST_LOG_TRIVIAL(fatal) << "A fatal severity message";
-    exit(EXIT_FAILURE);
+    BasicConfigurator::configure();
+    LoggerPtr logger(Logger::getLogger("main"));
+    LOG4CXX_FATAL(logger, "Hello World");
   }
 
   if (header->major != JAVA_SE_8) {

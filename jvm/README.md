@@ -12,6 +12,9 @@
     > Boost header are located in : **/usr/include/boost**
     > Boost lib are in : **/usr/lib/x86_64-linux-gnu**
 
+- ***liblog4cxx-dev***
+
+
 - compiling:
 
     make init
