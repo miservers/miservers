@@ -43,9 +43,8 @@ JavaClass::load(ifstream& inf)
   this->header->load(inf);
   
   if (header->magic != JAVA_CLASS_MAGIC) 
-  {fatal("Expected header magic: %X, found %X!", JAVA_CLASS_MAGIC, header->magic);
+    fatal("Expected header magic: %X, found %X!", JAVA_CLASS_MAGIC, header->magic);
   
-  }
   if (header->major != JAVA_SE_14) 
     fatal("JSE not suppoted , found %s, expected  JAVA SE 14!", header->majorStr().c_str());
     
