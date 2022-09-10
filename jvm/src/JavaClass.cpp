@@ -54,9 +54,9 @@ JavaClass::load(ifstream& inf)
     exit(EXIT_FAILURE);
   }
 
-  if (header->major != JAVA_SE_8) {
-    cout<< "Error : JSE not suppoted : found " << hex << showbase << header->major
-		<< ", expected " << hex << showbase << JAVA_SE_8 << " (JAVA SE 8)" << endl;
+  if (header->major != JAVA_SE_14) {
+    cout<< "Error : JSE not suppoted , found "  << header->majorStr()
+		<< ", expected  JAVA SE 14!" << endl;
     exit(EXIT_FAILURE);
   }
   
@@ -203,6 +203,21 @@ HeaderInfo::dump()
   cout<<setw(10)<<"magic: "<<hex<<showbase<<magic<<endl;
   cout<<setw(10)<<"minor: "<<hex<<showbase<<minor<<endl;
   cout<<setw(10)<<"major: "<<hex<<showbase<<major<<endl;
+}
+
+string
+HeaderInfo::majorStr()
+{
+  switch(this->major)
+  {
+    case JAVA_SE_1_2: return "Java SE 1.2";
+    case JAVA_SE_5:   return "Java SE 5";
+    case JAVA_SE_8:   return "Java SE 8";
+    case JAVA_SE_14:  return "Java SE 14";
+    case JAVA_SE_18:  return "Java SE 18";
+    case JAVA_SE_21:  return "Java SE 21";
+    default: return "Unknown version " + this->major;
+  }
 }
 
 unique_ptr<string> 

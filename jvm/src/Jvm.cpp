@@ -13,8 +13,11 @@ using namespace std;
 #include "JavaClass.h"
 #include "Interpreter.h"
 #include "Disassembler.h"
+#include "Logger.h"
 
 Jvm* Jvm::instance_ = nullptr;
+
+Logger *logger = logger->getInstance();
 
 void
 Jvm::usage()

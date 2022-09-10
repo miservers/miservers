@@ -58,7 +58,7 @@ class JavaClass : public Serializable
 };
 
 
-enum Major { JAVA_SE_1_1=0x2d, JAVA_SE_5=0x31, JAVA_SE_6=0x32, JAVA_SE_7=0x33, JAVA_SE_8=0x34};
+enum Major { JAVA_SE_1_2=46, JAVA_SE_5=49, JAVA_SE_8=52, JAVA_SE_14=58, JAVA_SE_18=62, JAVA_SE_21=65};
 
 class HeaderInfo : public Serializable
 {
@@ -71,6 +71,8 @@ class HeaderInfo : public Serializable
     ~HeaderInfo() {};
     void dump();
     void load(ifstream&);
+    
+    string majorStr(); // major to string
 };
 
 

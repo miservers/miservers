@@ -14,9 +14,8 @@ all:$(EXE)
 
 LIBS = -lpaho-mqtt3c
 INCLUDE= -I./include
-LIBS=-L/usr/lib/x86_64-linux-gnu -llog4cxx
 CC=g++ 
-CCFLAGS=-Wall -std=c++11 $(INCLUDE) 
+CCFLAGS=-Wall -std=c++17 $(INCLUDE) 
 DEBUGFLAGS=-g 
 
 
@@ -25,7 +24,7 @@ $(OBJ_DIR)/%.o:$(SRC_DIR)/%.cpp
 
 
 $(EXE):$(OBJS)
-	$(CC) $(CCFLAGS) $(DEBUGFLAGS) $^  $(LIBS) -o $@  
+	$(CC) $(CCFLAGS) $(DEBUGFLAGS) $^ -o $@  
 	@echo -e '\n************* END ********************'
 	@echo -e '** Java Interpreter: $(EXE)'
 	@echo -e '**************************************'
