@@ -13,7 +13,7 @@ Logger::Logger() {}
 Logger::~Logger() {}
  
 
-static Logger*
+Logger*
 Logger::getInstance()
 {
     if (!this->instance)
