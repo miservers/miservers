@@ -9,13 +9,6 @@
 #include <iomanip> //setw
 #include <typeinfo> //typeid get classname
 #include <memory> //unique_ptr
-# include "log4cxx/logger.h"
-# include "log4cxx/basicconfigurator.h"
-# include "log4cxx/helpers/exception.h"
-
-using namespace log4cxx;
-using namespace log4cxx::helpers;
-using namespace std;
 
 #include "JavaClass.h"
 #include "JvmEndian.h"
@@ -23,6 +16,7 @@ using namespace std;
 #include "FStreamUtils.h"
 #include "Disassembler.h"
 #include "AccessFlags.h"
+#include "Logger.h"
 
 JavaClass::JavaClass() 
 {
@@ -48,17 +42,13 @@ JavaClass::load(ifstream& inf)
   
   this->header->load(inf);
   
-  if (header->magic != JAVA_CLASS_MAGIC) {
-    cout << "Error : Expected header magic: " << hex << showbase << JAVA_CLASS_MAGIC
-    << ", Found : " << hex << showbase << header->magic << endl;
-    exit(EXIT_FAILURE);
+  if (header->magic != JAVA_CLASS_MAGIC) 
+  {fatal("Expected header magic: %X, found %X!", JAVA_CLASS_MAGIC, header->magic);
+  
   }
-
-  if (header->major != JAVA_SE_14) {
-    cout<< "Error : JSE not suppoted , found "  << header->majorStr()
-		<< ", expected  JAVA SE 14!" << endl;
-    exit(EXIT_FAILURE);
-  }
+  if (header->major != JAVA_SE_14) 
+    fatal("JSE not suppoted , found %s, expected  JAVA SE 14!", header->majorStr().c_str());
+    
   
   read_u2(constantPoolCount, inf); 
   
@@ -211,11 +201,11 @@ HeaderInfo::majorStr()
   switch(this->major)
   {
     case JAVA_SE_1_2: return "Java SE 1.2";
-    case JAVA_SE_5:   return "Java SE 5";
-    case JAVA_SE_8:   return "Java SE 8";
-    case JAVA_SE_14:  return "Java SE 14";
-    case JAVA_SE_18:  return "Java SE 18";
-    case JAVA_SE_21:  return "Java SE 21";
+    case JAVA_SE_5  : return "Java SE 5";
+    case JAVA_SE_8  : return "Java SE 8";
+    case JAVA_SE_14 : return "Java SE 14";
+    case JAVA_SE_18 : return "Java SE 18";
+    case JAVA_SE_21 : return "Java SE 21";
     default: return "Unknown version " + this->major;
   }
 }

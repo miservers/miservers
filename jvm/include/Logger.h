@@ -2,22 +2,10 @@
 #define LOGGER_H
 
 #include <string>
+#include <stdio.h>
 
-using namespace std;
-
-class Logger
-{
-    private:
-        static Logger *instance;
-        Logger();
-        ~Logger();
-
-    public:
-        Logger* getInstance();
-        void info(string msg);
-        void debug (string msg);
-        void error (string msg);
-        void fatal (string msg);
-};
-
+#define info(msg)   cout<<msg<<endl
+#define fatal(...)  {   printf("FATAL: "); printf(__VA_ARGS__); printf("\n");    \
+                        exit(EXIT_FAILURE);  \
+                    }
 #endif
