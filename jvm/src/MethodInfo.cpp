@@ -35,8 +35,8 @@ MethodInfo::load (ifstream& inf)
     AttributeInfo* attribute = new AttributeInfo();
     attribute->loadHead(inf);
     u2 idx = attribute->attributeNameIndex;
-    unique_ptr<string> attrName = clazz->constantPool[idx]->getValue(clazz->constantPool);
-    if (clazz->constantPool[idx]->tag == CONSTANT_Utf8 && *attrName == "Code") {
+    string attrName = clazz->constantPool[idx]->getValue(clazz->constantPool);
+    if (clazz->constantPool[idx]->tag == CONSTANT_Utf8 && attrName == "Code") {
 	  delete attribute;
       inf.seekg(pos);
 	  this->codeAttribute = new CodeAttribute(this->clazz);
@@ -55,8 +55,8 @@ void
 MethodInfo::dump()
 {
   cout<<dec<<setw(3)<<""
-      <<*clazz->getConstantPoolValue(nameIndex)<<" "
-      <<*clazz->getConstantPoolValue(descriptorIndex)
+      <<clazz->getConstantPoolValue(nameIndex)<<" "
+      <<clazz->getConstantPoolValue(descriptorIndex)
       <<" {"<<endl;
   cout<<"\t"<<"access flags: "<<access_flag_lebel(accessFlags)<<endl;
   cout<<"\t"<<"maxStack: "<<codeAttribute->maxStack<<endl;
@@ -72,11 +72,9 @@ MethodInfo::dump()
 string
 MethodInfo::getDescription ()
 {
-  unique_ptr<string> s(new string);
-  unique_ptr<string> name = clazz->constantPool[nameIndex]->getValue(clazz->constantPool);
-  unique_ptr<string> descriptor = clazz->constantPool[descriptorIndex]->getValue(clazz->constantPool);
-  *s = *name + *descriptor;
-  return *s.get();
+  string name = clazz->constantPool[nameIndex]->getValue(clazz->constantPool);
+  string descriptor = clazz->constantPool[descriptorIndex]->getValue(clazz->constantPool);
+  return name+descriptor;
 }
 
 // count the number of this method parameters
@@ -84,8 +82,8 @@ int
 MethodInfo::countParameters ()
 {
   int param_nr = 0;
-  unique_ptr<string> descriptor = clazz->constantPool[descriptorIndex]->getValue(clazz->constantPool);
-  for(string::iterator it = (*descriptor).begin(); *it != ')'; ++it) {
+  string descriptor = clazz->constantPool[descriptorIndex]->getValue(clazz->constantPool);
+  for(string::iterator it = descriptor.begin(); *it != ')'; ++it) {
     if (*it == 'B' || *it == 'C' || *it == 'D' || *it == 'F' || *it == 'I' || *it == 'J' || *it == 'S' || *it == 'Z') // base type
        param_nr++;
     else if (*it == 'L') { //ObjectType

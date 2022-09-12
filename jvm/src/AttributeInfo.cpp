@@ -30,7 +30,7 @@ void
 AttributeInfo::loadInfo(ifstream& inf)
 {
   info.reserve(attributeLength);
-  inf.read(&info[0], attributeLength); 
+  inf.read((char*)&info[0], attributeLength); 
 }
 
 void
@@ -60,7 +60,7 @@ CodeAttribute::load(ifstream& inf)
   
   read_u4(codeLength, inf);
   code.resize(codeLength);
-  inf.read(&code[0], codeLength); 
+  inf.read((char*)&code[0], codeLength); 
   
   read_u2(exceptionTableLength, inf);
   exceptionTable.reserve(exceptionTableLength);

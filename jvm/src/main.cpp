@@ -29,7 +29,7 @@ int main(int nargs, char** argv)
        class_file = string(argv[i]);
   }
 
-  cout<<"Class file: "<<class_file<<endl;
+  cout<<"Parsed Class file: "<<class_file<<endl;
 
   clazz = Jvm::Runtime()->classLoader->load (class_file);
   

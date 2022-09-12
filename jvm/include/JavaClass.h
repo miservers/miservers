@@ -48,10 +48,10 @@ class JavaClass : public Serializable
     ~JavaClass();
     void dump();
     void load(ifstream&);
-    unique_ptr<string> getName ();
+    string getName ();
     size_t size ();
     ConstantPoolInfo* getConstantPoolInfo(int index);
-    unique_ptr<string> getConstantPoolValue(int index); //final value in constant pool
+    string getConstantPoolValue(int index); //final value in constant pool
     MethodInfo* findMethod (MethodRefInfo*);
     FieldInfo* resolveField (u4 index);
    

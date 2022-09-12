@@ -33,6 +33,6 @@ MethodArea::dump ()
   for (JavaClass* clazz : classes_)
     cout<<setw(4)<<""
         <<clazz
-        <<" : size="<<clazz->size()<<" B, "<<*clazz->getName()<<endl;
+        <<" : size="<<clazz->size()<<" B, "<<clazz->getName()<<endl;
 }
 

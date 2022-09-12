@@ -1,30 +1,23 @@
-EXE=cast
 SRC= $(wildcard *.cpp) 
-OBJ= $(SRC:.cpp=.o)
 
+BIN_DIR=./bin
+BIN=$(addprefix $(BIN_DIR)/, $(SRC:.cpp=)) 
 
-OUT_DIR=./bin
-OUT_OBJ=$(addprefix $(OUT_DIR)/, $(OBJ)) 
-
-all:$(OUT_DIR)/$(EXE)
+all:$(BIN)
 
 INCLUDE= -I./include
-#GCC_INCLUDE=-I/usr/lib/gcc/i686-redhat-linux/4.4.7/include
 CC=g++ 
-CFLAGS=-Wall -g -std=c++11 $(INCLUDE) $(GCC_INCLUDE)
-
-$(OUT_DIR)/%.o:%.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+CCFLAGS=-Wall -g -std=c++14 $(INCLUDE) 
 
 
-$(OUT_DIR)/$(EXE):$(OUT_OBJ)
+$(BIN_DIR)/%:%.cpp
 	$(CC) $(CCFLAGS) $^ -o $@
 	
 init:
-	mkdir -p $(OUT_DIR)
+	mkdir -p $(BIN_DIR)
 	
 clean:
-	rm -f $(OUT_DIR)/$(EXE) $(OUT_OBJ)
+	rm -f  $(BIN)
 	
 	
 	

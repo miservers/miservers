@@ -59,7 +59,7 @@ JavaClass::load(ifstream& inf)
     constantInfo->load(inf);
     tag = constantInfo->tag;
     delete constantInfo;
-    switch (static_cast<int>(tag)) {
+    switch (tag) {
     case CONSTANT_Class :
       constantInfo = new ConstantClassInfo();
       break;
@@ -118,7 +118,7 @@ JavaClass::load(ifstream& inf)
   read_u2(interfaceCount, inf); 
   interfaces.reserve(interfaceCount);
   for (i=0; i<interfaceCount; i++)
-    inf.read(reinterpret_cast<char*>(&interfaces[i]), sizeof(u2)); 
+    read_u2(interfaces[i], inf);
     
   //Fields 
   read_u2(fieldCount, inf); 
@@ -158,7 +158,7 @@ JavaClass::dump()
   for (i=1; i<constantPoolCount; i++) {
     cout<<"\t"<<"#"<<dec<<i<<" = ";
     constantPool.at(i)->dump();
-    cout<<"// "<<*constantPool.at(i)->getValue(this->constantPool).get()<<endl;
+    cout<<"// "<<constantPool.at(i)->getValue(this->constantPool)<<endl;
   }
     
   //dump interfaces
@@ -209,7 +209,7 @@ HeaderInfo::majorStr()
   }
 }
 
-unique_ptr<string> 
+string 
 JavaClass::getName ()
 {
   return this->getConstantPoolValue (thisClass);
@@ -232,7 +232,7 @@ JavaClass::getConstantPoolInfo(int index)
   return this->constantPool[index];
 }
 
-unique_ptr<string>
+string
 JavaClass::getConstantPoolValue(int index)
 {
   return this->constantPool[index]->getValue(this->constantPool);

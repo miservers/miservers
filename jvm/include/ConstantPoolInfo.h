@@ -20,7 +20,7 @@ class ConstantPoolInfo : public Serializable
     
     void dump();
     void load(ifstream&);
-    unique_ptr<string> getValue (vector<ConstantPoolInfo*>  const& constantPool);
+    string getValue (vector<ConstantPoolInfo*>  const& constantPool);
 };
 
 class ConstantClassInfo : public ConstantPoolInfo 
@@ -30,7 +30,7 @@ class ConstantClassInfo : public ConstantPoolInfo
     
     void dump();
     void load(ifstream&);
-    unique_ptr<string> getValue (vector<ConstantPoolInfo*>  const& constantPool);
+    string getValue (vector<ConstantPoolInfo*>  const& constantPool);
 };
 
 /* fieldref-info, methodref-info, interfaceref-info*/
@@ -42,7 +42,7 @@ class ConstantRefInfo : public ConstantPoolInfo
 
     void dump();
     void load(ifstream&);
-    unique_ptr<string> getValue (vector<ConstantPoolInfo*>  const& constantPool);
+    string getValue (vector<ConstantPoolInfo*>  const& constantPool);
 };
 
 class FieldRefInfo : public ConstantRefInfo {};
@@ -58,7 +58,7 @@ class ConstantStringInfo : public ConstantPoolInfo
 
     void dump();
     void load(ifstream&);
-    unique_ptr<string> getValue (vector<ConstantPoolInfo*>  const& constantPool);
+    string getValue (vector<ConstantPoolInfo*>  const& constantPool);
 };
 
 class ConstantUtf8Info : public ConstantPoolInfo 
@@ -69,7 +69,7 @@ class ConstantUtf8Info : public ConstantPoolInfo
 
     void dump();
     void load(ifstream&);
-    unique_ptr<string> getValue (vector<ConstantPoolInfo*>  const& constantPool);
+    string getValue (vector<ConstantPoolInfo*>  const& constantPool);
 
 };
 
@@ -80,7 +80,7 @@ class ConstantIntegerInfo : public ConstantPoolInfo
 
     void dump();
     void load(ifstream&);
-    unique_ptr<string> getValue (vector<ConstantPoolInfo*>  const& constantPool);
+    string getValue (vector<ConstantPoolInfo*>  const& constantPool);
 };
 
 class ConstantFloatInfo : public ConstantPoolInfo 
@@ -108,7 +108,7 @@ class ConstantNameAndTypeInfo: public ConstantPoolInfo
 
     void dump();
     void load(ifstream&);  
-    unique_ptr<string> getValue (vector<ConstantPoolInfo*>  const& constantPool);
+    string getValue (vector<ConstantPoolInfo*>  const& constantPool);
 };
 
 class ConstantMethodHandleInfo : public ConstantPoolInfo 

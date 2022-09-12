@@ -8,7 +8,7 @@
 #include <fstream>
 #include <string>
 #include <memory> //unique_ptr
-
+using namespace std;
 #include "Types.h"
 #include "Serializable.h"
 #include "ExceptionInfo.h"
@@ -21,12 +21,12 @@ class AttributeInfo : public Serializable
   public:
     u2 attributeNameIndex;
     u4 attributeLength;
-    std::vector<u1> info;
+    vector<u1> info;
     
     void dump();
-    void load (std::ifstream&);
-    void loadHead (std::ifstream&);
-    void loadInfo (std::ifstream&);
+    void load (ifstream&);
+    void loadHead (ifstream&);
+    void loadInfo (ifstream&);
 };
 
 class CodeAttribute : public AttributeInfo 
@@ -35,18 +35,18 @@ class CodeAttribute : public AttributeInfo
     u2 maxStack;
     u2 maxLocals;
     u4 codeLength;
-    std::vector<u1> code;
+    vector<u1> code;
     u2 exceptionTableLength;
-    std::vector<ExceptionInfo*> exceptionTable;
+    vector<ExceptionInfo*> exceptionTable;
     u2 attributesCount;
-    std::vector<AttributeInfo*> attributes;
+    vector<AttributeInfo*> attributes;
     
     JavaClass* clazz; // class to wich this object belong
     
     CodeAttribute (JavaClass* clazz) { this->clazz = clazz;}
     
     void dump();
-    void load(std::ifstream&);
+    void load(ifstream&);
 };
 
 

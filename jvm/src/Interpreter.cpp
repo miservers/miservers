@@ -36,7 +36,7 @@ Interpreter::run (JavaClass* clazz)
   for (MethodInfo* method : clazz->methods) {
     u2 nameIndex = method->nameIndex;
     ConstantUtf8Info* nameUtf8 = dynamic_cast<ConstantUtf8Info*>(clazz->constantPool[nameIndex]);
-    if (string(nameUtf8->bytes.data()) == "main") {
+    if (string((char*)nameUtf8->bytes.data()) == "main") {
       this->mainClass = clazz;
       this->mainMethod = method;
       break;
@@ -161,7 +161,7 @@ Interpreter::execute()
       u4 methodRefIndex = (operandByte1 << 8) + operandByte2;
       MethodRefInfo* methodRef = dynamic_cast<MethodRefInfo*>(currentClass->constantPool[methodRefIndex]);
       cout<<" #"<<dec<<methodRefIndex
-          <<"\t// "<<*methodRef->getValue(currentClass->constantPool)<<"  ";
+          <<"\t// "<<methodRef->getValue(currentClass->constantPool)<<"  ";
       MethodInfo* nextMethod = currentClass->findMethod (methodRef);
       if (nextMethod == nullptr) { //see findMethod
         currentFrame->operandStack.pop_back (); // make stack clean

@@ -12,6 +12,7 @@
 #include "Types.h"
 #include "Serializable.h"
 #include "AttributeInfo.h"
+using namespace std;
 
 class JavaClass;
 
@@ -22,15 +23,15 @@ class MethodInfo : public Serializable
     u2 nameIndex;
     u2 descriptorIndex;
     u2 attributesCount;
-    std::vector<AttributeInfo*> attributes;
+    vector<AttributeInfo*> attributes;
     CodeAttribute* codeAttribute; //it also in attributes vector
     
     JavaClass* clazz; // class to wich this method belong 
     
     MethodInfo (JavaClass* clazz) { this->clazz = clazz;}
     void dump();
-    void load (std::ifstream&);
-    std::string getDescription();
+    void load (ifstream&);
+    string getDescription();
     int countParameters ();
     
 };

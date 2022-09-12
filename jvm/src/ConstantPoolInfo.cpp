@@ -24,14 +24,13 @@ using namespace std;
 void
 ConstantPoolInfo::load(ifstream& inf)
 {
-  inf.read(&tag, sizeof(tag));  
+  read_u1(tag, inf);
 }
 
-unique_ptr<string>
+string
 ConstantPoolInfo::getValue(vector<ConstantPoolInfo*>  const& constantPool)
 {
-  unique_ptr<string> s(new string("Must be implemented by the derivied class!"));
-  return s;
+  return "Must be implemented by the derivied class!";
 }
 
 void
@@ -54,7 +53,7 @@ ConstantClassInfo::dump()
       <<setw(15)<<"#"+to_string(nameIndex);
 }
 
-unique_ptr<string>
+string
 ConstantClassInfo::getValue(vector<ConstantPoolInfo*>  const& constantPool)
 {
   return constantPool[nameIndex]->getValue(constantPool);
@@ -82,14 +81,12 @@ ConstantRefInfo::dump()
   cout<<setw(15)<<"#"+to_string(classIndex)+".#"+to_string(nameAndTypeIndex);
 }
 
-unique_ptr<string>
+string
 ConstantRefInfo::getValue(vector<ConstantPoolInfo*>  const& constantPool)
 {
-  unique_ptr<string> s(new string);
-  unique_ptr<string> sNameAndType = constantPool[nameAndTypeIndex]->getValue(constantPool);
-  unique_ptr<string> sClass = constantPool[classIndex]->getValue(constantPool);
-  *s = *sClass + "." + *sNameAndType;
-  return s;
+  string sNameAndType = constantPool[nameAndTypeIndex]->getValue(constantPool);
+  string sClass = constantPool[classIndex]->getValue(constantPool);
+  return sClass + "." + sNameAndType;
 }
 
 void
@@ -105,7 +102,7 @@ ConstantStringInfo::dump()
       <<setw(15)<<"#"+to_string(stringIndex);
 }
 
-unique_ptr<string>
+string
 ConstantStringInfo::getValue(vector<ConstantPoolInfo*>  const& constantPool)
 {
   return constantPool[stringIndex]->getValue(constantPool);
@@ -126,10 +123,10 @@ ConstantUtf8Info::dump()
   cout<<setw(20)<<"Utf8";
 }
 
-unique_ptr<string>
+string
 ConstantUtf8Info::getValue(vector<ConstantPoolInfo*>  const& constantPool)
 {
-  unique_ptr<string> s(new string(bytes.data()));
+  string s((char*)bytes.data());
   return s;
 }
 
@@ -146,10 +143,10 @@ ConstantIntegerInfo::dump()
       <<setw(15)<<"#"<<bytes;
 }
 
-unique_ptr<string>
+string
 ConstantIntegerInfo::getValue(vector<ConstantPoolInfo*>  const& constantPool)
 {
-  unique_ptr<string> s(new string(to_string(bytes)));
+  string s(to_string(bytes));
   return s;
 }
 
@@ -167,12 +164,10 @@ ConstantNameAndTypeInfo::dump()
       <<setw(15)<<"#"+to_string(nameIndex)+".#"+to_string(descriptorIndex);
 }
 
-unique_ptr<string>
+string
 ConstantNameAndTypeInfo::getValue(std::vector<ConstantPoolInfo*> const& constantPool)
 {
-  unique_ptr<string> s(new string);
-  unique_ptr<string> name = constantPool[nameIndex]->getValue(constantPool);
-  unique_ptr<string> descriptor = constantPool[descriptorIndex]->getValue(constantPool);
-  *s = *name + ":" + *descriptor;
-  return s;
+  string name = constantPool[nameIndex]->getValue(constantPool);
+  string descriptor = constantPool[descriptorIndex]->getValue(constantPool);
+  return name + ":" + descriptor;
 }
