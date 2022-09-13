@@ -19,7 +19,8 @@ class ConstantPoolInfo : public Serializable
     u1 tag;
     
     void dump();
-    void load(ifstream&);
+    void loadTag (ifstream&);
+    void load (ifstream&); // load CP info data without reloading the TAG!
     string getValue (vector<ConstantPoolInfo*>  const& constantPool);
 };
 
@@ -116,7 +117,10 @@ class ConstantMethodHandleInfo : public ConstantPoolInfo
   public:
     u1 referenceKind;
     u2 referenceIndex;
-   
+
+    void dump();
+    void load(ifstream&);  
+
 };
 
 class ConstantMethodTypeInfo : public ConstantPoolInfo 
@@ -129,8 +133,12 @@ class ConstantMethodTypeInfo : public ConstantPoolInfo
 class ConstantInvokeDynamicInfo : public ConstantPoolInfo
 {
  public:
-   u2 bootstrapMethodAttrIndex;
-   u2 nameAndTypeIndex;
+    u2 bootstrapMethodAttrIndex;
+    u2 nameAndTypeIndex;
+
+    void dump();
+    void load(ifstream&);  
+      
 };
 
 #endif

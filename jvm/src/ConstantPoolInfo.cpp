@@ -9,6 +9,8 @@
 #include <iomanip> //setw
 #include <typeinfo> //typeid get classname
 #include <memory> //unique_ptr
+#include <iostream>
+#include <cstring>
 using namespace std;
 
 #include "ConstantPoolInfo.h"
@@ -18,26 +20,33 @@ using namespace std;
 #include "FStreamUtils.h"
 #include "Disassembler.h"
 #include "AccessFlags.h"
-
+#include "Logger.h"
 
 
 void
-ConstantPoolInfo::load(ifstream& inf)
+ConstantPoolInfo::loadTag(ifstream& inf)
 {
   read_u1(tag, inf);
 }
 
+void
+ConstantPoolInfo::load(ifstream& inf)
+{
+  fatal ("Load method not implemented for ConstantPool Info TAG=%d", tag);
+}
+
+
 string
 ConstantPoolInfo::getValue(vector<ConstantPoolInfo*>  const& constantPool)
 {
-  return "Must be implemented by the derivied class!";
+  fatal ("This method Must be implemented by the derivied class!");
+  return "ERROR";
 }
 
 void
 ConstantPoolInfo::dump()
 {
-  cout<<"Constant Info:"<<endl;
-  cout<<setw(10)<<"tag: "<<static_cast<int>(tag)<<endl;
+  console("Constant Info: tag=%d", tag);
 }
 
 void
@@ -49,8 +58,7 @@ ConstantClassInfo::load(ifstream& inf)
 void
 ConstantClassInfo::dump()
 {
-  cout<<setw(20)<<"Class"
-      <<setw(15)<<"#"+to_string(nameIndex);
+  console("Class: nameIndex=%d", nameIndex)
 }
 
 string
@@ -69,16 +77,17 @@ ConstantRefInfo::load(ifstream& inf)
 void
 ConstantRefInfo::dump()
 {
+  string tmp;
   if (static_cast<int>(tag) == CONSTANT_Fieldref)
-    cout<<setw(20)<<"FieldRef";
+    tmp = "FieldRef";
   else if (static_cast<int>(tag) == CONSTANT_Methodref)
-    cout<<setw(20)<<"MethodRef";
+    tmp = "MethodRef";
   else if (static_cast<int>(tag) == CONSTANT_InterfaceMethodref)
-    cout<<setw(20)<<"InterfaceMethodRe";
+    tmp = "InterfaceMethodRe";
   else
-    cout<<setw(20)<<"UnknownRef";
+    tmp = "UnknownRef";
     
-  cout<<setw(15)<<"#"+to_string(classIndex)+".#"+to_string(nameAndTypeIndex);
+  console("%s: classIndex=%d nameAndTypeIndex=%d", tmp.c_str() , classIndex, nameAndTypeIndex);
 }
 
 string
@@ -98,8 +107,7 @@ ConstantStringInfo::load(ifstream& inf)
 void
 ConstantStringInfo::dump()
 {
-  cout<<setw(20)<<"String"
-      <<setw(15)<<"#"+to_string(stringIndex);
+  console("String: stringIndex=%d", stringIndex);
 }
 
 string
@@ -120,7 +128,7 @@ ConstantUtf8Info::load(ifstream& inf)
 void
 ConstantUtf8Info::dump()
 {
-  cout<<setw(20)<<"Utf8";
+  console("Utf8: %s",(char*)bytes.data());
 }
 
 string
@@ -139,8 +147,7 @@ ConstantIntegerInfo::load(ifstream& inf)
 void
 ConstantIntegerInfo::dump()
 {
-  cout<<setw(20)<<"Integer"
-      <<setw(15)<<"#"<<bytes;
+  console("Integer: %d",bytes)
 }
 
 string
@@ -160,8 +167,7 @@ ConstantNameAndTypeInfo::load(ifstream& inf)
 void
 ConstantNameAndTypeInfo::dump()
 {
-  cout<<setw(20)<<"Name And Type"
-      <<setw(15)<<"#"+to_string(nameIndex)+".#"+to_string(descriptorIndex);
+  console("Name And Type: nameIndex=%d descriptorIndex=%d", nameIndex, descriptorIndex);
 }
 
 string
@@ -171,3 +177,33 @@ ConstantNameAndTypeInfo::getValue(std::vector<ConstantPoolInfo*> const& constant
   string descriptor = constantPool[descriptorIndex]->getValue(constantPool);
   return name + ":" + descriptor;
 }
+
+
+void
+ConstantMethodHandleInfo::load(ifstream& inf)
+{
+  read_u1(referenceKind, inf);
+  read_u2(referenceIndex, inf);
+}
+
+void
+ConstantMethodHandleInfo::dump()
+{
+  console("Method Handle: referenceKind=%d referenceIndex=%d", referenceKind, referenceIndex);
+}
+
+
+void
+ConstantInvokeDynamicInfo::load(ifstream& inf)
+{
+  read_u2(bootstrapMethodAttrIndex, inf);
+  read_u2(nameAndTypeIndex, inf);
+}
+
+void
+ConstantInvokeDynamicInfo::dump()
+{
+  console("ConstantInvokeDynamicInfo, bootstrapMethodAttrIndex=%d, nameAndTypeIndex=%d",
+            bootstrapMethodAttrIndex, nameAndTypeIndex );
+}
+

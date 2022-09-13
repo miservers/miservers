@@ -18,7 +18,7 @@ using namespace std;
 #include "FStreamUtils.h"
 #include "Disassembler.h"
 #include "AccessFlags.h"
-
+#include "Logger.h"
 
 void
 FieldInfo::load(ifstream& inf)
@@ -39,12 +39,9 @@ FieldInfo::load(ifstream& inf)
 void
 FieldInfo::dump()
 {
-  cout<<dec<<setw(3)<<""
-      <<clazz->getConstantPoolValue(descriptorIndex)<<" "
-      <<clazz->getConstantPoolValue(nameIndex)<<": "
-      "#"<<nameIndex<<".#"<<descriptorIndex<<endl;
-  cout<<"\t"<<"access flags: "<<access_flag_lebel(accessFlags)<<endl;
-  cout<<"\t"<<"attributesCount: "<<dec<<attributesCount<<endl;
+  console("Field : nameIndex=%d descriptorIndex=%d ", nameIndex, descriptorIndex);
+  console("  access flags: %s", access_flag_lebel(accessFlags).c_str());
+  console("  attributesCount: %d", attributesCount);
 
   for (AttributeInfo* attribute : this->attributes)
      attribute->dump();

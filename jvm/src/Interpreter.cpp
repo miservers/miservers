@@ -113,7 +113,7 @@ Interpreter::execute()
   int i, n;
   u4 index;
   struct operand_value operandValue;
-  unique_ptr<string> data;
+  string data;
   ObjectRef* objectRef;
   j_int_t value;
   
@@ -202,14 +202,14 @@ Interpreter::execute()
   case LDC:
     index = operandByte1;
     data = currentClass->getConstantPoolValue(index);
-    cout<<" #"<<index<<"\t//"<<*data;
+    cout<<" #"<<index<<"\t//"<<data;
     break;
   case NEW:
     {
       int nameIndex = (operandByte1 << 8) + operandByte2;
-      unique_ptr<string> className = currentClass->getConstantPoolValue(nameIndex);
-      cout<<" #"<<nameIndex<<"\t//"<<*className;
-      objectRef = new ObjectRef (nameIndex, *className);
+      string className = currentClass->getConstantPoolValue(nameIndex);
+      cout<<" #"<<nameIndex<<"\t//"<<className;
+      objectRef = new ObjectRef (nameIndex, className);
       objectRef->clazz = currentClass; //todo resolve the object class
       objectRef->initFields ();
       //@TODO
@@ -222,7 +222,7 @@ Interpreter::execute()
       index = (operandByte1 <<8) | operandByte2;
       FieldInfo* fieldInfo = currentClass->resolveField(index);
       data = currentClass->getConstantPoolValue(index);
-      cout<<" #"<<index<<"\t//"<<*data;
+      cout<<" #"<<index<<"\t//"<<data;
       value = currentFrame->operandStack.back();
       currentFrame->operandStack.pop_back();
       objectRef = reinterpret_cast<ObjectRef*>(currentFrame->operandStack.back());

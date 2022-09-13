@@ -18,6 +18,8 @@
 #include "AccessFlags.h"
 #include "Logger.h"
 
+#define DEBUG 1
+
 JavaClass::JavaClass() 
 {
   this->header = new HeaderInfo();
@@ -47,16 +49,17 @@ JavaClass::load(ifstream& inf)
   
   if (header->major != JAVA_SE_14) 
     fatal("JSE not suppoted , found %s, expected  JAVA SE 14!", header->majorStr().c_str());
-    
   
   read_u2(constantPoolCount, inf); 
+
+  debug("CP count %d", constantPoolCount);
   
   //load constants pool
   constantPool.reserve(constantPoolCount);
   constantPool.push_back(NULL);
   for (i=1; i<constantPoolCount; i++) {
     constantInfo = new ConstantPoolInfo(); // used only to load tag, then freed
-    constantInfo->load(inf);
+    constantInfo->loadTag(inf);
     tag = constantInfo->tag;
     delete constantInfo;
     switch (tag) {
@@ -78,14 +81,11 @@ JavaClass::load(ifstream& inf)
       constantInfo = new ConstantIntegerInfo ();
       break;
     case CONSTANT_Float :
-      cout<<"Not yet implemeted constant CONSTANT_Float"<<endl;
-      break;
+      fatal("CONSTANT_Float NOT yet implemeted ");
     case CONSTANT_Long :
-      cout<<"Not yet implemeted constant CONSTANT_Long"<<endl;
-      break;
+      fatal("CONSTANT_Long NOT yet implemeted ");
     case CONSTANT_Double :
-      cout<<"Not yet implemeted constant CONSTANT_Double"<<endl;
-      break;
+      fatal("CONSTANT_Double NOT yet implemeted ");
     case CONSTANT_NameAndType :
       constantInfo = new ConstantNameAndTypeInfo();
       break;
@@ -93,21 +93,21 @@ JavaClass::load(ifstream& inf)
       constantInfo = new ConstantUtf8Info ();
       break;
     case CONSTANT_MethodHandle :
-      cout<<"Not yet implemeted constant CONSTANT_MethodHandle"<<endl;
+      constantInfo = new  ConstantMethodHandleInfo();
       break;
     case CONSTANT_MethodType :
-      cout<<"Not yet implemeted constant CONSTANT_MethodType"<<endl;
-      break;
+      fatal("CONSTANT_MethodType NOT yet implemeted ");
     case CONSTANT_InvokeDynamic :
       constantInfo = new ConstantInvokeDynamicInfo();
       break;
     default :
-      cout<<"Unknown constant tag: "<<static_cast<int>(tag)<<endl;
-      break;
+      fatal("Unknown constant tag=%d", tag);
     };
     constantInfo->tag = tag;
     constantInfo->load(inf);
     constantPool.push_back(constantInfo);
+    //cout<<dec<<i<<". ";
+    //constantInfo->dump();
   }
   
   read_u2(accessFlags, inf);
@@ -146,33 +146,30 @@ JavaClass::dump()
   
   this->header->dump();
   
-  cout<<hex<<showbase;
-  cout<<"access Flags: "<<access_flag_lebel(accessFlags)<<endl;
-  cout<<"thisClass: "<<thisClass<<endl;
-  cout<<"superClass: "<<superClass<<endl;
+  console("access Flags: %s", access_flag_lebel(accessFlags).c_str());
+  console("thisClass: %d", thisClass);
+  console("superClass: %d", superClass);
   
   //constants pool
-  cout<<left;
-  cout<<setw(20)<<"Counstant Count: "<<dec<<constantPoolCount<<endl;
-  cout<<"Constant Pool:"<<endl;
+  console("Counstant Count: %d", constantPoolCount);
+  console("Constant Pool table:");
   for (i=1; i<constantPoolCount; i++) {
-    cout<<"\t"<<"#"<<dec<<i<<" = ";
+    cout<<"  "<<dec<<i<<". ";
     constantPool.at(i)->dump();
-    cout<<"// "<<constantPool.at(i)->getValue(this->constantPool)<<endl;
   }
     
-  //dump interfaces
-  cout<<"Interfaces Count: "<<dec<<interfaceCount<<endl;
+  //Interfaces
+  console("Interfaces Count: %d", interfaceCount);
   for (i=0; i<interfaceCount; i++)
     cout<<"Interface: "<<interfaces[i]<<endl;
     
-  //dump Fields 
-  cout<<"Fields Count: "<<dec<<fieldCount<<endl;
+  //Fields 
+  console("Fields Count: %d", fieldCount);
   for (FieldInfo* field : this->fields) 
     field->dump();
     
-  //dump Methods 
-  cout<<"Methods Count: "<<dec<<methodCount<<endl;
+  //Methods 
+  console("Methods Count: %d", methodCount);
   for (MethodInfo* method : this->methods) 
     method->dump();
 }
@@ -188,10 +185,10 @@ HeaderInfo::load(ifstream& inf)
 void
 HeaderInfo::dump()
 {
-  cout<<"Header Info:"<<endl;
-  cout<<setw(10)<<"magic: "<<hex<<showbase<<magic<<endl;
-  cout<<setw(10)<<"minor: "<<hex<<showbase<<minor<<endl;
-  cout<<setw(10)<<"major: "<<hex<<showbase<<major<<endl;
+  console("Header Info:");
+  console("  magic: %X",magic);
+  console("  major: %d", major);
+  console("  minor: %d",minor);
 }
 
 string

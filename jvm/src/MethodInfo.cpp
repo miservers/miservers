@@ -18,6 +18,7 @@ using namespace std;
 #include "FStreamUtils.h"
 #include "Disassembler.h"
 #include "AccessFlags.h"
+#include "Logger.h"
 
 void
 MethodInfo::load (ifstream& inf)
@@ -35,38 +36,40 @@ MethodInfo::load (ifstream& inf)
     AttributeInfo* attribute = new AttributeInfo();
     attribute->loadHead(inf);
     u2 idx = attribute->attributeNameIndex;
-    string attrName = clazz->constantPool[idx]->getValue(clazz->constantPool);
-    if (clazz->constantPool[idx]->tag == CONSTANT_Utf8 && attrName == "Code") {
-	  delete attribute;
+    ConstantPoolInfo* cpInfo = clazz->constantPool.at(idx);
+    cpInfo->dump();
+    string attrName = cpInfo->getValue(clazz->constantPool);
+    if (cpInfo->tag == CONSTANT_Utf8 && attrName == "Code") {
+      delete attribute;
       inf.seekg(pos);
-	  this->codeAttribute = new CodeAttribute(this->clazz);
-	  attribute = this->codeAttribute;
+      this->codeAttribute = new CodeAttribute(this->clazz);
+      attribute = this->codeAttribute;
       attribute->load(inf);
-	  attributes.push_back (attribute);
-	}
+      attributes.push_back (attribute);
+	  }
     else {
-	  attribute->loadInfo(inf);
-	  attributes.push_back (attribute);
-	}
+      attribute->loadInfo(inf);
+      attributes.push_back (attribute);
+    }
   }
+ // dump();
 }
 
 void
 MethodInfo::dump()
 {
-  cout<<dec<<setw(3)<<""
-      <<clazz->getConstantPoolValue(nameIndex)<<" "
-      <<clazz->getConstantPoolValue(descriptorIndex)
-      <<" {"<<endl;
-  cout<<"\t"<<"access flags: "<<access_flag_lebel(accessFlags)<<endl;
-  cout<<"\t"<<"maxStack: "<<codeAttribute->maxStack<<endl;
-  cout<<"\t"<<"maxLocals: "<<codeAttribute->maxLocals<<endl;
-  cout<<"\t"<<"attributesCount: "<<attributesCount<<endl;
-  
+  console("Method : nameIndex=%d descriptorIndex=%d {", nameIndex, descriptorIndex);
+  console("  access flags: %s", access_flag_lebel(accessFlags).c_str());
+  console("  attributesCount: %d", attributesCount);
+  if (codeAttribute) {
+    console("  maxStack: %d", codeAttribute->maxStack);
+    console("  maxLocals: %d", codeAttribute->maxLocals);
+  }
+
   for (AttributeInfo* attribute : this->attributes)
     attribute->dump();
     
-  cout<<dec<<setw(3)<<""<<"}"<<endl;
+  console("}");
 }
 
 string

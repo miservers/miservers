@@ -24,23 +24,23 @@ inline std::string access_flag_lebel(int access_flag)
 {
  std::string access = "";
  if (access_flag & ACC_PUBLIC)
-   access += "ACC_PUBLIC ";
+   access += "PUBLIC ";
  if (access_flag & ACC_PRIVATE)
-   access += "ACC_PRIVATE ";
+   access += "PRIVATE ";
  if (access_flag & ACC_PROTECTED)
-   access += "ACC_PROTECTED ";
+   access += "PROTECTED ";
  if (access_flag & ACC_STATIC)
-   access += "ACC_STATIC ";
+   access += "STATIC ";
  if (access_flag & ACC_FINAL)
-   access += "ACC_FINAL ";
+   access += "FINAL ";
  if (access_flag & ACC_VOLATILE)
-   access += "ACC_PUBLIC ";
+   access += "PUBLIC ";
  if (access_flag & ACC_VOLATILE)
-   access += "ACC_VOLATILE ";
+   access += "VOLATILE ";
  if (access_flag & ACC_ABSTRACT)
-   access += "ACC_ABSTRACT ";
+   access += "ABSTRACT ";
  if (access_flag & ACC_ENUM)
-   access += "ACC_ENUM ";
+   access += "ENUM ";
  return access;
 };
 

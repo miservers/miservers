@@ -18,7 +18,7 @@ using namespace std;
 #include "FStreamUtils.h"
 #include "Disassembler.h"
 #include "AccessFlags.h"
-
+#include "Logger.h"
 
 void
 AttributeInfo::loadHead(ifstream& inf)
@@ -26,6 +26,7 @@ AttributeInfo::loadHead(ifstream& inf)
   read_u2(attributeNameIndex, inf);
   read_u4(attributeLength, inf);
 }
+
 void
 AttributeInfo::loadInfo(ifstream& inf)
 {
@@ -43,10 +44,10 @@ AttributeInfo::load(ifstream& inf)
 void
 AttributeInfo::dump()
 {
-  cout<<"\t"<<"Attribute Info:"<<endl;
-  cout<<"\t\t"<<"attributeNameIndex: "<<dec<<attributeNameIndex<<endl;
-  cout<<"\t\t"<<"attributeLength: "<<attributeLength<<endl;
-  cout<<"\t\t"<<"info: "<<info.data()<<endl;
+  console("  Attribute Info:");
+  console("    attributeNameIndex: %d", attributeNameIndex);
+  console("    attributeLength: %d", attributeLength);
+  console("    info: %s", info.data());
 }
 
 void
