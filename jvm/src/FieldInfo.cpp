@@ -39,7 +39,8 @@ FieldInfo::load(ifstream& inf)
 void
 FieldInfo::dump()
 {
-  console("Field : nameIndex=%d descriptorIndex=%d ", nameIndex, descriptorIndex);
+  string desc = this->getDescription();
+  console("Field : nameIndex=%d descriptorIndex=%d //%s", nameIndex, descriptorIndex ,desc.c_str());
   console("  access flags: %s", access_flag_lebel(accessFlags).c_str());
   console("  attributesCount: %d", attributesCount);
 
@@ -47,5 +48,13 @@ FieldInfo::dump()
      attribute->dump();
 }
 
+string 
+FieldInfo::getDescription()
+{
+  string name = clazz->constantPool[nameIndex]->getValue(clazz->constantPool);
+  string descriptor = clazz->constantPool[descriptorIndex]->getValue(clazz->constantPool);
+  return name+":"+descriptor;
+
+}
 
 
