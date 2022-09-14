@@ -11,6 +11,7 @@ using namespace std;
 #include "InstructionSet.h"
 #include "Types.h"
 #include "JavaClass.h"
+#include "Logger.h"
 
 Disassembler* Disassembler::instance_ = nullptr;
 
@@ -31,37 +32,39 @@ Disassembler::disassemble (JavaClass* clazz)
 
 // disassemle jvm instructions
 void
-Disassembler::disassemble (const CodeAttribute* codeAttribute)
+Disassembler::disassembleCode (const CodeAttribute* codeAttribute)
 {
   u4 pc = 0;
   int opCode;
   string mnemonic;
   int  operandSize;
   u4 index, indexByte1, indexByte2;
-  
+  InstructionSet* instructionSet = InstructionSet::Instance();
+
   const vector<u1>& code = codeAttribute->code;
   for (pc = 0; pc < code.size(); pc++) {
     opCode = static_cast<int>(code[pc]);
-    mnemonic = InstructionSet::Instance()->getMnemonic(opCode);
-    operandSize = InstructionSet::Instance()->getOperandSize(opCode);
-    cout<<"\t"<<left<<setw(5)<<hex<<opCode<<setw(15)<<mnemonic;
+    mnemonic = instructionSet->getMnemonic(opCode);
+    operandSize = instructionSet->getOperandSize(opCode);
+   // cout<<"\t"<<left<<setw(5)<<hex<<opCode<<setw(15)<<mnemonic;
     
     if (operandSize == 1) {
       index = static_cast<u4>(code[++pc]);
-      cout<<"#"<<setw(4)<<dec<<index;
+//      cout<<"#"<<setw(4)<<dec<<index;
     }
     else if (operandSize == 2) {
       indexByte1 = static_cast<u4>(code[++pc]);
       indexByte2 = static_cast<u4>(code[++pc]);
       index = (indexByte1<<8) + indexByte2;  
-      cout<<"#"<<setw(4)<<dec<<index;
+  //    cout<<"#"<<setw(4)<<dec<<index;
     }
     else
       pc += operandSize;
       
+    string operandValue = "";
     if (operandSize >= 1 && !InstructionSet::Instance()->isImmOprand (opCode))
-          cout<<"// "<<codeAttribute->clazz->getConstantPoolValue(index);
-    cout<<endl;
+          operandValue = "//"+codeAttribute->clazz->getConstantPoolValue(index);
+    console("\t%s #%d %s", mnemonic.c_str(), index, operandValue.c_str());
   }
 };
 

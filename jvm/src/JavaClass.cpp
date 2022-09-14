@@ -58,10 +58,7 @@ JavaClass::load(ifstream& inf)
   constantPool.reserve(constantPoolCount);
   constantPool.push_back(NULL);
   for (i=1; i<constantPoolCount; i++) {
-    constantInfo = new ConstantPoolInfo(); // used only to load tag, then freed
-    constantInfo->loadTag(inf);
-    tag = constantInfo->tag;
-    delete constantInfo;
+    read_u1(tag, inf);
     switch (tag) {
     case CONSTANT_Class :
       constantInfo = new ConstantClassInfo();

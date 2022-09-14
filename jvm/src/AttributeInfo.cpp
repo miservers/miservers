@@ -83,16 +83,14 @@ CodeAttribute::load(ifstream& inf)
 void
 CodeAttribute::dump()
 {
-  cout<<dec;
-  cout<<"\t"<<"Code:"<<endl;
-  Disassembler::instance()->disassemble(this);
-  cout<<dec<<endl;
+  console("  Code:");
+  Disassembler::instance()->disassembleCode(this);
   
-  cout<<"\t"<<"exceptionTableLength: "<<exceptionTableLength<<endl;
+  console("\texceptionTableLength: %d", exceptionTableLength);
   for (ExceptionInfo* exception : this->exceptionTable)
     exception->dump();
     
-  cout<<"\t"<<"attributesCount: "<<attributesCount<<endl;
+  console("\tattributesCount: %d", attributesCount);
   for (AttributeInfo* attribute : this->attributes)
     attribute->dump();
 }

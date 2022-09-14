@@ -58,7 +58,8 @@ MethodInfo::load (ifstream& inf)
 void
 MethodInfo::dump()
 {
-  console("Method : nameIndex=%d descriptorIndex=%d {", nameIndex, descriptorIndex);
+  string methodDesc = this->getDescription(); 
+  console("Method : nameIndex=%d descriptorIndex=%d { //%s", nameIndex, descriptorIndex, methodDesc.c_str());
   console("  access flags: %s", access_flag_lebel(accessFlags).c_str());
   console("  attributesCount: %d", attributesCount);
   if (codeAttribute) {

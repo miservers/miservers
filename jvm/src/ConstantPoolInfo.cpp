@@ -24,23 +24,9 @@ using namespace std;
 
 
 void
-ConstantPoolInfo::loadTag(ifstream& inf)
-{
-  read_u1(tag, inf);
-}
-
-void
 ConstantPoolInfo::load(ifstream& inf)
 {
   fatal ("Load method not implemented for ConstantPool Info TAG=%d", tag);
-}
-
-
-string
-ConstantPoolInfo::getValue(vector<ConstantPoolInfo*>  const& constantPool)
-{
-  fatal ("This method Must be implemented by the derivied class!");
-  return "ERROR";
 }
 
 void
@@ -78,15 +64,16 @@ void
 ConstantRefInfo::dump()
 {
   string tmp;
-  if (static_cast<int>(tag) == CONSTANT_Fieldref)
-    tmp = "FieldRef";
-  else if (static_cast<int>(tag) == CONSTANT_Methodref)
-    tmp = "MethodRef";
-  else if (static_cast<int>(tag) == CONSTANT_InterfaceMethodref)
-    tmp = "InterfaceMethodRe";
-  else
+  switch (tag) {
+  case CONSTANT_Fieldref:
+    tmp = "FieldRef"; break;
+  case CONSTANT_Methodref:
+    tmp = "MethodRef"; break;
+  case CONSTANT_InterfaceMethodref:
+    tmp = "InterfaceMethodRe"; break;
+  default:
     tmp = "UnknownRef";
-    
+  }
   console("%s: classIndex=%d nameAndTypeIndex=%d", tmp.c_str() , classIndex, nameAndTypeIndex);
 }
 
@@ -192,6 +179,14 @@ ConstantMethodHandleInfo::dump()
   console("Method Handle: referenceKind=%d referenceIndex=%d", referenceKind, referenceIndex);
 }
 
+string 
+ConstantMethodHandleInfo::getValue (vector<ConstantPoolInfo*>  const& constantPool)
+{
+  fatal("ConstantMethodHandleInfo::getValue not implemented");
+  return "ERROR";
+}
+
+
 
 void
 ConstantInvokeDynamicInfo::load(ifstream& inf)
@@ -206,4 +201,12 @@ ConstantInvokeDynamicInfo::dump()
   console("ConstantInvokeDynamicInfo, bootstrapMethodAttrIndex=%d, nameAndTypeIndex=%d",
             bootstrapMethodAttrIndex, nameAndTypeIndex );
 }
+
+string 
+ConstantInvokeDynamicInfo::getValue (vector<ConstantPoolInfo*>  const& constantPool)
+{
+  fatal("ConstantInvokeDynamicInfo::getValue not implemented");
+  return "ERROR";
+}
+
 

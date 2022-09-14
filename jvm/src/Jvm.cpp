@@ -21,7 +21,6 @@ Jvm* Jvm::instance_ = nullptr;
 void
 Jvm::usage()
 {
-  //info("pppppppppp");
   cout<<"Usage: "<<endl;
   cout<<"\t"<<"jadi [-p] class_file"<<endl;
   cout<<"\t"<<"-p: to disassemble the class file"<<endl;

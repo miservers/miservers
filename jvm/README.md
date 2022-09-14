@@ -20,5 +20,8 @@
     make init
     make
 
+## JVM Class File format
+![classFileFormat](./jvm-classFileFormat.png)
+
 ## Documemtation
 - [The JVM Specification, Java SE 14](https://docs.oracle.com/javase/specs/jvms/se14/html/index.html)

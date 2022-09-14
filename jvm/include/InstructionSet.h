@@ -5,11 +5,12 @@
 #include <vector>
 
 #include "Types.h"
+using namespace std;
 
 struct byte_code {
   int opCode;
-  std::string mnemonic;
-  int operandSize; //in bytes
+  string mnemonic; // mnemonic=opCode
+  int operandSize; // in bytes
 };
 
 /*Singleton*/
@@ -17,7 +18,7 @@ class InstructionSet
 {
   public:
     static InstructionSet* Instance();
-    std::string getMnemonic (int opCode);
+    string getMnemonic (int opCode);
     int getOperandSize (int opCode);
     bool isImmOprand (int opCode); // return true if opCode has immediate operand(not in constant pool)
     
@@ -26,7 +27,7 @@ class InstructionSet
     
     struct byte_code byteCodeTable[256];
     
-    InstructionSet ();
+    InstructionSet (); // initialize the byteCodeTable
 };
 
 #define   def(opCode, mnemonic, operandSize) {(opCode), (mnemonic), (operandSize)}

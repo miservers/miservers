@@ -15,7 +15,7 @@ class Disassembler
   public:
     static Disassembler* instance ();
     void disassemble (JavaClass*);    // disassemle hole class
-    void disassemble (const CodeAttribute*); // disassemle jvm instructions
+    void disassembleCode (const CodeAttribute*); // disassemle jvm instructions
     
   private:
     static Disassembler* instance_;
