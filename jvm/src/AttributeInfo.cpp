@@ -83,14 +83,6 @@ CodeAttribute::load(ifstream& inf)
 void
 CodeAttribute::dump()
 {
-  console("  Code:");
   Disassembler::instance()->disassembleCode(this);
   
-  console("\texceptionTableLength: %d", exceptionTableLength);
-  for (ExceptionInfo* exception : this->exceptionTable)
-    exception->dump();
-    
-  console("\tattributesCount: %d", attributesCount);
-  for (AttributeInfo* attribute : this->attributes)
-    attribute->dump();
 }

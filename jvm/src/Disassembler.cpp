@@ -43,28 +43,31 @@ Disassembler::disassembleCode (const CodeAttribute* codeAttribute)
 
   const vector<u1>& code = codeAttribute->code;
   for (pc = 0; pc < code.size(); pc++) {
-    opCode = static_cast<int>(code[pc]);
+    opCode = code[pc];
     mnemonic = instructionSet->getMnemonic(opCode);
     operandSize = instructionSet->getOperandSize(opCode);
-   // cout<<"\t"<<left<<setw(5)<<hex<<opCode<<setw(15)<<mnemonic;
     
     if (operandSize == 1) {
-      index = static_cast<u4>(code[++pc]);
-//      cout<<"#"<<setw(4)<<dec<<index;
+      index = code[pc+1];
     }
     else if (operandSize == 2) {
-      indexByte1 = static_cast<u4>(code[++pc]);
-      indexByte2 = static_cast<u4>(code[++pc]);
+      indexByte1 = code[pc+1];
+      indexByte2 = code[pc+2];
       index = (indexByte1<<8) + indexByte2;  
-  //    cout<<"#"<<setw(4)<<dec<<index;
     }
-    else
-      pc += operandSize;
+    
       
     string operandValue = "";
     if (operandSize >= 1 && !InstructionSet::Instance()->isImmOprand (opCode))
           operandValue = "//"+codeAttribute->clazz->getConstantPoolValue(index);
-    console("\t%s #%d %s", mnemonic.c_str(), index, operandValue.c_str());
+          
+    if (operandSize == 0){
+      console("  %d: %s ", pc, mnemonic.c_str());
+    }
+    else
+      console("  %d: %s #%d \t%s", pc, mnemonic.c_str(), index, operandValue.c_str());
+
+    pc += operandSize;
   }
 };
 

@@ -13,6 +13,8 @@
 #include "JavaClass.h"
 #include "OperandValue.h"
 #include <vector>
+#include <stack>
+
 
 #define fill_space2(n) setw((n)*2)<<"" 
 
@@ -22,14 +24,14 @@ class Frame {
   public:
     intptr_t returnAddress;
     vector<j_int_t> locals;    //local variables
-    vector<j_int_t>  operandStack; //operand Stack
+    stack<j_int_t>  operandStack; //operand Stack
     MethodInfo* method;  // method associated with this frame
     
     Frame (MethodInfo* method) 
     { 
       this->method = method;
       locals.resize(this->method->codeAttribute->maxLocals);
-      operandStack.reserve(this->method->codeAttribute->maxStack);
+      //operandStack.reserve(this->method->codeAttribute->maxStack);
     };
     ~Frame () {};
     void dump(int depth); //dump the frame

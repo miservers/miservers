@@ -155,16 +155,15 @@ JavaClass::dump()
     constantPool.at(i)->dump();
   }
     
-  //Interfaces
-  console("Interfaces Count: %d", interfaceCount);
-  for (i=0; i<interfaceCount; i++)
-    cout<<"Interface: "<<interfaces[i]<<endl;
-    
+  console(" ");
+
   //Fields 
   console("Fields Count: %d", fieldCount);
   for (FieldInfo* field : this->fields) 
     field->dump();
-    
+  
+  console(" ");
+
   //Methods 
   console("Methods Count: %d", methodCount);
   for (MethodInfo* method : this->methods) 

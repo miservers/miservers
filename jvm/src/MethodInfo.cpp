@@ -59,7 +59,7 @@ void
 MethodInfo::dump()
 {
   string methodDesc = this->getDescription(); 
-  console("Method : nameIndex=%d descriptorIndex=%d { //%s", nameIndex, descriptorIndex, methodDesc.c_str());
+  console("Method : %s {", methodDesc.c_str());
   console("  access flags: %s", access_flag_lebel(accessFlags).c_str());
   console("  attributesCount: %d", attributesCount);
   if (codeAttribute) {
@@ -71,6 +71,7 @@ MethodInfo::dump()
     attribute->dump();
     
   console("}");
+  console(" ");
 }
 
 string

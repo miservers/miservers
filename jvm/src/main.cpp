@@ -13,7 +13,7 @@ int main(int nargs, char** argv)
 {
   int i;
   JavaClass* clazz;
-  string class_file = "./test/Hello.class";
+  string class_file = "./test/Calculator.class";
   int opt_p = 0;
 
   if (nargs <= 1 && class_file == "") {

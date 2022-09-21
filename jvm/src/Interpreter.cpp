@@ -126,7 +126,7 @@ Interpreter::execute()
   case ALOAD_3:
     n = ir - ALOAD_0;
     value = currentFrame->locals[n];
-    currentFrame->operandStack.push_back(value);
+    currentFrame->operandStack.push(value);
     break;
   case ASTORE_0:
   case ASTORE_1:
@@ -134,25 +134,25 @@ Interpreter::execute()
   case ASTORE_3:
     {
       n = ir - ASTORE_0;
-      j_int_t ref = currentFrame->operandStack.back ();
-      currentFrame->operandStack.pop_back ();
+      j_int_t ref = currentFrame->operandStack.top ();
+      currentFrame->operandStack.pop ();
       currentFrame->locals[n] = ref; 
     }
     break;
   case BIPUSH:
-    currentFrame->operandStack.push_back(j_cast(operandByte1));
-    cout<<" "<<dec<<j_cast(operandByte1);
+    currentFrame->operandStack.push(operandByte1);
+    cout<<" "<<dec<<operandByte1;
     break;
   case DUP:
-    value = currentFrame->operandStack.back();
-    currentFrame->operandStack.push_back(value);
+    value = currentFrame->operandStack.top();
+    currentFrame->operandStack.push(value);
     break;
   case ICONST_1:
-    currentFrame->operandStack.push_back(1);
+    currentFrame->operandStack.push(1);
     break;
   case ILOAD_1:
     value = currentFrame->locals[1];
-    currentFrame->operandStack.push_back(value);
+    currentFrame->operandStack.push(value);
     break;
   case INVOKEVIRTUAL:
   case INVOKESPECIAL: // todo separate invoke virtual/special
@@ -164,7 +164,7 @@ Interpreter::execute()
           <<"\t// "<<methodRef->getValue(currentClass->constantPool)<<"  ";
       MethodInfo* nextMethod = currentClass->findMethod (methodRef);
       if (nextMethod == nullptr) { //see findMethod
-        currentFrame->operandStack.pop_back (); // make stack clean
+        currentFrame->operandStack.pop (); // make stack clean
         return;
       }
     
@@ -172,12 +172,12 @@ Interpreter::execute()
       int nargs = nextMethod->countParameters ();
       nextFrame->locals.resize(nargs+1);
       for (i=0; i<nargs; i++) {  // putting params on local stack
-        j_int_t arg = currentFrame->operandStack.back ();
-        currentFrame->operandStack.pop_back ();
+        j_int_t arg = currentFrame->operandStack.top ();
+        currentFrame->operandStack.pop ();
         nextFrame->locals[i+1] = arg;
       }  
-      j_int_t ref = currentFrame->operandStack.back (); // objectRef = this
-      currentFrame->operandStack.pop_back ();
+      j_int_t ref = currentFrame->operandStack.top (); // objectRef = this
+      currentFrame->operandStack.pop ();
       nextFrame->locals[0] = ref; // locals[0] = this
     
       callMethod (nextMethod, nextFrame);
@@ -186,17 +186,17 @@ Interpreter::execute()
     break;
   case ISHL:
     {
-      j_int_t arg2 = currentFrame->operandStack.back();
-      currentFrame->operandStack.pop_back ();
-      j_int_t arg1 = currentFrame->operandStack.back();
-      currentFrame->operandStack.pop_back ();
+      j_int_t arg2 = currentFrame->operandStack.top();
+      currentFrame->operandStack.pop ();
+      j_int_t arg1 = currentFrame->operandStack.top();
+      currentFrame->operandStack.pop ();
       value = arg1 << arg2;
-      currentFrame->operandStack.push_back(value);
+      currentFrame->operandStack.push(value);
     }
     break;
   case ISTORE_1:
-    value = currentFrame->operandStack.back();
-    currentFrame->operandStack.pop_back ();
+    value = currentFrame->operandStack.top();
+    currentFrame->operandStack.pop ();
     currentFrame->locals[1] = value;
     break;
   case LDC:
@@ -213,7 +213,7 @@ Interpreter::execute()
       objectRef->clazz = currentClass; //todo resolve the object class
       objectRef->initFields ();
       //@TODO
-      // currentFrame->operandStack.push_back((j_int_t)objectRef);
+      // currentFrame->operandStack.push((j_int_t)objectRef);
       // Jvm::Runtime()->edenSpace->add (objectRef);
     }
     break;
@@ -223,20 +223,20 @@ Interpreter::execute()
       FieldInfo* fieldInfo = currentClass->resolveField(index);
       data = currentClass->getConstantPoolValue(index);
       cout<<" #"<<index<<"\t//"<<data;
-      value = currentFrame->operandStack.back();
-      currentFrame->operandStack.pop_back();
-      objectRef = reinterpret_cast<ObjectRef*>(currentFrame->operandStack.back());
-      currentFrame->operandStack.pop_back();
+      value = currentFrame->operandStack.top();
+      currentFrame->operandStack.pop();
+      objectRef = reinterpret_cast<ObjectRef*>(currentFrame->operandStack.top());
+      currentFrame->operandStack.pop();
       objectRef->putField (fieldInfo, value);
     }
     break;
   case IRETURN:
-    value = currentFrame->operandStack.back();
+    value = currentFrame->operandStack.top();
     delete currentFrame;
     //switch
     currentFrame = jstack.top ();
     jstack.pop ();
-    currentFrame->operandStack.push_back(value);
+    currentFrame->operandStack.push(value);
     currentMethod = currentFrame->method;
     currentClass = currentMethod->clazz;
     pc = currentFrame->returnAddress;
@@ -257,7 +257,7 @@ Interpreter::execute()
     break;
   case SIPUSH:
     value = (operandByte1 << 8) | operandByte2;
-    currentFrame->operandStack.push_back(j_cast(value));
+    currentFrame->operandStack.push(j_cast(value));
     cout<<" "<<dec<<value;
     break;
   default:
