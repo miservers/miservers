@@ -43,7 +43,7 @@ simple VDOM from scratch. steps(see ./app.js):
   - `_`  for reel DOM, eg _div, _app
   - `v`  for virtual DOM, eg vDiv
 
-#### Envirnment
+#### Environment
 - Visual Studio Code
 - `Live Server` extension
 

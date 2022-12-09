@@ -13,7 +13,7 @@ import {diff} from './diff.js'
              li li
 */
 
-let vh2 = createTextVNode('h2', {id:'h1', style:"color:red"}, 'Villes')
+let vh2 = createTextVNode('h2', {id:'h2', style:"color:red"}, 'Villes')
 
 let vli1 = createTextVNode('li', {id:'li1'}, 'Casablanca')
 let vli2 = createTextVNode('li', {id:'li2'}, 'Rabat')
@@ -27,6 +27,7 @@ let vDiv1 = createTextVNode('div', {id:'div1'}, 'Demo for virtual dom from scrat
 let vApp = createVNode('div', {id:'vapp'})
 vApp.appendChild(vh2).appendChild(vul).appendChild(vHr).appendChild(vDiv1)
 
+console.log(vApp)
 
 //mount vnode on real dom
 const _app = document.getElementById("app")

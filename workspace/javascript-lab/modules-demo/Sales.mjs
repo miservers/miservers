@@ -18,3 +18,11 @@ sell (item, 50);
 
 let p2 = document.getElementById("p2")
 p2.textContent = 'After Sale: totalSale=' + totalSale + 'DH, milk stock='+ item.stock
+
+
+let button1 = document.getElementById("button1");
+
+button1.onclick = ()=> {sell(item,25);
+                        p2.textContent = 'totalSale=' + totalSale + 'DH, milk stock='+ item.stock
+                        }
+

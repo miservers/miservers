@@ -1,6 +1,6 @@
 // @CR @AR 10/2021
 
-import {VNode, createTextVNode, createVNode} from './vnode.js'
+import {VNode, createTextVNode, createVNode, NODE_TYPE} from './vnode.js'
 
 // mount a virtual node on the real dom node. it's a recursive function
 // See <https://dom.spec.whatwg.org/#interface-document>
@@ -11,14 +11,14 @@ const mount = (vnode, _node) => {
     let _el = document.createElement(vnode.tag) 
     
     // set _el.attributes = vnode.props
-    let vprops = vnode.props
-    Object.keys(vprops).forEach (attr => {
-        let value = vprops[attr]
+    let props = vnode.props
+    Object.keys(props).forEach (attr => {
+        let value = props[attr]
         _el.setAttribute(attr, value) 
     })
 
     // mount vnode on the real dom
-    if (vnode.nodeType == VNode.TEXT_NODE) {
+    if (vnode.nodeType == NODE_TYPE.TEXT) {
         _el.innerHTML = vnode.data
     }
     else if (vnode.childNodes != null)

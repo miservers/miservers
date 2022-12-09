@@ -1,10 +1,6 @@
-
-
-
-https://github.com/mbrn/material-table/issues/1886
-
-https://stackblitz.com/edit/material-table-starter-template-tqshgs
-
-https://github.com/mbrn/material-table/issues/1996
-
-https://github.com/mbrn/material-table/issues/1661
+kvm -no-reboot -m 1024 \
+    -drive file=image.img,format=raw,cache=none,if=virtio \
+    -cdrom /media/jadmin/Data2/logiciels/ubuntu-20.04-live-server-amd64.iso \
+    -kernel /mnt/casper/vmlinuz \
+    -initrd /mnt/casper/initrd \
+    -append 'autoinstall ds=nocloud-net;s=http://_gateway:3003/'
