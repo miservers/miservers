@@ -1,3 +1,6 @@
+#### Babel
+*Babel* is javascript transpiler that convert new Javascript code(ES6) into old plain javascript that can run on any browser
+
 #### Installation Babel
 ~~~~sh
 cd workspace/
@@ -12,7 +15,7 @@ mkdir dist
 node_modules/.bin/babel --plugins transform-react-jsx demo.jsx -d dist/
 ~~~~
 
-#### JSX code that we want to transpile is(demo.jsx):
+#### JSX code that we want to transpile it(demo.jsx):
 ~~~js
 class Employee extends React.Component{
     constructor(props) {
