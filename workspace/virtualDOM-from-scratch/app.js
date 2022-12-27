@@ -17,8 +17,9 @@ let vh2 = createTextVNode('h2', {id:'h2', style:"color:red"}, 'Villes')
 
 let vli1 = createTextVNode('li', {id:'li1'}, 'Casablanca')
 let vli2 = createTextVNode('li', {id:'li2'}, 'Rabat')
+let vli3 = createTextVNode ('li', {id:'li3'}, 'Pekin')
 let vul = createVNode('ul', {id:'ul'})
-vul.appendChild(vli1).appendChild(vli2)
+vul.appendChild(vli1).appendChild(vli2).appendChild(vli3)
 
 let vHr = createVNode('hr', {id:'myhr1'})
 

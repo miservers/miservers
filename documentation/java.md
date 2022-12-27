@@ -9,7 +9,7 @@
     unzip -l myarchive.zip  
     unzip -j src.zip java/lang/Object.java
  
-#### Construc a war
+#### Construct a war
 	mv myapp.war temp/
 	cd temp/
 	jar -xvf myapp.war
@@ -106,6 +106,27 @@ Tools:
 
 ## Thread Dump: Out Of Thread
 [Analysis Out Of Thread](https://blogs.oracle.com/jiechen/analysis-against-jvm-thread-dump-out-of-thread)
+
+
+## Java Performances Utilities
+------------------------------------------
+
+### jcmd
+list all runnring jmv
+
+    jcmd
+
+Flight Recording
+
+    jcmd PID JFR.start name=MyRecording settings=profile delay=20s duration=2m filename=~/myrecording.jfr
+
+Flight Recording Status
+
+    jcmd PID JFR.check
+
+Analyse JFR File : use **jmc** tool
+
+### jmc : Java Mission Control
 
 
 ## Java Tools
