@@ -21,9 +21,7 @@ public class RecordTest {
     }
  }
 
- /*
-  * creation of the record class is very straightforward
-  */
+ 
  record Student (String name, Integer age) {}
 
 

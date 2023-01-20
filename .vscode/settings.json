@@ -1,4 +1,0 @@
-{
-    "window.title": "${dirty}${activeEditorShort}${separator}${rootName}",
-    "makefile.makeDirectory": "jvm"
-}
