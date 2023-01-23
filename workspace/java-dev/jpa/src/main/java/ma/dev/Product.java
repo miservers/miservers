@@ -13,23 +13,24 @@ import javax.persistence.Column;
 @Getter
 @Setter
 @Entity
-@Table(name="User")
-public class User implements Serializable{
+@Table(name = "Product")
+public class Product implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
     String name;
 
-    @Column(name="user_name")
-    String username;
-    
-    String email;
-    
-    public User(String name, String username, String email)
-    {
+    @Column(name = "category")
+    String category;
+
+    int price;
+
+    public Product(String name, String category, int price) {
         this.name = name;
-        this.username = username;
-        this.email = email;
+        this.category = category;
+        this.price = price;
     }
+
 }

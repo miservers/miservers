@@ -8,11 +8,11 @@ public class Main
 {
     public static void main( String[] args ) throws Exception
     {
-       User user = new User("Ali Khaled", "ali123", "ali@oin.com");
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("manager1");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        UserRepository userRepository = new UserRepository(entityManager);
+       Product product = new Product("Lenovo 11.6", "Laptops", 165);
+       EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("manager1");
+       EntityManager entityManager = entityManagerFactory.createEntityManager();
+       ProductRepository userRepository = new ProductRepository(entityManager);
         
-        userRepository.save(user);
+       userRepository.save(product);
     }
 }
