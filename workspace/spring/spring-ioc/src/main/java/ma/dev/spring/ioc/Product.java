@@ -1,4 +1,4 @@
-package ma.dev;
+package ma.dev.spring.ioc;
 
 import java.io.Serializable;
 import lombok.Getter;
