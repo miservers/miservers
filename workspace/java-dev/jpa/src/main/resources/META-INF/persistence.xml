@@ -4,7 +4,7 @@
     <!-- Persistence provider -->
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     <!-- Entity classes -->
-    <class>ma.dev.Product</class>
+    <class>ma.dev.jpa.Product</class>
     <properties>
       <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:h2:~/h2DB"/>
