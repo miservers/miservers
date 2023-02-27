@@ -1,4 +1,4 @@
-package ma.dev.springboot.rest;
+package ma.dev.springboot.product;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

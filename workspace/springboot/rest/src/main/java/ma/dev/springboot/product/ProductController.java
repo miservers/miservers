@@ -1,13 +1,16 @@
-package ma.dev.springboot.rest;
+package ma.dev.springboot.product;
 
 import java.util.List;
+
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api/product")
 public class ProductController {
 	private final ProductRepository repository;
 	
@@ -15,12 +18,13 @@ public class ProductController {
 		this.repository = repository;
 	}
 	
-	@GetMapping("/products")
+	@GetMapping("/")
 	List<Product> all() {
+		System.out.println("ALL PRODUCTS");
 		return repository.findAll();
 	}
 	
-	@PostMapping("/products/add")
+	@PostMapping("/add")
 	Product add (@RequestBody Product product) {
 		return repository.save(product);
 	}
