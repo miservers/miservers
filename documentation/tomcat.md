@@ -1,24 +1,22 @@
-## Tomcat
+##  Tomcat Configuration
 
-**Overload Java Security Policy or Ext lib**  
+#### Overload Java Security Policy or Ext lib  
 Add to _setenv.sh_  
+
 ```sh
     CATALINA_OPTS="... -Djava.ext.dirs=jre/lib/ext -Djava.security.policy=jre/lib/security/java.policy"
 ```
-
-**TrustStore**  
-Add this options to _CATALINA_OPTS_  
+#### TrustStore  
+Add this options to _CATALINA_OPTS_  
 ```sh
     -Djavax.net.ssl.trustStore=/path/truststore.jks 
     -Djavax.net.ssl.trustStorePassword=**** 
     -Djavax.net.ssl.trustStoreType=JKS
 ```
 
-**jvmRoute**: server.xml.  
-Used by load balancer to enable session affinity. Il must be unique accros tomcat instances.
- 
-
-**Activate HTTPS (Tomcat 8)**  
+#### jvmRoute  
+Located in server.xml, it is used by the load balancer to enable session affinity. Il must be unique accros tomcat instances..
+#### Activate HTTPS (Tomcat 8) 
 ```xml
     <Connector port="10080" protocol="HTTP/1.1"
        connectionTimeout="20000"
@@ -43,8 +41,7 @@ Used by load balancer to enable session affinity. Il must be unique accros tomca
            SSLVerifyClient="optional" SSLProtocol="TLS"/>
     <Connector port="10099" protocol="AJP/1.3" redirectPort="8443" address="safp0180" />
 ```
-
-**SSL Support - APR/Native**  
+#### SSL Support - APR/Native 
 When APR/native is enabled, the HTTPS connector will use a socket poller for keep-alive, 
 increasing scalability of the server.  
 1. You must activate it in server.xml
@@ -54,8 +51,7 @@ increasing scalability of the server.
 2. and install/compile native APR. complicated!  
 see: https://blog.netapsys.fr/optimiser-tomcat-installation-de-apache-tomcat-native/
 
-
-**No Blocking Http Connector - NIO (Tomcat 6 and 7)**
+#### No Blocking Http Connector - NIO (Tomcat 6 and 7)*
 > By default, HTTP connector in Tomcat6 and Tomcat7 is blocking connector(BIO). To serve 100 concurrent users, 
 > it requires 100 actives threads(maxThreads if not set, is 200 by default).  To use no blocking connector(NIO): 
 ```xml
@@ -64,33 +60,26 @@ see: https://blog.netapsys.fr/optimiser-tomcat-installation-de-apache-tomcat-nat
 > From tomcat8, HTTP connector is NIO by default. wich uses a shared thread pool.
 
 
-### Rotation des logs
-Install Package  
-  
-    apt install logrotate
+## Rotation des logs
+Install Package  
+	apt install logrotate
 
-Config:  
-/etc/logrotate.conf includes all scripts in the/etc/logrotate.d/ 
+Configuration: Create a file **/etc/logrotate.d/tomcat** with content:t
 
-```
-# cat /etc/logrotate.d/tomcat
-/opt/tomcat-8.5/logs/catalina.* {
-        daily        
-		dateext
-        copytruncate
-        missingok
-        rotate 14    
-        compress
-}
+	/opt/tomcat-8.5/logs/catalina.* 
+		daily       
+		dateex			        
+		copytruncat
+		missingo
+		rotate 14  
+		compress
+Edit The file **/etc/cron.daily/logrotate**e
+	/usr/sbin/logrotate /etc/logrotate.conff`
+Run logrotate in verbose mode to debug problems 
+	
+	/usr/sbin/logrotate -v /etc/logrotate.conff
 
-# cat /etc/cron.daily/logrotate
-/usr/sbin/logrotate /etc/logrotate.conf
-```
-Run logrotate in verbose mode:  
-
-    /usr/sbin/logrotate -v /etc/logrotate.conf
-
-### Logs
+## Logs
 Ajout d'un filter/appender: editer _conf/logging.properties_
 ```
 handlers = ..., 5jersey.org.apache.juli.FileHandler
