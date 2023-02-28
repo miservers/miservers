@@ -1,9 +1,9 @@
-• Tomcat 10:
-    • Config
-    • Security 
-      
-    • Logs rotation
- • Apache Httpd
+## Tomcat 10:
+- Config
+- Security 
+- Logs rotation
+
+## Apache Httpd
  • Load Balancing
  • Performance Tests
  • Linux: 
