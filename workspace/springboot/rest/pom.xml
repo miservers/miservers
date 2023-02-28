@@ -9,8 +9,8 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ma.dev.springboot</groupId>
-	<artifactId>rest</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>springboot-rest</artifactId>
+	<version>0.1</version>
 	<packaging>war</packaging>
 	<name>rest</name>
 	<description>Demo project for Spring Boot</description>
@@ -44,6 +44,11 @@
 			<groupId>org.hibernate.javax.persistence</groupId>
 			<artifactId>hibernate-jpa-2.1-api</artifactId>
 			<version>1.0.2.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 	<build>
