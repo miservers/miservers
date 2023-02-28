@@ -1,12 +1,12 @@
 ## Tomcat 10 
-[tomcat.md](file://./tomcat.md)
+[tomcat.md](./tomcat.md)
   - Configuration
   - HTTPS
   - Proxying with mod_proxy, mod_ajp , mod_jk
   - Load Balancing 
   - APR Config
   - Realm
-  - Logs & Rotation
+  - Logs Rotation [&#10004;]
   - Persistant Session
   - Security
   - Performance
