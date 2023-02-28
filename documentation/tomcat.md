@@ -64,8 +64,7 @@ see: https://blog.netapsys.fr/optimiser-tomcat-installation-de-apache-tomcat-nat
 Install Package  
 	apt install logrotate
 
-Configuration: Create a file **/etc/logrotate.d/tomcat** with content:t
-
+Configuration: Create a file **/etc/logrotate.d/tomcat** with content:t
 	/opt/tomcat-8.5/logs/catalina.* 
 		daily       
 		dateex			        
