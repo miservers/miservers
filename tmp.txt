@@ -1,6 +1,49 @@
-kvm -no-reboot -m 1024 \
-    -drive file=image.img,format=raw,cache=none,if=virtio \
-    -cdrom /media/jadmin/Data2/logiciels/ubuntu-20.04-live-server-amd64.iso \
-    -kernel /mnt/casper/vmlinuz \
-    -initrd /mnt/casper/initrd \
-    -append 'autoinstall ds=nocloud-net;s=http://_gateway:3003/'
+def print_board(board):
+    print("   |   |   ")
+    print(" " + board[0] + " | " + board[1] + " | " + board[2] + " ")
+    print("   |   |   ")
+    print("-----------")
+    print("   |   |   ")
+    print(" " + board[3] + " | " + board[4] + " | " + board[5] + " ")
+    print("   |   |   ")
+    print("-----------")
+    print("   |   |   ")
+    print(" " + board[6] + " | " + board[7] + " | " + board[8] + " ")
+    print("   |   |   ")
+
+def check_win(board, player):
+    return ((board[0] == player and board[1] == player and board[2] == player) or
+    (board[3] == player and board[4] == player and board[5] == player) or
+    (board[6] == player and board[7] == player and board[8] == player) or
+    (board[0] == player and board[3] == player and board[6] == player) or
+    (board[1] == player and board[4] == player and board[7] == player) or
+    (board[2] == player and board[5] == player and board[8] == player) or
+    (board[0] == player and board[4] == player and board[8] == player) or
+    (board[2] == player and board[4] == player and board[6] == player))
+
+def tic_tac_toe():
+    board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+    player = "X"
+    game_over = False
+    
+    while not game_over:
+        print_board(board)
+        move = input("It's " + player + "'s turn. Enter a position (1-9): ")
+        move = int(move) - 1
+        
+        if board[move] == " ":
+            board[move] = player
+            if check_win(board, player):
+                print_board(board)
+                print(player + " wins! Congrats!")
+                game_over = True
+            elif " " not in board:
+                print_board(board)
+                print("Tie game!")
+                game_over = True
+            else:
+                player = "O" if player == "X" else "X"
+        else:
+            print("That space is taken. Try again.")
+    
+tic_tac_toe()
