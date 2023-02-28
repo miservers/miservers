@@ -51,13 +51,17 @@ increasing scalability of the server.
 2. and install/compile native APR. complicated!  
 see: https://blog.netapsys.fr/optimiser-tomcat-installation-de-apache-tomcat-native/
 
-#### No Blocking Http Connector - NIO (Tomcat 6 and 7)*
-> By default, HTTP connector in Tomcat6 and Tomcat7 is blocking connector(BIO). To serve 100 concurrent users, 
-> it requires 100 actives threads(maxThreads if not set, is 200 by default).  To use no blocking connector(NIO): 
-```xml
-   <Connector maxThreads="1000" port="8080" protocol="org.apache.coyote.http11.Http11NioProtocol" .../>
+#### No Blocking Http Connector - NIO Tomcat 6 and 7
+
+By default, HTTP connector in Tomcat6 and Tomcat7 is blocking connector(BIO). To serve 100 concurrent users, 
+
+it requires 100 actives threads(maxThreads if not set, is 200 by default).  To use no blocking connector(NIO): 
+```xmll
+   <Connector maxThreads="1000" port="8080" 		
+   		protocol="org.apache.coyote.http11.Http11NioProtocol" .../>
 ```
-> From tomcat8, HTTP connector is NIO by default. wich uses a shared thread pool.
+
+From tomcat8, HTTP connector is NIO by default. wich uses a shared thread pool.
 
 
 ## Rotation des logs
@@ -65,16 +69,29 @@ Install Package
 	apt install logrotate
 
 Configuration: Create a file **/etc/logrotate.d/tomcat** with content:t
-	/opt/tomcat-8.5/logs/catalina.* 
-		daily       
-		dateex			        
-		copytruncat
-		missingo
-		rotate 14  
-		compress
-Edit The file **/etc/cron.daily/logrotate**e
-	/usr/sbin/logrotate /etc/logrotate.conff`
-Run logrotate in verbose mode to debug problems 
+	/opt/tomcat-10/logs/catalina.* {
+		daily
+    	dateext   
+    	copytruncate
+    	missingok
+    	rotate 14
+    	compress
+	}
+	
+copytruncate : truncate the original file after coping it. This allow rotating logs with Tomcat running.
+
+missingok: Don't issue a message error if log file is missing.
+
+Cron daemon launch daily logrotate.
+
+	$ ls /etc/cron.daily/
+	logrotate
+`
+Check Config
+
+	logrotate -d /etc/logrotate.d/tomcat
+	
+Run logrotate in verbose mode to Test or to Debug problems 
 	
 	/usr/sbin/logrotate -v /etc/logrotate.conff
 
