@@ -1,0 +1,28 @@
+## Tomcat 10 
+[tomcat.md](file://./tomcat.md)
+  - Configuration
+  - HTTPS
+  - Proxying with mod_proxy, mod_ajp , mod_jk
+  - Load Balancing 
+  - APR Config
+  - Realm
+  - Logs & Rotation
+  - Persistant Session
+  - Security
+  - Performance
+  - Tomcat v6, v8 , v9 
+
+## Apache Httpd
+  - Load Balancing
+  - Performance Tests
+
+## Linux: 
+  - Cron
+  - Script
+  - Main exploitation commands
+  - Shell Scripting
+  - Python
+
+## Java EE Applications
+  - Out Of Memory 
+  - Threads botelenck Analyse
