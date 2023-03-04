@@ -26,3 +26,5 @@
 ## Java EE Applications
   - Out Of Memory 
   - Threads botelenck Analyse
+
+## IBM MQ
