@@ -31,7 +31,11 @@
   - Out Of Memory 
   - Threads botelenck Analyse
 
+<<<<<<< HEAD
 ## Docker
 [docker.md](./docker.md)
 
 
+=======
+## IBM MQ
+>>>>>>> 13395f353bfb1ba119cf24a5884cd7484cbe8033
