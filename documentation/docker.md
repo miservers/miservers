@@ -1,4 +1,7 @@
 
+### Start Docker Daemon
+    sudo systemctl start docker
+
 ### Build a Docker Image
 Create the  *Dockerfile*
 
@@ -10,7 +13,7 @@ Build the Image
     docker build -t myhttpd:2.4 .
 
 
-### Manage Docker Images
+### Docker Images
 List of installed images
 
     docker images
@@ -25,9 +28,13 @@ List of Running containers
 
     docker ps
 
+List of all containers even if stopped
+
+    docker ps -a
+
 Start/start a container
 
-    docker stop myhttpd2
+    docker stop/start myhttpd2
 
 Remove a container
 
@@ -42,3 +49,25 @@ Help on a Command(eg. build)
 
     docker build -h
 
+
+### Tomcat Container
+Pull Docker Image From the Hub
+
+    docker pull tomcat:10.0
+
+Create and Start a Tomcat Container from The Image
+
+    docker container create --publish 8888:8080 --name my-tomcat-10 tomcat:10.0
+    docker container ls -a
+    docker container start my-tomcat-10
+    docker container ls  # show running containers
+
+Access Url : <http://localhost:8888>
+
+There are no web apps deployed by default.
+
+Access to Tomcat Container Directory
+
+    Docker container exec -it my-tomcat-10 bash
+    root@081fe841268a:/usr/local/tomcat# ls
+    

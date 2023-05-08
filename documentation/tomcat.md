@@ -1,13 +1,36 @@
+## SetUp and Start Up
+HowTo set up Tomcat 10: [RUNNING.txt](https://tomcat.apache.org/tomcat-10.1-doc/RUNNING.txt)
+
+##### Configure Environment Variables
+* CATALINA_HOME(required) : 
+* CATALINA_BASE (optional) :
+* JAVA_HOME (required) : 
+* CATALINA_OPTS (optional) :
+* JAVA_OPTS (optional) :
+
+All this variables can be defined in the **setenv** script.
+
+##### Using the "setenv" script 
+On *nix, $CATALINA_BASE/bin/setenv.sh:
+
+  JRE_HOME=/usr/java/latest
+  CATALINA_PID="/run/tomcat.pid"
+
+
 ##  Tomcat Configuration
 
-#### Overload Java Security Policy or Ext lib  
+#### Overload Java Security Policy or Ext lib  
+
 Add to _setenv.sh_  
 
 ```sh
     CATALINA_OPTS="... -Djava.ext.dirs=jre/lib/ext -Djava.security.policy=jre/lib/security/java.policy"
 ```
-#### TrustStore  
-Add this options to _CATALINA_OPTS_  
+
+#### TrustStore  
+
+Add this options to _CATALINA_OPTS_  
+
 ```sh
     -Djavax.net.ssl.trustStore=/path/truststore.jks 
     -Djavax.net.ssl.trustStorePassword=**** 
@@ -41,21 +64,27 @@ Located in server.xml, it is used by the load balancer to enable session affinit
            SSLVerifyClient="optional" SSLProtocol="TLS"/>
     <Connector port="10099" protocol="AJP/1.3" redirectPort="8443" address="safp0180" />
 ```
-#### SSL Support - APR/Native 
+
+#### SSL Support - APR/Native 
 When APR/native is enabled, the HTTPS connector will use a socket poller for keep-alive, 
 increasing scalability of the server.  
 1. You must activate it in server.xml
+
 ```sh
   <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
 ```
+
 2. and install/compile native APR. complicated!  
+
 see: https://blog.netapsys.fr/optimiser-tomcat-installation-de-apache-tomcat-native/
 
-#### No Blocking Http Connector - NIO Tomcat 6 and 7
+
+#### No Blocking Http Connector - NIO Tomcat 6 and 7
 
 By default, HTTP connector in Tomcat6 and Tomcat7 is blocking connector(BIO). To serve 100 concurrent users, 
 
-it requires 100 actives threads(maxThreads if not set, is 200 by default).  To use no blocking connector(NIO): 
+it requires 100 actives threads(maxThreads if not set, is 200 by default).  To use no blocking connector(NIO): 
+
 ```xmll
    <Connector maxThreads="1000" port="8080" 		
    		protocol="org.apache.coyote.http11.Http11NioProtocol" .../>
@@ -65,10 +94,12 @@ From tomcat8, HTTP connector is NIO by default. wich uses a shared thread pool.
 
 
 ## Rotation des logs
-Install Package  
+Install Package  
+
 	apt install logrotate
 
-Configuration: Create a file **/etc/logrotate.d/tomcat** with content:t
+Configuration: Create a file **/etc/logrotate.d/tomcat** with content:t
+
 	/opt/tomcat-10/logs/catalina.* {
 		daily
     	dateext   
@@ -86,7 +117,8 @@ Cron daemon launch daily logrotate.
 
 	$ ls /etc/cron.daily/
 	logrotate
-`
+`
+
 Check Config
 
 	logrotate -d /etc/logrotate.d/tomcat
@@ -97,6 +129,7 @@ Run logrotate in verbose mode to Test or to Debug problems
 
 ## Logs
 Ajout d'un filter/appender: editer _conf/logging.properties_
+
 ```
 handlers = ..., 5jersey.org.apache.juli.FileHandler
 
@@ -180,6 +213,7 @@ see : <http://www.codingpedia.org/ama/tomcat-jdbc-connection-pool-configuration-
 
 ## Tomcat 7
 **Preventing database connection pool leaks**
+
 ```sh
   removeAbandoned="true"
   removeAbandonedTimeout="600"
@@ -241,12 +275,14 @@ allowUnsafeLegacyRenegotiation=false
 Access to http://localhost:8080/notFound will show Tomcat Version (eg Apache Tomcat/8.0). To Eliminate it : 
 
 1. Modify server.xml : add server="XYZ" property to connector
+
 ```
    <Connector port="8080" protocol="HTTP/1.1"
 	    ...
         server="dServer" /> 
 ```
 2. Suppress Version from catalina.jar
+
 ```
 backup lib/catalina.jar
 
@@ -271,6 +307,7 @@ rm org/apache/catalina/util/ServerInfo.properties
 
 ### Suppressing StackTraces on HTTP 500 Errors 
 In web.xml, add error-page tag:
+
 ```
 <error-page>
     <error-code>500</error-code>
@@ -296,6 +333,7 @@ digest.sh cannot be used to encrypt passwds for DataSource resource
 ## Monitoring Performance tuning
 **Activate remote JMX**  
 Edit _bin/setenv.sh_ with:  
+
 ```sh
 export CATALINA_OPTS="-Dcom.sun.management.jmxremote \
                   -Dcom.sun.management.jmxremote.port=3333 \
@@ -311,6 +349,7 @@ Create files :
     $ chmod go-rwx jmxremote.password
 
 Or Without credentials:
+
 ```sh
 	-Dcom.sun.management.jmxremote
 	-Dcom.sun.management.jmxremote.port=6666
@@ -329,6 +368,7 @@ Solution: add also this option to the remote JVM, -Djava.rmi.server.hostname=hos
 Prereq:
 * manager application installed
 * role manager-jmx
+
 ```xml
 # cat tomcat-users.xml
   <role rolename="manager-jmx"/>
