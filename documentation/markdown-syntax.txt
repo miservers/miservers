@@ -43,4 +43,17 @@ Commands:
 
 - Images
   ![alt txt](images/Weblogic-Dashboard.png)
+  
+  - Table of content TOC
+  Look for an example in tomcat.md. IDs are generated automatically by theses rules:
+     * Upercase letters are lowercased
+     * spaces are replaced by -
+     
+     
+     
+     
+      
+  
+  
+  
 

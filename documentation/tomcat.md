@@ -1,4 +1,9 @@
-## SetUp and Start Up
+**Table of content:**
+- [Set Up](#set-up)
+- [Tomcat Administration](#tomcat-administration) 
+  - [Admin Manager](#admin-manager)
+ 
+## Set Up
 HowTo set up Tomcat 10: [RUNNING.txt](https://tomcat.apache.org/tomcat-10.1-doc/RUNNING.txt)
 
 ##### Configure Environment Variables
@@ -16,6 +21,9 @@ On *nix, $CATALINA_BASE/bin/setenv.sh:
   JRE_HOME=/usr/java/latest
   CATALINA_PID="/run/tomcat.pid"
 
+## Tomcat Administration
+#### Admin Manager
+You find official documentation here : [manager-howto](https://tomcat.apache.org/tomcat-10.0-doc/manager-howto.html)
 
 ##  Tomcat Configuration
 
@@ -93,7 +101,7 @@ it requires 100 actives threads(maxThreads if not set, is 200 by default).  To u
 From tomcat8, HTTP connector is NIO by default. wich uses a shared thread pool.
 
 
-## Rotation des logs
+#### Rotation des logs
 Install Package  
 
 	apt install logrotate
@@ -127,7 +135,7 @@ Run logrotate in verbose mode to Test or to Debug problems
 	
 	/usr/sbin/logrotate -v /etc/logrotate.conff
 
-## Logs
+#### Logs
 Ajout d'un filter/appender: editer _conf/logging.properties_
 
 ```
@@ -145,6 +153,16 @@ Log All in debug
 
     .level = FINE
 	
+
+#### Valves
+A Valve element represents a component that will be inserted into the request processing pipeline for the associated Catalina container (Engine, Host, or Context). 
+
+https://tomcat.apache.org/tomcat-10.0-doc/config/valve.html
+
+[List of Valves](https://tomcat.apache.org/tomcat-10.0-doc/config/valve.html). Examples:
+* Access Log Valve
+* Remote Address Valve
+* Single Sign On Valve
 
 ## Tomcat 8
 ###  JDBC Connection Pool Oracle
@@ -315,20 +333,22 @@ In web.xml, add error-page tag:
 </error-page>
 ```
 
-### Encrypting passwords in Tomcat
+### Password Encryption
 Generate encrypted password
 
     ./digest.sh -a sha-256 secret
 	./digest.sh -a md5 secret  : for MD5
 	
-To use encrypted pasword in tomcat-users.xml, add digest to server.xml
+To use encrypted pasword in **tomcat-users.xml**, add digest to **server.xml**
 
 	<Realm className="org.apache.catalina.realm.UserDatabaseRealm"
        resourceName="UserDatabase"
        digest="sha-256" />
 
-digest.sh cannot be used to encrypt passwds for DataSource resource	   
-	   
+_digest.sh_  cannot be used to encrypt passwords for DataSource resources	   
+	
+### CSRF (Cross-Site Request Forgery)
+manager-gui is protected against CSRF but JMX interface is NOT.   
 	   
 ## Monitoring Performance tuning
 **Activate remote JMX**  

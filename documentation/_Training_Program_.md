@@ -1,12 +1,15 @@
 ## Tomcat 10 
 [tomcat.md](./tomcat.md)
   - Configuration
+  - Admin Console
   - HTTPS
   - Proxying with mod_proxy, mod_ajp , mod_jk
   - Load Balancing 
   - APR Config
   - Realm
+  - Password Encryption
   - Logs Rotation [&#10004;]
+  - Valves
   - Persistant Session
   - Security
   - Performance

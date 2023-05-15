@@ -1,13 +1,13 @@
-package dev.springboot.rest;
+package dev.rest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringbootRestApplication {
+public class MedProApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringbootRestApplication.class, args);
+		SpringApplication.run(MedProApplication.class, args);
 	}
 
 }
