@@ -6,7 +6,7 @@
   - [Realm](#realm)
  
 ## Set Up
---------------
+-------------------------------------------------
 HowTo set up Tomcat 10: [RUNNING.txt](https://tomcat.apache.org/tomcat-10.1-doc/RUNNING.txt)
 
 ##### Configure Environment Variables
@@ -25,7 +25,7 @@ On *nix, $CATALINA_BASE/bin/setenv.sh:
   CATALINA_PID="/run/tomcat.pid"
 
 ## Tomcat Administration
-
+------------------------------------------------
 ### Admin Manager
 http://192.168.56.101:8080/manager/html
 
