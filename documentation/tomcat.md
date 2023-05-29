@@ -25,11 +25,16 @@ On *nix, $CATALINA_BASE/bin/setenv.sh:
   CATALINA_PID="/run/tomcat.pid"
 
 ## Tomcat Administration
----------------------------------------------
-### Admin Manager
-You find official documentation here : [manager-howto](https://tomcat.apache.org/tomcat-10.0-doc/manager-howto.html)
+------------------
 
-1. To Access the manager from a remote host, Allow your IP in **context.xml** under **tomcat-10/webapps/manager/META-INF/**
+### Admin Manager
+http://192.168.56.101:8080/manager/html
+
+
+Official documentation here : [manager-howto](https://tomcat.apache.org/tomcat-10.0-doc/manager-howto.html)
+
+1. To Access the manager from a REMOTE Host, Allow your IP in <ins>context.xml</ins> under tomcat-10/webapps/manager/META-INF/
+
 ```xml
   <Valve className="org.apache.catalina.valves.RemoteAddrValve" 
   allow="^192.168.56.1$" />
