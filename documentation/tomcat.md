@@ -4,6 +4,13 @@
   - [Admin Manager](#admin-manager)
   - [Admin Password Encryption](#admin-password-encryption)
   - [Realm](#realm)
+- [Tomcat 8](#tomcat-8)
+  - [JDBC Connection Pool Oracle](#jdbc-connection-pool-oracle)
+  - [JDBC Connection Pool MySQL](#jdbc-connection-pool-mysql)
+- [Tomcat 7](#tomcat-7)
+  - Preventing database connection pool leaks
+- [Tomcat Security](#tomcat-security)
+- [Monitoring Performance Tuning](#monitoring-performance-tuning)
  
 ## Set Up
 -------------------------------------------------
