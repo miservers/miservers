@@ -1,6 +1,6 @@
 **Table of content:**
 - [Set Up](#set-up)
-- [Tomcat Administration](#tomcat-administration) 
+- [Tomcat 10 Administration](#tomcat-10-administration) 
   - [Admin Manager](#admin-manager)
   - [Admin Password Encryption](#admin-password-encryption)
   - [Realm](#realm)
@@ -24,7 +24,7 @@ On *nix, $CATALINA_BASE/bin/setenv.sh:
   JRE_HOME=/usr/java/latest
   CATALINA_PID="/run/tomcat.pid"
 
-## Tomcat Administration
+## Tomcat 10 Administration
 ------------------------------------------------
 ### Admin Manager
 http://192.168.56.101:8080/manager/html
@@ -66,7 +66,6 @@ Edit <ins>tomcat-users.xml</ins>
 Restart Tomcat
  
 
-
 ### Realm
 A Realm element represents a "database" of usernames, passwords, and roles (similar to Unix groups) assigned to those users. 
 
@@ -78,7 +77,7 @@ Differents implementations of realm can be used:
 
 more informations about realms can be found here [Tomcat Realm](https://tomcat.apache.org/tomcat-8.5-doc/realm-howto.html)
 
-#### Overload Java Security Policy or Ext lib
+### Overload Java Security Policy or Ext lib
 
 Add to _setenv.sh_  
 
@@ -86,7 +85,7 @@ Add to _setenv.sh_
     CATALINA_OPTS="... -Djava.ext.dirs=jre/lib/ext -Djava.security.policy=jre/lib/security/java.policy"
 ```
 
-#### TrustStore  
+### TrustStore  
 
 Add this options to _CATALINA_OPTS_  
 
@@ -96,7 +95,7 @@ Add this options to _CATALINA_OPTS_
     -Djavax.net.ssl.trustStoreType=JKS
 ```
 
-#### jvmRoute  
+### jvmRoute  
 Located in server.xml, it is used by the load balancer to enable session affinity. Il must be unique accros tomcat instances..
 #### Activate HTTPS (Tomcat 8) 
 ```xml
@@ -124,7 +123,7 @@ Located in server.xml, it is used by the load balancer to enable session affinit
     <Connector port="10099" protocol="AJP/1.3" redirectPort="8443" address="safp0180" />
 ```
 
-#### SSL Support - APR/Native 
+### SSL Support - APR/Native 
 When APR/native is enabled, the HTTPS connector will use a socket poller for keep-alive, 
 increasing scalability of the server.  
 1. You must activate it in server.xml
@@ -138,7 +137,7 @@ increasing scalability of the server.
 see: https://blog.netapsys.fr/optimiser-tomcat-installation-de-apache-tomcat-native/
 
 
-#### No Blocking Http Connector - NIO Tomcat 6 and 7
+### No Blocking Http Connector - NIO Tomcat 6 and 7
 
 By default, HTTP connector in Tomcat6 and Tomcat7 is blocking connector(BIO). To serve 100 concurrent users, 
 
@@ -152,7 +151,7 @@ it requires 100 actives threads(maxThreads if not set, is 200 by default).  To u
 From tomcat8, HTTP connector is NIO by default. wich uses a shared thread pool.
 
 
-#### Rotation des logs
+### Rotation des logs
 Install Package  
 
 	apt install logrotate
@@ -186,7 +185,7 @@ Run logrotate in verbose mode to Test or to Debug problems
 	
 	/usr/sbin/logrotate -v /etc/logrotate.conff
 
-#### Logs
+### Logs
 Ajout d'un filter/appender: editer _conf/logging.properties_
 
 ```
@@ -205,7 +204,7 @@ Log All in debug
     .level = FINE
 	
 
-#### Valves
+### Valves
 A Valve element represents a component that will be inserted into the request processing pipeline for the associated Catalina container (Engine, Host, or Context). 
 
 https://tomcat.apache.org/tomcat-10.0-doc/config/valve.html
@@ -216,6 +215,7 @@ https://tomcat.apache.org/tomcat-10.0-doc/config/valve.html
 * Single Sign On Valve
 
 ## Tomcat 8
+--------------------------------------------------------------
 ###  JDBC Connection Pool Oracle
 Add to server.xml
 
@@ -281,6 +281,7 @@ see : <http://www.codingpedia.org/ama/tomcat-jdbc-connection-pool-configuration-
 
 
 ## Tomcat 7
+-----------------------------------------------------
 **Preventing database connection pool leaks**
 
 ```sh
@@ -315,6 +316,8 @@ see : <http://www.codingpedia.org/ama/tomcat-jdbc-connection-pool-configuration-
 
 
 ## Tomcat Security
+--------------------------------------------------------------
+
 MUST SEE : https://www.owasp.org/index.php/Securing_tomcat
 
 ### Disable SSL renegociation 
@@ -401,7 +404,8 @@ _digest.sh_  cannot be used to encrypt passwords for DataSource resources
 ### CSRF (Cross-Site Request Forgery)
 manager-gui is protected against CSRF but JMX interface is NOT.   
 	   
-## Monitoring Performance tuning
+## Monitoring Performance Tuning
+--------------------------------------------------------------
 **Activate remote JMX**  
 Edit _bin/setenv.sh_ with:  
 
