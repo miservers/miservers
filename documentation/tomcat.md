@@ -25,7 +25,6 @@ On *nix, $CATALINA_BASE/bin/setenv.sh:
   CATALINA_PID="/run/tomcat.pid"
 
 ## Tomcat Administration
-------------------
 
 ### Admin Manager
 http://192.168.56.101:8080/manager/html
