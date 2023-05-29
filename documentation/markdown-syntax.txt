@@ -1,7 +1,7 @@
 FULL Doc: 
-https://www.markdownguide.org/basic-syntax/
+https://www.markdownguide.org/
 
-See: https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#lists
+https://www.markdownguide.org/hacks
 
 - Tables
 
@@ -44,10 +44,12 @@ Commands:
 - Images
   ![alt txt](images/Weblogic-Dashboard.png)
   
-  - Table of content TOC
+
+- Table of content TOC
   Look for an example in tomcat.md. IDs are generated automatically by theses rules:
      * Upercase letters are lowercased
      * spaces are replaced by -
+  For Example  [Admin Manager](#admin-manager) will add a TOC entry for subtitle [#Admin Manager] 
      
      
      

@@ -2,8 +2,11 @@
 - [Set Up](#set-up)
 - [Tomcat Administration](#tomcat-administration) 
   - [Admin Manager](#admin-manager)
+  - [Admin Password Encryption](#admin-password-encryption)
+  - [Realm](#realm)
  
 ## Set Up
+--------------
 HowTo set up Tomcat 10: [RUNNING.txt](https://tomcat.apache.org/tomcat-10.1-doc/RUNNING.txt)
 
 ##### Configure Environment Variables
@@ -22,12 +25,56 @@ On *nix, $CATALINA_BASE/bin/setenv.sh:
   CATALINA_PID="/run/tomcat.pid"
 
 ## Tomcat Administration
-#### Admin Manager
+---------------------------------------------
+### Admin Manager
 You find official documentation here : [manager-howto](https://tomcat.apache.org/tomcat-10.0-doc/manager-howto.html)
 
-##  Tomcat Configuration
+1. To Access the manager from a remote host, Allow your IP in **context.xml** under **tomcat-10/webapps/manager/META-INF/**
+```xml
+  <Valve className="org.apache.catalina.valves.RemoteAddrValve" 
+  allow="^192.168.56.1$" />
+```
 
-#### Overload Java Security Policy or Ext lib  
+### Password Encryption
+
+Generate the encrypted password: 
+
+```sh
+    TOMCAT_HOME/bin/digest.sh -a sha-256 s3cr3t
+    s3cr3t:abb62be83c64497e48608ae0987da$1$918643e3a75d367b0ad45a34bd67..
+```
+
+Modify <ins>server.xml</ins>
+
+```xml
+<Realm className="org.apache.catalina.realm.UserDatabaseRealm" resourceName="UserDatabase">
+  <CredentialHandler className="org.apache.catalina.realm.MessageDigestCredentialHandler" algorithm="SHA-256"/>
+</Realm>
+```
+
+Edit <ins>tomcat-users.xml</ins>
+
+```xml
+  <role rolename="manager-gui"/>
+  <user username="admin123"  password="abb62be83c64497e48608ae0987da$1$918643e3a75d367b0ad45a34bd67..." roles="manager-gui"/>
+```
+
+Restart Tomcat
+ 
+
+
+### Realm
+A Realm element represents a "database" of usernames, passwords, and roles (similar to Unix groups) assigned to those users. 
+
+Differents implementations of realm can be used:
+  - DataSource Database Realm 
+  - JNDI Directory Realm
+  - UserDatabase Realm: accesses are defined in *conf/tomcat-users.xml* 
+  - JAAS Realm
+
+more informations about realms can be found here [Tomcat Realm](https://tomcat.apache.org/tomcat-8.5-doc/realm-howto.html)
+
+#### Overload Java Security Policy or Ext lib
 
 Add to _setenv.sh_  
 
@@ -333,11 +380,11 @@ In web.xml, add error-page tag:
 </error-page>
 ```
 
-### Password Encryption
+### Password Encryption (8.5 NOT Tomcat 10 version)
 Generate encrypted password
 
     ./digest.sh -a sha-256 secret
-	./digest.sh -a md5 secret  : for MD5
+    ./digest.sh -a md5 secret  : for MD5
 	
 To use encrypted pasword in **tomcat-users.xml**, add digest to **server.xml**
 
