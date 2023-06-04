@@ -188,6 +188,7 @@ JAVA_OPTS= "$JAVA_OPTS -Djavax.net.ssl.trustStore=/data/certificats/prod-trustst
 
 ------------------------------------------------
 
+
 ## Genartaion de Certificat - complete Tuto 
 
 Create CSR request config <ins>example-csr.conf</ins>
