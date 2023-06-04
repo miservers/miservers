@@ -1,6 +1,14 @@
+<ins>Table Of Contents</ins>
+1. [SSL](#ssl)
+1. [SSL Handshake](#ssl-handshake)
+1. [Java KeyTool](#java-keytool)
+1. [Certificat with OpenSSL](#certificat-with-openssl)
+1. [Auto Signed Certificat](#auto-signed-certificat)
+1. [Genartaion de Certificat - complete Tuto](#genartaion-de-certificat---complete-tuto)
+
 ## SSL
 - keytool: manages Java KeyStores (JKS).
-- KeyStore: contains certificates and a key pairs.
+- KeyStore: contains a certificate and a key pairs.
 - TrustStore: contains trusted certs. keystores contain private keys, while truststores do not.
 - Certificate Authority [CA]: verisign, Thawte,...
 - Distinguished Name [DN] :  "/C=FR/ST=France/L=Paris/O=Safar/OU=DSI4/CN=safar.com" 
@@ -120,11 +128,12 @@ JAVA_OPTS= "$JAVA_OPTS -Djavax.net.ssl.trustStore=/data/certificats/prod-trustst
    openssl s_client -debug -connect  127.0.0.1:20076
 ```
 
-## MyAPP Cerificat
-**generate auto signed cert**
+## Auto Signed Certificat 
+**generate auto signed certificat**
 ```sh
   openssl req -x509 -newkey rsa:2048 -keyout server-key.pem -out server-cert.pem -days 3650 \
         -subj '/C=FR/ST=France/L=Paris/O=Safar/OU=DSI4/CN=pclr0181'
+
   Serveur Reqeuetes longues:		
   openssl req -x509 -newkey rsa:2048 -keyout server-key.pem -out server-cert.pem -days 3650 \
         -subj '/C=FR/ST=France/L=Paris/O=Safar/OU=DSI4/CN=127.0.0.1'
@@ -168,7 +177,7 @@ JAVA_OPTS= "$JAVA_OPTS -Djavax.net.ssl.trustStore=/data/certificats/prod-trustst
     openssl rand -base64 32
 	
 	
-**Recureer un certificat**
+**Recreer un certificat**
 
     openssl s_client -showcerts -connect www.safar.com </dev/null 2>/dev/null | openssl x509 -outform PEM >server.pem
   
@@ -180,12 +189,12 @@ JAVA_OPTS= "$JAVA_OPTS -Djavax.net.ssl.trustStore=/data/certificats/prod-trustst
 
 ## Genartaion de Certificat - complete Tuto 
 
-example-csr.conf
+Create CSR request config <ins>example-csr.conf</ins>
 ```  
 [ req ]
 default_bits       = 4096
 default_md         = sha512
-default_keyfile    = example-key.pem
+default_keyfile    = example-priv-key.pem
 output_password    = secret
 prompt             = no
 encrypt_key        = no
@@ -209,24 +218,47 @@ emailAddress           = "webmaster@example.com"  # CN/emailAddress=
 subjectAltName  = DNS:www.example.com,DNS:www2.example.com 
 ```  
 
-#### Create the CSR ( Certificate Request)
+### Create the CSR ( Certificate Request) 
+
+Create CSR request from CSR Conf:
+
     openssl req -config example-csr.conf -newkey rsa:2048 -out example-req.csr
 
-See the CSR
+The Private Key is also generated
+
+Decode the Certificate Request
 
     openssl req -text -noout -in example-req.csr
 
 Send the CSR to the cert authority, and you receive a  signed cert(PEM)
 	
-#### Generate an auto-signed cert
-	openssl x509 -req -in example-req.csr -extensions v3_req -extfile example-csr.conf  \
-	       -signkey example-priv.key -out  example-cert.pem  -days 999
+### Generate an Auto-Signed Certificate
 
-#### KeyStore Generation
-	openssl pkcs12 -export -in example-cert.pem -inkey example-priv.key -name example -out  example-pkcs.p12 
+	openssl x509 -req -in example-req.csr -extensions v3_req -extfile example-csr.conf  \
+	       -signkey example-priv-key.pem -out  example-cert.pem  -days 999
+
+Decode The Cerificate:
+
+	openssl x509 -inform  pem  -text -noout -in example-cert.pem
+
+Decode The Private Key:
+
+	openssl rsa -check -in example-priv-key.pem
+  
+
+### KeyStores PKCS12 and JKS 
+**PKCS#12 KeyStore** is an archive format, commonly used to contain both private keys and their Certificates. **JKS KeyStore** is specific to Java. Since Java 9, the default keystore format is PKCS12. 
+
+**Generate a PKCS12 KeyStore**
+
+    openssl pkcs12 -export -in example-cert.pem -inkey example-priv-key.pem -name example -out  example-pkcs.p12 
+
+**Convert PKCS12 to JKS**
+
 	keytool -importkeystore -srcstoretype pkcs12 -srckeystore example-pkcs.p12 -destkeystore example-keystore.jks
 
-#### Convert PEM to CRT ( for Apache)
+### Convert PEM to CRT ( for Apache)
+
 	openssl x509 -outform der -in example-cert.pem -out example-cert.crt
     	
 	

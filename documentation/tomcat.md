@@ -113,7 +113,33 @@ Add this options to _CATALINA_OPTS_
 
 ### jvmRoute  
 Located in server.xml, it is used by the load balancer to enable session affinity. Il must be unique accros tomcat instances..
-#### Activate HTTPS (Tomcat 8) 
+
+### Activate HTTPS (Tomcat 10)
+Uncomment this in <ins>server.xml</ins>
+
+```xml
+<Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
+               maxThreads="150" SSLEnabled="true">
+        <UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />
+        <SSLHostConfig>
+            <Certificate certificateKeystoreFile="conf/localhost-rsa.jks"
+                         type="RSA" />
+        </SSLHostConfig>
+</Connector>
+```
+
+Create a local KeyStore to store server's private key and self signed certificate:
+
+```sh
+keytool -genkey -alias myapp-re7 -keyalg RSA -keystore myapp.jks -keysize 2048
+```
+
+[CertificatSSL.md](./CertificatSSL.md)
+  
+
+
+
+### Activate HTTPS (Tomcat 8) 
 ```xml
     <Connector port="10080" protocol="HTTP/1.1"
        connectionTimeout="20000"
