@@ -187,6 +187,7 @@ JAVA_OPTS= "$JAVA_OPTS -Djavax.net.ssl.trustStore=/data/certificats/prod-trustst
 2. http://www.wikiconsole.com/java-lang-runtimeexception-could-not-generate-dh-keypair/
 
 ------------------------------------------------
+
 ## Genartaion de Certificat - complete Tuto 
 
 Create CSR request config <ins>example-csr.conf</ins>
