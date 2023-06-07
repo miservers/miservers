@@ -7,7 +7,7 @@
   - [Overload Java Security Policy or Ext lib](#overload-java-security-policy-or-ext-lib)
   - [TrustStore](#truststore)
   - [jvmRoute](#jvmroute)
-  - [Activate HTTPS (Tomcat 8)](#activate-https-tomcat-8)
+  - [Activate HTTPS (Tomcat 10)](#activate-https-tomcat-10)
   - [SSL Support - APR/Native](#ssl-support---aprnative)
   - [No Blocking Http Connector - NIO Tomcat 6 and 7](#no-blocking-http-connector---nio-tomcat-6-and-7)
   - [Rotation des logs](#rotation-des-logs)
@@ -16,6 +16,7 @@
 - [Tomcat 8](#tomcat-8)
   - [JDBC Connection Pool Oracle](#jdbc-connection-pool-oracle)
   - [JDBC Connection Pool MySQL](#jdbc-connection-pool-mysql)
+  - [Activate HTTPS (Tomcat 8)](#activate-https-tomcat-8)
 - [Tomcat 7](#tomcat-7)
   - Preventing database connection pool leaks
 - [Tomcat Security](#tomcat-security)
@@ -128,14 +129,33 @@ Uncomment this in <ins>server.xml</ins>
 </Connector>
 ```
 
-Create a local KeyStore to store server's private key and self signed certificate:
+Create a local KeyStore,  server's private key and self signed certificate:
 
 ```sh
-keytool -genkey -alias myapp-re7 -keyalg RSA -keystore myapp.jks -keysize 2048
+keytool -genkey -alias myapp -keyalg RSA -keystore myapp-keystore.jks -keysize 2048 -validity 365
 ```
 
-[CertificatSSL.md](./CertificatSSL.md)
-  
+Enable Java(JSSE) Connector(APR is **deprecated**):
+
+```xml	
+	<Connector
+	    protocol="org.apache.coyote.http11.Http11NioProtocol"
+	    port="8443"
+	    maxThreads="150"
+	    SSLEnabled="true">
+  		<SSLHostConfig>
+    		<Certificate
+      			certificateKeystoreFile="${user.home}/myapp-keystore.jks"
+      			certificateKeystorePassword="changeit"
+      			type="RSA"
+      		/>
+    	</SSLHostConfig>
+	</Connector>
+```
+
+https://192.168.56.101:8443/manager/html
+
+Full Docs : https://tomcat.apache.org/tomcat-10.0-doc/ssl-howto.html
 
 
 
