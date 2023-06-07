@@ -26,33 +26,33 @@
 ---------------------------------
 
 Create CSR request config <ins>example-csr.conf</ins>
-```  
-[ req ]
-default_bits       = 4096
-default_md         = sha512
-default_keyfile    = example-priv-key.pem
-output_password    = secret
-prompt             = no
-encrypt_key        = no
-distinguished_name = req_distinguished_name
 
-req_extensions     = v3_req
+	[ req ]
+	default_bits       = 4096
+	default_md         = sha512
+	default_keyfile    = example-priv-key.pem
+	output_password    = secret
+	prompt             = no
+	encrypt_key        = no
+	distinguished_name = req_distinguished_name
 
-[ req_distinguished_name ]
-countryName            = "MA"                     # C=
-stateOrProvinceName    = "Maroc"                  # ST=
-localityName           = "Casablanca"             # L=
-postalCode             = "20240"                  # L/postalcode=
-streetAddress          = "Mdina 1622"             # L/street=
-organizationName       = "SAFAR"                  # O=
-organizationalUnitName = "DSI"                    # OU=
-commonName             = "example.com"            # CN=
-emailAddress           = "webmaster@example.com"  # CN/emailAddress=
+	req_extensions     = v3_req
 
-[ v3_req ]
-# http://www.openssl.org/docs/apps/x509v3_config.html
-subjectAltName  = DNS:www.example.com,DNS:www2.example.com 
-```  
+	[ req_distinguished_name ]
+	countryName            = "MA"                     # C=
+	stateOrProvinceName    = "Maroc"                  # ST=
+	localityName           = "Casablanca"             # L=
+	postalCode             = "20240"                  # L/postalcode=
+	streetAddress          = "Mdina 1622"             # L/street=
+	organizationName       = "SAFAR"                  # O=
+	organizationalUnitName = "DSI"                    # OU=
+	commonName             = "example.com"            # CN=
+	emailAddress           = "webmaster@example.com"  # CN/emailAddress=
+
+	[ v3_req ]
+	# http://www.openssl.org/docs/apps/x509v3_config.html
+	subjectAltName  = DNS:www.example.com,DNS:www2.example.com 
+
 
 ### Create the CSR ( Certificate Request) 
 
