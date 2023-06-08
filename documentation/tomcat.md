@@ -38,12 +38,12 @@ HowTo set up Tomcat 10: [RUNNING.txt](https://tomcat.apache.org/tomcat-10.1-doc/
 
 Apart from CATALINA_HOME and  CATALINA_BASE, all this variables can be defined in the **setenv** script.
 
-### Using the "setenv" script 
+### Setenv script 
 On *nix, $CATALINA_BASE/bin/setenv.sh:
 
-  JRE_HOME=/usr/java/latest
+  JRE_HOME=/opt/jdk
   CATALINA_PID="/run/tomcat.pid"
-  
+
 
 ## Tomcat 10 Administration
 ------------------------------------------------
@@ -239,6 +239,12 @@ Run logrotate in verbose mode to Test or to Debug problems
 	/usr/sbin/logrotate -v /etc/logrotate.conff
 
 ### Logs
+**JULI** is the default logging librairy. JULI is an improved implementation of java.util.logging API. Because default implementation of java.logging API has many limitations, for example it is'nt possible to have a per-web application logging.
+
+JULI is enabled by default. Logging can be configured:
+  - Globally. in <ins>${catalina.base}/conf/logging.properties</ins> 
+  - Per-web application. <ins>WEB-INF/classes/logging.properties</ins>
+
 Ajout d'un filter/appender: editer _conf/logging.properties_
 
 ```
