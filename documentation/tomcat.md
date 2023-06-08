@@ -8,9 +8,8 @@
   - [TrustStore](#truststore)
   - [jvmRoute](#jvmroute)
   - [Activate HTTPS (Tomcat 10)](#activate-https-tomcat-10)
-  - [SSL Support - APR/Native](#ssl-support---aprnative)
   - [No Blocking Http Connector - NIO Tomcat 6 and 7](#no-blocking-http-connector---nio-tomcat-6-and-7)
-  - [Rotation des logs](#rotation-des-logs)
+  - [Logs Rotation](#logs-rotation)
   - [Logs](#logs)
   - [Valves](#valves)
 - [Tomcat 8](#tomcat-8)
@@ -129,7 +128,7 @@ Uncomment this in <ins>server.xml</ins>
 </Connector>
 ```
 
-Create a local KeyStore,  server's private key and self signed certificate:
+Create a local KeyStore with server's private key and self signed certificate:
 
 ```sh
 keytool -genkey -alias myapp -keyalg RSA -keystore myapp-keystore.jks -keysize 2048 -validity 365
@@ -185,19 +184,6 @@ Full Docs : https://tomcat.apache.org/tomcat-10.0-doc/ssl-howto.html
     <Connector port="10099" protocol="AJP/1.3" redirectPort="8443" address="safp0180" />
 ```
 
-### SSL Support - APR/Native 
-When APR/native is enabled, the HTTPS connector will use a socket poller for keep-alive, 
-increasing scalability of the server.  
-1. You must activate it in server.xml
-
-```sh
-  <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
-```
-
-2. and install/compile native APR. complicated!  
-
-see: https://blog.netapsys.fr/optimiser-tomcat-installation-de-apache-tomcat-native/
-
 
 ### No Blocking Http Connector - NIO Tomcat 6 and 7
 
@@ -213,7 +199,7 @@ it requires 100 actives threads(maxThreads if not set, is 200 by default).  To u
 From tomcat8, HTTP connector is NIO by default. wich uses a shared thread pool.
 
 
-### Rotation des logs
+### Logs Rotation
 Install Package  
 
 	apt install logrotate
