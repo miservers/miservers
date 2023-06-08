@@ -25,20 +25,25 @@
 -------------------------------------------------
 HowTo set up Tomcat 10: [RUNNING.txt](https://tomcat.apache.org/tomcat-10.1-doc/RUNNING.txt)
 
-##### Configure Environment Variables
-* CATALINA_HOME(required) : 
-* CATALINA_BASE (optional) :
+### Configure Environment Variables
+* CATALINA_HOME(required) : On Linux can be defined in **.bash_profile**
+
+	export CATALINA_HOME=/opt/tomcat-10
+
+* CATALINA_BASE (optional) : usefull in case of multiple tomcat instance. by default it is equal o CATALINA_HOME.
 * JAVA_HOME (required) : 
 * CATALINA_OPTS (optional) :
 * JAVA_OPTS (optional) :
 
-All this variables can be defined in the **setenv** script.
 
-##### Using the "setenv" script 
+Apart from CATALINA_HOME and  CATALINA_BASE, all this variables can be defined in the **setenv** script.
+
+### Using the "setenv" script 
 On *nix, $CATALINA_BASE/bin/setenv.sh:
 
   JRE_HOME=/usr/java/latest
   CATALINA_PID="/run/tomcat.pid"
+  
 
 ## Tomcat 10 Administration
 ------------------------------------------------
