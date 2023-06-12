@@ -6,12 +6,13 @@
   - [Realm](#realm)
   - [Overload Java Security Policy or Ext lib](#overload-java-security-policy-or-ext-lib)
   - [TrustStore](#truststore)
-  - [jvmRoute](#jvmroute)
   - [Activate HTTPS (Tomcat 10)](#activate-https-tomcat-10)
   - [No Blocking Http Connector - NIO Tomcat 6 and 7](#no-blocking-http-connector---nio-tomcat-6-and-7)
   - [Logs Rotation](#logs-rotation)
   - [Logs](#logs)
   - [Valves](#valves)
+  - [Load Balancing](#load-balancing)
+  - [jvmRoute](#jvmroute)
 - [Tomcat 8](#tomcat-8)
   - [JDBC Connection Pool Oracle](#jdbc-connection-pool-oracle)
   - [JDBC Connection Pool MySQL](#jdbc-connection-pool-mysql)
@@ -88,7 +89,7 @@ Restart Tomcat
  
 
 ### Realm
-A Realm element represents a "database" of usernames, passwords, and roles (similar to Unix groups) assigned to those users. 
+A Realm is a "database" of usernames and passwords that identify valid users of a web application , and roles (similar to Unix groups) assigned to those users. 
 
 Differents implementations of realm can be used:
   - DataSource Database Realm 
@@ -97,6 +98,7 @@ Differents implementations of realm can be used:
   - JAAS Realm
 
 more informations about realms can be found here [Tomcat Realm](https://tomcat.apache.org/tomcat-8.5-doc/realm-howto.html)
+
 
 ### Overload Java Security Policy or Ext lib
 
@@ -115,9 +117,6 @@ Add this options to _CATALINA_OPTS_
     -Djavax.net.ssl.trustStorePassword=**** 
     -Djavax.net.ssl.trustStoreType=JKS
 ```
-
-### jvmRoute  
-Located in server.xml, it is used by the load balancer to enable session affinity. Il must be unique accros tomcat instances..
 
 ### Activate HTTPS (Tomcat 10)
 Uncomment this in <ins>server.xml</ins>
@@ -245,23 +244,7 @@ JULI is enabled by default. Logging can be configured:
   - Globally. in <ins>${catalina.base}/conf/logging.properties</ins> 
   - Per-web application. <ins>WEB-INF/classes/logging.properties</ins>
 
-Ajout d'un filter/appender: editer _conf/logging.properties_
 
-```
-handlers = ..., 5jersey.org.apache.juli.FileHandler
-
-5jersey.org.apache.juli.FileHandler.level = FINE
-5jersey.org.apache.juli.FileHandler.directory = /myapp/traces
-5jersey.org.apache.juli.FileHandler.prefix = app-jersey.
-
-com.sun.jersey.api.container.level = FINE
-com.sun.jersey.api.container.handlers = 5jersey.org.apache.juli.FileHandler
-```
-
-Log All in debug
-
-    .level = FINE
-	
 
 ### Valves
 A Valve element represents a component that will be inserted into the request processing pipeline for the associated Catalina container (Engine, Host, or Context). 
@@ -272,6 +255,11 @@ https://tomcat.apache.org/tomcat-10.0-doc/config/valve.html
 * Access Log Valve
 * Remote Address Valve
 * Single Sign On Valve
+
+### Load Balancing
+
+### jvmRoute  
+Located in server.xml, it is used by the load balancer to enable session affinity. Il must be unique accros tomcat instances..
 
 ## Tomcat 8
 --------------------------------------------------------------

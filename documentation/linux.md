@@ -146,42 +146,8 @@ sar -f /var/log/sa/sa15
 
 ```
 
-
-## Packages Debian
-
 ### net-tools 
 this package contains utilities like arp, ifconfig, netstat, rarp, nameif and route.
-
-### APT and Dpkg
-dpkg: https://www.cyberciti.biz/howto/question/linux/dpkg-cheat-sheet.php  
-debian package managment. apt-get is dpkg top couch  
-```
-  $ apt update : update the available package list.
-  $ apt --only-upgrade install <pkg> : update a single pkg
-  $ apt-cache search bochs : search package to install
-  $ apt install pkg
-  $ apt remove package : remove pkg
-  $ apt remove --purge package : remove pkg and its config files
-  $ apt autoremove - Remove automatically all unused packages
-  $ apt upgrade : upgrade the hole system
-  $ apt upgrade-dist : linux distribution upgrade
-  $ dpkg -l : list of installed packages.
-    dpkg -l | grep gdb
-  $ dpkg -i /root/bochs.81-1_i386.deb : install manually
-  $ dpkg [--remove | --purge] bochs
-  $ Install a special version of a pkg
-    apt-cache showpkg <package-name> : lists all available versions. 
-    apt install <package-name>=<version-number>
-  $ dpkg -L {package} : list	where files were installed
-  $ dpkg -s {package} : output package status, if installed or not, vesrion, dependencies
-  $ To disable downloading translations:
-    echo 'Acquire::Languages "none";' >> /etc/apt/apt.conf.d/99translations
-```
-
-### Misc commands
-
-    dpkg -l libgtk[0-9]* | grep ^i  ; search in installed
-
 
 
 ## SSH
