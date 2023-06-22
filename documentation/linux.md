@@ -103,24 +103,6 @@ Enable/Disable a service (System V)
   
 Enable will create a symlink in /etc/rc4.d/S02mysql -> ../init.d/mysql
 
-## Systemd
-A Service is defined as **Unit**. Unit files are located in **/lib/systemd/system**.
-
-Example of **/lib/systemd/system/apache2.service**
-
-    [Unit]
-    Description=The Apache HTTP Server
-    After=network.target remote-fs.target 
-    
-    [Service]
-    ExecStart=/usr/sbin/apachectl start
-    ExecStop=/usr/sbin/apachectl graceful-stop
-    ExecReload=/usr/sbin/apachectl graceful
-    
-    [Install]
-    WantedBy=multi-user.target
-
-
 
 ## Perfoemances
 
