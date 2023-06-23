@@ -37,42 +37,45 @@ A Service is defined as **Unit**. Unit files end with **.service**
 
 
 ## Systemd Commands
-| Command             | Description                               |
-| ------------------- | ----------------------------------------- |
-| # systemctl list-unit-files |  List Unit Files |
-| # systemctl list-units  |  List Units  |
-| # systemctl start tomcat  |  Start a Service  |
-| # systemctl status tomcat  |  Status Of a Service  |
-| # systemctl disable tomcat  |  Disable a Service  |
+
+| Command             			| Description                       |
+| ------------------------------| ----------------------------------|
+| # systemctl list-unit-files 	|  List Unit Files 				  	|
+| # systemctl list-units 		|  List Units  						|
+| # systemctl start tomcat  	|  Start a Service  				|
+| # systemctl status tomcat  	|  Status Of a Service  			|
+| # systemctl disable tomcat  	|  Disable a Service  				|
+
 
 ##  Creation  Of a New Service
 
 1. Create The Unit : **/etc/systemd/system/tomcat.service**
 
-    [Unit]
-	Description=Tomcat Server - %i
+```sh
+	[Unit]
+	Description=Tomcat Server
 	After=network.target remote-fs.target 
 	    
 	[Service]
+	Type=forking
+
+	Environment=JAVA_HOME=/opt/jdk
+	Environment=JAVA_OPTS=-Djava.security.egd=file:///dev/urandom
+	Environment=CATALINA_PID=/opt/tomcat-10/temp/tomcat.pid
+	Environment=CATALINA_BASE=/opt/tomcat-10
+	Environment=CATALINA_HOME=/opt/tomcat-10
+	Environment="CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC"
+
 	ExecStart=/opt/tomcat-10/bin/startup.sh
 	ExecStop=/opt/tomcat-10/bin/shutdown.sh
-	Environment="JAVA_HOME=/opt/jdk"
-	Environment="JAVA_OPTS=-Djava.security.egd=file:///dev/urandom"
 
 	User=webadmin
 	Group=webadmin
-	WorkingDirectory=/var/tomcat/%i
-
-
-	Environment="CATALINA_PID=/var/tomcat/%i/run/tomcat.pid"
-	Environment="CATALINA_BASE=/var/tomcat/%i"
-	Environment="CATALINA_HOME=/opt/tomcat-10"
-	Environment="CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC"
-
 
 
 	[Install]
 	WantedBy=multi-user.target
+```
 
 2. Verify Unit File Syntax
 
@@ -88,11 +91,15 @@ A Service is defined as **Unit**. Unit files end with **.service**
 
 5. Start the Service
 
-	sudo systemctl start tomcat.service
+	sudo systemctl start tomcat
+
+5.1 Check The Logs
+
+	journalctl -xe
 
 6. the Status of the Service 
 
-	sudo systemctl status tomcat.service
+	sudo systemctl status tomcat
 
 Other Commands:
 

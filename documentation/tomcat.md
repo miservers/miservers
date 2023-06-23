@@ -276,7 +276,7 @@ Check if JK module installed and Enabled: These Configutation files are automati
 
 	LoadModule jk_module /usr/lib/apache2/modules/mod_jk.so
 
-/mnt/u1/etc/apache2/mods-available/httpd-jk.conf
+/etc/apache2/mods-available/httpd-jk.conf
 
 	<IfModule jk_module>
 	    JkWorkersFile /etc/libapache2-mod-jk/workers.properties
