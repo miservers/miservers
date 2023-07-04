@@ -121,18 +121,3 @@ Ajouter:
 	<VirtualHost 10.168.1.10:443>
 	....
 	
-	
-## Quick php5 installation on Gnuroot Debian 
-** Install apache/php5
-   # apt install apache2 php5 libapache2-mod-php5
-** verify php installed version
-   # apt show php5
-** Verify that "php.conf" and "php.load" are enabled
-   # ls -l /etc/apache2/mods-enabled
-   see http://wiki.goldzoneweb.info/installation_de_php_5_pour_apache_2
-** create file "infos.php" under /var/www/html, with content
-   <?php phpinfo(); ?>
-** chmod 744 infos.php
-** http://127.0.0.1:2080/infos.php
-** Docs
-   - Installation php5: http://wiki.goldzoneweb.info/installation_de_php_5_pour_apache_2

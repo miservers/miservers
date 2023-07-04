@@ -47,7 +47,7 @@ A Service is defined as **Unit**. Unit files end with **.service**
 | # systemctl disable tomcat  	|  Disable a Service  				|
 
 
-##  Creation  Of a New Service
+##  Creating a New Service (Tomcat)
 
 1. Create The Unit : **/etc/systemd/system/tomcat.service**
 

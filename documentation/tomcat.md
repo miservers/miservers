@@ -45,6 +45,8 @@ On *nix, $CATALINA_BASE/bin/setenv.sh:
   JRE_HOME=/opt/jdk
   CATALINA_PID="/run/tomcat.pid"
 
+### Start Tomcat as systemd Service
+See [linux-systemd.md](./linux-systemd.md)
 
 ## Tomcat 10 Administration
 ------------------------------------------------
