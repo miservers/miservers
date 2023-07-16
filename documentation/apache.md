@@ -1,34 +1,105 @@
-### Apache 2.4
-Install directory:
-  /etc/apache2/
+**Table of content:**
+- [Apache Web Server Basics]
+- [Modules & Directives]
+- [htaccess File](#htaccess-file)
+- [Virtual Hosts](#virtual-hosts) 
+- [MIME Types]
+- [URL Mapping]
+- [Directory Indexing]
+- [Performance Tuning]
+- [Handlers and Filters]
+- [SSI]
+- [Security]
+	- [HTTPS](#https)
+- [Known Errors](#known-errors)
 
-Enable/disable a module(Debian)
-  a2enmod ssl
-  a2dismod ssl
+## Apache Web Server Basics
+----------------------------------
+Environment : Apache 2.4 , Ubuntu 20.04
+### Stop/Start
+### apachectl
+### Configuration  Files
+Directory:
+
+	/etc/apache2/
 
 ### Check Syntax
+
 	/apache/bin/httpd -f httpd.conf -t
 	/apache/bin/httpd -f httpd.conf -S
-	
-### Configuration HTTPS
+
+### Logs
+
+## Modules & Directives
+---------------------------------
+Enable/disable a module(Debian)
+
+	a2enmod ssl
+	a2dismod ssl
+
+
+## Virtual Hosts
+---------------------------------
+### Name-Based VHosts
+Name-based Vhosts use  ServerName and ServerAlias  directives to determine the Vhost to serve. 
+
+### IP-Based VHosts
+IP-based VHosts use the IP to determine the correct VHost to serve. 
+
+## Security
+---------------------------------
+### HTTPS
 
 LoadModule ssl_module modules/mod_ssl.so
 
-
 Include conf/safar.com-ssl.conf
 
-Listen safar192:443
-<VirtualHost *:443>
-    ServerName ar.safar.com
-    SSLEngine on
-    SSLCertificateFile "/path/to/www.mysafar.com.pem"
-    SSLCertificateKeyFile "/path/to/www.mysafar.com.key"
-</VirtualHost>
+<ins>safar.com-ssl.conf:</ins>
+
+	Listen safar192:443
+	<VirtualHost *:443>
+	    ServerName ar.safar.com
+	    SSLEngine on
+	    SSLCertificateFile "/path/to/www.mysafar.com.pem"
+	    SSLCertificateKeyFile "/path/to/www.mysafar.com.key"
+	</VirtualHost>
 
 
+## Known Errors
+------------------------
+### Forbidden - You don't have permission to access this resource
+Error 403.
+
+We assume this VHost:
+
+	<VirtualHost *:80>
+	    DocumentRoot "/www/safar/"
+	    ServerName www.safar.com
+
+	</VirtualHost>
+
+To resolve this access error, do the following:
+
+1. Grand access to /wwww directory
+
+		<Directory /www/>
+			Options Indexes FollowSymLinks
+			AllowOverride None
+			Require all granted
+		</Directory>
+
+2. Allow EXECUTE access to /www/safar
+
+		chmod a+x /www/safar
+
+3. Adjust the directory ownership (www-data OR apache)
+
+		chown -R www-data:www-data /www/safar
+		
+4. Check .htaccess files
 
 ### Rediriger HTTP vers HTTPS 
-#### HSTS
+#### Using HSTS
 ```
 	LoadModule headers_module modules/mod_headers.so
 
