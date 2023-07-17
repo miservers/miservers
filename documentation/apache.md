@@ -1,7 +1,7 @@
 **Table of content:**
 - [Apache Web Server Basics]
 - [Modules & Directives]
-- [htaccess File](#htaccess-file)
+- [htaccess Files](#htaccess-files)
 - [Virtual Hosts](#virtual-hosts) 
 - [MIME Types]
 - [URL Mapping]
@@ -37,6 +37,26 @@ Enable/disable a module(Debian)
 	a2enmod ssl
 	a2dismod ssl
 
+## htaccess Files
+----------------------------------
+.htaccess files are generaly used to configure the Web Server when we don't have access to the httpd.conf. However they slow the Web Server.
+
+Disable Directory Listings in Apache using **.htaccess**:
+
+1. Add directive **AllowOverride All** to the Site Directory 
+
+		<Directory /www/safar>
+			Options Indexes FollowSymLinks
+			AllowOverride All
+			Require all granted
+		</Directory>
+
+2. Create the file **.htaccess** under /www/safar with contents
+
+		Options -Indexes
+
+3. Access to http://www.safar.com/images/ will be then forbidden
+
 
 ## Virtual Hosts
 ---------------------------------
@@ -65,38 +85,6 @@ Include conf/safar.com-ssl.conf
 	</VirtualHost>
 
 
-## Known Errors
-------------------------
-### Forbidden - You don't have permission to access this resource
-Error 403.
-
-We assume this VHost:
-
-	<VirtualHost *:80>
-	    DocumentRoot "/www/safar/"
-	    ServerName www.safar.com
-
-	</VirtualHost>
-
-To resolve this access error, do the following:
-
-1. Grand access to /wwww directory
-
-		<Directory /www/>
-			Options Indexes FollowSymLinks
-			AllowOverride None
-			Require all granted
-		</Directory>
-
-2. Allow EXECUTE access to /www/safar
-
-		chmod a+x /www/safar
-
-3. Adjust the directory ownership (www-data OR apache)
-
-		chown -R www-data:www-data /www/safar
-		
-4. Check .htaccess files
 
 ### Rediriger HTTP vers HTTPS 
 #### Using HSTS
@@ -179,6 +167,39 @@ Puis recharger la conf:
     CustomLog /appli/log/application_access_log combined
 	</VirtualHost>
 
+	
+## Known Errors
+------------------------
+### Forbidden - You don't have permission to access this resource
+Error 403.
+
+We assume this VHost:
+
+	<VirtualHost *:80>
+	    DocumentRoot "/www/safar/"
+	    ServerName www.safar.com
+
+	</VirtualHost>
+
+To resolve this access error, do the following:
+
+1. Grand access to /wwww directory
+
+		<Directory /www/>
+			Options Indexes FollowSymLinks
+			AllowOverride None
+			Require all granted
+		</Directory>
+
+2. Allow EXECUTE access to /www/safar
+
+		chmod a+x /www/safar
+
+3. Adjust the directory ownership (www-data OR apache)
+
+		chown -R www-data:www-data /www/safar
+		
+4. Check .htaccess files
 
 ### Erreur: [warn] VirtualHost overlaps with VirtualHost , the first has precedence
 Ajouter:
@@ -191,4 +212,3 @@ Ajouter:
 	
 	<VirtualHost 10.168.1.10:443>
 	....
-	
