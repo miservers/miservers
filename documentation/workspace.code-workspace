@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "../../../../mnt/u1"
+		},
+		{
+			"path": "../workspace/apache-modules"
 		}
 	]
 }
