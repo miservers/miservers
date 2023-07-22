@@ -1,6 +1,7 @@
 **Table of content:**
 - [Apache Web Server Basics]
-- [Modules & Directives]
+- [Modules & Directives](#modules--directives)
+	- [Options](#options)
 - [htaccess Files](#htaccess-files)
 - [Virtual Hosts](#virtual-hosts) 
 - [MIME Types]
@@ -37,6 +38,15 @@ Enable/disable a module(Debian)
 	a2enmod ssl
 	a2dismod ssl
 
+### Options 
+Options directive controls features in a Directory. Main options are: Indexes, FollowSymLinks, ExecCGI. 
+
+Disable directory listing: 
+
+		<Directory /www/safar>
+			Options -Indexes +FollowSymLinks
+			...
+
 ## htaccess Files
 ----------------------------------
 .htaccess files are generaly used to configure the Web Server when we don't have access to the httpd.conf. However they slow the Web Server.
@@ -62,6 +72,43 @@ Disable Directory Listings in Apache using **.htaccess**:
 ---------------------------------
 ### Name-Based VHosts
 Name-based Vhosts use  ServerName and ServerAlias  directives to determine the Vhost to serve. 
+
+below two VHosts: www.safar.com and dev.safar.com
+
+www.safar.com
+```
+<VirtualHost *:80>
+    ServerName www.safar.com
+    ServerAlias prod.safar.com
+    ServerAdmin webmaster@me.com  
+    ErrorLog /var/log/apache2/prod.safar.com-error_log
+    TransferLog /var/log/apache2/prod.safar.com-access_log
+
+    DocumentRoot "/www/safar/"
+    <Directory "/www/safar/"> 
+            Options -Indexes +FollowSymLinks 
+            AllowOverride All 
+            Require all granted 
+    </Directory> 
+</VirtualHost>
+```
+
+dev.safar.com
+```
+<VirtualHost *:80>
+    ServerName dev.safar.com
+    ServerAdmin webmaster@me.com  
+    ErrorLog /var/log/apache2/dev.safar.com-error_log
+    TransferLog /var/log/apache2/dev.safar.com-access_log
+    
+	DocumentRoot "/www/safar-dev"
+    <Directory "/www/safar-dev"> 
+            Options Indexes FollowSymLinks 
+            AllowOverride All 
+            Require all granted 
+    </Directory> 
+</VirtualHost>
+```
 
 ### IP-Based VHosts
 IP-based VHosts use the IP to determine the correct VHost to serve. 
