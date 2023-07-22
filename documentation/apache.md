@@ -49,7 +49,7 @@ Disable directory listing:
 
 ## htaccess Files
 ----------------------------------
-.htaccess files are generaly used to configure the Web Server when we don't have access to the httpd.conf. However they slow the Web Server.
+.htaccess files are generaly used to configure the Web Server when we don't have access to the httpd.conf. However they slow the Web Server. Also enabling htaccess can be a security issue
 
 Disable Directory Listings in Apache using **.htaccess**:
 
