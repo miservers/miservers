@@ -4,13 +4,14 @@
 	- [Options](#options)
 - [htaccess Files](#htaccess-files)
 - [Virtual Hosts](#virtual-hosts) 
+- [Load Balancing](#load-balancing)
 - [MIME Types]
 - [URL Mapping]
 - [Directory Indexing]
 - [Performance Tuning]
 - [Handlers and Filters]
 - [SSI]
-- [Security]
+- [Security](#security)
 	- [HTTPS](#https)
 - [Known Errors](#known-errors)
 
