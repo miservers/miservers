@@ -9,7 +9,7 @@ Install HAProxy
 	apt install haproxy
 
 /etc/haproxy/haproxy.conf 
-	
+```	
 	frontend myfrontend
         bind *:81
         mode tcp
@@ -21,6 +21,7 @@ Install HAProxy
         mode tcp
         server server1 192.168.56.101:80 check
         server server2 192.168.56.102:80 check
+```	
 
 Start HAProxy:
 
