@@ -1,6 +1,7 @@
 **Table of content:**
 - [Apache Web Server Basics]
 - [Modules & Directives](#modules--directives)
+	- [Directory]
 	- [Options](#options)
 - [htaccess Files](#htaccess-files)
 - [Virtual Hosts](#virtual-hosts) 
@@ -38,6 +39,32 @@ Enable/disable a module(Debian)
 
 	a2enmod ssl
 	a2dismod ssl
+### Directory
+Directory directive allows to enclose directives and options to apply a filesystem directory and its sub directories.
+
+Eg. Limit access to the directory /www/safar/ and its  subdirectories:
+
+	<Directory /www/safar/> 
+        Order deny,allow
+        Deny from all
+        Allow from 192.168.56.110        
+    </Directory>  
+
+### Location
+Location directive change configuration to apply to a webspace(url).
+
+Eg1. Deny Access to the webspace : http://www.safar.com/private
+
+	<Location /private>
+        Order deny,allow
+        Deny from all
+    </Location>
+
+Eg2. Map a URL to an apache handler
+
+	<Location /server-status>
+		SetHandler server-status
+	</Location>
 
 ### Options 
 Options directive controls features in a Directory. Main options are: Indexes, FollowSymLinks, ExecCGI. 
@@ -50,7 +77,7 @@ Disable directory listing:
 
 ## htaccess Files
 ----------------------------------
-.htaccess files are generaly used to configure the Web Server when we don't have access to the httpd.conf. However they slow the Web Server. Also enabling htaccess can be a security issue
+.htaccess files are generaly used to configure the Web Server when we don't have access to the httpd.conf. However they slow the Web Server.
 
 Disable Directory Listings in Apache using **.htaccess**:
 
@@ -113,6 +140,10 @@ dev.safar.com
 
 ### IP-Based VHosts
 IP-based VHosts use the IP to determine the correct VHost to serve. 
+
+## Load Balancing
+---------------------------------
+See  (./load-balancing.md)
 
 ## Security
 ---------------------------------

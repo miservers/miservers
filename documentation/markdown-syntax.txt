@@ -45,12 +45,12 @@ Commands:
   ![alt txt](images/Weblogic-Dashboard.png)
   
 
-- Table of content TOC
-  Look for an example in tomcat.md. IDs are generated automatically by theses rules:
-     * Upercase letters are lowercased
-     * spaces are replaced by -
-  For Example  [Admin Manager](#admin-manager) will add a TOC entry for subtitle [#Admin Manager] 
-     
+**Table of content:**
+- [Modules & Directives](#modules--directives)
+	- [Options](#options)
+- [htaccess Files](#htaccess-files)
+- [Virtual Hosts](#virtual-hosts) 
+- [Load Balancing](#load-balancing)     
      
      
      
