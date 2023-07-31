@@ -143,7 +143,7 @@ IP-based VHosts use the IP to determine the correct VHost to serve.
 
 ## Load Balancing
 ---------------------------------
-See  (./load-balancing.md)
+See  [load-balancing.md](./load-balancing.md)
 
 ## Security
 ---------------------------------
