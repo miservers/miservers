@@ -1,8 +1,12 @@
 **Table of content:**
 - [Apache Web Server Basics]
 - [Modules & Directives](#modules--directives)
-	- [Directory]
+	- [DocumentRoot](#documentroot)
+	- [Directory](#directory)
+	- [Location](#location)
 	- [Options](#options)
+	- [Require]
+	- [Deny , Allow , Order]
 - [htaccess Files](#htaccess-files)
 - [Virtual Hosts](#virtual-hosts) 
 - [Load Balancing](#load-balancing)
@@ -39,6 +43,17 @@ Enable/disable a module(Debian)
 
 	a2enmod ssl
 	a2dismod ssl
+### DocumentRoot
+This directive map URL to FileSystem Path.
+
+If **DocumentRoot** is set to **/www/safar**, 
+The URL http://www.safar.com/team.html will be mapped to the file **/www/safar/team.html**.
+
+If a directory is requested(URL with / at the end), the file served is defined by the directive **DirectoryIndex**:
+
+	DirectoryIndex index.html index.php
+
+
 ### Directory
 Directory directive allows to enclose directives and options to apply a filesystem directory and its sub directories.
 
@@ -74,6 +89,26 @@ Disable directory listing:
 		<Directory /www/safar>
 			Options -Indexes +FollowSymLinks
 			...
+
+### Require
+Access allowed unconditionally:
+
+	Require all granted
+
+Access denied uncondionally
+
+	Require all denied
+
+Require full ip 
+
+	require ip 192.168.56.1
+
+Require a subnet
+
+	require ip 192.168
+
+### Deny , Allow , Order
+/!\ Deprecated by Require directive
 
 ## htaccess Files
 ----------------------------------

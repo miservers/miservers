@@ -84,5 +84,85 @@ install packet: **isc-dhcp-server**
  
 Configuration file: **/etc/dhcp/dhcpd.conf**
  
- 
+## Firewall
+-------------------------
+
+
+### Firewalld
+systemctl status firewalld
+
+	firewall-cmd --zone=public --list-ports
+
+	firewall-cmd --get-default-zone
+	public
+
+firewall-cmd --get-active-zones
+public
+  interfaces: enp0s3 enp0s8
+
+
+firewall-cmd --list-all
+public (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces: enp0s3 enp0s8
+  sources: 
+  services: dhcpv6-client mountd nfs rpc-bind ssh
+  ports: 
+  protocols: 
+  masquerade: no
+  forward-ports: 
+  source-ports: 
+  icmp-blocks: 
+  rich rules: 
+
+
+firewall-cmd --get-zones
+block dmz drop external home internal public trusted work
+
+firewall-cmd --zone=home --list-all
+
+Changing the Zone of an Interface
+
+	firewall-cmd --zone=home --change-interface=enp0s8
+
+	firewall-cmd --get-active-zones
+
+	home
+  		interfaces: enp0s8
+	public
+  		interfaces: enp0s3
+
+
+Adding a Service to your Zones
+
+	firewall-cmd --get-services
+
+	... ftp http https ssh ntp ....
+
+See More about a service. eg ssh : **/usr/lib/firewalld/services/ssh.xml**
+
+	<?xml version="1.0" encoding="utf-8"?>
+	<service>
+  		<short>SSH</short>
+	  	<port protocol="tcp" port="22"/>
+	</service>
+
+Enable access to HTTP(port 80)
+
+	firewall-cmd --zone=home --permanent  --add-service=http
+
+ 	firewall-cmd --zone=home --list-services
+	
+	dhcpv6-client http mdns samba-client ssh
+
+Open a Port for your Zone
+
+	firewall-cmd --zone=home --permanent --add-port=9990/tcp
+
+	firewall-cmd --zone=home --list-ports
+	
+	9990/tcp
+
+### Iptables
 

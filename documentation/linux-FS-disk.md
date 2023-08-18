@@ -1,4 +1,4 @@
-## Disk & FS
+### Disk & FS
 ------------------------------------------
 List all block devices:
  
@@ -61,8 +61,7 @@ mount an iso file
     sudo mount /path/to/cd.iso /mnt/cdrom -o loop
 
 
-## Ext4 FileSystem internals
------------------------------------------
+### Ext4 FileSystem internals
 Create and formate a disk image
 
     dd if=/dev/zero of=disk.img bs=512 count=2000 # 1MB image
@@ -73,6 +72,13 @@ Dump an Inode
 
     stat employee.json
 
+### Clean Disk Space
+ list of 10 biggest Directories
 
+	du -h / | sort -hr | head -n 10
+
+Clear Apt Cache
+
+	apt clean
 
 

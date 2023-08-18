@@ -1,29 +1,51 @@
-wild fly: mouche sauvage
+These notes are based on Jboss EAP 7.4 and Wildfly 23
+
+**Table Of Contents**
+
+### Jboss EAP, Wildfly and JBoss AS Versions
+
+| JBoss EAP  | Wildfly | JBoss AS (Old)|
+|------------|---------|---------------|
+| 8.0 Beta   | 27      | -             |
+| 7.4        | 23      | -             |
+| 7.3        | 18      | -             |
+| 7.0        | 10      | -             |
+| 6.4        | -       | 7.5           |
+| 6.0        | -       | 7.1           |
+| 5.x        | -       | 5.y           |
+| 4.x        | -       | 4.y           |
+
+
 
 ## Structure and Architecture
+---------------------------------
 - Directory and File Structure
 - JBoss Modules
 - Server Architecture and Configuration
 
-## Administration
-#### Start/Stop
-Start
- >./standalone.sh
- >./standalone.sh -c standalone-ha.xml 
-	
+## JBoss EAP Administration
+----------------------------------
+### Standalone Mode
 
+### Domaine Mode
+
+### Start/Stop
+Start
+>./standalone.sh -b 192.168.56.103 -bmanagement 192.168.56.103
+ 
 Stop
- >./jboss-cli.sh --user=jbossadmin --password=Changeit2! 
+> ./jboss-cli.sh --user=jbossadmin --password=Changeit2! 
                  --connect --controller=$HOST:9990  command=:shutdown
 
-#### Console, users	
+### Console, users	
 User management
- > ./add-user.sh
+> ./add-user.sh
 
 Console
- > http://localhost:9990/console
 
-#### JVM Tuning 
+ > http://HOST:9990/console
+
+### JVM Tuning 
 - JAVA Options : 
   - standalone in bin/standalone.conf
 - Remote JMX with JConsole
@@ -32,7 +54,8 @@ Console
   - this note did not work for me: https://developer.jboss.org/wiki/UsingJconsoleToConnectToJMXOnAS7
      
 ## Configuration
-##### Standalone
+------------------------
+### Standalone
 - configuration/standalone.xml 
   - ports: http/8080, management/9990.
   - port-offset: default 0. for example, port-offset=100 gives http port 8180 et console 10090. 
@@ -41,11 +64,12 @@ Console
 Run the standalone with a specefic config file
  >./standalone.sh -c standalone-ha.xml
 
-####  Logging
+###  Logging
 Configured in **standalone.xml**. the file configuration/logging.properties is only used during JBoss startup. 
 
 
 ## CLI
+-----------------------------
 Intéractive mode
  > ./jboss-cli.sh -u=jboss -p=pass123  -c --controller=localhost:9990
  
