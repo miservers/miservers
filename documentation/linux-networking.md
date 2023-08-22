@@ -84,59 +84,70 @@ install packet: **isc-dhcp-server**
  
 Configuration file: **/etc/dhcp/dhcpd.conf**
  
-## Firewall
+## FireWalls
 -------------------------
+### Firewalld : firewall-cmd Utility
+Default firewall on CentOS 7.
 
+Stop/Start
 
-### Firewalld
-systemctl status firewalld
+	$ systemctl start firewalld
 
-	firewall-cmd --zone=public --list-ports
+Is firewalld running?
 
-	firewall-cmd --get-default-zone
-	public
+	$ firewall-cmd --state
+	running
 
-firewall-cmd --get-active-zones
-public
-  interfaces: enp0s3 enp0s8
+Defined Firewall Rules: 
+> $ firewall-cmd --list-all
 
+> $ firewall-cmd --zone=home --list-all
 
-firewall-cmd --list-all
-public (active)
-  target: default
-  icmp-block-inversion: no
-  interfaces: enp0s3 enp0s8
-  sources: 
-  services: dhcpv6-client mountd nfs rpc-bind ssh
-  ports: 
-  protocols: 
-  masquerade: no
-  forward-ports: 
-  source-ports: 
-  icmp-blocks: 
-  rich rules: 
+> $ firewall-cmd --zone=public --list-ports
 
+Open access to HTTP(port 80) service
 
-firewall-cmd --get-zones
-block dmz drop external home internal public trusted work
+	$ firewall-cmd --zone=public --permanent  --add-service=http
 
-firewall-cmd --zone=home --list-all
+ 	$ firewall-cmd --zone=public --list-services
+	
+	Output : dhcpv6-client http mdns samba-client ssh
+
+Open a Port on a Zone
+
+	$ firewall-cmd --zone=home --add-port=9990/tcp --permanent 
+
+	$ firewall-cmd --reload
+
+	$ firewall-cmd --zone=home --list-ports
+	
+	Output: 9990/tcp
+
+Zones: 
+
+	$ firewall-cmd --get-default-zone
+	Out: public
+
+Litst of Defined Zones:
+
+	$ firewall-cmd --get-zones
+	Out: block dmz drop external home internal public trusted work
+
 
 Changing the Zone of an Interface
 
-	firewall-cmd --zone=home --change-interface=enp0s8
+	$ firewall-cmd --zone=home --change-interface=enp0s8 --permanent
 
-	firewall-cmd --get-active-zones
-
+	$ firewall-cmd --get-active-zones
 	home
   		interfaces: enp0s8
 	public
   		interfaces: enp0s3
 
 
-Adding a Service to your Zones
+List of Predefined Services
 
-	firewall-cmd --get-services
+	$ firewall-cmd --get-services
 
 	... ftp http https ssh ntp ....
 
@@ -148,21 +159,40 @@ See More about a service. eg ssh : **/usr/lib/firewalld/services/ssh.xml**
 	  	<port protocol="tcp" port="22"/>
 	</service>
 
-Enable access to HTTP(port 80)
+### ufw
+ufw is a frontend tool uppon iptables. It aims to simplify the  complicated  iptables rules. 
 
-	firewall-cmd --zone=home --permanent  --add-service=http
+ufw is the default firewall for ubuntu 20.04
 
- 	firewall-cmd --zone=home --list-services
-	
-	dhcpv6-client http mdns samba-client ssh
+Is Firewall Actif:
+> $ ufw status
 
-Open a Port for your Zone
+Enable/Start the Firewall:
+> $ ufw enable
 
-	firewall-cmd --zone=home --permanent --add-port=9990/tcp
+Allow Incoming on 80 port: 
+> $ ufw allow 80/tcp
 
-	firewall-cmd --zone=home --list-ports
-	
-	9990/tcp
+List of Defined Rules:
+> $ ufw status verbose
+
+Delete a Rule:
+> $ ufw status numbered
+
+> $ ufw delete 1
+
+Activate Journalisation:
+> $ ufw logging on
+
 
 ### Iptables
+Current Rules:
+> $ iptables -L
 
+Add a Rule
+> $ iptables -A INPUT -p tcp --dport ssh -j ACCEPT
+
+Delete a Rule:
+> $ iptables -L --line-numbers
+
+> $ iptables -D INPUT 1

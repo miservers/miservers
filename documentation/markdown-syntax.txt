@@ -41,6 +41,10 @@ Commands:
     export PATH=/bin:/sbin
 ```
 
+Code:
+> ./add-user.sh
+
+
 - Images
   ![alt txt](images/Weblogic-Dashboard.png)
   
