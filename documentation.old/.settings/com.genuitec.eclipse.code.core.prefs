@@ -1,0 +1,6 @@
+customValidation=true
+eclipse.preferences.version=1
+enabledBuilders=org.eclipse.mylyn.internal.wikitext.ui.validation.ValidationProjectBuilder,org.eclipse.wst.jsdt.internal.core.builder.JavaBuilder,org.eclipse.wst.jsdt.web.core.internal.IncrementalBuilder,
+enabledValidators=org.eclipse.wst.html.core.internal.validation.HTMLValidator,org.eclipse.wst.jsdt.internal.core.validation.JavaScriptValidator,org.eclipse.wst.jsdt.web.core.internal.validation.JsValidator,org.eclipse.wst.json.core.internal.validation.eclipse.Validator,org.eclipse.wst.xsl.core.internal.validation.eclipse.Validator,
+excludePatterns.additions=**/**,
+genericValidationEnabled=false
