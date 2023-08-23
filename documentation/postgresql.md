@@ -59,7 +59,7 @@ Show Listening Port:
 >mywikidb=# \conninfo
 
 ### Nombre de connections ouverts
- 
+  
 	select count(*) from pg_stat_activity;
 
 ### Errors
