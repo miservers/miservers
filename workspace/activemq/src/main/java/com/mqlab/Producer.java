@@ -17,6 +17,9 @@ import javax.jms.TextMessage;
  * 
  * Run :
  * 		mvn  compile exec:java -Dexec.mainClass="com.mqlab.Producer"
+ * 
+ * You can change the queueType in the code to send the message 
+ * to the either a Queue or a Topic.
  */
 public class Producer 
 {
