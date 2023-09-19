@@ -55,7 +55,7 @@ public class JmsPut {
 
 	// Create variables for the connection to MQ
 	private static final String HOST = "192.168.56.103"; // Host name or IP address
-	private static final int PORT = 1414; // Listener port for your queue manager
+	private static final int PORT = 1415; // Listener port for your queue manager
 	private static final String CHANNEL = "DEV.APP.SVRCONN"; // Channel name
 	private static final String QMGR = "DEV.QM1"; // Queue manager name
 	private static final String APP_USER = "app"; // User name that application uses to connect to MQ
