@@ -58,7 +58,7 @@ public class JmsPut {
 	private static final int PORT = 1415; // Listener port for your queue manager
 	private static final String CHANNEL = "DEV.APP.SVRCONN"; // Channel name
 	private static final String QMGR = "DEV.QM1"; // Queue manager name
-	private static final String APP_USER = "app"; // User name that application uses to connect to MQ
+	private static final String APP_USER = "ali"; // User name that application uses to connect to MQ
 	private static final String APP_PASSWORD = "changeit"; // Password that the application uses to connect to MQ
 	private static final String QUEUE_NAME = "DEV.QUEUE.1"; // Queue that the application uses to put and get messages to and from
 
