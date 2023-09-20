@@ -32,8 +32,11 @@ ALTER QMGR CONNAUTH(DEV.AUTHINFO.IDPWOS)
 	     CHCKLOCL(OPTIONAL) +
 	     CHCKCLNT(REQUIRED)
 
-$ useradd app -p changeit -g mqm
-$ setmqaut -m DEV.QM1 -n DEV.* -t q -p app +all
+$ useradd m.adam -p changeit -g web
+$ setmqaut -m DEV.QM1 -n DEV.QUEUE1 -t queue -p m.adam +put
+$ setmqaut -m DEV.QM1 -n DEV.* -t q -p m.adam +all
 
+$ runmqsc DEV.QM1
+	REFRESH SECURITY TYPE(CONNAUTH)
 
 $ mvn  compile exec:java -Dexec.mainClass="com.mqlab.JmsPut"
