@@ -1,3 +1,5 @@
+See [Controlling access for a specific user and IBM MQ client application](https://www.ibm.com/docs/en/ibm-mq/9.2?topic=issues-creating-new-chlauth-rules-users)
+
 Create this IBM Queue Manager Objects: 
  
 -  Queue Manager  DEV.QM1
@@ -32,11 +34,20 @@ ALTER QMGR CONNAUTH(DEV.AUTHINFO.IDPWOS)
 	     CHCKLOCL(OPTIONAL) +
 	     CHCKCLNT(REQUIRED)
 
+
+
+
 $ useradd m.adam -p changeit -g web
 $ setmqaut -m DEV.QM1 -n DEV.QUEUE1 -t queue -p m.adam +put
 $ setmqaut -m DEV.QM1 -n DEV.* -t q -p m.adam +all
 
 $ runmqsc DEV.QM1
 	REFRESH SECURITY TYPE(CONNAUTH)
+
+
+Check Auth:
+
+	 DISPLAY CHLAUTH(DEV.APP.SVRCONN) MATCH(RUNCHECK) CLNTUSER('y.adam') ADDRESS('192.168.56.1')
+		AMQ9783I: Channel will run using MCAUSER('y.adam').
 
 $ mvn  compile exec:java -Dexec.mainClass="com.mqlab.JmsPut"
