@@ -37,9 +37,9 @@ ALTER QMGR CONNAUTH(DEV.AUTHINFO.IDPWOS)
 
 
 
-$ useradd m.adam -p changeit -g web
-$ setmqaut -m DEV.QM1 -n DEV.QUEUE1 -t queue -p m.adam +put
-$ setmqaut -m DEV.QM1 -n DEV.* -t q -p m.adam +all
+$ useradd adam -p changeit
+$ setmqaut -m DEV.QM1 -n DEV.QUEUE1 -t queue -p adam +all
+$ setmqaut -m DEV.QM1 -t qmgr -p adam +all
 
 $ runmqsc DEV.QM1
 	REFRESH SECURITY TYPE(CONNAUTH)

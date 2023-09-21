@@ -58,9 +58,9 @@ public class JmsPut {
 	private static final int PORT = 1415; // Listener port for your queue manager
 	private static final String CHANNEL = "DEV.APP.SVRCONN"; // Channel name
 	private static final String QMGR = "DEV.QM1"; // Queue manager name
-	private static final String APP_USER = "m.adam"; // User name that application uses to connect to MQ
+	private static final String APP_USER = "adam"; // User name that application uses to connect to MQ
 	private static final String APP_PASSWORD = "changeit"; // Password that the application uses to connect to MQ
-	private static final String QUEUE_NAME = "DEV.QUEUE.1"; // Queue that the application uses to put and get messages to and from
+	private static final String QUEUE_NAME = "DEV.QUEUE1"; // Queue that the application uses to put and get messages to and from
 
 
 	/**
@@ -89,7 +89,7 @@ public class JmsPut {
 			cf.setStringProperty(WMQConstants.WMQ_CHANNEL, CHANNEL);
 			cf.setIntProperty(WMQConstants.WMQ_CONNECTION_MODE, WMQConstants.WMQ_CM_CLIENT);
 			cf.setStringProperty(WMQConstants.WMQ_QUEUE_MANAGER, QMGR);
-			cf.setStringProperty(WMQConstants.WMQ_APPLICATIONNAME, "JmsPutGet (JMS)");
+			cf.setStringProperty(WMQConstants.WMQ_APPLICATIONNAME, "JmsPut (JMS)");
 			cf.setBooleanProperty(WMQConstants.USER_AUTHENTICATION_MQCSP, true);
 			cf.setStringProperty(WMQConstants.USERID, APP_USER);
 			cf.setStringProperty(WMQConstants.PASSWORD, APP_PASSWORD);
