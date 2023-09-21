@@ -22,22 +22,18 @@ Log as mqm userid on the ibm mq server
 
 - Channel DEV.APP.SVRCONN 
 
-		DEFINE CHANNEL (DEV.APP.SVRCONN) CHLTYPE(SVRCONN) DESCR('description')
+			DEFINE CHANNEL (DEV.APP.SVRCONN) CHLTYPE(SVRCONN) DESCR('description')
 
 - Listener
 
-		DEFINE LISTENER(DEV.QM1.lsnr) TRPTYPE(tcp) PORT(1415) IPADDR(192.168.56.103)
+			DEFINE LISTENER(DEV.QM1.lsnr) TRPTYPE(tcp) PORT(1415) IPADDR(192.168.56.103)
     
-		START LISTENER(DEV.QM1.lsnr)
+			START LISTENER(DEV.QM1.lsnr)
     
 - Grant authorisations user 
 
-		ALTER QMGR CONNAUTH(DEV.AUTHINFO.IDPWOS)
-		     DEFINE AUTHINFO(DEV.AUTHINFO.IDPWOS) +
-		     AUTHTYPE(IDPWOS) +
-		     FAILDLAY(10) +
-		     CHCKLOCL(OPTIONAL) +
-		     CHCKCLNT(REQUIRED)
+			ALTER QMGR CONNAUTH(DEV.AUTHINFO.IDPWOS)
+			DEFINE AUTHINFO(DEV.AUTHINFO.IDPWOS) AUTHTYPE(IDPWOS) FAILDLAY(10) CHCKLOCL(OPTIONAL) CHCKCLNT(REQUIRED)
 
 
 
@@ -45,6 +41,11 @@ Log as mqm userid on the ibm mq server
 		$ useradd adam -p changeit
 		$ setmqaut -m DEV.QM1 -n DEV.QUEUE1 -t queue -p adam +all
 		$ setmqaut -m DEV.QM1 -t qmgr -p adam +all
+
+		$ setmqaut -m QM1 -n QM2.XMITQ -t queue -p adam +all
+		$ setmqaut -m QM1 -t qmgr -p adam +all
+
+	❗ userid (e.g adam) should NOT belong to **mqm** group. Else the connexion will be rejected.
 
 - refresh Security
 
@@ -55,7 +56,7 @@ Log as mqm userid on the ibm mq server
 
 - Check Auth:
 
-		 DISPLAY CHLAUTH(DEV.APP.SVRCONN) MATCH(RUNCHECK) CLNTUSER('y.adam') ADDRESS('192.168.56.1')
+		 DISPLAY CHLAUTH(DEV.APP.SVRCONN) MATCH(RUNCHECK) CLNTUSER('adam') ADDRESS('192.168.56.1')
 	
 			AMQ9783I: Channel will run using MCAUSER('y.adam').
 
