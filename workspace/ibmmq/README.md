@@ -38,11 +38,11 @@ Log as mqm userid on the ibm mq server
 
 
 
-		$ useradd adam -p changeit
+		$ useradd adam ; passwd changeit
 		$ setmqaut -m DEV.QM1 -n DEV.QUEUE1 -t queue -p adam +all
 		$ setmqaut -m DEV.QM1 -t qmgr -p adam +all
 
-		$ setmqaut -m QM1 -n QM2.XMITQ -t queue -p adam +all
+		$ setmqaut -m QM1 -n QRMT.2 -t queue -p adam +all
 		$ setmqaut -m QM1 -t qmgr -p adam +all
 
 	❗ userid (e.g adam) should NOT belong to **mqm** group. Else the connexion will be rejected.
