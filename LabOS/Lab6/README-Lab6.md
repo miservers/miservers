@@ -13,6 +13,8 @@ PCI supports 3 address spaces:
 
 - A device on PCI bus is identified by his (vendorID, deviceID).
 
+![](../../documentation/Kernel_PCI_PCIe_Slots.jpeg)
+
 ![](../../documentation/images/Kernel-PCI-Bus.png)  
 
 **PCI bus hierarchy**  
