@@ -176,10 +176,10 @@ void pci_probe_devices()
   for (u8 bus = 0; bus < 255; bus++) 
   {
 
-	  for (u8 device = 0; device < 32; device++) 
+	for (u8 device = 0; device < 32; device++) 
     {
 
-	    for (u8 func = 0; func < 8; func++) 
+	  for (u8 func = 0; func < 8; func++) 
       {
 
 	      u32 reg0 = pci_conf_read32_long(bus,device, func, PCI_CONF_REG_00);
