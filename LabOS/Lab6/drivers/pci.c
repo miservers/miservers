@@ -182,7 +182,7 @@ void pci_probe_devices()
 	  for (u8 func = 0; func < 8; func++) 
       {
 
-	      u32 reg0 = pci_conf_read32_long(bus,device, func, PCI_CONF_REG_00);
+	    u32 reg0 = pci_conf_read32_long(bus,device, func, PCI_CONF_REG_00);
         
         u16 vendor_id = (u16)reg0;
         if (vendor_id != 0xFFFF) 
